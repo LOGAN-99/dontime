@@ -452,7 +452,7 @@ function live(t,target=el('box')){
       if(!basis){result.innerHTML='<div class="sub">근무시간 기준을 하나 선택해주세요.</div>';return;}
       if(!annual){result.innerHTML='<div class="sub">연봉을 입력해주세요.</div>';return;}
       if(basis==='work'){sec=annual/(260*8*3600);earned=runElapsed*sec;detail='1일 8시간 기준 · 연 260일 · 시작 후 '+runElapsed.toFixed(4)+'초 · 초당 '+sec.toFixed(4)+'원';}
-      else if(basis==='hire'){const hireInput=get('hireDate');const hd=hireInput?.value?new Date(hireInput.value+'T00:00:00'):now;sec=annual/(365*24*3600);earned=runElapsed*sec;detail='입사일 기준 · 시작 후 '+runElapsed.toFixed(4)+'초 · 초당 '+sec.toFixed(4)+'원';}
+      else if(basis==='hire'){const hireInput=get('hireDate');const hd=hireInput?.value?new Date(hireInput.value+'T00:00:00'):now;const since=Math.max(0,(now-hd)/1000);sec=annual/(365*24*3600);earned=since*sec;detail='입사일 '+(hireInput?.value||'')+' 기준 · 경과 '+since.toFixed(4)+'초 · 초당 '+sec.toFixed(4)+'원';}
       else{sec=annual/(365*24*3600);earned=runElapsed*sec;detail='24시간 기준 · 365일 × 24시간 · 시작 후 '+runElapsed.toFixed(4)+'초 · 초당 '+sec.toFixed(4)+'원';}
       result.innerHTML='<div class="sub">카운팅 시작 후 누적 수입</div><div class="ticker">'+earned.toFixed(4)+'원</div><div class="sub">'+detail+' · 퇴근까지 '+fmt(remain)+'</div>';
     };
