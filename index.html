@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>돈시간 | 돈과 시간을 계산하는 생활 도구</title><meta name="dontime-version" content="2026-10-01-mobile-layout-fix3">
+<title>돈시간 | 돈과 시간을 계산하는 생활 도구</title><meta name="dontime-version" content="2026-10-01-vertical-inline-fix1">
 <style>
 *{box-sizing:border-box}
 body{margin:0;background:#f6f7f9;overflow-x:hidden;color:#17191c;font-family:Arial,"Noto Sans KR",sans-serif}
@@ -29,12 +29,37 @@ header{height:64px;background:#fff;border-bottom:1px solid #e7e9ed;display:flex;
 @media(max-width:950px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.layout{grid-template-columns:180px minmax(0,1fr)}.tool-layout{grid-template-columns:190px minmax(0,1fr);gap:16px}}
 @media(max-width:700px){header{height:58px}.top{padding:0 15px}.logo{font-size:22px}.wrap{padding:24px 14px 50px}.hero{margin-bottom:18px}.hero h1{font-size:30px;letter-spacing:-1.3px}.hero p{font-size:14px}.layout,.tool-layout{display:block}.layout>.cats{position:static;display:flex;flex-direction:row;gap:7px;max-width:100%;max-height:none;overflow-x:auto;overflow-y:hidden;padding:2px 2px 8px;margin:0 0 14px;scrollbar-width:none}.layout>.cats::-webkit-scrollbar{display:none}.layout>.cats>.cat{width:auto;flex:0 0 auto;white-space:nowrap;padding:9px 13px;border-radius:999px}.layout>.cats>.subcats{display:none}.tool-layout>.cats{position:static;display:flex;flex-direction:row;gap:7px;max-width:100%;max-height:none;overflow-x:auto;overflow-y:hidden;padding:2px 2px 8px;margin:0 0 16px;scrollbar-width:none}.tool-layout>.cats::-webkit-scrollbar{display:none}.tool-layout>.cats>.cat{width:auto;flex:0 0 auto;white-space:nowrap;padding:9px 13px;border-radius:999px}.tool-layout>.cats>.subcats{display:none}.subcats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px;margin:4px 0 10px}.subcat{font-size:12px;padding:8px}.grid{grid-template-columns:1fr;gap:12px}.tool-title-row{display:block}.compare-tip{margin-top:14px;max-width:none}.compare-items{grid-template-columns:1fr;margin-top:18px}.tool h2{font-size:25px}.tool p{font-size:14px}.panel{padding:16px;border-radius:15px}.fields{grid-template-columns:1fr;gap:12px}.live-top{grid-template-columns:1fr;gap:14px}.time-fields{grid-template-columns:1fr;gap:12px;margin-top:16px}.basis-list{gap:8px}.basis-option{min-height:44px;padding:10px 12px}.ticker{font-size:32px}.result{font-size:24px}.actions{width:100%}.actions button{flex:0 0 auto}.compare-card{padding:12px}}
 @media(max-width:420px){.wrap{padding-left:11px;padding-right:11px}.top{padding:0 11px}.hero h1{font-size:27px}.card{padding:17px}.panel{padding:14px}.subcats{grid-template-columns:1fr}.basis-option{font-size:13px}.primary,.secondary{padding:10px 14px}}
+
+/* vertical home layout */
+.vertical-services{display:flex;flex-direction:column;gap:12px;max-width:900px;margin:0 auto}
+.service-group{background:#fff;border:1px solid #e1e4e8;border-radius:16px;overflow:hidden}
+.service-group-title{width:100%;display:flex;justify-content:space-between;align-items:center;border:0;background:#fff;padding:16px 18px;font-size:17px;font-weight:900;text-align:left;color:#17191c}
+.service-group-title span{font-size:12px;color:#8a8f97;font-weight:700}
+.service-list{display:flex;flex-direction:column;border-top:1px solid #edf0f2}
+.service-item{border:0;border-bottom:1px solid #edf0f2;background:#fff;padding:15px 18px;text-align:left;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:14px}
+.service-item:last-child{border-bottom:0}
+.service-item:hover{background:#f7f8fa}
+.service-item strong{display:block;font-size:15px;margin-bottom:3px}
+.service-item small{display:block;color:#777;line-height:1.45}
+.service-item .arrow{flex:0 0 auto;color:#9aa0a6;font-size:18px}
+.inline-tool{padding:16px;background:#f6f7f9;border-top:1px solid #e5e8ec}
+.inline-tool .compare-card{margin:0}
+.inline-tool .panel{box-shadow:none}
+.inline-close{display:flex;justify-content:flex-end;margin-bottom:8px}
+.inline-close button{border:0;background:#eef0f3;border-radius:8px;padding:7px 10px;font-weight:800}
+@media(max-width:700px){
+  .vertical-services{gap:10px}
+  .service-group-title{padding:14px 15px;font-size:16px}
+  .service-item{padding:14px 15px}
+  .service-item strong{font-size:14px}
+  .inline-tool{padding:10px}
+}
 </style></head>
 <body>
 <header><div class="top"><div class="logo" onclick="home()">돈시간</div><div class="tag">돈을 시간으로, 시간을 돈으로.</div></div></header>
 <main class="wrap">
-<section id="home"><div class="hero"><h1>내 시간이 얼마인지,<br>이게 몇 시간짜리인지 계산해보세요.</h1><p>생활 속에서 자꾸 계산하게 되는 것들을 한곳에 모았습니다.</p></div>
-<div class="layout"><aside id="cats" class="cats"></aside><div id="cards" class="grid"></div></div><div class="footer">돈시간 · 내 시간의 가치를 숫자로</div></section>
+<section id="home"><div class="hero"><h1>내 시간이 얼마인지,<br>이게 몇 시간짜리인지 계산해보세요.</h1><p>항목을 누르면 바로 아래에 계산기가 열립니다.</p></div>
+<div id="verticalServices" class="vertical-services"></div><div class="footer">돈시간 · 내 시간의 가치를 숫자로</div></section>
 <section id="tool" class="tool"><div class="tool-layout"><aside id="toolcats" class="cats"></aside><div id="toolmain"></div></div></section>
 </main>
 <script>
@@ -98,28 +123,48 @@ const percentField=(id,label,val)=>field(id,label,val,"number");
 
 const cardDescriptions={workforbuy:"물건 가격을 내 시급으로 나눠, 이걸 사려면 몇 시간 몇 분 일해야 하는지 계산합니다.","income":"월급을 시간과 초 단위로 바꿔 내가 지금 벌고 있는 금액을 실시간으로 보여줍니다.","hourly":"월급과 근무시간을 기준으로 실제 한 시간의 가치를 계산합니다.","salary":"연봉과 월급을 서로 바꿔서 같은 금액을 다른 기준으로 확인합니다.","net":"연봉과 공제율을 기준으로 세금을 제외한 예상 실수령액을 계산합니다.","weekly":"주 소정근로시간을 기준으로 주휴수당을 참고 계산합니다.","overtime":"연장근로와 야간근로에 가산율을 적용해 예상 수당을 계산합니다.","leave":"남은 연차일수와 통상시급을 이용해 연차수당을 계산합니다.","severance":"평균임금과 근속기간을 바탕으로 퇴직금을 참고 계산합니다.","minimum":"내 시급이 입력한 최저시급 기준보다 높은지 비교합니다.","worktime":"출퇴근 시간과 휴게시간을 빼서 실제 근무시간을 계산합니다.","ltv":"LTV는 집값 대비 대출받을 수 있는 비율입니다. 집값 5억원에 LTV 70%라면 최대 3억5천만원까지 계산됩니다.","dti":"DTI는 연소득에 비해 주택담보대출의 연간 원리금 상환 부담이 어느 정도인지 보는 비율입니다.","dsr":"DSR은 모든 대출의 연간 원리금 상환액을 연소득과 비교하는 지표입니다. 다른 대출까지 함께 고려하는 것이 핵심입니다.","mortgage":"주택담보대출 원금과 금리·기간·상환방식을 기준으로 월 부담액을 계산합니다.","loan":"대출금액과 금리·기간을 입력하면 상환방식별 월·일 부담과 총이자를 비교합니다.","rent":"전세보증금과 월세를 환산해 두 주거비를 같은 기준에서 비교합니다.","acq":"주택 취득가액과 적용 세율을 입력해 취득세를 참고 계산합니다.","broker":"거래금액과 중개보수율을 입력해 예상 중개보수를 계산합니다.","homecash":"대출로 충당할 금액을 제외하고 실제 준비해야 할 현금을 계산합니다.","compound":"초기자금과 수익률을 기준으로 복리 효과를 계산합니다.","deposit":"예치기간과 이율을 기준으로 세후 예금 예상금액을 계산합니다.","saving":"매달 같은 금액을 넣는 적금의 만기 예상금액을 계산합니다.","goal":"목표금액까지 남은 기간과 수익률을 기준으로 필요한 월 납입액을 계산합니다.","return":"매수가와 현재가를 비교해 평가손익과 수익률을 계산합니다.","average":"여러 번 매수한 가격과 수량을 합쳐 평균매입단가를 계산합니다.","dividend":"보유 주식수와 주당 배당금을 기준으로 세후 예상 배당금을 계산합니다.","inflation":"물가상승률을 적용해 현재 돈의 미래 구매력 변화를 계산합니다.","yearend":"총급여와 공제·세액공제 입력값을 이용한 단순 참고 계산입니다.","vat":"공급가액과 세율을 입력해 부가세를 계산합니다.","withholding":"총 지급액과 원천징수율을 기준으로 세후 금액을 계산합니다.","incomeTax":"소득과 세율을 입력해 단순 참고 세액을 계산합니다.","capitalgain":"취득가액과 양도가액·필요경비를 기준으로 양도차익과 세액을 참고 계산합니다.","gift":"증여재산가액에서 공제액을 뺀 금액에 입력 세율을 적용합니다.","discount":"정가에서 할인율을 적용한 실제 결제금액을 계산합니다.","reverseDiscount":"정가와 판매가를 비교해 실제 할인율을 역산합니다.","unit":"총가격을 수량으로 나눠 개당 가격을 계산합니다.","installment":"할부원금과 기간·금리를 기준으로 월 할부금을 계산합니다.","margin":"판매가격에서 원가를 뺀 금액이 판매가격에서 차지하는 비율을 계산합니다.","breakeven":"고정비를 회수하려면 몇 개를 팔아야 하는지 계산합니다.","cardfee":"결제금액에서 카드 수수료로 빠지는 금액을 계산합니다.","fertility":"마지막 생리일과 주기를 기준으로 예상 가임기를 참고 계산합니다.","ovulation":"마지막 생리일과 주기를 기준으로 예상 배란일을 계산합니다.","pregnancy":"마지막 생리 시작일을 기준으로 임신 주수를 단순 계산합니다.","due":"마지막 생리 시작일을 기준으로 출산예정일을 계산합니다.","bmi":"키와 몸무게를 이용해 BMI를 계산합니다. 건강 상태를 진단하는 도구는 아닙니다.","bmr":"키·몸무게·나이·성별을 기준으로 기초대사량을 참고 계산합니다.","calorie":"체중과 운동시간·강도를 입력해 운동 중 소비열량을 참고 계산합니다.","off":"출근·퇴근 시간을 기준으로 남은 근무시간과 퇴근까지 시간을 확인합니다.","discharge":"목표 날짜까지 남은 시간을 D-Day 형식으로 보여줍니다.","dday":"기준일에서 목표 날짜까지 남은 날짜를 계산합니다.","datediff":"두 날짜 사이가 며칠인지 계산합니다.","workdays":"두 날짜 사이에서 주말을 제외한 근무일수를 계산합니다.","timediff":"두 시각 사이의 시간을 계산합니다.","age":"생년월일을 기준으로 현재 만 나이를 계산합니다.","yearprogress":"기준일을 기준으로 올해가 얼마나 진행됐는지 계산합니다.","carloan":"차량가격과 금리·기간·상환방식을 기준으로 자동차 할부 부담을 계산합니다.","fuel":"주행거리와 연비·유가를 이용해 예상 연료비를 계산합니다.","kmcost":"입력한 주행거리와 연비·연료가격을 기준으로 비용을 계산합니다.","ev":"배터리 용량과 충전단가를 이용해 전기차 충전비를 계산합니다.","chars":"입력한 텍스트의 글자 수를 셉니다.","words":"입력한 텍스트의 단어 수를 셉니다.","lines":"입력한 텍스트의 줄 수를 셉니다.","spaces":"불필요한 공백과 탭을 제거한 텍스트를 만듭니다.","newlines":"줄바꿈을 제거해 한 줄 텍스트로 정리합니다.","case":"영문 텍스트의 대소문자를 한 번에 변환합니다.","striphtml":"HTML 태그를 제거하고 텍스트만 남깁니다.","sorttext":"줄 단위 텍스트를 정렬해 깔끔하게 정리합니다.","diff":"두 텍스트를 비교해 같은지 다른지 확인합니다.","unitconv":"길이·무게 등 지원 단위 사이의 값을 변환합니다.","percent":"기준 수치 대비 변화 수치를 퍼센트로 계산합니다.","ratio":"비율을 이용해 다른 기준값을 계산합니다.","mean":"여러 숫자의 산술평균을 계산합니다.","weighted":"각 숫자의 가중치를 반영한 가중평균을 계산합니다.","mpg":"입력한 주유비를 기준으로 차량 연료비를 계산합니다.","travel":"교통·숙박·식비·기타 비용을 합쳐 여행 총경비를 계산합니다.","fx":"외화 금액에 입력한 환율을 적용해 원화 금액을 계산합니다.","selling":"원가와 목표 마진·수수료를 고려해 판매가를 계산합니다.","costrate":"원가가 매출에서 차지하는 비율을 계산합니다.","platformfee":"판매금액에서 플랫폼 수수료로 빠지는 금액을 계산합니다.","labor":"월급과 사업주 부담비용을 합쳐 월 총 인건비를 계산합니다.","targetsales":"고정비와 목표이익을 기준으로 필요한 목표매출을 계산합니다."};
 function render(){
-  const canDrag=window.innerWidth>700&&window.matchMedia&&window.matchMedia('(pointer:fine)').matches;
-  const dragAttr=canDrag?' draggable="true"':'';
-  cats.innerHTML=Object.keys(data).map(c=>'<div><button class="cat '+(c===current?'on':'')+'" onclick="current=\''+c+'\';render()">'+c+'</button><div class="subcats">'+data[c].map(x=>'<button class="subcat"'+dragAttr+' ondragstart="dragService(event,\''+x[2]+'\',\''+x[0]+'\',\''+x[1]+'\')" onclick="event.stopPropagation();current=\''+c+'\';openTool(\''+x[2]+'\',\''+x[0]+'\',\''+x[1]+'\')">'+x[0]+'</button>').join('')+'</div></div>').join('');
-  cards.innerHTML=data[current].map(x=>'<div class="card"'+dragAttr+' ondragstart="dragService(event,\''+x[2]+'\',\''+x[0]+'\',\''+x[1]+'\')" tabindex="0" onclick="openTool(\''+x[2]+'\',\''+x[0]+'\',\''+x[1]+'\')" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();openTool(\''+x[2]+'\',\''+x[0]+'\',\''+x[1]+'\')}"><h3>'+x[0]+'</h3><p class="copy">'+x[1]+'</p><p class="desc">'+(cardDescriptions[x[2]]||'입력한 값을 바탕으로 생활 속 필요한 계산을 빠르게 확인합니다.')+'</p><span class="hint">카드 전체 클릭 → 계산하기 · 드래그해서 비교창에 추가</span></div>').join('');
+  const host=document.getElementById('verticalServices');
+  if(!host)return;
+  host.innerHTML=Object.keys(data).map(c=>{
+    const items=data[c].map(x=>'<div class="service-item-wrap" data-service="'+x[2]+'"><button class="service-item" type="button" onclick="openInlineTool(\\''+x[2]+'\\',\\''+x[0]+'\\',\\''+x[1]+'\\',this)"><span><strong>'+x[0]+'</strong><small>'+x[1]+'</small></span><span class="arrow">＋</span></button></div>').join('');
+    return '<section class="service-group"><button class="service-group-title" type="button" onclick="toggleServiceGroup(this)"><span>'+c+'</span><span>열기</span></button><div class="service-list">'+items+'</div></section>';
+  }).join('');
+}
+function toggleServiceGroup(button){
+  const list=button.nextElementSibling;
+  if(!list)return;
+  const open=list.style.display!=='none';
+  list.style.display=open?'none':'flex';
+  const label=button.querySelector('span:last-child');
+  if(label)label.textContent=open?'닫기':'열기';
+}
+function closeInlineTool(wrap){
+  if(wrap) wrap.remove();
+}
+function openInlineTool(t,title,copy,button){
+  const wrap=button?.closest('.service-item-wrap');
+  if(!wrap)return;
+  const old=wrap.querySelector('.inline-tool');
+  if(old){old.remove();button.querySelector('.arrow').textContent='＋';return;}
+  document.querySelectorAll('.inline-tool').forEach(x=>x.remove());
+  document.querySelectorAll('.service-item .arrow').forEach(x=>x.textContent='＋');
+  const panel=document.createElement('div');
+  panel.className='inline-tool';
+  panel.innerHTML='<div class="compare-card" id="inline-card-'+t+'"><div class="compare-head"><strong>'+title+'</strong><button type="button" onclick="closeInlineTool(this.closest(\\'.inline-tool\\'))">×</button></div><p>'+copy+'</p><div class="inline-box"></div></div>';
+  wrap.appendChild(panel);
+  const card=panel.querySelector('.compare-card');
+  const target=panel.querySelector('.inline-box');
+  if(t==='income'||t==='off') live(t,target);
+  else if(['chars','words','lines','spaces','newlines','case','striphtml','sorttext'].includes(t)) textToolInline(t,target);
+  else if(t==='diff') textCompareToolInline(target);
+  else form(t,target,true);
+  appendServiceNotice(target,t);
+  button.querySelector('.arrow').textContent='－';
 }
 function renderToolCats(){
   const tc=el('toolcats');
-  const canDrag=window.innerWidth>700&&window.matchMedia&&window.matchMedia('(pointer:fine)').matches;
-  const dragAttr=canDrag?' draggable="true"':'';
-  tc.innerHTML=Object.keys(data).map(c=>'<div><button class="cat '+(c===current?'on':'')+'" onclick="current=\''+c+'\';if(window.innerWidth<=700){home();}else{render();renderToolCats();}">'+c+'</button><div class="subcats">'+data[c].map(x=>'<button class="subcat"'+dragAttr+' ondragstart="dragService(event,\''+x[2]+'\',\''+x[0]+'\',\''+x[1]+'\')" onclick="openTool(\''+x[2]+'\',\''+x[0]+'\',\''+x[1]+'\')">'+x[0]+'</button>').join('')+'</div></div>').join('');
-}
-
-function home(){clearInterval(timer);stopAllCalcTimers();tool.classList.remove('on');document.getElementById('home').style.display='block';box=null;renderToolCats();function textCompareTool(){
-  box.innerHTML='<div class="panel"><div class="fields"><div class="field"><label>원문</label><textarea id="txt1" style="width:100%;min-height:160px;border:1px solid #d8dce1;border-radius:10px;padding:12px"></textarea></div><div class="field"><label>비교할 문장</label><textarea id="txt2" style="width:100%;min-height:160px;border:1px solid #d8dce1;border-radius:10px;padding:12px"></textarea></div></div><div class="actions"><button class="primary" onclick="compareText()">비교하기</button><button type="button" class="secondary reset-btn" onclick="resetCalculator()">↺ 초기화</button></div><div id="res"></div></div>';
-}
-function compareText(){const a=el('txt1').value,b=el('txt2').value;el('res').innerHTML='<div class="result">'+(a===b?'두 텍스트가 같습니다.':'두 텍스트가 다릅니다.')+'</div>';}
-render();scrollTo(0,0)}
-function field(id,label,val,type='number',placeholder='',cls=''){return '<div class="field"><label>'+label+'</label><input id="'+id+'" type="'+type+'" value="'+val+'" '+(placeholder?'placeholder="'+placeholder+'"':'')+(cls?' class="'+cls+'"':'')+'></div>'}
-function serviceNotice(t){
-  const legal=['net','weekly','overtime','leave','severance','minimum','ltv','dti','dsr','mortgage','loan','rent','acq','broker','homecash','deposit','saving','goal','yearend','vat','withholding','incomeTax','capitalgain','gift','installment','cardfee','fertility','ovulation','pregnancy','due','bmr','calorie','carloan'];
-  if(legal.includes(t)) return '<div class="notice">※ 이 계산기는 입력한 기준값을 바탕으로 계산하는 참고용 도구입니다. 실제 금액은 적용 시점의 법령·제도·개인 조건에 따라 달라질 수 있습니다. 최신 기준을 확인한 후 이용해주세요.</div>';
-  return '';
+  if(!tc)return;
+  tc.innerHTML='';
 }
 function openTool(t,title,copy){
   document.getElementById('home').style.display='none';
@@ -458,4 +503,37 @@ function live(t,target=el('box')){
 }
 
 render();renderToolCats();
-</script></body></html>
+</script></body></htmlfunction home(){
+  clearInterval(timer);
+  stopAllCalcTimers();
+  tool.classList.remove('on');
+  document.getElementById('home').style.display='block';
+  box=null;
+  render();
+  scrollTo(0,0);
+}
+function textToolInline(t,target){
+  const id='txt-'+Math.random().toString(36).slice(2,8);
+  target.innerHTML='<div class="panel"><div class="field"><label>텍스트</label><textarea id="'+id+'" style="width:100%;min-height:180px;border:1px solid #d8dce1;border-radius:10px;padding:12px"></textarea></div><div class="actions"><button class="primary" type="button">처리하기</button><button type="button" class="secondary" onclick="resetCalculator(this)">↺ 초기화</button></div><div class="inline-text-result"></div></div>';
+  const input=target.querySelector('#'+id),result=target.querySelector('.inline-text-result');
+  target.querySelector('.primary').onclick=()=>{
+    const x=input.value; let r=x;
+    if(t==='chars')r='글자수: '+x.length;
+    if(t==='words')r='단어수: '+(x.trim().match(/\\S+/g)||[]).length;
+    if(t==='lines')r='줄수: '+(x?x.split(/\\r?\\n/).length:0);
+    if(t==='spaces')r=x.replace(/[ \\t]+/g,'');
+    if(t==='newlines')r=x.replace(/\\r?\\n/g,' ');
+    if(t==='case')r=x===x.toUpperCase()?x.toLowerCase():x.toUpperCase();
+    if(t==='striphtml')r=x.replace(/<[^>]*>/g,'');
+    if(t==='sorttext')r=x.split(/\\r?\\n/).sort().join('\\n');
+    result.innerHTML='<pre style="white-space:pre-wrap">'+String(r).replace(/[&<>]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]))+'</pre>';
+  };
+}
+function textCompareToolInline(target){
+  target.innerHTML='<div class="panel"><div class="fields"><div class="field"><label>원문</label><textarea class="txt1" style="width:100%;min-height:160px;border:1px solid #d8dce1;border-radius:10px;padding:12px"></textarea></div><div class="field"><label>비교할 문장</label><textarea class="txt2" style="width:100%;min-height:160px;border:1px solid #d8dce1;border-radius:10px;padding:12px"></textarea></div></div><div class="actions"><button class="primary" type="button">비교하기</button><button type="button" class="secondary" onclick="resetCalculator(this)">↺ 초기화</button></div><div class="inline-text-result"></div></div>';
+  const result=target.querySelector('.inline-text-result');
+  target.querySelector('.primary').onclick=()=>{const a=target.querySelector('.txt1').value,b=target.querySelector('.txt2').value;result.innerHTML='<div class="result">'+(a===b?'두 텍스트가 같습니다.':'두 텍스트가 다릅니다.')+'</div>';};
+}
+function textCompareTool(){return null;}
+function compareText(){return null;}
+>
