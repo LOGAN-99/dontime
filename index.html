@@ -126,7 +126,7 @@ function render(){
   const host=document.getElementById('verticalServices');
   if(!host)return;
   host.innerHTML=Object.keys(data).map(c=>{
-    const items=data[c].map(x=>'<div class="service-item-wrap" data-service="'+x[2]+'"><button class="service-item" type="button" onclick="openInlineTool(\\''+x[2]+'\\',\\''+x[0]+'\\',\\''+x[1]+'\\',this)"><span><strong>'+x[0]+'</strong><small>'+x[1]+'</small></span><span class="arrow">＋</span></button></div>').join('');
+    const items=data[c].map(x=>'<div class="service-item-wrap" data-service="'+x[2]+'"><button class="service-item" type="button" onclick="openInlineTool(\''+x[2]+'\',\''+x[0]+'\',\''+x[1]+'\',this)"><span><strong>'+x[0]+'</strong><small>'+x[1]+'</small></span><span class="arrow">＋</span></button></div>').join('');
     return '<section class="service-group"><button class="service-group-title" type="button" onclick="toggleServiceGroup(this)"><span>'+c+'</span><span>열기</span></button><div class="service-list">'+items+'</div></section>';
   }).join('');
 }
@@ -150,7 +150,7 @@ function openInlineTool(t,title,copy,button){
   document.querySelectorAll('.service-item .arrow').forEach(x=>x.textContent='＋');
   const panel=document.createElement('div');
   panel.className='inline-tool';
-  panel.innerHTML='<div class="compare-card" id="inline-card-'+t+'"><div class="compare-head"><strong>'+title+'</strong><button type="button" onclick="closeInlineTool(this.closest(\\'.inline-tool\\'))">×</button></div><p>'+copy+'</p><div class="inline-box"></div></div>';
+  panel.innerHTML='<div class="compare-card" id="inline-card-'+t+'"><div class="compare-head"><strong>'+title+'</strong><button type="button" onclick="closeInlineTool(this.closest(\'.inline-tool\'))">×</button></div><p>'+copy+'</p><div class="inline-box"></div></div>';
   wrap.appendChild(panel);
   const card=panel.querySelector('.compare-card');
   const target=panel.querySelector('.inline-box');
