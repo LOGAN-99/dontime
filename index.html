@@ -84,7 +84,7 @@ function renderToolCats(){
 function home(){clearInterval(timer);stopAllCalcTimers();tool.classList.remove('on');document.querySelector('#home').style.display='block';renderToolCats();function textCompareTool(){
   box.innerHTML='<div class="panel"><div class="fields"><div class="field"><label>원문</label><textarea id="txt1" style="width:100%;min-height:160px;border:1px solid #d8dce1;border-radius:10px;padding:12px"></textarea></div><div class="field"><label>비교할 문장</label><textarea id="txt2" style="width:100%;min-height:160px;border:1px solid #d8dce1;border-radius:10px;padding:12px"></textarea></div></div><div class="actions"><button class="primary" onclick="compareText()">비교하기</button><button type="button" class="secondary reset-btn" onclick="resetCalculator()">↺ 초기화</button></div><div id="res"></div></div>';
 }
-function compareText(){const a=el('txt1').value,b=el('txt2').value;r.innerHTML='';el('res').innerHTML='<div class="result">'+(a===b?'두 텍스트가 같습니다.':'두 텍스트가 다릅니다.')+'</div>';}
+function compareText(){const a=el('txt1').value,b=el('txt2').value;el('res').innerHTML='<div class="result">'+(a===b?'두 텍스트가 같습니다.':'두 텍스트가 다릅니다.')+'</div>';}
 render();scrollTo(0,0)}
 function field(id,label,val,type='number',placeholder='',cls=''){return '<div class="field"><label>'+label+'</label><input id="'+id+'" type="'+type+'" value="'+val+'" '+(placeholder?'placeholder="'+placeholder+'"':'')+(cls?' class="'+cls+'"':'')+'></div>'}
 function serviceNotice(t){
@@ -249,7 +249,7 @@ function calc(t,button){
     const result=scope?.querySelector('[id^="res"]')||document.getElementById('res');
     if(result) result.innerHTML='<div class="result">퇴근까지 '+fmt(remaining)+'</div><div class="sub">남은 시간 '+remaining.toFixed(4)+'초</div>';
   };
-  tickWork(); startCalcTimer(key,tickWork,50); return;
+  tickWork(); startCalcTimer(key,tickWork,50); calcScope=previousScope; return;
 }
   else if(t==='ltv'){r=won(num('price')*Number(el('rate').value||0)/100)+' / 최대 대출 가능액';}
   else if(t==='dti'||t==='dsr'){const income=num('income'),debt=num('debt');r=income?(debt/income*100).toFixed(2)+'%':'연소득을 확인해주세요.';}
@@ -291,6 +291,7 @@ function calc(t,button){
   else if(t==='incomeTax'){r=won(Math.max(0,num('income')*Number(el('rate').value||0)/100-num('credit')))+' / 단순 계산 세액';}
   else if(t==='capitalgain'){const gain=num('sell')-num('buy')-num('cost');r=won(Math.max(0,gain)*Number(el('rate').value||0)/100)+' / 단순 계산 세액';}
   else if(t==='gift'){r=won(Math.max(0,num('gift')-num('deduct'))*Number(el('rate').value||0)/100)+' / 단순 계산 세액';}
+  else if(t==='workforbuy'){const price=num('price'),hourly=num('hourly');if(hourly>0){const totalSec=price/hourly*3600,h=Math.floor(totalSec/3600),m=Math.floor((totalSec%3600)/60),sec=Math.floor(totalSec%60);r='<div>'+h+'시간 '+m+'분 '+sec+'초</div><div class="sub">약 '+(price/hourly).toFixed(2)+'시간 일해야 합니다.</div>';}else r='시급을 확인해주세요.';}
   else if(t==='discount'){r=won(num('price')*(1-Number(el('rate').value||0)/100))+' / 할인가';}
   else if(t==='reverseDiscount'){const o=num('original'),p=num('sale');r=o?(100-p/o*100).toFixed(2)+'% 할인':'정가를 확인해주세요.';}
   else if(t==='unit'){const q=Number(el('qty').value||0);r=q?won(num('price')/q)+' / 개':'수량을 확인해주세요.';}
