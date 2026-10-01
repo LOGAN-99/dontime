@@ -52,6 +52,11 @@ const data={
 "사업":[["판매가","원가와 목표 마진으로 가격 정하기","selling"],["원가율","원가가 매출에서 차지하는 비율","costrate"],["온라인 수수료","플랫폼에 빠지는 돈까지 계산","platformfee"],["인건비","사람 한 명을 고용하면 실제 비용은?","labor"],["목표매출","원하는 순이익을 내려면 매출 얼마?","targetsales"]]};
 let current="돈",timer,calcScope=null;
 const $=s=>document.querySelector(s);
+const cats=document.getElementById('cats');
+const cards=document.getElementById('cards');
+const tool=document.getElementById('tool');
+const toolmain=document.getElementById('toolmain');
+let box=null;
 const el=id=>calcScope?calcScope.querySelector('#'+id):document.getElementById(id);
 const won=n=>{
   n=Math.round(Number(n)||0);
@@ -105,7 +110,7 @@ function renderToolCats(){
   tc.innerHTML=Object.keys(data).map(c=>'<div><button class="cat '+(c===current?'on':'')+'" onclick="current=\''+c+'\';render();renderToolCats()">'+c+'</button><div class="subcats">'+data[c].map(x=>'<button class="subcat"'+dragAttr+' ondragstart="dragService(event,\''+x[2]+'\',\''+x[0]+'\',\''+x[1]+'\')" onclick="openTool(\''+x[2]+'\',\''+x[0]+'\',\''+x[1]+'\')">'+x[0]+'</button>').join('')+'</div></div>').join('');
 }
 
-function home(){clearInterval(timer);stopAllCalcTimers();tool.classList.remove('on');document.querySelector('#home').style.display='block';renderToolCats();function textCompareTool(){
+function home(){clearInterval(timer);stopAllCalcTimers();tool.classList.remove('on');document.getElementById('home').style.display='block';box=null;renderToolCats();function textCompareTool(){
   box.innerHTML='<div class="panel"><div class="fields"><div class="field"><label>원문</label><textarea id="txt1" style="width:100%;min-height:160px;border:1px solid #d8dce1;border-radius:10px;padding:12px"></textarea></div><div class="field"><label>비교할 문장</label><textarea id="txt2" style="width:100%;min-height:160px;border:1px solid #d8dce1;border-radius:10px;padding:12px"></textarea></div></div><div class="actions"><button class="primary" onclick="compareText()">비교하기</button><button type="button" class="secondary reset-btn" onclick="resetCalculator()">↺ 초기화</button></div><div id="res"></div></div>';
 }
 function compareText(){const a=el('txt1').value,b=el('txt2').value;el('res').innerHTML='<div class="result">'+(a===b?'두 텍스트가 같습니다.':'두 텍스트가 다릅니다.')+'</div>';}
@@ -117,12 +122,13 @@ function serviceNotice(t){
   return '';
 }
 function openTool(t,title,copy){
-  document.querySelector('#home').style.display='none';
+  document.getElementById('home').style.display='none';
   clearInterval(timer);
   tool.classList.add('on');
   renderToolCats();
   toolmain.innerHTML='<div id="dropzone" class="compare-drop" ondragover="event.preventDefault();this.classList.add(\'over\')" ondragleave="this.classList.remove(\'over\')" ondrop="dropService(event)"><button class="back" onclick="home()">← 목록으로</button><div class="tool-title-row"><div><h2>'+title+'</h2><p>'+copy+'</p></div><div class="compare-tip"><strong>계산기 비교하기</strong><span>왼쪽 계산기나 다른 카드를 이곳으로 드래그하세요.</span><span>여러 계산기를 같은 크기로 놓고 결과를 한눈에 비교할 수 있습니다.</span></div></div><div class="compare-items" id="compareItems"><div class="compare-card primary-tool-card" id="primaryTool"><div class="primary-card-title"><strong>'+title+'</strong><span>'+copy+'</span></div><div id="box"></div></div></div></div>';
-  if(t==='income'||t==='off') live(t,el('box'));
+  box=document.getElementById('box');
+  if(t==='income'||t==='off') live(t,box);
   else if(['chars','words','lines','spaces','newlines','case','striphtml','sorttext'].includes(t)) textTool(t);
   else form(t);
   appendServiceNotice(el('box'),t);
@@ -386,7 +392,7 @@ function resetCalculator(button){
 }
 
 function textTool(t){box.innerHTML='<div class="panel"><div class="field"><label>텍스트</label><textarea id="txt" style="width:100%;min-height:180px;border:1px solid #d8dce1;border-radius:10px;padding:12px"></textarea></div><div class="actions"><button class="primary" onclick="textCalc(\''+t+'\')">처리하기</button><button type="button" class="secondary reset-btn" onclick="resetCalculator()">↺ 초기화</button></div><div id="res"></div></div>'}
-function textCalc(t){let x=txt.value,r=x;if(t==='chars')r='글자수: '+x.length;if(t==='words')r='단어수: '+(x.trim().match(/\S+/g)||[]).length;if(t==='lines')r='줄수: '+(x?x.split(/\r?\n/).length:0);if(t==='spaces')r=x.replace(/[ \t]+/g,'');if(t==='newlines')r=x.replace(/\r?\n/g,' ');if(t==='case')r=x===x.toUpperCase()?x.toLowerCase():x.toUpperCase();if(t==='striphtml')r=x.replace(/<[^>]*>/g,'');if(t==='sorttext')r=x.split(/\r?\n/).sort().join('\n');res.innerHTML='<pre style="white-space:pre-wrap">'+String(r).replace(/[&<>]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]))+'</pre>'}
+function textCalc(t){const input=document.getElementById('txt'),result=document.getElementById('res');const x=input?.value||'';let r=x;if(t==='chars')r='글자수: '+x.length;if(t==='words')r='단어수: '+(x.trim().match(/\S+/g)||[]).length;if(t==='lines')r='줄수: '+(x?x.split(/\r?\n/).length:0);if(t==='spaces')r=x.replace(/[ \t]+/g,'');if(t==='newlines')r=x.replace(/\r?\n/g,' ');if(t==='case')r=x===x.toUpperCase()?x.toLowerCase():x.toUpperCase();if(t==='striphtml')r=x.replace(/<[^>]*>/g,'');if(t==='sorttext')r=x.split(/\r?\n/).sort().join('\n');if(result)result.innerHTML='<pre style="white-space:pre-wrap">'+String(r).replace(/[&<>]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]))+'</pre>'}
 function live(t,target=el('box')){
   const liveTarget=target, isOff=t==='off';
   const basisHtml=isOff?'':('<div class="live-top"><div class="field salary-field">'+moneyField('salary','연봉','4천만원').replace('<div class="field">','').replace('</div>','')+'</div><div class="field basis-field"><label>근무시간 기준</label><div class="basis-list"><label class="basis-option selected"><input type="checkbox" name="incomeBasis" value="work" checked><span>1일 8시간 기준 · 연 260일</span></label><label class="basis-option"><input type="checkbox" name="incomeBasis" value="24"><span>24시간 기준 · 365일 × 24시간</span></label><label class="basis-option"><input type="checkbox" name="incomeBasis" value="hire"><span>입사일 기준</span></label></div></div></div><div id="hireWrap" class="field hire-field" style="display:none"><label>입사일</label><input id="hireDate" type="date" value="2026-10-01"></div>');
