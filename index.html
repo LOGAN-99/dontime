@@ -7,20 +7,20 @@
 *{box-sizing:border-box}body{margin:0;background:#f6f7f9;color:#17191c;font-family:Arial,"Noto Sans KR",sans-serif}button,input,select{font:inherit}button{cursor:pointer}
 header{height:64px;background:#fff;border-bottom:1px solid #e7e9ed;display:flex;align-items:center}.top{max-width:1180px;width:100%;margin:auto;padding:0 22px;display:flex;justify-content:space-between;align-items:center}.logo{font-size:25px;font-weight:900;cursor:pointer}.tag{font-size:13px;color:#777}
 .wrap{max-width:1180px;margin:auto;padding:38px 22px 70px}.hero{margin-bottom:32px}.hero h1{font-size:42px;line-height:1.2;letter-spacing:-2px;margin:0 0 12px}.hero p{margin:0;color:#6f747c;font-size:16px}.layout{display:grid;grid-template-columns:190px 1fr;gap:28px;align-items:start}.cats{position:sticky;top:20px;display:flex;flex-direction:column;gap:6px}.cat{border:1px solid #e1e4e8;background:#fff;border-radius:10px;padding:12px 14px;text-align:left;font-weight:700;color:#50555d;transition:.15s}.cat:hover{background:#f0f1f3}.cat.on{background:#17191c;color:#fff;border-color:#17191c}.subcats{display:flex;flex-direction:column;gap:2px;margin:2px 4px 8px 10px}.subcat{border:0;background:transparent;color:#777;text-align:left;padding:6px 8px;border-radius:7px;font-size:12px;line-height:1.3}.subcat:hover{background:#eef0f3;color:#17191c}.subcat.active{color:#17191c;font-weight:800;background:#eef0f3}
-.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}.card{min-height:120px;background:#fff;border:1px solid #e2e5e9;border-radius:18px;padding:21px;cursor:pointer;transition:transform .16s,box-shadow .16s,border-color .16s}.card:hover{transform:translateY(-3px);box-shadow:0 10px 28px #0001;border-color:#cbd0d6}.card:focus-visible{outline:3px solid #17191c;outline-offset:2px}.card h3{margin:0 0 9px;font-size:19px}.copy{margin:0 0 16px;color:#343941;font-weight:700;line-height:1.45}.hint{font-size:12px;color:#999}.tool{display:none}.tool.on{display:block}.back{background:#eef0f3;border:0;border-radius:10px;padding:10px 14px;margin-bottom:20px}.tool h2{font-size:30px;margin:0 0 6px}.tool p{color:#777;margin:0 0 22px}.panel{background:#fff;border:1px solid #e1e4e8;border-radius:18px;padding:22px}.fields{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.field label{display:block;font-size:13px;font-weight:700;margin-bottom:7px}.field input,.field select{width:100%;border:1px solid #d8dce1;border-radius:10px;padding:12px}.actions{margin-top:17px;display:flex;gap:9px}.primary{background:#17191c;color:#fff;border:0;border-radius:10px;padding:11px 17px}.secondary{background:#eef0f3;color:#17191c;border:1px solid #cfd4da;border-radius:10px;padding:11px 17px;font-weight:800}.result{margin-top:18px;font-size:28px;font-weight:900}.sub{font-size:13px;color:#777}.live{font-variant-numeric:tabular-nums}.ticker{font-size:40px;font-weight:900}.notice{margin:0 0 18px;padding:12px 14px;background:#fff8e6;border:1px solid #f0dfb0;border-radius:10px;color:#6f5a25;font-size:13px;line-height:1.55}.footer{margin-top:45px;padding-top:22px;border-top:1px solid #ddd;color:#8a8f97;font-size:13px}
-@media(max-width:950px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:700px){.layout{grid-template-columns:1fr}.cats{position:static;display:block}.cat{width:100%}.subcats{margin:2px 0 8px 8px}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hero h1{font-size:32px}.fields{grid-template-columns:1fr}}@media(max-width:520px){.wrap{padding:25px 15px}.tag{display:none}.hero h1{font-size:29px}}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}.card{min-height:120px;background:#fff;border:1px solid #e2e5e9;border-radius:18px;padding:21px;cursor:pointer;transition:transform .16s,box-shadow .16s,border-color .16s}.card:hover{transform:translateY(-3px);box-shadow:0 10px 28px #0001;border-color:#cbd0d6}.card:focus-visible{outline:3px solid #17191c;outline-offset:2px}.card h3{margin:0 0 9px;font-size:19px}.copy{margin:0 0 10px;color:#343941;font-weight:700;line-height:1.45}.desc{margin:0 0 14px;color:#70757d;font-size:13px;line-height:1.55}.hint{font-size:12px;color:#999}.tool{display:none}.tool.on{display:block}.back{background:#eef0f3;border:0;border-radius:10px;padding:10px 14px;margin-bottom:20px}.tool-layout{display:grid;grid-template-columns:190px 1fr;gap:28px;align-items:start}.tool-layout .cats{position:sticky;top:20px}.tool h2{font-size:30px;margin:0 0 6px}.tool p{color:#777;margin:0 0 22px}.tool-title-row{display:flex;justify-content:space-between;gap:18px;align-items:flex-start}.compare-tip{padding:12px 14px;border:1px dashed #cfd4da;border-radius:10px;background:#fafbfc;color:#70757d;font-size:12px;line-height:1.5;white-space:nowrap}.compare-drop{min-height:500px}.compare-drop.over{outline:3px dashed #17191c;outline-offset:6px}.compare-items{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:0 0 18px}.compare-card{background:#fff;border:1px solid #dfe3e8;border-radius:14px;padding:14px}.compare-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}.compare-head button{border:0;background:#eef0f3;border-radius:7px;width:28px;height:28px}.compare-card p{font-size:12px;color:#777;margin:0 0 10px}.mini-panel{padding:15px}.mini-panel .result{font-size:20px}.panel{background:#fff;border:1px solid #e1e4e8;border-radius:18px;padding:22px}.fields{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.field label{display:block;font-size:13px;font-weight:700;margin-bottom:7px}.field input,.field select{width:100%;border:1px solid #d8dce1;border-radius:10px;padding:12px}.actions{margin-top:17px;display:flex;gap:9px}.primary{background:#17191c;color:#fff;border:0;border-radius:10px;padding:11px 17px}.secondary{background:#eef0f3;color:#17191c;border:1px solid #cfd4da;border-radius:10px;padding:11px 17px;font-weight:800}.result{margin-top:18px;font-size:28px;font-weight:900}.sub{font-size:13px;color:#777}.live{font-variant-numeric:tabular-nums}.ticker{font-size:40px;font-weight:900}.notice{margin:0 0 18px;padding:12px 14px;background:#fff8e6;border:1px solid #f0dfb0;border-radius:10px;color:#6f5a25;font-size:13px;line-height:1.55}.footer{margin-top:45px;padding-top:22px;border-top:1px solid #ddd;color:#8a8f97;font-size:13px}
+@media(max-width:950px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:700px){.layout{grid-template-columns:1fr}.tool-layout{grid-template-columns:1fr}.tool-layout .cats{position:static}.tool-title-row{display:block}.compare-tip{margin-bottom:12px;white-space:normal}.compare-items{grid-template-columns:1fr}.cats{position:static;display:block}.cat{width:100%}.subcats{margin:2px 0 8px 8px}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hero h1{font-size:32px}.fields{grid-template-columns:1fr}}@media(max-width:520px){.wrap{padding:25px 15px}.tag{display:none}.hero h1{font-size:29px}}
 </style></head>
 <body>
 <header><div class="top"><div class="logo" onclick="home()">돈시간</div><div class="tag">돈을 시간으로, 시간을 돈으로.</div></div></header>
 <main class="wrap">
 <section id="home"><div class="hero"><h1>내 시간이 얼마인지,<br>이게 몇 시간짜리인지 계산해보세요.</h1><p>생활 속에서 자꾸 계산하게 되는 것들을 한곳에 모았습니다.</p></div>
 <div class="layout"><aside id="cats" class="cats"></aside><div id="cards" class="grid"></div></div><div class="footer">돈시간 · 내 시간의 가치를 숫자로</div></section>
-<section id="tool" class="tool"></section>
+<section id="tool" class="tool"><div class="tool-layout"><aside id="toolcats" class="cats"></aside><div id="toolmain"></div></div></section>
 </main>
 <script>
 const data={
 "돈":[["월급시계","1초에 얼마 벌고 있는지 알고 있어?","income"],["시급 계산","내 한 시간의 가격표","hourly"],["연봉 ↔ 월급","연봉을 월급으로, 월급을 연봉으로","salary"],["실수령액","통장에 실제로 들어오는 돈은?","net"],["주휴수당","일한 시간만큼 제대로 계산해보자","weekly"],["연장·야간수당","늦게까지 일한 시간도 숫자로","overtime"],["연차수당","남은 연차, 돈으로 보면 얼마?","leave"],["퇴직금","퇴직할 때 받을 돈을 미리 계산","severance"],["최저임금","내 시급, 기준보다 낮진 않을까?","minimum"],["근무시간","출근부터 퇴근까지 몇 시간?","worktime"]],
-"부동산":[["LTV","집값보다 중요한 건 얼마까지 빌릴 수 있느냐","ltv"],["DTI","소득으로 보는 주택대출 부담","dti"],["DSR","내 소득으로 감당할 수 있는 대출은?","dsr"],["주담대 월상환","집을 사면 매달 얼마를 갚을까?","mortgage"],["대출이자","빌린 돈의 가격표","loan"],["전세 ↔ 월세","전세와 월세, 숫자로 비교","rent"],["취득세","집을 살 때 세금까지 계산","acq"],["중개수수료","부동산 수수료, 얼마가 적당할까?","broker"],["내 집 마련 현금","집값만 모으면 끝이 아니다","homecash"]],
+"부동산":[["LTV","집값보다 중요한 건 얼마까지 빌릴 수 있느냐","ltv"],["DTI","소득으로 보는 주택대출 부담","dti"],["DSR","내 소득으로 감당할 수 있는 대출은?","dsr"],["주담대 월상환","집을 사면 매달 얼마를 갚을까?","mortgage"],["대출이자","빌린 돈의 가격표","loan"],["전세 ↔ 월세","전세와 월세, 숫자로 비교","rent"],["전월세 전환율","보증금 1억원을 월세로 바꾸면 얼마일까?","jeonseToRent"],["취득세","집을 살 때 세금까지 계산","acq"],["중개수수료","부동산 수수료, 얼마가 적당할까?","broker"],["내 집 마련 현금","집값만 모으면 끝이 아니다","homecash"]],
 "금융":[["복리 계산기","돈이 돈을 낳는 속도는?","compound"],["예금 이자","맡겨둔 돈이 얼마나 불어날까?","deposit"],["적금 이자","매달 넣으면 만기에 얼마?","saving"],["목표금액","1억 만들려면 매달 얼마가 필요할까?","goal"],["수익률","내 돈은 몇 % 벌었을까?","return"],["평균매입단가","여러 번 샀다면 평균은 얼마?","average"],["배당금","내 주식이 1년에 주는 돈","dividend"],["인플레이션","오늘의 100만원, 나중엔 얼마의 가치일까?","inflation"]],
 "세금":[["연말정산","13월의 월급, 얼마나 돌려받을까?","yearend"],["부가세","가격 속 부가세를 꺼내보자","vat"],["원천징수","떼이는 세금, 미리 계산","withholding"],["소득세 참고","소득에 따라 세금은 어떻게 달라질까?","incomeTax"],["양도차익","팔아서 얼마나 남았을까?","capitalgain"],["증여세 참고","증여할 때 세금은 얼마나?","gift"]],
 "소비":[["할인 계산","결제 버튼 누르기 전에 한 번 더.","discount"],["역산 할인율","이 가격이면 몇 % 할인일까?","reverseDiscount"],["개당 단가","묶음이 정말 싼 걸까?","unit"],["할부","한 번에 내기 아픈 금액을 나눠보자","installment"],["마진율","팔고 나서 진짜 남는 돈","margin"],["손익분기점","몇 개 팔아야 본전일까?","breakeven"],["카드수수료","결제금액에서 빠지는 돈","cardfee"]],
@@ -69,8 +69,17 @@ const moneyField=(id,label,val="4천만원")=>field(id,label,val,"text","예: 4�
 const percentField=(id,label,val)=>field(id,label,val,"number");
 
 
-function render(){cats.innerHTML=Object.keys(data).map(c=>'<div><button class="cat '+(c===current?'on':'')+'" onclick="current=\''+c+'\';render()">'+c+'</button><div class="subcats">'+data[c].map(x=>'<button class="subcat" onclick="event.stopPropagation();current=\''+c+'\';openTool(\''+x[2]+'\',\''+x[0]+'\',\''+x[1]+'\')">'+x[0]+'</button>').join('')+'</div></div>').join('');cards.innerHTML=data[current].map(x=>'<div class="card" tabindex="0" onclick="openTool(\''+x[2]+'\',\''+x[0]+'\',\''+x[1]+'\')" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();openTool(\''+x[2]+'\',\''+x[0]+'\',\''+x[1]+'\')}"><h3>'+x[0]+'</h3><p class="copy">'+x[1]+'</p><span class="hint">카드 전체 클릭 → 계산하기</span></div>').join('')}
-function home(){clearInterval(timer);tool.classList.remove('on');document.querySelector('#home').style.display='block';function textCompareTool(){
+const cardDescriptions={"income":"월급을 시간과 초 단위로 바꿔 내가 지금 벌고 있는 금액을 실시간으로 보여줍니다.","hourly":"월급과 근무시간을 기준으로 실제 한 시간의 가치를 계산합니다.","salary":"연봉과 월급을 서로 바꿔서 같은 금액을 다른 기준으로 확인합니다.","net":"연봉과 공제율을 기준으로 세금을 제외한 예상 실수령액을 계산합니다.","weekly":"주 소정근로시간을 기준으로 주휴수당을 참고 계산합니다.","overtime":"연장근로와 야간근로에 가산율을 적용해 예상 수당을 계산합니다.","leave":"남은 연차일수와 통상시급을 이용해 연차수당을 계산합니다.","severance":"평균임금과 근속기간을 바탕으로 퇴직금을 참고 계산합니다.","minimum":"내 시급이 입력한 최저시급 기준보다 높은지 비교합니다.","worktime":"출퇴근 시간과 휴게시간을 빼서 실제 근무시간을 계산합니다.","ltv":"LTV는 집값 대비 대출받을 수 있는 비율입니다. 집값 5억원에 LTV 70%라면 최대 3억5천만원까지 계산됩니다.","dti":"DTI는 연소득에 비해 주택담보대출의 연간 원리금 상환 부담이 어느 정도인지 보는 비율입니다.","dsr":"DSR은 모든 대출의 연간 원리금 상환액을 연소득과 비교하는 지표입니다. 다른 대출까지 함께 고려하는 것이 핵심입니다.","mortgage":"주택담보대출 원금과 금리·기간·상환방식을 기준으로 월 부담액을 계산합니다.","loan":"대출금액과 금리·기간을 입력하면 상환방식별 월·일 부담과 총이자를 비교합니다.","rent":"전세보증금과 월세를 환산해 두 주거비를 같은 기준에서 비교합니다.","acq":"주택 취득가액과 적용 세율을 입력해 취득세를 참고 계산합니다.","broker":"거래금액과 중개보수율을 입력해 예상 중개보수를 계산합니다.","homecash":"대출로 충당할 금액을 제외하고 실제 준비해야 할 현금을 계산합니다.","compound":"초기자금과 수익률을 기준으로 복리 효과를 계산합니다.","deposit":"예치기간과 이율을 기준으로 세후 예금 예상금액을 계산합니다.","saving":"매달 같은 금액을 넣는 적금의 만기 예상금액을 계산합니다.","goal":"목표금액까지 남은 기간과 수익률을 기준으로 필요한 월 납입액을 계산합니다.","return":"매수가와 현재가를 비교해 평가손익과 수익률을 계산합니다.","average":"여러 번 매수한 가격과 수량을 합쳐 평균매입단가를 계산합니다.","dividend":"보유 주식수와 주당 배당금을 기준으로 세후 예상 배당금을 계산합니다.","inflation":"물가상승률을 적용해 현재 돈의 미래 구매력 변화를 계산합니다.","yearend":"총급여와 공제·세액공제 입력값을 이용한 단순 참고 계산입니다.","vat":"공급가액과 세율을 입력해 부가세를 계산합니다.","withholding":"총 지급액과 원천징수율을 기준으로 세후 금액을 계산합니다.","incomeTax":"소득과 세율을 입력해 단순 참고 세액을 계산합니다.","capitalgain":"취득가액과 양도가액·필요경비를 기준으로 양도차익과 세액을 참고 계산합니다.","gift":"증여재산가액에서 공제액을 뺀 금액에 입력 세율을 적용합니다.","discount":"정가에서 할인율을 적용한 실제 결제금액을 계산합니다.","reverseDiscount":"정가와 판매가를 비교해 실제 할인율을 역산합니다.","unit":"총가격을 수량으로 나눠 개당 가격을 계산합니다.","installment":"할부원금과 기간·금리를 기준으로 월 할부금을 계산합니다.","margin":"판매가격에서 원가를 뺀 금액이 판매가격에서 차지하는 비율을 계산합니다.","breakeven":"고정비를 회수하려면 몇 개를 팔아야 하는지 계산합니다.","cardfee":"결제금액에서 카드 수수료로 빠지는 금액을 계산합니다.","fertility":"마지막 생리일과 주기를 기준으로 예상 가임기를 참고 계산합니다.","ovulation":"마지막 생리일과 주기를 기준으로 예상 배란일을 계산합니다.","pregnancy":"마지막 생리 시작일을 기준으로 임신 주수를 단순 계산합니다.","due":"마지막 생리 시작일을 기준으로 출산예정일을 계산합니다.","bmi":"키와 몸무게를 이용해 BMI를 계산합니다. 건강 상태를 진단하는 도구는 아닙니다.","bmr":"키·몸무게·나이·성별을 기준으로 기초대사량을 참고 계산합니다.","calorie":"체중과 운동시간·강도를 입력해 운동 중 소비열량을 참고 계산합니다.","off":"출근·퇴근 시간을 기준으로 남은 근무시간과 퇴근까지 시간을 확인합니다.","discharge":"목표 날짜까지 남은 시간을 D-Day 형식으로 보여줍니다.","dday":"기준일에서 목표 날짜까지 남은 날짜를 계산합니다.","datediff":"두 날짜 사이가 며칠인지 계산합니다.","workdays":"두 날짜 사이에서 주말을 제외한 근무일수를 계산합니다.","timediff":"두 시각 사이의 시간을 계산합니다.","age":"생년월일을 기준으로 현재 만 나이를 계산합니다.","yearprogress":"기준일을 기준으로 올해가 얼마나 진행됐는지 계산합니다.","carloan":"차량가격과 금리·기간·상환방식을 기준으로 자동차 할부 부담을 계산합니다.","fuel":"주행거리와 연비·유가를 이용해 예상 연료비를 계산합니다.","kmcost":"입력한 주행거리와 연비·연료가격을 기준으로 비용을 계산합니다.","ev":"배터리 용량과 충전단가를 이용해 전기차 충전비를 계산합니다.","chars":"입력한 텍스트의 글자 수를 셉니다.","words":"입력한 텍스트의 단어 수를 셉니다.","lines":"입력한 텍스트의 줄 수를 셉니다.","spaces":"불필요한 공백과 탭을 제거한 텍스트를 만듭니다.","newlines":"줄바꿈을 제거해 한 줄 텍스트로 정리합니다.","case":"영문 텍스트의 대소문자를 한 번에 변환합니다.","striphtml":"HTML 태그를 제거하고 텍스트만 남깁니다.","sorttext":"줄 단위 텍스트를 정렬해 깔끔하게 정리합니다.","diff":"두 텍스트를 비교해 같은지 다른지 확인합니다.","unitconv":"길이·무게 등 지원 단위 사이의 값을 변환합니다.","percent":"기준 수치 대비 변화 수치를 퍼센트로 계산합니다.","ratio":"비율을 이용해 다른 기준값을 계산합니다.","mean":"여러 숫자의 산술평균을 계산합니다.","weighted":"각 숫자의 가중치를 반영한 가중평균을 계산합니다.","mpg":"입력한 주유비를 기준으로 차량 연료비를 계산합니다.","travel":"교통·숙박·식비·기타 비용을 합쳐 여행 총경비를 계산합니다.","fx":"외화 금액에 입력한 환율을 적용해 원화 금액을 계산합니다.","selling":"원가와 목표 마진·수수료를 고려해 판매가를 계산합니다.","costrate":"원가가 매출에서 차지하는 비율을 계산합니다.","platformfee":"판매금액에서 플랫폼 수수료로 빠지는 금액을 계산합니다.","labor":"월급과 사업주 부담비용을 합쳐 월 총 인건비를 계산합니다.","targetsales":"고정비와 목표이익을 기준으로 필요한 목표매출을 계산합니다."};
+function render(){
+  cats.innerHTML=Object.keys(data).map(c=>'<div><button class="cat '+(c===current?'on':'')+'" onclick="current=\\''+c+'\\';render()">'+c+'</button><div class="subcats">'+data[c].map(x=>'<button class="subcat" draggable="true" ondragstart="dragService(event,\\''+x[2]+'\\',\\''+x[0]+'\\',\\''+x[1]+'\\')" onclick="event.stopPropagation();current=\\''+c+'\\';openTool(\\''+x[2]+'\\',\\''+x[0]+'\\',\\''+x[1]+'\\')">'+x[0]+'</button>').join('')+'</div></div>').join('');
+  cards.innerHTML=data[current].map(x=>'<div class="card" draggable="true" ondragstart="dragService(event,\\''+x[2]+'\\',\\''+x[0]+'\\',\\''+x[1]+'\\')" tabindex="0" onclick="openTool(\\''+x[2]+'\\',\\''+x[0]+'\\',\\''+x[1]+'\\')" onkeydown="if(event.key===\\'Enter\\'||event.key===\\' \\'){event.preventDefault();openTool(\\''+x[2]+'\\',\\''+x[0]+'\\',\\''+x[1]+'\\')}"><h3>'+x[0]+'</h3><p class="copy">'+x[1]+'</p><p class="desc">'+(cardDescriptions[x[2]]||'입력한 값을 바탕으로 생활 속 필요한 계산을 빠르게 확인합니다.')+'</p><span class="hint">카드 전체 클릭 → 계산하기 · 드래그해서 비교창에 추가</span></div>').join('');
+}
+function renderToolCats(){
+  const tc=el('toolcats');
+  tc.innerHTML=Object.keys(data).map(c=>'<div><button class="cat '+(c===current?'on':'')+'" onclick="current=\\''+c+'\\';render();renderToolCats()">'+c+'</button><div class="subcats">'+data[c].map(x=>'<button class="subcat" draggable="true" ondragstart="dragService(event,\\''+x[2]+'\\',\\''+x[0]+'\\',\\''+x[1]+'\\')" onclick="openTool(\\''+x[2]+'\\',\\''+x[0]+'\\',\\''+x[1]+'\\')">'+x[0]+'</button>').join('')+'</div></div>').join('');
+}
+
+function home(){clearInterval(timer);tool.classList.remove('on');document.querySelector('#home').style.display='block';renderToolCats();function textCompareTool(){
   box.innerHTML='<div class="panel"><div class="fields"><div class="field"><label>원문</label><textarea id="txt1" style="width:100%;min-height:160px;border:1px solid #d8dce1;border-radius:10px;padding:12px"></textarea></div><div class="field"><label>비교할 문장</label><textarea id="txt2" style="width:100%;min-height:160px;border:1px solid #d8dce1;border-radius:10px;padding:12px"></textarea></div></div><div class="actions"><button class="primary" onclick="compareText()">비교하기</button><button type="button" class="secondary reset-btn" onclick="resetCalculator()">↺ 초기화</button></div><div id="res"></div></div>';
 }
 function compareText(){const a=el('txt1').value,b=el('txt2').value;r.innerHTML='';el('res').innerHTML='<div class="result">'+(a===b?'두 텍스트가 같습니다.':'두 텍스트가 다릅니다.')+'</div>';}
@@ -85,10 +94,36 @@ function openTool(t,title,copy){
   document.querySelector('#home').style.display='none';
   clearInterval(timer);
   tool.classList.add('on');
-  tool.innerHTML='<button class="back" onclick="home()">← 목록으로</button><h2>'+title+'</h2><p>'+copy+'</p>'+serviceNotice(t)+'<div id="box"></div>';
+  renderToolCats();
+  toolmain.innerHTML='<div id="dropzone" class="compare-drop" ondragover="event.preventDefault();this.classList.add(\\'over\\')" ondragleave="this.classList.remove(\\'over\\')" ondrop="dropService(event)"><button class="back" onclick="home()">← 목록으로</button><div class="tool-title-row"><div><h2>'+title+'</h2><p>'+copy+'</p></div><div class="compare-tip">계산기를 이 영역으로 드래그하면<br>여러 계산기를 동시에 볼 수 있어요.</div></div><div class="compare-items" id="compareItems"></div><div id="primaryTool"><div>'+serviceNotice(t)+'</div><div id="box"></div></div></div>';
   if(t==='income'||t==='off') live(t);
   else if(['chars','words','lines','spaces','newlines','case','striphtml','sorttext'].includes(t)) textTool(t);
   else form(t);
+}
+function dragService(event,t,title,copy){
+  event.dataTransfer.setData('text/plain',JSON.stringify({t,title,copy}));
+}
+function dropService(event){
+  event.preventDefault();
+  const dz=el('dropzone'); if(dz) dz.classList.remove('over');
+  let d; try{d=JSON.parse(event.dataTransfer.getData('text/plain'));}catch(e){return;}
+  addCompare(d.t,d.title,d.copy);
+}
+function addCompare(t,title,copy){
+  const wrap=el('compareItems'); if(!wrap)return;
+  if([...wrap.children].some(x=>x.dataset.t===t)) return;
+  const card=document.createElement('div');
+  card.className='compare-card'; card.dataset.t=t;
+  card.innerHTML='<div class="compare-head"><strong>'+title+'</strong><button onclick="this.closest(\\'.compare-card\\').remove()">×</button></div><p>'+copy+'</p><div class="compare-mini" id="mini-'+t+'"></div>';
+  wrap.appendChild(card);
+  renderMiniTool(t,el('mini-'+t));
+}
+function renderMiniTool(t,target){
+  const oldBox=el('box');
+  const holder=document.createElement('div'); holder.id='tmp-holder'; document.body.appendChild(holder);
+  const old=window.box; window.box=target;
+  try{form(t); const panel=target.firstElementChild; if(panel) panel.classList.add('mini-panel');}
+  finally{window.box=old; holder.remove();}
 }
 function form(t){
   let s='';
@@ -107,6 +142,7 @@ function form(t){
   else if(t==='dsr') s=moneyField('income','연소득','5천만원')+moneyField('debt','연간 원리금 상환액','1,500만원')+percentField('rate','적용 DSR 한도(%)',40);
   else if(['loan','mortgage','carloan'].includes(t)) s=moneyField('p',t==='carloan'?'차량가격':'대출원금','3억원')+field('rate','연이율(%)',4)+field('years','대출기간(년)',30)+'<div class="field"><label>상환방식</label><select id="repay"><option value="annuity">원리금균등상환</option><option value="principal">원금균등상환</option></select></div>';
   else if(t==='rent') s=moneyField('deposit','전세보증금','2억원')+moneyField('monthly','월세','50만원')+field('rate','환산 적용률(%)',5);
+  else if(t==='jeonseToRent') s=moneyField('total','기존 전세보증금','3억원')+moneyField('newDeposit','바꿀 보증금','2억원')+field('rate','전월세 전환율(%)',5);
   else if(t==='acq') s=moneyField('price','취득가액','5억원')+percentField('rate','적용 취득세율(%)',1.1);
   else if(t==='broker') s=moneyField('price','거래금액','5억원')+percentField('rate','적용 중개보수율(%)',0.4);
   else if(t==='homecash') s=moneyField('price','주택가격','5억원')+percentField('loanRate','대출비율(%)',70)+moneyField('extra','취득·이사 등 부대비용','1천만원');
@@ -203,6 +239,11 @@ function calc(t){
   }
 }
   else if(t==='rent'){r=won(num('deposit')*Number(el('rate').value||0)/100/12+num('monthly'))+' / 환산 월 부담액';}
+  else if(t==='jeonseToRent'){
+    const diff=Math.max(0,num('total')-num('newDeposit')), rate=Number(el('rate').value||0);
+    const monthly=diff*rate/100/12;
+    r=won(monthly)+' / 월세';
+  }
   else if(t==='acq'||t==='broker'){r=won(num('price')*Number(el('rate').value||0)/100);}
   else if(t==='homecash'){r=won(num('price')*(1-Number(el('loanRate').value||0)/100)+num('extra'))+' / 준비 현금';}
   else if(t==='compound'){const p=num('p'),rate=Number(el('rate').value||0)/100,y=Number(el('years').value||0),add=num('add');r=won(p*Math.pow(1+rate,y)+add*((Math.pow(1+rate,y)-1)/rate||y))+' / 만기 예상금액';}
@@ -325,5 +366,5 @@ function live(t){
     timer=setInterval(tick,50);
   };
 }
-render();
+render();renderToolCats();
 </script></body></html>
