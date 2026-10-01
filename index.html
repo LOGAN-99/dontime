@@ -59,8 +59,10 @@ const parseMoney=v=>{
   if(!s)return 0;
   let total=0;
   const e=s.match(/([0-9.]+)억/); if(e){total+=Number(e[1])*100000000;s=s.replace(e[0],"");}
-  const m=s.match(/([0-9.]+)만/); if(m){total+=Number(m[1])*10000;s=s.replace(m[0],"");}
+  const man=s.match(/([0-9.]+)천만원/); if(man){total+=Number(man[1])*10000000;s=s.replace(man[0],"");}
+  const man2=s.match(/([0-9.]+)만원/); if(man2){total+=Number(man2[1])*10000;s=s.replace(man2[0],"");}
   const c=s.match(/([0-9.]+)천/); if(c){total+=Number(c[1])*1000;s=s.replace(c[0],"");}
+  const m=s.match(/([0-9.]+)만/); if(m){total+=Number(m[1])*10000;s=s.replace(m[0],"");}
   const n=Number(s.replace(/원/g,""));
   return total+(Number.isFinite(n)?n:0);
 };
@@ -363,7 +365,7 @@ function textCalc(t){let x=txt.value,r=x;if(t==='chars')r='글자수: '+x.length
 function live(t,target=el('box')){
   const liveTarget=target, isOff=t==='off';
   liveTarget.innerHTML='<div class="panel"><div class="fields">'+
-    (isOff?'':moneyField('salary','연봉','4천만원')+'<div class="field"><label>수입 계산 기준</label><select id="basis"><option value="work">근무시간 기준 · 1일 8시간 / 연 260일</option><option value="24">24시간 기준 · 365일 × 24시간</option></select></div>')+
+    (isOff?'':moneyField('salary','연봉','4천만원')+'<div class="field"><label>근무시간 기준</label><select id="basis"><option value="24">24시간 기준 · 365일 × 24시간</option><option value="hire">입사일 기준</option></select></div><div id="hireWrap" class="field" style="display:none"><label>입사일</label><input id="hireDate" type="date" value="2026-10-01"></div>')+
     field('start','출근','09:00','time')+
     field('end','퇴근','18:00','time')+
     '</div><div class="actions"><button class="primary" id="startBtn">'+(isOff?'카운트 시작':'시작하기')+'</button><button type="button" class="secondary reset-btn" onclick="resetCalculator(this)">↺ 초기화</button></div>'+
@@ -372,6 +374,12 @@ function live(t,target=el('box')){
   const scope=liveTarget.closest('.compare-card')||liveTarget;
   const timerKey=(isOff?'off-':'income-')+(scope.id||Math.random().toString(36).slice(2));
   const get=id=>scope.querySelector('#'+id);
+  const basisSelect=get('basis');
+  const hireWrap=get('hireWrap');
+  if(basisSelect){
+    const syncBasis=()=>{if(hireWrap) hireWrap.style.display=basisSelect.value==='hire'?'block':'none';};
+    basisSelect.addEventListener('change',syncBasis); syncBasis();
+  }
   scope.querySelector('#startBtn').onclick=()=>{
     stopCalcTimer(timerKey);
     const tick=()=>{
@@ -390,8 +398,20 @@ function live(t,target=el('box')){
       if(isOff){
         result.innerHTML='<div class="sub">퇴근까지</div><div class="ticker">'+fmt(remain)+'</div><div class="sub">남은 시간 '+remain.toFixed(4)+'초</div>';
       }else{
-        const annual=parseMoney(get('salary').value),basis=get('basis')?.value==='24'?'24':'work',hourly=basis==='24'?annual/(365*24):annual/(260*8),sec=hourly/3600,earned=elapsed*sec;
-        result.innerHTML='<div class="sub">현재 누적 수입</div><div class="ticker">'+earned.toFixed(4)+'원</div><div class="sub">'+(basis==='24'?'24시간 기준':'근무시간 기준')+' · 경과 시간 '+elapsed.toFixed(4)+'초 · 초당 '+sec.toFixed(4)+'원 · 퇴근까지 '+fmt(remain)+'</div>';
+        const annual=parseMoney(get('salary').value),basis=get('basis')?.value||'24';
+        let earned=0,sec=0,detail='';
+        if(basis==='hire'){
+          const hd=new Date(get('hireDate').value+'T00:00:00');
+          const since=Math.max(0,(now-hd)/1000);
+          sec=annual/(365*24*3600);
+          earned=since*sec;
+          detail='입사일 '+get('hireDate').value+' 기준 · 경과 '+since.toFixed(4)+'초';
+        }else{
+          sec=annual/(365*24*3600);
+          earned=elapsed*sec;
+          detail='24시간 기준 · 경과 '+elapsed.toFixed(4)+'초 · 초당 '+sec.toFixed(4)+'원';
+        }
+        result.innerHTML='<div class="sub">현재 누적 수입</div><div class="ticker">'+earned.toFixed(4)+'원</div><div class="sub">'+detail+' · 퇴근까지 '+fmt(remain)+'</div>';
       }
     };
     tick(); startCalcTimer(timerKey,tick,50);
