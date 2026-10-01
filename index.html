@@ -30,9 +30,9 @@ const data={
 "문자·단어":[["글자수","몇 글자인지 바로 세기","chars"],["단어수","단어가 몇 개인지 세기","words"],["줄수","몇 줄인지 한눈에","lines"],["공백 제거","쓸데없는 공백을 싹 정리","spaces"],["줄바꿈 제거","한 줄로 깔끔하게","newlines"],["대소문자 변환","영문 대소문자 한 번에","case"],["HTML 태그 제거","HTML 껍데기만 벗기기","striphtml"],["텍스트 정렬","줄마다 뒤죽박죽이면 정리","sorttext"],["텍스트 비교","두 문장, 뭐가 달라졌지?","diff"]],
 "생활":[["단위변환","cm, m, km부터 무게까지","unitconv"],["퍼센트","퍼센트 계산, 헷갈리면 여기","percent"],["비율","비율과 비례를 빠르게","ratio"],["평균","숫자의 평균을 바로 계산","mean"],["가중평균","각 숫자의 중요도까지 반영","weighted"],["연비","차가 얼마나 효율적으로 달릴까?","mpg"],["여행경비","여행 전에 총액부터","travel"],["환전","외화가 원화로 얼마지?","fx"]],
 "사업":[["판매가","원가와 목표 마진으로 가격 정하기","selling"],["원가율","매출에서 원가가 차지하는 비율","costrate"],["온라인 수수료","플랫폼에 빠지는 돈까지 계산","platformfee"],["인건비","사람 한 명을 고용하면 실제 비용은?","labor"],["목표매출","원하는 순이익을 내려면 매출 얼마?","targetsales"]]};
-let current="돈",timer;
+let current="돈",timer,calcScope=null;
 const $=s=>document.querySelector(s);
-const el=id=>document.getElementById(id);
+const el=id=>calcScope?calcScope.querySelector('#'+id):document.getElementById(id);
 const won=n=>{
   n=Math.round(Number(n)||0);
   const sign=n<0?"-":"",v=Math.abs(n);
@@ -119,13 +119,11 @@ function addCompare(t,title,copy){
   renderMiniTool(t,el('mini-'+t));
 }
 function renderMiniTool(t,target){
-  const oldBox=el('box');
-  const holder=document.createElement('div'); holder.id='tmp-holder'; document.body.appendChild(holder);
-  const old=window.box; window.box=target;
-  try{form(t); const panel=target.firstElementChild; if(panel) panel.classList.add('mini-panel');}
-  finally{window.box=old; holder.remove();}
+  form(t,target,true);
+  const panel=target.firstElementChild;
+  if(panel) panel.classList.add('mini-panel');
 }
-function form(t){
+function form(t,target=el('box'),mini=false){
   let s='';
   if(t==='salary') s='<div class="field"><label>계산 방향</label><select id="dir"><option value="a">연봉 → 월급</option><option value="m">월급 → 연봉</option></select></div>'+moneyField('v','금액','4천만원');
   else if(t==='hourly') s=moneyField('monthly','월급','300만원')+field('hours','월 근무시간',209);
@@ -206,10 +204,13 @@ function form(t){
   else if(t==='targetsales') s=moneyField('fixed','고정비','500만원')+moneyField('profit','목표 순이익','300만원')+percentField('margin','공헌이익률(%)',30);
   else s=moneyField('amount','계산할 금액','10만원');
 
-  box.innerHTML='<div class="panel"><div class="fields">'+s+'</div><div class="actions"><button class="primary" onclick="calc(\''+t+'\')">계산하기</button><button type="button" class="secondary reset-btn" onclick="resetCalculator()">↺ 초기화</button></div><div id="res"></div></div>';
+  const resultId=mini?'res-'+t+'-'+Math.random().toString(36).slice(2,8):'res';
+  target.innerHTML='<div class="panel"><div class="fields">'+s+'</div><div class="actions"><button class="primary" onclick="calc(\''+t+'\',this)">계산하기</button><button type="button" class="secondary reset-btn" onclick="resetCalculator(this)">↺ 초기화</button></div><div id="'+resultId+'"></div></div>';
   bindMoneyInputs();
 }
-function calc(t){
+function calc(t,button){
+  const previousScope=calcScope;
+  calcScope=button?.closest('.compare-card')||null;
   let r='';
   if(t==='salary'){const v=num('v');r=el('dir').value==='a'?won(v/12)+' / 월':'연봉 '+won(v*12);}
   else if(t==='hourly'){const h=Number(el('hours').value||0);r=h?won(num('monthly')/h)+' / 시간':'월 근무시간을 확인해주세요.';}
@@ -293,7 +294,9 @@ function calc(t){
   else if(t==='labor'){r=won(num('salary')+num('insurance')+num('other'))+' / 월 총 인건비';}
   else if(t==='targetsales'){const m=Number(el('margin').value||0)/100;r=m?(won((num('fixed')+num('profit'))/m)+' / 목표 매출'): '공헌이익률을 확인해주세요.';}
   else r=won(num('amount'));
-  el('res').innerHTML='<div class="result">'+r+'</div>';
+  const result=calcScope?calcScope.querySelector('[id^="res-"]'):document.getElementById('res');
+  if(result) result.innerHTML='<div class="result">'+r+'</div>';
+  calcScope=previousScope;
 }
 function formatMoneyInput(input){
   const raw=String(input.value||'').trim();
@@ -307,15 +310,16 @@ function bindMoneyInputs(){
     input.addEventListener('change',()=>formatMoneyInput(input));
   });
 }
-function resetCalculator(){
+function resetCalculator(button){
   clearInterval(timer);
-  document.querySelectorAll('#box input').forEach(i=>{i.value=i.defaultValue;});
-  document.querySelectorAll('#box select').forEach(s=>{s.selectedIndex=0;});
-  document.querySelectorAll('#box textarea').forEach(t=>{t.value=t.defaultValue;});
-  const r=el('res');
+  const scope=button?.closest('.compare-card')||document.getElementById('box');
+  scope.querySelectorAll('input').forEach(i=>{i.value=i.defaultValue;});
+  scope.querySelectorAll('select').forEach(s=>{s.selectedIndex=0;});
+  scope.querySelectorAll('textarea').forEach(t=>{t.value=t.defaultValue;});
+  const r=scope.querySelector('[id^="res"]');
   if(r) r.innerHTML='';
   bindMoneyInputs();
-  const livebox=el('livebox');
+  const livebox=scope.querySelector('#livebox');
   if(livebox) livebox.innerHTML='<div class="sub">입력한 뒤 시작하기를 눌러주세요.</div>';
 }
 
