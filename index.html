@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>돈시간 | 돈과 시간을 계산하는 생활 도구</title><meta name="dontime-version" content="2026-10-01-vertical-inline-fix1">
+<title>돈시간 | 돈과 시간을 계산하는 생활 도구</title><meta name="dontime-version" content="2026-10-01-vertical-inline-fix2">
 <style>
 *{box-sizing:border-box}
 body{margin:0;background:#f6f7f9;overflow-x:hidden;color:#17191c;font-family:Arial,"Noto Sans KR",sans-serif}
@@ -126,7 +126,7 @@ function render(){
   const host=document.getElementById('verticalServices');
   if(!host)return;
   host.innerHTML=Object.keys(data).map(c=>{
-    const items=data[c].map(x=>'<div class="service-item-wrap" data-service="'+x[2]+'"><button class="service-item" type="button" onclick="openInlineTool(\''+x[2]+'\',\''+x[0]+'\',\''+x[1]+'\',this)"><span><strong>'+x[0]+'</strong><small>'+x[1]+'</small></span><span class="arrow">＋</span></button></div>').join('');
+    const items=data[c].map(x=>'<div class="service-item-wrap" data-service="'+x[2]+'"><button class="service-item" type="button" onclick="openInlineTool(&quot;'+x[2]+'&quot;,&quot;'+x[0].replace(/&quot;/g,'')+'&quot;,&quot;'+x[1].replace(/&quot;/g,'')+'&quot;,this)"><span><strong>'+x[0]+'</strong><small>'+x[1]+'</small></span><span class="arrow">＋</span></button></div>').join('');
     return '<section class="service-group"><button class="service-group-title" type="button" onclick="toggleServiceGroup(this)"><span>'+c+'</span><span>열기</span></button><div class="service-list">'+items+'</div></section>';
   }).join('');
 }
