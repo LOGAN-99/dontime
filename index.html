@@ -9,7 +9,13 @@ header{height:64px;background:#fff;border-bottom:1px solid #e7e9ed;display:flex;
 .wrap{max-width:1180px;margin:auto;padding:38px 22px 70px}.hero{margin-bottom:32px}.hero h1{font-size:42px;line-height:1.2;letter-spacing:-2px;margin:0 0 12px}.hero p{margin:0;color:#6f747c;font-size:16px}.layout{display:grid;grid-template-columns:190px 1fr;gap:28px;align-items:start}.cats{position:sticky;top:20px;display:flex;flex-direction:column;gap:6px}.tool-layout .cat{font-size:14px}.cat{border:1px solid #e1e4e8;background:#fff;border-radius:10px;padding:12px 14px;text-align:left;font-weight:700;color:#50555d;transition:.15s}.cat:hover{background:#f0f1f3}.cat.on{background:#17191c;color:#fff;border-color:#17191c}.subcats{display:flex;flex-direction:column;gap:2px;margin:2px 4px 8px 10px}.subcat{border:0;background:transparent;color:#777;text-align:left;padding:6px 8px;border-radius:7px;font-size:12px;line-height:1.3}.subcat:hover{background:#eef0f3;color:#17191c}.subcat.active{color:#17191c;font-weight:800;background:#eef0f3}
 .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}.card{min-height:120px;background:#fff;border:1px solid #e2e5e9;border-radius:18px;padding:21px;cursor:pointer;transition:transform .16s,box-shadow .16s,border-color .16s}.card:hover{transform:translateY(-3px);box-shadow:0 10px 28px #0001;border-color:#cbd0d6}.card:focus-visible{outline:3px solid #17191c;outline-offset:2px}.card h3{margin:0 0 9px;font-size:19px}.copy{margin:0 0 10px;color:#343941;font-weight:700;line-height:1.45}.desc{margin:0 0 14px;color:#70757d;font-size:13px;line-height:1.55}.hint{font-size:12px;color:#999}.tool{display:none}.tool.on{display:block}.back{background:#eef0f3;border:0;border-radius:10px;padding:10px 14px;margin-bottom:20px}.tool-layout{display:grid;grid-template-columns:210px minmax(0,1fr);gap:24px;align-items:start}.tool-layout .cats{position:sticky;top:20px;max-height:calc(100vh - 40px);overflow-y:auto;overscroll-behavior:contain;padding-right:6px}.tool h2{font-size:30px;margin:0 0 6px}.tool p{color:#777;margin:0 0 22px}.tool-title-row{display:flex;justify-content:space-between;gap:18px;align-items:flex-start}.compare-tip{flex:1;min-width:0;max-width:560px;padding:14px 20px;border:2px dashed #bfc5cc;border-radius:12px;background:#fff;color:#3f454d;font-size:13px;line-height:1.55}.compare-tip strong{display:block;font-size:15px;color:#17191c;margin-bottom:5px}.compare-tip span{display:block;color:#6f747c}.compare-drop{min-height:500px}.compare-drop.over{outline:3px dashed #17191c;outline-offset:6px}.compare-items{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:stretch;gap:18px;margin:24px 0 18px}.compare-card{background:#fff;border:1px solid #dfe3e8;border-radius:14px;padding:14px;min-width:0;height:100%;box-sizing:border-box}.primary-tool-card{height:100%}.compare-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}.compare-head button{border:0;background:#eef0f3;border-radius:7px;width:28px;height:28px}.compare-card p{font-size:12px;color:#777;margin:0 0 10px}.primary-card-title{padding:4px 2px 14px;border-bottom:1px solid #edf0f2;margin-bottom:14px}.primary-card-title strong{display:block;font-size:18px;margin-bottom:4px}.primary-card-title span{display:block;font-size:12px;color:#777;line-height:1.5}.compare-card .panel{height:auto}.compare-card{display:flex;flex-direction:column}.compare-card>.compare-mini{flex:1}.compare-card>.compare-mini>.panel{height:auto}.mini-panel{padding:15px}.mini-panel .result{font-size:20px}.panel{background:#fff;border:1px solid #e1e4e8;border-radius:18px;padding:22px}.fields{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.field label{display:block;font-size:13px;font-weight:700;margin-bottom:7px}.field input,.field select{width:100%;border:1px solid #d8dce1;border-radius:10px;padding:12px}.actions{margin-top:17px;display:flex;gap:9px}.primary{background:#17191c;color:#fff;border:0;border-radius:10px;padding:11px 17px}.secondary{background:#eef0f3;color:#17191c;border:1px solid #cfd4da;border-radius:10px;padding:11px 17px;font-weight:800}.result{margin-top:18px;font-size:28px;font-weight:900;font-variant-numeric:tabular-nums;letter-spacing:-.02em}.sub{font-size:13px;color:#777}.live{font-variant-numeric:tabular-nums}.ticker{font-size:40px;font-weight:900}.compare-card>.notice{margin:18px 0 0}.notice{margin:0 0 18px;padding:12px 14px;background:#fff8e6;border:1px solid #f0dfb0;border-radius:10px;color:#6f5a25;font-size:13px;line-height:1.55}.footer{margin-top:45px;padding-top:22px;border-top:1px solid #ddd;color:#8a8f97;font-size:13px}
 @media(max-width:950px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:700px){.layout{grid-template-columns:1fr}.tool-layout{grid-template-columns:1fr}.tool-layout .cats{position:static}.tool-title-row{display:block}.compare-tip{margin-bottom:0;white-space:normal;max-width:none}.compare-items{margin-top:20px}.compare-items{grid-template-columns:1fr}.cats{position:static;display:block}.cat{width:100%}.subcats{margin:2px 0 8px 8px}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hero h1{font-size:32px}.fields{grid-template-columns:1fr}}@media(max-width:520px){.wrap{padding:25px 15px}.tag{display:none}.hero h1{font-size:29px}}
-</style></head>
+<style>
+.basis-list{display:grid;gap:10px;margin-top:6px}
+.basis-option{display:flex;align-items:center;gap:10px;padding:12px 14px;border:1px solid #d8dce1;border-radius:10px;background:#fff;cursor:pointer;transition:.15s}
+.basis-option:hover{border-color:#9aa3ad}
+.basis-option.selected{border-color:#111;background:#f7f7f7}
+.basis-option input{margin:0}
+</style></style></head>
 <body>
 <header><div class="top"><div class="logo" onclick="home()">돈시간</div><div class="tag">돈을 시간으로, 시간을 돈으로.</div></div></header>
 <main class="wrap">
@@ -325,7 +331,7 @@ function calc(t,button){
   else if(t==='labor'){r=won(num('salary')+num('insurance')+num('other'))+' / 월 총 인건비';}
   else if(t==='targetsales'){const m=Number(el('margin').value||0)/100;r=m?(won((num('fixed')+num('profit'))/m)+' / 목표 매출'): '공헌이익률을 확인해주세요.';}
   else r=won(num('amount'));
-  const result=calcScope?calcScope.querySelector('[id^="res-"]'):document.getElementById('res');
+  const result=calcScope?calcScope.querySelector('[id^="res"]'):document.getElementById('res');
   if(result) result.innerHTML='<div class="result">'+r+'</div>';
   calcScope=previousScope;
 }
@@ -366,7 +372,7 @@ function textCalc(t){let x=txt.value,r=x;if(t==='chars')r='글자수: '+x.length
 function live(t,target=el('box')){
   const liveTarget=target, isOff=t==='off';
   liveTarget.innerHTML='<div class="panel"><div class="fields">'+
-    (isOff?'':moneyField('salary','연봉','4천만원')+'<div class="field"><label>근무시간 기준</label><select id="basis"><option value="work">1일 8시간 기준 · 연 260일</option><option value="24">24시간 기준 · 365일 × 24시간</option><option value="hire">입사일 기준</option></select></div><div id="hireWrap" class="field" style="display:none"><label>입사일</label><input id="hireDate" type="date" value="2026-10-01"></div>')+
+    (isOff?'':moneyField('salary','연봉','4천만원')+'<div class="field"><label>근무시간 기준</label><div class="basis-list"><label class="basis-option selected"><input type="radio" name="incomeBasis" value="work" checked><span>1일 8시간 기준 · 연 260일</span></label><label class="basis-option"><input type="radio" name="incomeBasis" value="24"><span>24시간 기준 · 365일 × 24시간</span></label><label class="basis-option"><input type="radio" name="incomeBasis" value="hire"><span>입사일 기준</span></label></div></div><div id="hireWrap" class="field" style="display:none"><label>입사일</label><input id="hireDate" type="date" value="2026-10-01"></div>')+
     field('start','출근','09:00','time')+
     field('end','퇴근','18:00','time')+
     '</div><div class="actions"><button class="primary" id="startBtn">'+(isOff?'카운트 시작':'시작하기')+'</button><button type="button" class="secondary reset-btn" onclick="resetCalculator(this)">↺ 초기화</button></div>'+
@@ -375,12 +381,14 @@ function live(t,target=el('box')){
   const scope=liveTarget.closest('.compare-card')||liveTarget;
   const timerKey=(isOff?'off-':'income-')+(scope.id||Math.random().toString(36).slice(2));
   const get=id=>scope.querySelector('#'+id);
-  const basisSelect=get('basis');
+  const basisChecks=[...scope.querySelectorAll('input[name="incomeBasis"]')];
   const hireWrap=get('hireWrap');
-  if(basisSelect){
-    const syncBasis=()=>{if(hireWrap) hireWrap.style.display=basisSelect.value==='hire'?'block':'none';};
-    basisSelect.addEventListener('change',syncBasis); syncBasis();
-  }
+  const syncBasis=()=>{
+    const selected=scope.querySelector('input[name="incomeBasis"]:checked')?.value||'work';
+    if(hireWrap) hireWrap.style.display=selected==='hire'?'block':'none';
+    basisChecks.forEach(x=>{const label=x.closest('.basis-option');if(label)label.classList.toggle('selected',x.checked);});
+  };
+  basisChecks.forEach(x=>x.addEventListener('change',syncBasis)); syncBasis();
   scope.querySelector('#startBtn').onclick=()=>{
     stopCalcTimer(timerKey);
     const tick=()=>{
@@ -399,7 +407,7 @@ function live(t,target=el('box')){
       if(isOff){
         result.innerHTML='<div class="sub">퇴근까지</div><div class="ticker">'+fmt(remain)+'</div><div class="sub">남은 시간 '+remain.toFixed(4)+'초</div>';
       }else{
-        const annual=parseMoney(get('salary').value),basis=get('basis')?.value||'24';
+        const annual=parseMoney(get('salary').value),basis=scope.querySelector('input[name="incomeBasis"]:checked')?.value||'work';
         let earned=0,sec=0,detail='';
         if(basis==='work'){
           sec=annual/(260*8*3600);
