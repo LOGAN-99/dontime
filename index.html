@@ -7,7 +7,7 @@
 *{box-sizing:border-box}body{margin:0;background:#f6f7f9;color:#17191c;font-family:Arial,"Noto Sans KR",sans-serif}button,input,select{font:inherit}button{cursor:pointer}
 header{height:64px;background:#fff;border-bottom:1px solid #e7e9ed;display:flex;align-items:center}.top{max-width:1180px;width:100%;margin:auto;padding:0 22px;display:flex;justify-content:space-between;align-items:center}.logo{font-size:25px;font-weight:900;cursor:pointer}.tag{font-size:13px;color:#777}
 .wrap{max-width:1180px;margin:auto;padding:38px 22px 70px}.hero{margin-bottom:32px}.hero h1{font-size:42px;line-height:1.2;letter-spacing:-2px;margin:0 0 12px}.hero p{margin:0;color:#6f747c;font-size:16px}.layout{display:grid;grid-template-columns:190px 1fr;gap:28px;align-items:start}.cats{position:sticky;top:20px;display:flex;flex-direction:column;gap:6px}.cat{border:1px solid #e1e4e8;background:#fff;border-radius:10px;padding:12px 14px;text-align:left;font-weight:700;color:#50555d;transition:.15s}.cat:hover{background:#f0f1f3}.cat.on{background:#17191c;color:#fff;border-color:#17191c}.subcats{display:flex;flex-direction:column;gap:2px;margin:2px 4px 8px 10px}.subcat{border:0;background:transparent;color:#777;text-align:left;padding:6px 8px;border-radius:7px;font-size:12px;line-height:1.3}.subcat:hover{background:#eef0f3;color:#17191c}.subcat.active{color:#17191c;font-weight:800;background:#eef0f3}
-.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}.card{min-height:120px;background:#fff;border:1px solid #e2e5e9;border-radius:18px;padding:21px;cursor:pointer;transition:transform .16s,box-shadow .16s,border-color .16s}.card:hover{transform:translateY(-3px);box-shadow:0 10px 28px #0001;border-color:#cbd0d6}.card:focus-visible{outline:3px solid #17191c;outline-offset:2px}.card h3{margin:0 0 9px;font-size:19px}.copy{margin:0 0 16px;color:#343941;font-weight:700;line-height:1.45}.hint{font-size:12px;color:#999}.tool{display:none}.tool.on{display:block}.back{background:#eef0f3;border:0;border-radius:10px;padding:10px 14px;margin-bottom:20px}.tool h2{font-size:30px;margin:0 0 6px}.tool p{color:#777;margin:0 0 22px}.panel{background:#fff;border:1px solid #e1e4e8;border-radius:18px;padding:22px}.fields{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.field label{display:block;font-size:13px;font-weight:700;margin-bottom:7px}.field input,.field select{width:100%;border:1px solid #d8dce1;border-radius:10px;padding:12px}.actions{margin-top:17px;display:flex;gap:9px}.primary{background:#17191c;color:#fff;border:0;border-radius:10px;padding:11px 17px}.result{margin-top:18px;font-size:28px;font-weight:900}.sub{font-size:13px;color:#777}.live{font-variant-numeric:tabular-nums}.ticker{font-size:40px;font-weight:900}.footer{margin-top:45px;padding-top:22px;border-top:1px solid #ddd;color:#8a8f97;font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}.card{min-height:120px;background:#fff;border:1px solid #e2e5e9;border-radius:18px;padding:21px;cursor:pointer;transition:transform .16s,box-shadow .16s,border-color .16s}.card:hover{transform:translateY(-3px);box-shadow:0 10px 28px #0001;border-color:#cbd0d6}.card:focus-visible{outline:3px solid #17191c;outline-offset:2px}.card h3{margin:0 0 9px;font-size:19px}.copy{margin:0 0 16px;color:#343941;font-weight:700;line-height:1.45}.hint{font-size:12px;color:#999}.tool{display:none}.tool.on{display:block}.back{background:#eef0f3;border:0;border-radius:10px;padding:10px 14px;margin-bottom:20px}.tool h2{font-size:30px;margin:0 0 6px}.tool p{color:#777;margin:0 0 22px}.panel{background:#fff;border:1px solid #e1e4e8;border-radius:18px;padding:22px}.fields{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.field label{display:block;font-size:13px;font-weight:700;margin-bottom:7px}.field input,.field select{width:100%;border:1px solid #d8dce1;border-radius:10px;padding:12px}.actions{margin-top:17px;display:flex;gap:9px}.primary{background:#17191c;color:#fff;border:0;border-radius:10px;padding:11px 17px}.result{margin-top:18px;font-size:28px;font-weight:900}.sub{font-size:13px;color:#777}.live{font-variant-numeric:tabular-nums}.ticker{font-size:40px;font-weight:900}.notice{margin:0 0 18px;padding:12px 14px;background:#fff8e6;border:1px solid #f0dfb0;border-radius:10px;color:#6f5a25;font-size:13px;line-height:1.55}.footer{margin-top:45px;padding-top:22px;border-top:1px solid #ddd;color:#8a8f97;font-size:13px}
 @media(max-width:950px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:700px){.layout{grid-template-columns:1fr}.cats{position:static;display:block}.cat{width:100%}.subcats{margin:2px 0 8px 8px}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hero h1{font-size:32px}.fields{grid-template-columns:1fr}}@media(max-width:520px){.wrap{padding:25px 15px}.tag{display:none}.hero h1{font-size:29px}}
 </style></head>
 <body>
@@ -57,11 +57,16 @@ function home(){clearInterval(timer);tool.classList.remove('on');document.queryS
 function compareText(){const a=el('txt1').value,b=el('txt2').value;r.innerHTML='';el('res').innerHTML='<div class="result">'+(a===b?'두 텍스트가 같습니다.':'두 텍스트가 다릅니다.')+'</div>';}
 render();scrollTo(0,0)}
 function field(id,label,val,type='number',placeholder=''){return '<div class="field"><label>'+label+'</label><input id="'+id+'" type="'+type+'" value="'+val+'" '+(placeholder?'placeholder="'+placeholder+'"':'')+'></div>'}
+function serviceNotice(t){
+  const legal=['net','weekly','overtime','leave','severance','minimum','ltv','dti','dsr','mortgage','loan','rent','acq','broker','homecash','deposit','saving','goal','yearend','vat','withholding','incomeTax','capitalgain','gift','installment','cardfee','fertility','ovulation','pregnancy','due','bmr','calorie','carloan'];
+  if(legal.includes(t)) return '<div class="notice">※ 이 계산기는 입력한 기준값을 바탕으로 계산하는 참고용 도구입니다. 실제 금액은 적용 시점의 법령·제도·개인 조건에 따라 달라질 수 있습니다. 최신 기준을 확인한 후 이용해주세요.</div>';
+  return '';
+}
 function openTool(t,title,copy){
   document.querySelector('#home').style.display='none';
   clearInterval(timer);
   tool.classList.add('on');
-  tool.innerHTML='<button class="back" onclick="home()">← 목록으로</button><h2>'+title+'</h2><p>'+copy+'</p><div id="box"></div>';
+  tool.innerHTML='<button class="back" onclick="home()">← 목록으로</button><h2>'+title+'</h2><p>'+copy+'</p>'+serviceNotice(t)+'<div id="box"></div>';
   if(t==='income'||t==='off') live(t);
   else if(['chars','words','lines','spaces','newlines','case','striphtml','sorttext'].includes(t)) textTool(t);
   else form(t);
@@ -131,10 +136,10 @@ function form(t){
   else if(t==='chars'||t==='words'||t==='lines'||t==='spaces'||t==='newlines'||t==='case'||t==='striphtml'||t==='sorttext') return textTool(t);
   else if(t==='diff') return textCompareTool();
   else if(t==='unitconv') s=field('value','변환할 값',1)+field('from','현재 단위','km','text')+field('to','변환할 단위','m','text');
-  else if(t==='percent') s=field('a','기준값',100)+field('b','변화값',20);
-  else if(t==='ratio') s=field('a','첫 번째 값',2)+field('b','두 번째 값',3)+field('c','기준값',10);
+  else if(t==='percent') s=field('a','기준 수치',100)+field('b','변화 수치',20);
+  else if(t==='ratio') s=field('a','첫 번째 수치',2)+field('b','두 번째 수치',3)+field('c','계산 기준',10);
   else if(t==='mean') s=field('v','숫자(쉼표 구분)','10,20,30','text');
-  else if(t==='weighted') s=field('v','값(쉼표 구분)','80,90,70','text')+field('w','가중치(쉼표 구분)','20,50,30','text');
+  else if(t==='weighted') s=field('v','점수·수치(쉼표 구분)','80,90,70','text')+field('w','가중치(쉼표 구분)','20,50,30','text');
   else if(t==='mpg') s=field('distance','주행거리(km)',500)+moneyField('fuelcost','주유비','8만원');
   else if(t==='travel') s=moneyField('transport','교통비','20만원')+moneyField('stay','숙박비','30만원')+moneyField('food','식비','20만원')+moneyField('etc','기타비용','10만원');
   else if(t==='fx') s=field('v','외화 금액',100)+field('rate','적용 환율(원)',1400);
