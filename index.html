@@ -51,7 +51,11 @@ const percentField=(id,label,val)=>field(id,label,val,"number");
 
 
 function render(){cats.innerHTML=Object.keys(data).map(c=>'<div><button class="cat '+(c===current?'on':'')+'" onclick="current=\''+c+'\';render()">'+c+'</button><div class="subcats">'+data[c].map(x=>'<button class="subcat" onclick="event.stopPropagation();current=\''+c+'\';openTool(\''+x[2]+'\',\''+x[0]+'\',\''+x[1]+'\')">'+x[0]+'</button>').join('')+'</div></div>').join('');cards.innerHTML=data[current].map(x=>'<div class="card" tabindex="0" onclick="openTool(\''+x[2]+'\',\''+x[0]+'\',\''+x[1]+'\')" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();openTool(\''+x[2]+'\',\''+x[0]+'\',\''+x[1]+'\')}"><h3>'+x[0]+'</h3><p class="copy">'+x[1]+'</p><span class="hint">카드 전체 클릭 → 계산하기</span></div>').join('')}
-function home(){clearInterval(timer);tool.classList.remove('on');document.querySelector('#home').style.display='block';render();scrollTo(0,0)}
+function home(){clearInterval(timer);tool.classList.remove('on');document.querySelector('#home').style.display='block';function textCompareTool(){
+  box.innerHTML='<div class="panel"><div class="fields"><div class="field"><label>원문</label><textarea id="txt1" style="width:100%;min-height:160px;border:1px solid #d8dce1;border-radius:10px;padding:12px"></textarea></div><div class="field"><label>비교할 문장</label><textarea id="txt2" style="width:100%;min-height:160px;border:1px solid #d8dce1;border-radius:10px;padding:12px"></textarea></div></div><div class="actions"><button class="primary" onclick="compareText()">비교하기</button></div><div id="res"></div></div>';
+}
+function compareText(){const a=el('txt1').value,b=el('txt2').value;r.innerHTML='';el('res').innerHTML='<div class="result">'+(a===b?'두 텍스트가 같습니다.':'두 텍스트가 다릅니다.')+'</div>';}
+render();scrollTo(0,0)}
 function field(id,label,val,type='number',placeholder=''){return '<div class="field"><label>'+label+'</label><input id="'+id+'" type="'+type+'" value="'+val+'" '+(placeholder?'placeholder="'+placeholder+'"':'')+'></div>'}
 function openTool(t,title,copy){
   document.querySelector('#home').style.display='none';
@@ -66,20 +70,39 @@ function form(t){
   let s='';
   if(t==='salary') s='<div class="field"><label>계산 방향</label><select id="dir"><option value="a">연봉 → 월급</option><option value="m">월급 → 연봉</option></select></div>'+moneyField('v','금액','4천만원');
   else if(t==='hourly') s=moneyField('monthly','월급','300만원')+field('hours','월 근무시간',209);
-  else if(t==='net') s=moneyField('annual','연봉','4천만원')+moneyField('bonus','상여금','0원')+field('tax','예상 공제율(%)',10);
-  else if(t==='weekly') s=field('days','주 소정근로일수',5)+field('hours','주 근로시간',40)+moneyField('hourly','시급','10,320원');
-  else if(t==='overtime') s=moneyField('hourly','통상시급','10,320원')+field('hours','연장근로시간',10)+field('night','야간근로시간',0)+field('rate','가산율(%)',50);
+  else if(t==='net') s=moneyField('annual','연봉','4천만원')+moneyField('bonus','상여금','0원')+percentField('tax','예상 공제율(%)',10);
+  else if(t==='weekly') s=field('days','주 소정근로일수',5)+field('hours','주 근로시간',40)+moneyField('hourly','시급','10,320원')+field('weeks','계산 주수',1);
+  else if(t==='overtime') s=moneyField('hourly','통상시급','10,320원')+field('hours','연장근로시간',10)+field('night','야간근로시간',0)+percentField('rate','연장 가산율(%)',50)+percentField('nightRate','야간 가산율(%)',50);
   else if(t==='leave') s=moneyField('hourly','통상시급','10,320원')+field('days','미사용 연차일수',10)+field('hours','1일 소정근로시간',8);
-  else if(t==='severance') s=moneyField('daily','1일 평균임금','100,000원')+field('days','계속근로일수',365);
+  else if(t==='severance') s=moneyField('daily','1일 평균임금','100,000원')+field('days','계속근로일수',365)+field('daysPerYear','연간 퇴직금 산정일수',30);
   else if(t==='minimum') s=moneyField('hourly','내 시급','10,320원')+moneyField('standard','적용 최저시급','10,320원');
   else if(t==='worktime') s=field('start','출근','09:00','time')+field('end','퇴근','18:00','time')+field('break','휴게시간(분)',60);
+
   else if(t==='ltv') s=moneyField('price','주택가격','5억원')+percentField('rate','적용 LTV(%)',70);
   else if(t==='dti') s=moneyField('income','연소득','5천만원')+moneyField('debt','연간 원리금 상환액','1,500만원')+percentField('rate','적용 DTI 한도(%)',60);
   else if(t==='dsr') s=moneyField('income','연소득','5천만원')+moneyField('debt','연간 원리금 상환액','1,500만원')+percentField('rate','적용 DSR 한도(%)',40);
   else if(['loan','mortgage','carloan'].includes(t)) s=moneyField('p',t==='carloan'?'차량가격':'대출원금','3억원')+field('rate','연이율(%)',4)+field('years','대출기간(년)',30);
-  else if(t==='compound') s=moneyField('p','초기 투자금','1천만원')+field('rate','연 수익률(%)',5)+field('years','투자기간(년)',10);
-  else if(t==='return') s=moneyField('buy','매수금액','1만원')+moneyField('sell','현재금액','1만2천원')+field('qty','보유 수량',100);
+  else if(t==='rent') s=moneyField('deposit','전세보증금','2억원')+moneyField('monthly','월세','50만원')+field('rate','환산 적용률(%)',5);
+  else if(t==='acq') s=moneyField('price','취득가액','5억원')+percentField('rate','적용 취득세율(%)',1.1);
+  else if(t==='broker') s=moneyField('price','거래금액','5억원')+percentField('rate','적용 중개보수율(%)',0.4);
+  else if(t==='homecash') s=moneyField('price','주택가격','5억원')+percentField('loanRate','대출비율(%)',70)+moneyField('extra','취득·이사 등 부대비용','1천만원');
+
+  else if(t==='compound') s=moneyField('p','초기 투자금','1천만원')+field('rate','연 수익률(%)',5)+field('years','투자기간(년)',10)+field('add','추가 납입액(연)',0);
+  else if(t==='deposit') s=moneyField('p','예치금','1천만원')+field('rate','연 이율(%)',3)+field('years','예치기간(년)',1)+percentField('tax','이자소득 원천징수율(%)',15.4);
+  else if(t==='saving') s=moneyField('monthly','월 납입액','30만원')+field('rate','연 이율(%)',3)+field('months','납입개월',12)+percentField('tax','이자소득 원천징수율(%)',15.4);
+  else if(t==='goal') s=moneyField('target','목표금액','1억원')+moneyField('current','현재 보유금액','0원')+field('months','남은 개월',60)+field('rate','연 수익률(%)',3);
+  else if(t==='return') s=moneyField('buy','매수단가','1만원')+moneyField('sell','현재단가','1만2천원')+field('qty','보유 수량',100)+moneyField('fee','매매비용','0원');
   else if(t==='average') s=moneyField('p1','1차 매수가','1만원')+field('q1','1차 매수수량',10)+moneyField('p2','2차 매수가','8천원')+field('q2','2차 매수수량',20);
+  else if(t==='dividend') s=field('qty','보유 주식수',100)+moneyField('dps','주당 배당금','500원')+percentField('tax','배당소득 원천징수율(%)',15.4);
+  else if(t==='inflation') s=moneyField('money','현재 금액','100만원')+field('rate','연 물가상승률(%)',2)+field('years','기간(년)',10);
+
+  else if(t==='yearend') s=moneyField('salary','총급여','4천만원')+moneyField('deduct','소득공제 대상액','500만원')+moneyField('credit','세액공제액','50만원')+percentField('tax','적용 세율(%)',15);
+  else if(t==='vat') s=moneyField('price','공급가액','10만원')+percentField('rate','부가세율(%)',10);
+  else if(t==='withholding') s=moneyField('gross','지급액','100만원')+percentField('rate','원천징수율(%)',3.3);
+  else if(t==='incomeTax') s=moneyField('income','과세표준','5천만원')+percentField('rate','적용 세율(%)',15)+moneyField('credit','세액공제','0원');
+  else if(t==='capitalgain') s=moneyField('buy','취득가액','3억원')+moneyField('sell','양도가액','4억원')+moneyField('cost','필요경비','1천만원')+percentField('rate','적용 세율(%)',20);
+  else if(t==='gift') s=moneyField('gift','증여재산가액','5천만원')+moneyField('deduct','공제액','0원')+percentField('rate','적용 세율(%)',10);
+
   else if(t==='discount') s=moneyField('price','정가','5만원')+percentField('rate','할인율(%)',20);
   else if(t==='reverseDiscount') s=moneyField('original','정가','5만원')+moneyField('sale','실제 판매가','4만원');
   else if(t==='unit') s=moneyField('price','총 가격','3만원')+field('qty','총 수량',10);
@@ -87,52 +110,108 @@ function form(t){
   else if(t==='margin') s=moneyField('sale','판매가격','3만원')+moneyField('cost','원가','2만원');
   else if(t==='breakeven') s=moneyField('fixed','고정비','100만원')+moneyField('price','판매가격','3만원')+moneyField('cost','개당 변동비','1만원');
   else if(t==='cardfee') s=moneyField('sale','결제금액','10만원')+percentField('rate','카드 수수료율(%)',2.5);
-  else if(t==='mean') s=field('v','숫자(쉼표 구분)','10,20,30','text');
-  else if(t==='fx') s=field('v','외화 금액',100)+field('rate','적용 환율(원)',1400);
+
+  else if(t==='fertility'||t==='ovulation'||t==='pregnancy'||t==='due') s=field('date','마지막 생리 시작일',new Date().toISOString().slice(0,10),'date')+field('cycle','평균 생리주기(일)',28);
   else if(t==='bmi') s=field('h','키(cm)',170)+field('w','몸무게(kg)',65);
-  else if(['age','dday','discharge','due'].includes(t)) s=field('date','기준 날짜',new Date().toISOString().slice(0,10),'date');
+  else if(t==='bmr') s=field('age','나이',30)+field('h','키(cm)',170)+field('w','몸무게(kg)',65)+field('sex','성별','남','text');
+  else if(t==='calorie') s=field('weight','체중(kg)',65)+field('minutes','운동시간(분)',30)+field('met','운동 강도 MET',6);
+
+  else if(t==='off') s=field('start','출근','09:00','time')+field('end','퇴근','18:00','time')+moneyField('salary','연봉','4천만원');
+  else if(t==='discharge'||t==='dday') s=field('date','목표 날짜',new Date().toISOString().slice(0,10),'date');
   else if(t==='datediff') s=field('date1','시작일',new Date().toISOString().slice(0,10),'date')+field('date2','종료일',new Date().toISOString().slice(0,10),'date');
-  else if(t==='fuel'||t==='kmcost') s=field('distance','주행거리(km)',1000)+field('eff','연비(km/L)',12)+moneyField('gas','휘발유 가격(원/L)','1,700원');
-  else if(t==='ev') s=field('battery','배터리 용량(kWh)',60)+field('rate','충전단가(원/kWh)',300);
-  else if(t==='chars'||t==='words'||t==='lines'||t==='spaces'||t==='newlines'||t==='case'||t==='striphtml'||t==='sorttext') textTool(t);
-  else s=field('amount','계산할 금액','10만원');
-  if(!['chars','words','lines','spaces','newlines','case','striphtml','sorttext'].includes(t))
-    box.innerHTML='<div class="panel"><div class="fields">'+s+'</div><div class="actions"><button class="primary" onclick="calc(\''+t+'\')">계산하기</button></div><div id="res"></div></div>';
+  else if(t==='workdays') s=field('date1','시작일',new Date().toISOString().slice(0,10),'date')+field('date2','종료일',new Date().toISOString().slice(0,10),'date');
+  else if(t==='timediff') s=field('time1','시작시간','09:00','time')+field('time2','종료시간','18:00','time');
+  else if(t==='age') s=field('date','생년월일','1990-01-01','date');
+  else if(t==='yearprogress') s=field('date','기준일',new Date().toISOString().slice(0,10),'date');
+
+  else if(t==='carloan') s=moneyField('p','차량가격','3천만원')+field('rate','할부 연이율(%)',5)+field('years','할부기간(년)',5);
+  else if(t==='fuel'||t==='kmcost') s=field('distance','주행거리(km)',1000)+field('eff','연비(km/L)',12)+moneyField('gas','연료가격(원/L)','1,700원');
+  else if(t==='ev') s=field('battery','배터리 용량(kWh)',60)+field('rate','충전단가(원/kWh)',300)+field('eff','충전 손실 포함 사용전력 비율(%)',100);
+
+  else if(t==='chars'||t==='words'||t==='lines'||t==='spaces'||t==='newlines'||t==='case'||t==='striphtml'||t==='sorttext') return textTool(t);
+  else if(t==='diff') return textCompareTool();
+  else if(t==='unitconv') s=field('value','변환할 값',1)+field('from','현재 단위','km','text')+field('to','변환할 단위','m','text');
+  else if(t==='percent') s=field('a','기준값',100)+field('b','변화값',20);
+  else if(t==='ratio') s=field('a','첫 번째 값',2)+field('b','두 번째 값',3)+field('c','기준값',10);
+  else if(t==='mean') s=field('v','숫자(쉼표 구분)','10,20,30','text');
+  else if(t==='weighted') s=field('v','값(쉼표 구분)','80,90,70','text')+field('w','가중치(쉼표 구분)','20,50,30','text');
+  else if(t==='mpg') s=field('distance','주행거리(km)',500)+moneyField('fuelcost','주유비','8만원');
+  else if(t==='travel') s=moneyField('transport','교통비','20만원')+moneyField('stay','숙박비','30만원')+moneyField('food','식비','20만원')+moneyField('etc','기타비용','10만원');
+  else if(t==='fx') s=field('v','외화 금액',100)+field('rate','적용 환율(원)',1400);
+
+  else if(t==='selling') s=moneyField('cost','원가','1만원')+percentField('margin','목표 마진율(%)',30)+percentField('fee','판매수수료율(%)',3);
+  else if(t==='costrate') s=moneyField('cost','원가','1만원')+moneyField('sales','매출','3만원');
+  else if(t==='platformfee') s=moneyField('sales','판매금액','10만원')+percentField('rate','플랫폼 수수료율(%)',10);
+  else if(t==='labor') s=moneyField('salary','월급','300만원')+moneyField('insurance','사업주 부담 보험료','30만원')+moneyField('other','기타 인건비','10만원');
+  else if(t==='targetsales') s=moneyField('fixed','고정비','500만원')+moneyField('profit','목표 순이익','300만원')+percentField('margin','공헌이익률(%)',30);
+  else s=moneyField('amount','계산할 금액','10만원');
+
+  box.innerHTML='<div class="panel"><div class="fields">'+s+'</div><div class="actions"><button class="primary" onclick="calc(\''+t+'\')">계산하기</button></div><div id="res"></div></div>';
 }
 function calc(t){
   let r='';
   if(t==='salary'){const v=num('v');r=el('dir').value==='a'?won(v/12)+' / 월':'연봉 '+won(v*12);}
   else if(t==='hourly'){const h=Number(el('hours').value||0);r=h?won(num('monthly')/h)+' / 시간':'월 근무시간을 확인해주세요.';}
   else if(t==='net'){const gross=num('annual')+num('bonus'),tax=Number(el('tax').value||0);r=won(gross*(1-tax/100))+' / 예상 실수령';}
-  else if(t==='weekly'){r=won(num('hourly')*Number(el('hours').value||0))+' / 주';}
-  else if(t==='overtime'){const base=num('hourly'),h=Number(el('hours').value||0),n=Number(el('night').value||0),rate=Number(el('rate').value||0)/100;r=won(base*h*(1+rate)+base*n*rate)+' / 예상 수당';}
+  else if(t==='weekly'){r=won(num('hourly')*Number(el('hours').value||0)*Number(el('weeks').value||1))+' / 계산기간';}
+  else if(t==='overtime'){const base=num('hourly'),h=Number(el('hours').value||0),n=Number(el('night').value||0);r=won(base*h*(1+Number(el('rate').value||0)/100)+base*n*(Number(el('nightRate').value||0)/100))+' / 예상 수당';}
   else if(t==='leave'){r=won(num('hourly')*Number(el('days').value||0)*Number(el('hours').value||0));}
-  else if(t==='severance'){r=won(num('daily')*Number(el('days').value||0)/365*30);}
-  else if(t==='minimum'){const mine=num('hourly'),std=num('standard');r=mine>=std?'최저시급 기준 이상':'최저시급 기준 미달';}
+  else if(t==='severance'){r=won(num('daily')*Number(el('days').value||0)/365*Number(el('daysPerYear').value||30));}
+  else if(t==='minimum'){r=num('hourly')>=num('standard')?'최저시급 기준 이상':'최저시급 기준 미달';}
   else if(t==='worktime'){let a=el('start').value.split(':').map(Number),b=el('end').value.split(':').map(Number),mins=(b[0]*60+b[1])-(a[0]*60+a[1])-Number(el('break').value||0);if(mins<0)mins+=1440;r=Math.floor(mins/60)+'시간 '+mins%60+'분';}
   else if(t==='ltv'){r=won(num('price')*Number(el('rate').value||0)/100)+' / 최대 대출 가능액';}
-  else if(t==='dti'){const income=num('income'),debt=num('debt');r=income?(debt/income*100).toFixed(2)+'%':'연소득을 확인해주세요.';}
-  else if(t==='dsr'){const income=num('income'),debt=num('debt');r=income?(debt/income*100).toFixed(2)+'%':'연소득을 확인해주세요.';}
+  else if(t==='dti'||t==='dsr'){const income=num('income'),debt=num('debt');r=income?(debt/income*100).toFixed(2)+'%':'연소득을 확인해주세요.';}
   else if(['loan','mortgage','carloan'].includes(t)){const m=Number(el('years').value||0)*12,r0=Number(el('rate').value||0)/1200,p=num('p'),pay=r0?p*r0*Math.pow(1+r0,m)/(Math.pow(1+r0,m)-1):p/m;r=won(pay)+' / 월';}
-  else if(t==='compound'){const p=num('p'),rate=Number(el('rate').value||0)/100,y=Number(el('years').value||0);r=won(p*Math.pow(1+rate,y))+' / 만기 예상금액';}
-  else if(t==='return'){const buy=num('buy'),sell=num('sell'),qty=Number(el('qty').value||0);r=won((sell-buy)*qty)+' / 평가손익 ('+(buy?(sell/buy*100-100).toFixed(2):0)+'%)';}
+  else if(t==='rent'){r=won(num('deposit')*Number(el('rate').value||0)/100/12+num('monthly'))+' / 환산 월 부담액';}
+  else if(t==='acq'||t==='broker'){r=won(num('price')*Number(el('rate').value||0)/100);}
+  else if(t==='homecash'){r=won(num('price')*(1-Number(el('loanRate').value||0)/100)+num('extra'))+' / 준비 현금';}
+  else if(t==='compound'){const p=num('p'),rate=Number(el('rate').value||0)/100,y=Number(el('years').value||0),add=num('add');r=won(p*Math.pow(1+rate,y)+add*((Math.pow(1+rate,y)-1)/rate||y))+' / 만기 예상금액';}
+  else if(t==='deposit'){const p=num('p'),rate=Number(el('rate').value||0)/100,y=Number(el('years').value||0),gross=p*Math.pow(1+rate,y)-p,tax=gross*Number(el('tax').value||0)/100;r=won(p+gross-tax)+' / 세후 예상금액';}
+  else if(t==='saving'){const p=num('monthly'),m=Number(el('months').value||0),r0=Number(el('rate').value||0)/1200;const gross=p*m*(m+1)/2*r0; r=won(p*m+gross-gross*Number(el('tax').value||0)/100)+' / 세후 예상금액';}
+  else if(t==='goal'){const target=num('target')-num('current'),m=Number(el('months').value||0),r0=Number(el('rate').value||0)/1200;const pay=r0?target*r0*Math.pow(1+r0,m)/(Math.pow(1+r0,m)-1):target/m;r=won(pay)+' / 월 필요금액';}
+  else if(t==='return'){const buy=num('buy'),sell=num('sell'),qty=Number(el('qty').value||0);r=won((sell-buy)*qty-num('fee'))+' / 평가손익 ('+(buy?(sell/buy*100-100).toFixed(2):0)+'%)';}
   else if(t==='average'){const q1=Number(el('q1').value||0),q2=Number(el('q2').value||0);r=q1+q2?won((num('p1')*q1+num('p2')*q2)/(q1+q2)):'매수수량을 확인해주세요.';}
+  else if(t==='dividend'){const gross=Number(el('qty').value||0)*num('dps');r=won(gross*(1-Number(el('tax').value||0)/100))+' / 연간 세후 배당금';}
+  else if(t==='inflation'){r=won(num('money')/Math.pow(1+Number(el('rate').value||0)/100,Number(el('years').value||0)))+' / 미래 구매력 기준 현재가치';}
+  else if(t==='yearend'){const base=Math.max(0,num('salary')-num('deduct')),tax=base*Number(el('tax').value||0)/100;r=won(Math.max(0,num('credit')-tax))+' / 단순 참고 환급액';}
+  else if(t==='vat'){r=won(num('price')*Number(el('rate').value||0)/100)+' / 부가세';}
+  else if(t==='withholding'){const gross=num('gross'),tax=gross*Number(el('rate').value||0)/100;r=won(gross-tax)+' / 실수령액';}
+  else if(t==='incomeTax'){r=won(Math.max(0,num('income')*Number(el('rate').value||0)/100-num('credit')))+' / 단순 계산 세액';}
+  else if(t==='capitalgain'){const gain=num('sell')-num('buy')-num('cost');r=won(Math.max(0,gain)*Number(el('rate').value||0)/100)+' / 단순 계산 세액';}
+  else if(t==='gift'){r=won(Math.max(0,num('gift')-num('deduct'))*Number(el('rate').value||0)/100)+' / 단순 계산 세액';}
   else if(t==='discount'){r=won(num('price')*(1-Number(el('rate').value||0)/100))+' / 할인가';}
-  else if(t==='reverseDiscount'){const o=num('original'),p=num('sale');r=o?(100-(p/o*100)).toFixed(2)+'% 할인':'정가를 확인해주세요.';}
+  else if(t==='reverseDiscount'){const o=num('original'),p=num('sale');r=o?(100-p/o*100).toFixed(2)+'% 할인':'정가를 확인해주세요.';}
   else if(t==='unit'){const q=Number(el('qty').value||0);r=q?won(num('price')/q)+' / 개':'수량을 확인해주세요.';}
   else if(t==='installment'){const p=num('price'),m=Number(el('months').value||0),rate=Number(el('rate').value||0)/1200;const pay=rate?p*rate*Math.pow(1+rate,m)/(Math.pow(1+rate,m)-1):p/m;r=won(pay)+' / 월';}
   else if(t==='margin'){const sale=num('sale'),cost=num('cost');r=sale?((sale-cost)/sale*100).toFixed(2)+'% / 마진율':'판매가격을 확인해주세요.';}
   else if(t==='breakeven'){const fixed=num('fixed'),sale=num('price'),cost=num('cost');r=sale>cost?Math.ceil(fixed/(sale-cost))+'개 / 손익분기점':'판매가를 확인해주세요.';}
-  else if(t==='cardfee'){const sale=num('sale'),fee=Number(el('rate').value||0);r=won(sale*fee/100)+' / 수수료';}
-  else if(t==='mean'){const a=String(el('v').value).split(',').map(Number).filter(Number.isFinite);r=a.length?(a.reduce((x,y)=>x+y,0)/a.length).toFixed(2):'숫자를 입력해주세요.';}
-  else if(t==='fx'){r=won(Number(el('v').value||0)*Number(el('rate').value||0));}
+  else if(t==='cardfee'){r=won(num('sale')*Number(el('rate').value||0)/100)+' / 수수료';}
+  else if(['fertility','ovulation','pregnancy','due'].includes(t)){const d=new Date(el('date').value),cycle=Number(el('cycle').value||28),ov=new Date(d);ov.setDate(ov.getDate()+cycle-14);if(t==='ovulation')r=ov.toLocaleDateString('ko-KR');else if(t==='due'){const x=new Date(d);x.setDate(x.getDate()+280);r=x.toLocaleDateString('ko-KR');}else if(t==='pregnancy'){r=Math.floor((new Date()-d)/604800000)+'주차';}else{const x=new Date(ov);x.setDate(x.getDate()-5);const y=new Date(ov);y.setDate(y.getDate()+1);r=x.toLocaleDateString('ko-KR')+' ~ '+y.toLocaleDateString('ko-KR');}}
   else if(t==='bmi'){const h=Number(el('h').value||0),w=Number(el('w').value||0);r=h?(w/Math.pow(h/100,2)).toFixed(1):'키를 확인해주세요.';}
+  else if(t==='bmr'){const age=Number(el('age').value||0),h=Number(el('h').value||0),w=Number(el('w').value||0);r=(10*w+6.25*h-5*age+(String(el('sex').value).includes('여')?-161:5)).toFixed(0)+' kcal/일';}
+  else if(t==='calorie'){r=(Number(el('weight').value||0)*Number(el('minutes').value||0)*Number(el('met').value||0)*3.5/200).toFixed(0)+' kcal';}
+  else if(t==='off'){let a=el('start').value.split(':').map(Number),b=el('end').value.split(':').map(Number),work=(b[0]*60+b[1])-(a[0]*60+a[1]);if(work<0)work+=1440;r=Math.floor(work/60)+'시간 '+work%60+'분';}
+  else if(t==='discharge'||t==='dday'){const days=Math.ceil((new Date(el('date').value)-new Date())/86400000);r=days>=0?'D-'+days:'D+'+Math.abs(days);}
+  else if(t==='datediff'||t==='workdays'){const a=new Date(el('date1').value),b=new Date(el('date2').value);let n=0;for(let d=new Date(a);d<=b;d.setDate(d.getDate()+1)){if(t==='datediff'||![0,6].includes(d.getDay()))n++;}r=n+(t==='workdays'?' 근무일':'일');}
+  else if(t==='timediff'){let a=el('time1').value.split(':').map(Number),b=el('time2').value.split(':').map(Number),m=(b[0]*60+b[1])-(a[0]*60+a[1]);if(m<0)m+=1440;r=Math.floor(m/60)+'시간 '+m%60+'분';}
   else if(t==='age'){const d=new Date(el('date').value),n=new Date();let a=n.getFullYear()-d.getFullYear();if(n<new Date(n.getFullYear(),d.getMonth(),d.getDate()))a--;r=a+'세';}
-  else if(t==='dday'||t==='discharge'||t==='due'){const d=new Date(el('date').value),days=Math.ceil((d-new Date())/86400000);r=days>=0?'D-'+days:'D+'+Math.abs(days);}
-  else if(t==='datediff'){r=Math.round(Math.abs(new Date(el('date2').value)-new Date(el('date1').value))/86400000)+'일';}
+  else if(t==='yearprogress'){const d=new Date(el('date').value),y=d.getFullYear(),start=new Date(y,0,1),end=new Date(y+1,0,1);r=((d-start)/(end-start)*100).toFixed(2)+'%';}
   else if(t==='fuel'||t==='kmcost'){const d=Number(el('distance').value||0),eff=Number(el('eff').value||0);r=eff?won(d/eff*num('gas')):'연비를 확인해주세요.';}
-  else if(t==='ev'){r=won(Number(el('battery').value||0)*Number(el('rate').value||0));}
-  else {r=won(num('amount'));}
+  else if(t==='ev'){r=won(Number(el('battery').value||0)*Number(el('rate').value||0)*Number(el('eff').value||100)/100);}
+  else if(t==='unitconv'){const v=Number(el('value').value||0),from=el('from').value.trim().toLowerCase(),to=el('to').value.trim().toLowerCase();const map={mm:.001,cm:.01,m:1,km:1000,g:.001,kg:1,t:1000};r=map[from]&&map[to]?((v*map[from]/map[to]).toLocaleString('ko-KR')):'지원 단위를 확인해주세요.';}
+  else if(t==='percent'){const a=Number(el('a').value||0),b=Number(el('b').value||0);r=a?(b/a*100).toFixed(2)+'%':'기준값을 확인해주세요.';}
+  else if(t==='ratio'){const a=Number(el('a').value||0),b=Number(el('b').value||0),c=Number(el('c').value||0);r=a?((b/a)*c).toLocaleString('ko-KR'):'첫 번째 값을 확인해주세요.';}
+  else if(t==='mean'){const a=String(el('v').value).split(',').map(Number).filter(Number.isFinite);r=a.length?(a.reduce((x,y)=>x+y,0)/a.length).toFixed(2):'숫자를 입력해주세요.';}
+  else if(t==='weighted'){const v=el('v').value.split(',').map(Number),w=el('w').value.split(',').map(Number),sum=w.reduce((a,b)=>a+b,0);r=sum?(v.reduce((a,x,i)=>a+x*(w[i]||0),0)/sum).toFixed(2):'가중치를 확인해주세요.';}
+  else if(t==='mpg'){r=won(num('fuelcost'))+' / 입력한 주행 기준 연료비';}
+  else if(t==='travel'){r=won(num('transport')+num('stay')+num('food')+num('etc'))+' / 총 여행경비';}
+  else if(t==='fx'){r=won(Number(el('v').value||0)*Number(el('rate').value||0));}
+  else if(t==='selling'){const cost=num('cost'),m=Number(el('margin').value||0)/100,f=Number(el('fee').value||0)/100;r=won(cost/(1-m-f))+' / 권장 판매가';}
+  else if(t==='costrate'){const sales=num('sales');r=sales?(num('cost')/sales*100).toFixed(2)+'% / 원가율':'매출을 확인해주세요.';}
+  else if(t==='platformfee'){r=won(num('sales')*Number(el('rate').value||0)/100)+' / 플랫폼 수수료';}
+  else if(t==='labor'){r=won(num('salary')+num('insurance')+num('other'))+' / 월 총 인건비';}
+  else if(t==='targetsales'){const m=Number(el('margin').value||0)/100;r=m?(won((num('fixed')+num('profit'))/m)+' / 목표 매출'): '공헌이익률을 확인해주세요.';}
+  else r=won(num('amount'));
   el('res').innerHTML='<div class="result">'+r+'</div>';
 }
 function textTool(t){box.innerHTML='<div class="panel"><div class="field"><label>텍스트</label><textarea id="txt" style="width:100%;min-height:180px;border:1px solid #d8dce1;border-radius:10px;padding:12px"></textarea></div><div class="actions"><button class="primary" onclick="textCalc(\''+t+'\')">처리하기</button></div><div id="res"></div></div>'}
