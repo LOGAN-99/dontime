@@ -365,7 +365,7 @@ function textCalc(t){let x=txt.value,r=x;if(t==='chars')r='글자수: '+x.length
 function live(t,target=el('box')){
   const liveTarget=target, isOff=t==='off';
   liveTarget.innerHTML='<div class="panel"><div class="fields">'+
-    (isOff?'':moneyField('salary','연봉','4천만원')+'<div class="field"><label>근무시간 기준</label><select id="basis"><option value="24">24시간 기준 · 365일 × 24시간</option><option value="hire">입사일 기준</option></select></div><div id="hireWrap" class="field" style="display:none"><label>입사일</label><input id="hireDate" type="date" value="2026-10-01"></div>')+
+    (isOff?'':moneyField('salary','연봉','4천만원')+'<div class="field"><label>근무시간 기준</label><select id="basis"><option value="work">1일 8시간 기준 · 연 260일</option><option value="24">24시간 기준 · 365일 × 24시간</option><option value="hire">입사일 기준</option></select></div><div id="hireWrap" class="field" style="display:none"><label>입사일</label><input id="hireDate" type="date" value="2026-10-01"></div>')+
     field('start','출근','09:00','time')+
     field('end','퇴근','18:00','time')+
     '</div><div class="actions"><button class="primary" id="startBtn">'+(isOff?'카운트 시작':'시작하기')+'</button><button type="button" class="secondary reset-btn" onclick="resetCalculator(this)">↺ 초기화</button></div>'+
@@ -400,7 +400,11 @@ function live(t,target=el('box')){
       }else{
         const annual=parseMoney(get('salary').value),basis=get('basis')?.value||'24';
         let earned=0,sec=0,detail='';
-        if(basis==='hire'){
+        if(basis==='work'){
+          sec=annual/(260*8*3600);
+          earned=elapsed*sec;
+          detail='1일 8시간 기준 · 연 260일 · 경과 '+elapsed.toFixed(4)+'초 · 초당 '+sec.toFixed(4)+'원';
+        }else if(basis==='hire'){
           const hd=new Date(get('hireDate').value+'T00:00:00');
           const since=Math.max(0,(now-hd)/1000);
           sec=annual/(365*24*3600);
