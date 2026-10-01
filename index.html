@@ -33,7 +33,26 @@ const data={
 let current="돈",timer;
 const $=s=>document.querySelector(s);
 const el=id=>document.getElementById(id);
-const won=n=>Math.round(Number(n)||0).toLocaleString("ko-KR")+"원";
+const won=n=>{
+  n=Math.round(Number(n)||0);
+  const sign=n<0?"-":"",v=Math.abs(n);
+  if(v<10000) return sign+v.toLocaleString("ko-KR")+"원";
+  const e=Math.floor(v/100000000), rem=v%100000000;
+  const m=Math.floor(rem/10000), w=rem%10000;
+  let s="";
+  if(e) s+=e.toLocaleString("ko-KR")+"억원";
+  if(m) s+=(e?" ":"")+formatKoreanMan(m)+"만원";
+  if(w) s+=(e||m?" ":"")+w.toLocaleString("ko-KR")+"원";
+  return sign+s;
+};
+const formatKoreanMan=m=>{
+  if(m<10000) return m.toLocaleString("ko-KR");
+  const cheon=Math.floor(m/1000), rem=m%1000;
+  let s="";
+  if(cheon) s+=cheon.toLocaleString("ko-KR")+"천";
+  if(rem) s+=(cheon?" ":"")+rem.toLocaleString("ko-KR");
+  return s;
+};
 const parseMoney=v=>{
   if(v===undefined||v===null)return 0;
   let s=String(v).replace(/\s|,/g,"");
