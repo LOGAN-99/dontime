@@ -186,7 +186,6 @@ function form(t,target=el('box'),mini=false){
   else if(t==='leave') s=moneyField('hourly','통상시급','10,320원')+field('days','미사용 연차일수',10)+field('hours','1일 소정근로시간',8);
   else if(t==='severance') s=moneyField('daily','1일 평균임금','100,000원')+field('days','계속근로일수',365)+field('daysPerYear','연간 퇴직금 산정일수',30);
   else if(t==='minimum') s=moneyField('hourly','내 시급','10,320원')+moneyField('standard','적용 최저시급','10,320원');
-  else if(t==='buyseconds') s=moneyField('price','물건 가격','30만원')+moneyField('salary','연봉','4천만원')+'<div class="field"><label>근무시간 기준</label><select id="basis"><option value="work">1일 8시간 · 연 260일</option><option value="24">24시간 · 365일</option></select></div><div class="buyseconds-note">월급시계처럼 연봉을 초당 가치로 바꾼 뒤, 목표 금액에 도달할 때까지 얼마나 걸리는지 셉니다.</div>';
   else if(t==='worktime') s=field('start','출근','09:00','time')+field('end','퇴근','18:00','time')+field('break','휴게시간(분)',60);
 
   else if(t==='ltv') s=moneyField('price','주택가격','5억원')+percentField('rate','적용 LTV(%)',70);
@@ -268,7 +267,6 @@ function calc(t,button){
   const previousScope=calcScope;
   calcScope=button?.closest('.compare-card')||null;
   let r='';
-  if(t==='buyseconds'){const price=num('price'),annual=num('salary'),basis=el('basis')?.value||'work',sec=basis==='24'?annual/(365*24*3600):annual/(260*8*3600);r=sec>0?'<div>약 '+(price/sec).toFixed(2)+'초</div><div class="sub">초당 '+sec.toFixed(4)+'원 · 목표 '+won(price)+'</div>':'연봉을 확인해주세요.';}
   else if(t==='salary'){const v=num('v');r=el('dir').value==='a'?won(v/12)+' / 월':'연봉 '+won(v*12);}
   else if(t==='hourly'){const h=Number(el('hours').value||0);r=h?won(num('monthly')/h)+' / 시간':'월 근무시간을 확인해주세요.';}
   else if(t==='net'){const gross=num('annual')+num('bonus'),tax=Number(el('tax').value||0);r=won(gross*(1-tax/100))+' / 예상 실수령';}
@@ -407,7 +405,7 @@ function resetCalculator(button){
 
 function updateWorkForBuyInput(select){
   const input=select.closest('.panel')?.querySelector('#income');
-  const label=select.closest('.panel')?.querySelector('label[for="income"]');
+  const label=input.closest('.field')?.querySelector('label');
   if(!input)return;
   const type=select.value;
   if(type==='hourly'){input.value='15,000원';input.placeholder='예: 15,000원';if(label)label.textContent='시급';}
