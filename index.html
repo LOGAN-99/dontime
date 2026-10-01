@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>돈시간 | 돈과 시간을 계산하는 생활 도구</title><meta name="dontime-version" content="2026-10-02-compact-card-layout-fix1">
+<title>돈시간 | 돈과 시간을 계산하는 생활 도구</title><meta name="dontime-version" content="2026-10-02-income-counter-fix1">
 <style>
 *{box-sizing:border-box}
 body{margin:0;background:#f6f7f9;overflow-x:hidden;color:#17191c;font-family:Arial,"Noto Sans KR",sans-serif}
@@ -431,6 +431,7 @@ function live(t,target=el('box')){
   syncBasis();
   scope.querySelector('#startBtn').onclick=()=>{
     stopCalcTimer(timerKey);
+    const startedAt=Date.now();
     const tick=()=>{
       const now=new Date();
       const [sh,sm]=get('start').value.split(':').map(Number), [eh,em]=get('end').value.split(':').map(Number);
@@ -439,19 +440,21 @@ function live(t,target=el('box')){
       if(en<=st) en.setDate(en.getDate()+1);
       let currentSt=new Date(st),currentEn=new Date(en);
       if(now<st && en.getDate()!==st.getDate()){currentSt.setDate(currentSt.getDate()-1);currentEn.setDate(currentEn.getDate()-1);}
-      const workSeconds=Math.max(1,(currentEn-currentSt)/1000);
-      const elapsed=Math.max(0,Math.min(workSeconds,(now-currentSt)/1000));
       const remain=Math.max(0,(currentEn-now)/1000);
+      const runElapsed=Math.max(0,(Date.now()-startedAt)/1000);
       const fmt=x=>String(Math.floor(x/3600)).padStart(2,'0')+':'+String(Math.floor(x%3600/60)).padStart(2,'0')+':'+String(Math.floor(x%60)).padStart(2,'0')+'.'+String(Math.floor((x%1)*10000)).padStart(4,'0');
       const result=scope.querySelector('#livebox');
       if(isOff){result.innerHTML='<div class="sub">퇴근까지</div><div class="ticker">'+fmt(remain)+'</div><div class="sub">남은 시간 '+remain.toFixed(4)+'초</div>';return;}
-      const annual=parseMoney(get('salary').value),basis=scope.querySelector('input[name="incomeBasis"]:checked')?.value||'';
+      const salaryInput=get('salary');
+      const annual=parseMoney(salaryInput?.value||0);
+      const basis=scope.querySelector('input[name="incomeBasis"]:checked')?.value||'';
       let earned=0,sec=0,detail='';
       if(!basis){result.innerHTML='<div class="sub">근무시간 기준을 하나 선택해주세요.</div>';return;}
-      if(basis==='work'){sec=annual/(260*8*3600);earned=elapsed*sec;detail='1일 8시간 기준 · 연 260일 · 경과 '+elapsed.toFixed(4)+'초 · 초당 '+sec.toFixed(4)+'원';}
-      else if(basis==='hire'){const hd=new Date(get('hireDate').value+'T00:00:00');const since=Math.max(0,(now-hd)/1000);sec=annual/(365*24*3600);earned=since*sec;detail='입사일 '+get('hireDate').value+' 기준 · 경과 '+since.toFixed(4)+'초';}
-      else{sec=annual/(365*24*3600);earned=elapsed*sec;detail='24시간 기준 · 경과 '+elapsed.toFixed(4)+'초 · 초당 '+sec.toFixed(4)+'원';}
-      result.innerHTML='<div class="sub">현재 누적 수입</div><div class="ticker">'+earned.toFixed(4)+'원</div><div class="sub">'+detail+' · 퇴근까지 '+fmt(remain)+'</div>';
+      if(!annual){result.innerHTML='<div class="sub">연봉을 입력해주세요.</div>';return;}
+      if(basis==='work'){sec=annual/(260*8*3600);earned=runElapsed*sec;detail='1일 8시간 기준 · 연 260일 · 시작 후 '+runElapsed.toFixed(4)+'초 · 초당 '+sec.toFixed(4)+'원';}
+      else if(basis==='hire'){const hireInput=get('hireDate');const hd=hireInput?.value?new Date(hireInput.value+'T00:00:00'):now;sec=annual/(365*24*3600);earned=runElapsed*sec;detail='입사일 기준 · 시작 후 '+runElapsed.toFixed(4)+'초 · 초당 '+sec.toFixed(4)+'원';}
+      else{sec=annual/(365*24*3600);earned=runElapsed*sec;detail='24시간 기준 · 365일 × 24시간 · 시작 후 '+runElapsed.toFixed(4)+'초 · 초당 '+sec.toFixed(4)+'원';}
+      result.innerHTML='<div class="sub">카운팅 시작 후 누적 수입</div><div class="ticker">'+earned.toFixed(4)+'원</div><div class="sub">'+detail+' · 퇴근까지 '+fmt(remain)+'</div>';
     };
     tick(); startCalcTimer(timerKey,tick,50);
   };
