@@ -449,6 +449,7 @@ function resetCalculator(button){
   else stopAllCalcTimers();
   const scope=button?.closest('.compare-card')||document.getElementById('box');
   if(scope.__incomeClock) delete scope.__incomeClock;
+  if(scope.__setIncomeCountMode) scope.__setIncomeCountMode('now');
   scope.querySelectorAll('input').forEach(i=>{i.value=i.defaultValue;});
   scope.querySelectorAll('select').forEach(s=>{s.selectedIndex=0;});
   scope.querySelectorAll('textarea').forEach(t=>{t.value=t.defaultValue;});
@@ -512,6 +513,7 @@ function live(t,target=el('box')){
   const syncCountMode=()=>modeButtons.forEach(btn=>btn.classList.toggle('on',btn.dataset.mode===countMode));
   modeButtons.forEach(btn=>btn.addEventListener('click',()=>{countMode=btn.dataset.mode||'now';syncCountMode();}));
   syncCountMode();
+  scope.__setIncomeCountMode=(mode)=>{countMode=mode||'now';syncCountMode();};
   scope.querySelector('#startBtn').onclick=()=>{
     stopCalcTimer(timerKey);
     const nowAtStart=Date.now();
