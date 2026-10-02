@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>돈시간 | 돈과 시간을 계산하는 생활 도구</title><meta name="dontime-version" content="2026-10-02-workforbuy-product-name-v1">
+<title>돈시간 | 돈과 시간을 계산하는 생활 도구</title><meta name="dontime-version" content="2026-10-02-js-runtime-fix-product-name-v2">
 <style>
 *{box-sizing:border-box}
 body{margin:0;background:#f6f7f9;overflow-x:hidden;color:#17191c;font-family:Arial,"Noto Sans KR",sans-serif}
@@ -215,7 +215,6 @@ function form(t,target=el('box'),mini=false){
   else if(t==='gift') s=moneyField('gift','증여재산가액','5천만원')+moneyField('deduct','공제액','0원')+percentField('rate','적용 세율(%)',10);
 
   else if(t==='workforbuy') s='<div class="field"><label>제품명 <span style="font-weight:400;color:#999">(선택)</span></label><input id="productName" type="text" value="" placeholder="예: 무선 이어폰"></div>'+moneyField('price','물건 가격','10만원')+'<div class="field"><label>내 소득 기준</label><select id="incomeType" onchange="updateWorkForBuyInput(this)"><option value="hourly">시급</option><option value="monthly">월급</option><option value="annual">연봉</option></select></div>'+moneyField('income','시급','15,000원');
-  else if(t==='workforbuy'){const price=num('price'),income=num('income'),type=el('incomeType')?.value||'hourly';let hourly=income;if(type==='monthly') hourly=income/209;if(type==='annual') hourly=income/(260*8);if(hourly>0){const totalSec=price/hourly*3600,h=Math.floor(totalSec/3600),m=Math.floor((totalSec%3600)/60),sec=Math.floor(totalSec%60);const basis=type==='hourly'?'시급':type==='monthly'?'월급 209시간 기준':'연봉 260일 × 8시간 기준';r='<div>'+h+'시간 '+m+'분 '+sec+'초</div><div class="sub">'+basis+' · 시간당 '+won(hourly)+' · 약 '+(totalSec/3600).toFixed(2)+'시간 일해야 합니다.</div>';}else r='소득 금액을 확인해주세요.';}
   else if(t==='discount') s=moneyField('price','정가','5만원')+percentField('rate','할인율(%)',20);
   else if(t==='reverseDiscount') s=moneyField('original','정가','5만원')+moneyField('sale','실제 판매가','4만원');
   else if(t==='unit') s=moneyField('price','총 가격','3만원')+field('qty','총 수량',10);
@@ -267,7 +266,7 @@ function calc(t,button){
   const previousScope=calcScope;
   calcScope=button?.closest('.compare-card')||null;
   let r='';
-  else if(t==='salary'){const v=num('v');r=el('dir').value==='a'?won(v/12)+' / 월':'연봉 '+won(v*12);}
+  if(t==='salary'){const v=num('v');r=el('dir').value==='a'?won(v/12)+' / 월':'연봉 '+won(v*12);}
   else if(t==='hourly'){const h=Number(el('hours').value||0);r=h?won(num('monthly')/h)+' / 시간':'월 근무시간을 확인해주세요.';}
   else if(t==='net'){const gross=num('annual')+num('bonus'),tax=Number(el('tax').value||0);r=won(gross*(1-tax/100))+' / 예상 실수령';}
   else if(t==='weekly'){r=won(num('hourly')*Number(el('hours').value||0)*Number(el('weeks').value||1))+' / 계산기간';}
