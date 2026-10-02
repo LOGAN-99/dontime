@@ -508,7 +508,15 @@ function live(t,target=el('box')){
   syncBasis();
   scope.querySelector('#startBtn').onclick=()=>{
     stopCalcTimer(timerKey);
-    const startedAt=Date.now();
+    const nowAtStart=Date.now();
+    let startedAt=nowAtStart;
+    if(!isOff){
+      const startValue=get('start')?.value||'09:00';
+      const [startHour,startMinute]=startValue.split(':').map(Number);
+      const startBase=new Date(nowAtStart);
+      startBase.setHours(startHour,startMinute,0,0);
+      startedAt=Math.min(startBase.getTime(),nowAtStart);
+    }
     if(!isOff) scope.__incomeClock={startedAt,ratePerSec:0};
     const tick=()=>{
       const now=new Date();
