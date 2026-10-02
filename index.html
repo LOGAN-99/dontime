@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>돈시간 | 돈과 시간을 계산하는 생활 도구</title><meta name="dontime-version" content="2026-10-02-home-featured-compare-v1">
+<title>돈시간 | 돈과 시간을 계산하는 생활 도구</title><meta name="dontime-version" content="2026-10-02-countdown-live-v1">
 <style>
 *{box-sizing:border-box}
 body{margin:0;background:#f6f7f9;overflow-x:hidden;color:#17191c;font-family:Arial,"Noto Sans KR",sans-serif}
@@ -231,7 +231,44 @@ function linkedWorkForBuy(target){
   tick();
   startCalcTimer(timerKey,tick,50);
 }
+function countdownTool(t,target=el('box'),mini=false){
+  const liveTarget=target;
+  const label=t==='discharge'?'전역까지':'목표일까지';
+  const dateValue=new Date().toISOString().slice(0,10);
+  const resultId=mini?'res-'+t+'-'+Math.random().toString(36).slice(2,8):'res';
+  liveTarget.innerHTML='<div class="panel"><div class="field"><label>목표 날짜</label><input id="date" type="date" value="'+dateValue+'"></div><div class="actions"><button class="primary" id="countStartBtn">카운트 시작</button><button type="button" class="secondary reset-btn" onclick="resetCalculator(this)">↺ 초기화</button></div><div id="'+resultId+'" style="margin-top:20px"><div class="sub">목표 날짜를 입력하고 카운트를 시작해보세요.</div></div></div>';
+  const scope=liveTarget.closest('.compare-card')||liveTarget;
+  const key='countdown-'+t+'-'+(scope.id||Math.random().toString(36).slice(2));
+  const get=id=>scope.querySelector('#'+id);
+  const tick=()=>{
+    const raw=get('date')?.value;
+    const result=scope.querySelector('[id^="res"]');
+    if(!result)return;
+    if(!raw){result.innerHTML='<div class="sub">목표 날짜를 입력해주세요.</div>';return;}
+    const targetEnd=new Date(raw+'T23:59:59.999');
+    const remain=Math.max(0,targetEnd.getTime()-Date.now())/1000;
+    const days=Math.floor(remain/86400);
+    const hours=Math.floor((remain%86400)/3600);
+    const minutes=Math.floor((remain%3600)/60);
+    const seconds=Math.floor(remain%60);
+    const ms=Math.floor((remain%1)*1000);
+    const fmt=n=>String(n).padStart(2,'0');
+    if(remain<=0){
+      result.innerHTML='<div class="sub">'+label+'</div><div class="ticker">00일 00:00:00.000</div><div class="sub">목표 날짜가 도착했습니다 🎉</div>';
+      return;
+    }
+    result.innerHTML='<div class="sub">'+label+'</div><div class="ticker">'+days+'일 '+fmt(hours)+':'+fmt(minutes)+':'+fmt(seconds)+'.'+String(ms).padStart(3,'0')+'</div><div class="sub">목표일 '+raw+' · 남은 시간 '+remain.toFixed(3)+'초</div>';
+  };
+  get('date')?.addEventListener('input',tick);
+  get('date')?.addEventListener('change',tick);
+  get('countStartBtn')?.addEventListener('click',()=>{
+    startCalcTimer(key,tick,50);
+    tick();
+  });
+  tick();
+}
 function form(t,target=el('box'),mini=false){
+  if(t==='discharge'||t==='dday') return countdownTool(t,target,mini);
   let s='';
   if(t==='salary') s='<div class="field"><label>계산 방향</label><select id="dir"><option value="a">연봉 → 월급</option><option value="m">월급 → 연봉</option></select></div>'+moneyField('v','금액','4천만원');
   else if(t==='hourly') s=moneyField('monthly','월급','300만원')+field('hours','월 근무시간',209);
