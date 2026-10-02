@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>돈시간 | 돈과 시간을 계산하는 생활 도구</title><meta name="dontime-version" content="2026-10-02-countdown-live-v1">
+<title>돈시간 | 돈과 시간을 계산하는 생활 도구</title><meta name="dontime-version" content="2026-10-02-hourly-countdown-fix-v1">
 <style>
 *{box-sizing:border-box}
 body{margin:0;background:#f6f7f9;overflow-x:hidden;color:#17191c;font-family:Arial,"Noto Sans KR",sans-serif}
@@ -271,7 +271,7 @@ function form(t,target=el('box'),mini=false){
   if(t==='discharge'||t==='dday') return countdownTool(t,target,mini);
   let s='';
   if(t==='salary') s='<div class="field"><label>계산 방향</label><select id="dir"><option value="a">연봉 → 월급</option><option value="m">월급 → 연봉</option></select></div>'+moneyField('v','금액','4천만원');
-  else if(t==='hourly') s=moneyField('monthly','월급','300만원')+field('hours','월 근무시간',209);
+  else if(t==='hourly') s=moneyField('monthly','월급','300만원')+'<div class="field"><label>월 근무시간 단위</label><select id="hoursUnit"><option value="hours">시간</option><option value="days">일</option></select></div>'+field('hours','월 근무시간',209);
   else if(t==='net') s=moneyField('annual','연봉','4천만원')+moneyField('bonus','상여금','0원')+percentField('tax','예상 공제율(%)',10);
   else if(t==='weekly') s=field('days','주 소정근로일수',5)+field('hours','주 근로시간',40)+moneyField('hourly','시급','10,320원')+field('weeks','계산 주수',1);
   else if(t==='overtime') s=moneyField('hourly','통상시급','10,320원')+field('hours','연장근로시간',10)+field('night','야간근로시간',0)+percentField('rate','연장 가산율(%)',50)+percentField('nightRate','야간 가산율(%)',50);
@@ -359,7 +359,7 @@ function calc(t,button){
   calcScope=button?.closest('.compare-card')||null;
   let r='';
   if(t==='salary'){const v=num('v');r=el('dir').value==='a'?won(v/12)+' / 월':'연봉 '+won(v*12);}
-  else if(t==='hourly'){const h=Number(el('hours').value||0);r=h?won(num('monthly')/h)+' / 시간':'월 근무시간을 확인해주세요.';}
+  else if(t==='hourly'){const unit=el('hoursUnit')?.value||'hours',input=Number(el('hours').value||0),h=unit==='days'?input*8:input;r=h?won(num('monthly')/h)+' / 시간':'월 근무시간을 확인해주세요.';}
   else if(t==='net'){const gross=num('annual')+num('bonus'),tax=Number(el('tax').value||0);r=won(gross*(1-tax/100))+' / 예상 실수령';}
   else if(t==='weekly'){r=won(num('hourly')*Number(el('hours').value||0)*Number(el('weeks').value||1))+' / 계산기간';}
   else if(t==='overtime'){const base=num('hourly'),h=Number(el('hours').value||0),n=Number(el('night').value||0);r=won(base*h*(1+Number(el('rate').value||0)/100)+base*n*(Number(el('nightRate').value||0)/100))+' / 예상 수당';}
@@ -437,7 +437,7 @@ function calc(t,button){
   else if(t==='bmr'){const age=Number(el('age').value||0),h=Number(el('h').value||0),w=Number(el('w').value||0);r=(10*w+6.25*h-5*age+(String(el('sex').value).includes('여')?-161:5)).toFixed(0)+' kcal/일';}
   else if(t==='calorie'){r=(Number(el('weight').value||0)*Number(el('minutes').value||0)*Number(el('met').value||0)*3.5/200).toFixed(0)+' kcal';}
   else if(t==='off'){let a=el('start').value.split(':').map(Number),b=el('end').value.split(':').map(Number),work=(b[0]*60+b[1])-(a[0]*60+a[1]);if(work<0)work+=1440;r=Math.floor(work/60)+'시간 '+work%60+'분';}
-  else if(t==='discharge'||t==='dday'){const days=Math.ceil((new Date(el('date').value)-new Date())/86400000);r=days>=0?'D-'+days:'D+'+Math.abs(days);}
+  else if(t==='discharge'||t==='dday'){const targetDate=new Date(el('date').value+'T23:59:59.999'),remain=Math.max(0,targetDate-Date.now())/1000,days=Math.floor(remain/86400),hours=Math.floor(remain%86400/3600),minutes=Math.floor(remain%3600/60),seconds=Math.floor(remain%60);r=remain>0?days+'일 '+String(hours).padStart(2,'0')+':'+String(minutes).padStart(2,'0')+':'+String(seconds).padStart(2,'0'):'00일 00:00:00';}
   else if(t==='datediff'||t==='workdays'){const a=new Date(el('date1').value),b=new Date(el('date2').value);let n=0;for(let d=new Date(a);d<=b;d.setDate(d.getDate()+1)){if(t==='datediff'||![0,6].includes(d.getDay()))n++;}r=n+(t==='workdays'?' 근무일':'일');}
   else if(t==='timediff'){let a=el('time1').value.split(':').map(Number),b=el('time2').value.split(':').map(Number),m=(b[0]*60+b[1])-(a[0]*60+a[1]);if(m<0)m+=1440;r=Math.floor(m/60)+'시간 '+m%60+'분';}
   else if(t==='age'){const d=new Date(el('date').value),n=new Date();let a=n.getFullYear()-d.getFullYear();if(n<new Date(n.getFullYear(),d.getMonth(),d.getDate()))a--;r=a+'세';}
