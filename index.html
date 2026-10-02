@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>돈시간 | 돈과 시간을 계산하는 생활 도구</title><meta name="dontime-version" content="2026-10-02-linked-purchase-countdown-v2">
+<title>돈시간 | 돈과 시간을 계산하는 생활 도구</title><meta name="dontime-version" content="2026-10-02-linked-purchase-countdown-v3">
 <style>
 *{box-sizing:border-box}
 body{margin:0;background:#f6f7f9;overflow-x:hidden;color:#17191c;font-family:Arial,"Noto Sans KR",sans-serif}
@@ -221,7 +221,6 @@ function linkedWorkForBuy(target){
     const remain=Math.max(0,totalSec-elapsed);
     if(remain<=0){
       out.innerHTML='<div class="sub">카운트다운 완료</div><div class="ticker">살 수 있는 시간 도착 🎉</div><div class="sub">'+label+' · '+won(price)+' · 월급시계 기준 초당 '+rate.toFixed(4)+'원</div>';
-      stopCalcTimer(timerKey);
       return;
     }
     out.innerHTML='<div class="sub">'+label+'</div><div class="ticker">'+formatDuration(remain)+'</div><div class="sub">남은 노동시간 '+remain.toFixed(4)+'초 · 초당 '+clock.ratePerSec.toFixed(4)+'원</div>';
