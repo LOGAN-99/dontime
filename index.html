@@ -506,18 +506,18 @@ function live(t,target=el('box')){
     syncBasis();
   }));
   syncBasis();
-  scope.querySelector('#startBtn').onclick=()=>{
+  const applyLiveSettings=()=>{
     stopCalcTimer(timerKey);
-    const nowAtStart=Date.now();
-    let startedAt=nowAtStart;
+    const nowAtApply=Date.now();
+    let startedAt=nowAtApply;
     if(!isOff){
       const startValue=get('start')?.value||'09:00';
       const [startHour,startMinute]=startValue.split(':').map(Number);
-      const startBase=new Date(nowAtStart);
+      const startBase=new Date(nowAtApply);
       startBase.setHours(startHour,startMinute,0,0);
-      startedAt=Math.min(startBase.getTime(),nowAtStart);
+      startedAt=Math.min(startBase.getTime(),nowAtApply);
     }
-    if(!isOff) scope.__incomeClock={startedAt,ratePerSec:0};
+    if(!isOff) scope.__incomeClock={startedAt,ratePerSec:0,appliedStart:get('start')?.value||'09:00',appliedEnd:get('end')?.value||'18:00'};
     const tick=()=>{
       const now=new Date();
       const [sh,sm]=get('start').value.split(':').map(Number), [eh,em]=get('end').value.split(':').map(Number);
@@ -556,6 +556,7 @@ function live(t,target=el('box')){
     };
     tick(); startCalcTimer(timerKey,tick,50);
   };
+  scope.querySelector('#startBtn').onclick=applyLiveSettings;
 }
 
 render();renderToolCats();
