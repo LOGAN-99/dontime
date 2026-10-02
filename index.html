@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>돈시간 | 돈과 시간을 계산하는 생활 도구</title><meta name="dontime-version" content="2026-10-02-income-count-mode-v1">
+<title>돈시간 | 돈과 시간을 계산하는 생활 도구</title><meta name="dontime-version" content="2026-10-02-income-live-from-workstart-v1">
 <style>
 *{box-sizing:border-box}
 body{margin:0;background:#f6f7f9;overflow-x:hidden;color:#17191c;font-family:Arial,"Noto Sans KR",sans-serif}
@@ -26,8 +26,7 @@ header{height:64px;background:#fff;border-bottom:1px solid #e7e9ed;display:flex;
 .panel{background:#fff;border:1px solid #e1e4e8;border-radius:18px;padding:22px}.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.field label{display:block;font-size:13px;font-weight:700;margin-bottom:7px}.field input,.field select{width:100%;border:1px solid #d8dce1;border-radius:10px;padding:12px;min-width:0}.actions{margin-top:17px;display:flex;gap:9px;flex-wrap:wrap}.primary{background:#17191c;color:#fff;border:0;border-radius:10px;padding:11px 17px}.secondary{background:#eef0f3;color:#17191c;border:1px solid #cfd4da;border-radius:10px;padding:11px 17px;font-weight:800}
 .result{margin-top:18px;font-size:28px;font-weight:900;font-variant-numeric:tabular-nums;letter-spacing:-.02em}.sub{font-size:13px;color:#777}.ticker{font-size:40px;font-weight:900}.compare-card>.notice{margin:18px 0 0}.notice{margin:0 0 18px;padding:12px 14px;background:#fff8e6;border:1px solid #f0dfb0;border-radius:10px;color:#6f5a25;font-size:13px;line-height:1.55}.footer{margin-top:45px;padding-top:22px;border-top:1px solid #ddd;color:#8a8f97;font-size:13px}
 .popup-mode{background:#f6f7f9}.popup-mode header{height:52px}.popup-mode .top{padding:0 14px}.popup-mode .logo{font-size:21px}.popup-mode .tag{display:none}.popup-mode .wrap{max-width:430px;padding:16px 14px 28px}.popup-mode .tool-layout{display:block}.popup-mode .tool-layout>.cats{display:none}.popup-mode .tool-title-row{display:block}.popup-mode .tool-title-row>div:first-child h2{font-size:24px}.popup-mode .compare-tip{display:none}.popup-mode .compare-items{grid-template-columns:1fr;margin-top:14px}.popup-mode .compare-card{padding:12px}.popup-mode .primary-card-title{padding-bottom:10px;margin-bottom:10px}.popup-mode .back{margin-bottom:12px}.popup-mode .small-window-btn{display:none}.tool-title-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.small-window-btn{border:1px solid #cfd4da;background:#fff;color:#17191c;border-radius:9px;padding:9px 12px;font-size:12px;font-weight:800}
-.live-top{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:18px;align-items:start}.salary-field,.basis-field,.hire-field{width:100%}.time-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:22px}.basis-list{display:grid;grid-template-columns:1fr;gap:9px;margin-top:6px}.basis-option{display:flex;align-items:center;gap:10px;min-height:46px;padding:11px 13px;border:1px solid #d8dce1;border-radius:10px;background:#fff;cursor:pointer;transition:.15s}.basis-option:hover{border-color:#9aa3ad}.basis-option.selected{border-color:#17191c;background:#f7f7f7}.basis-option input{appearance:none;width:16px;height:16px;border:1.5px solid #9aa0a6;border-radius:50%;margin:0;flex:0 0 16px;position:relative}.basis-option input:checked{border-color:#17191c}.basis-option input:checked::after{content:"";position:absolute;inset:3px;border-radius:50%;background:#17191c}.count-mode{margin-top:18px}.count-mode-title{display:block;font-size:13px;font-weight:700;margin-bottom:7px}.count-mode-help{margin:0 0 8px;font-size:12px;color:#777;line-height:1.55}.count-mode-buttons{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.count-mode-btn{border:1px solid #d8dce1;background:#fff;color:#555;border-radius:10px;padding:11px 12px;font-size:13px;font-weight:800}.count-mode-btn.on{border-color:#17191c;background:#17191c;color:#fff}
-@container (max-width:560px){.live-top{grid-template-columns:1fr;gap:14px}.basis-option{min-height:44px;padding:10px 12px}.basis-option span{line-height:1.35}.panel{padding:16px}.actions{gap:8px}}\n@media(max-width:950px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.layout{grid-template-columns:180px minmax(0,1fr)}.tool-layout{grid-template-columns:190px minmax(0,1fr);gap:16px}}
+.live-top{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:18px;align-items:start}.salary-field,.basis-field,.hire-field{width:100%}.time-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:22px}.basis-list{display:grid;grid-template-columns:1fr;gap:9px;margin-top:6px}.basis-option{display:flex;align-items:center;gap:10px;min-height:46px;padding:11px 13px;border:1px solid #d8dce1;border-radius:10px;background:#fff;cursor:pointer;transition:.15s}.basis-option:hover{border-color:#9aa3ad}.basis-option.selected{border-color:#17191c;background:#f7f7f7}.basis-option input{appearance:none;width:16px;height:16px;border:1.5px solid #9aa0a6;border-radius:50%;margin:0;flex:0 0 16px;position:relative}.basis-option input:checked{border-color:#17191c}.basis-option input:checked::after{content:"";position:absolute;inset:3px;border-radius:50%;background:#17191c}@container (max-width:560px){.live-top{grid-template-columns:1fr;gap:14px}.basis-option{min-height:44px;padding:10px 12px}.basis-option span{line-height:1.35}.panel{padding:16px}.actions{gap:8px}}\n@media(max-width:950px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.layout{grid-template-columns:180px minmax(0,1fr)}.tool-layout{grid-template-columns:190px minmax(0,1fr);gap:16px}}
 @media(max-width:700px){header{height:58px}.top{padding:0 15px}.logo{font-size:22px}.wrap{padding:24px 14px 50px}.hero{margin-bottom:18px}.hero h1{font-size:30px;letter-spacing:-1.3px}.hero p{font-size:14px}.layout,.tool-layout{display:block}.layout>.cats{position:static;display:flex;flex-direction:row;gap:7px;max-width:100%;max-height:none;overflow-x:auto;overflow-y:hidden;padding:2px 2px 8px;margin:0 0 14px;scrollbar-width:none}.layout>.cats::-webkit-scrollbar{display:none}.layout>.cats>.cat{width:auto;flex:0 0 auto;white-space:nowrap;padding:9px 13px;border-radius:999px}.layout>.cats>.subcats{display:none}.tool-layout>.cats{position:static;display:flex;flex-direction:row;gap:7px;max-width:100%;max-height:none;overflow-x:auto;overflow-y:hidden;padding:2px 2px 8px;margin:0 0 16px;scrollbar-width:none}.tool-layout>.cats::-webkit-scrollbar{display:none}.tool-layout>.cats>.cat{width:auto;flex:0 0 auto;white-space:nowrap;padding:9px 13px;border-radius:999px}.tool-layout>.cats>.subcats{display:none}.subcats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px;margin:4px 0 10px}.subcat{font-size:12px;padding:8px}.grid{grid-template-columns:1fr;gap:12px}.tool-title-row{display:block}.compare-tip{margin-top:14px;max-width:none}.compare-items{grid-template-columns:1fr;margin-top:18px}.tool h2{font-size:25px}.tool p{font-size:14px}.panel{padding:16px;border-radius:15px}.fields{grid-template-columns:1fr;gap:12px}.live-top{grid-template-columns:1fr;gap:14px}.time-fields{grid-template-columns:1fr;gap:12px;margin-top:16px}.basis-list{gap:8px}.basis-option{min-height:44px;padding:10px 12px}.ticker{font-size:32px}.result{font-size:24px}.actions{width:100%}.actions button{flex:0 0 auto}.compare-card{padding:12px}}
 @media(max-width:420px){.wrap{padding-left:11px;padding-right:11px}.top{padding:0 11px}.hero h1{font-size:27px}.card{padding:17px}.panel{padding:14px}.subcats{grid-template-columns:1fr}.basis-option{font-size:13px}.primary,.secondary{padding:10px 14px}}
 </style></head>
@@ -449,7 +448,6 @@ function resetCalculator(button){
   else stopAllCalcTimers();
   const scope=button?.closest('.compare-card')||document.getElementById('box');
   if(scope.__incomeClock) delete scope.__incomeClock;
-  if(scope.__setIncomeCountMode) scope.__setIncomeCountMode('now');
   scope.querySelectorAll('input').forEach(i=>{i.value=i.defaultValue;});
   scope.querySelectorAll('select').forEach(s=>{s.selectedIndex=0;});
   scope.querySelectorAll('textarea').forEach(t=>{t.value=t.defaultValue;});
@@ -475,7 +473,7 @@ function textCalc(t){const input=document.getElementById('txt'),result=document.
 function live(t,target=el('box')){
   const liveTarget=target, isOff=t==='off';
   const basisHtml=isOff?'':('<div class="live-top"><div class="field salary-field">'+moneyField('salary','연봉','4천만원').replace('<div class="field">','').replace('</div>','')+'</div><div class="field basis-field"><label>근무시간 기준 <span style="font-weight:400;color:#999">(선택)</span></label><div class="sub" style="margin:0 0 7px">선택하지 않으면 아래에 입력한 출퇴근 시간으로 계산합니다.</div><div class="basis-list"><label class="basis-option"><input type="checkbox" name="incomeBasis" value="work"><span>1일 8시간 기준 · 연 260일</span></label><label class="basis-option"><input type="checkbox" name="incomeBasis" value="24"><span>24시간 기준 · 365일 × 24시간</span></label><label class="basis-option"><input type="checkbox" name="incomeBasis" value="hire"><span>입사일 기준</span></label></div></div></div><div id="hireWrap" class="field hire-field" style="display:none"><label>입사일</label><input id="hireDate" type="date" value="2026-10-01"></div>');
-  liveTarget.innerHTML='<div class="panel">'+basisHtml+'<div class="time-fields">'+field('start','출근','09:00','time')+field('end','퇴근','18:00','time')+'</div>'+(!isOff?'<div class="count-mode"><label class="count-mode-title">카운팅 시작 기준</label><p class="count-mode-help">연봉과 근무시간 기준을 선택하고 시작하기를 누르면, 기본적으로 지금 시간을 기준으로 카운팅됩니다. 원하는 경우 설정한 출근 시간부터 카운팅하도록 바꿀 수 있습니다.</p><div class="count-mode-buttons"><button type="button" class="count-mode-btn" data-mode="work">설정한 출근 시간부터 카운팅하기</button><button type="button" class="count-mode-btn on" data-mode="now">지금 시간을 기준으로 카운팅하기</button></div></div>':'')+'<div class="actions"><button class="primary" id="startBtn">'+(isOff?'카운트 시작':'시작하기')+'</button><button type="button" class="secondary reset-btn" onclick="resetCalculator(this)">↺ 초기화</button></div><div id="livebox" style="margin-top:20px"><div class="sub">'+(isOff?'출근·퇴근 시간을 입력하고 카운트를 시작해보세요.':'연봉과 근무시간 기준을 확인한 뒤, 원하는 시작 기준을 선택하고 시작하기를 눌러주세요.')+'</div></div></div>';
+  liveTarget.innerHTML='<div class="panel">'+basisHtml+'<div class="time-fields">'+field('start','출근','09:00','time')+field('end','퇴근','18:00','time')+'</div>')+'<div class="actions"><button class="primary" id="startBtn">'+(isOff?'카운트 시작':'시작하기')+'</button><button type="button" class="secondary reset-btn" onclick="resetCalculator(this)">↺ 초기화</button></div><div id="livebox" style="margin-top:20px"><div class="sub">'+(isOff?'출근·퇴근 시간을 입력하고 카운트를 시작해보세요.':'연봉과 근무시간 기준을 확인한 뒤, 원하는 시작 기준을 선택하고 시작하기를 눌러주세요.')+'</div></div></div>';
   bindMoneyInputs();
   const scope=liveTarget.closest('.compare-card')||liveTarget;
   const timerKey=(isOff?'off-':'income-')+(scope.id||Math.random().toString(36).slice(2));
@@ -508,25 +506,10 @@ function live(t,target=el('box')){
     syncBasis();
   }));
   syncBasis();
-  let countMode='now';
-  const modeButtons=[...scope.querySelectorAll('.count-mode-btn')];
-  const syncCountMode=()=>modeButtons.forEach(btn=>btn.classList.toggle('on',btn.dataset.mode===countMode));
-  modeButtons.forEach(btn=>btn.addEventListener('click',()=>{countMode=btn.dataset.mode||'now';syncCountMode();}));
-  syncCountMode();
-  scope.__setIncomeCountMode=(mode)=>{countMode=mode||'now';syncCountMode();};
   scope.querySelector('#startBtn').onclick=()=>{
     stopCalcTimer(timerKey);
-    const nowAtStart=Date.now();
-    let startedAt=nowAtStart;
-    if(!isOff && countMode==='work'){
-      const startValue=get('start')?.value||'09:00';
-      const [startHour,startMinute]=startValue.split(':').map(Number);
-      const startBase=new Date(nowAtStart);
-      startBase.setHours(startHour,startMinute,0,0);
-      startedAt=startBase.getTime();
-      if(startedAt>nowAtStart) startedAt=nowAtStart;
-    }
-    if(!isOff) scope.__incomeClock={startedAt,ratePerSec:0,countMode};
+    const startedAt=Date.now();
+    if(!isOff) scope.__incomeClock={startedAt,ratePerSec:0};
     const tick=()=>{
       const now=new Date();
       const [sh,sm]=get('start').value.split(':').map(Number), [eh,em]=get('end').value.split(':').map(Number);
@@ -550,11 +533,16 @@ function live(t,target=el('box')){
       if(!basis){
         if(customHours<=0){result.innerHTML='<div class="sub">출근·퇴근 시간을 확인해주세요.</div>';return;}
         sec=annual/(260*customHours*3600);
-        earned=runElapsed*sec;
-        detail=(countMode==='work'?'설정한 출근 시간부터':'지금 시간부터')+' · 출퇴근 시간 기준 · 하루 '+customHours.toFixed(2)+'시간 · 연 260일 · 경과 '+runElapsed.toFixed(4)+'초 · 초당 '+sec.toFixed(4)+'원';
-      }else if(basis==='work'){sec=annual/(260*8*3600);earned=runElapsed*sec;detail=(countMode==='work'?'설정한 출근 시간부터':'지금 시간부터')+' · 1일 8시간 기준 · 연 260일 · 경과 '+runElapsed.toFixed(4)+'초 · 초당 '+sec.toFixed(4)+'원';}
+        const nowForEarn=Date.now();
+        const [startH,startM]=get('start').value.split(':').map(Number);
+        const workStart=new Date(nowForEarn);
+        workStart.setHours(startH,startM,0,0);
+        const elapsedFromWorkStart=Math.max(0,(nowForEarn-workStart.getTime())/1000);
+        earned=elapsedFromWorkStart*sec;
+        detail='출퇴근 시간 기준 · 하루 '+customHours.toFixed(2)+'시간 · 연 260일 · 출근 시간부터 현재까지 실시간 누적 · 초당 '+sec.toFixed(4)+'원';
+      }else if(basis==='work'){sec=annual/(260*8*3600);earned=runElapsed*sec;detail='1일 8시간 기준 · 연 260일 · 출근 시간부터 현재까지 실시간 누적 · 초당 '+sec.toFixed(4)+'원';}
       else if(basis==='hire'){const hireInput=get('hireDate');const hd=hireInput?.value?new Date(hireInput.value+'T00:00:00'):now;const since=Math.max(0,(now-hd)/1000);sec=annual/(365*24*3600);earned=since*sec;detail='입사일 '+(hireInput?.value||'')+' 기준 · 경과 '+since.toFixed(4)+'초 · 초당 '+sec.toFixed(4)+'원';}
-      else{sec=annual/(365*24*3600);earned=runElapsed*sec;detail=(countMode==='work'?'설정한 출근 시간부터':'지금 시간부터')+' · 24시간 기준 · 365일 × 24시간 · 경과 '+runElapsed.toFixed(4)+'초 · 초당 '+sec.toFixed(4)+'원';}
+      else{sec=annual/(365*24*3600);earned=runElapsed*sec;detail='24시간 기준 · 365일 × 24시간 · 시작 후 '+runElapsed.toFixed(4)+'초 · 초당 '+sec.toFixed(4)+'원';}
       if(!isOff&&scope.__incomeClock) scope.__incomeClock.ratePerSec=sec;
       result.innerHTML='<div class="sub">카운팅 시작 후 누적 수입</div><div class="ticker">'+earned.toFixed(4)+'원</div><div class="sub">'+detail+' · 퇴근까지 '+fmt(remain)+'</div>';
     };
