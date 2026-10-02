@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>돈시간 | 돈과 시간을 계산하는 생활 도구</title><meta name="dontime-version" content="2026-10-02-calculation-explanations-v1">
+<title>돈시간 | 돈과 시간을 계산하는 생활 도구</title><meta name="dontime-version" content="2026-10-02-compound-monthly-rate-v1">
 <style>
 *{box-sizing:border-box}
 body{margin:0;background:#f6f7f9;overflow-x:hidden;color:#17191c;font-family:Arial,"Noto Sans KR",sans-serif}
@@ -291,7 +291,7 @@ function form(t,target=el('box'),mini=false){
   else if(t==='broker') s=moneyField('price','거래금액','5억원')+percentField('rate','적용 중개보수율(%)',0.4);
   else if(t==='homecash') s=moneyField('price','주택가격','5억원')+percentField('loanRate','대출비율(%)',70)+moneyField('extra','취득·이사 등 부대비용','1천만원');
 
-  else if(t==='compound') s=moneyField('p','초기 투자금','1천만원')+field('rate','연 수익률(%)',5)+field('years','투자기간(년)',10)+field('add','추가 납입액(연)',0);
+  else if(t==='compound') s=moneyField('p','초기 투자금','1천만원')+field('rate','연 수익률(%)',5)+field('monthlyRate','월 수익률(%)',0)+'<div class="sub" style="margin-top:-6px;margin-bottom:12px">월 수익률을 입력하면 월 복리로 우선 계산합니다. 둘 다 입력하면 월 수익률을 사용합니다.</div>'+field('years','투자기간(년)',10)+field('add','추가 납입액(연)',0);
   else if(t==='deposit') s=moneyField('p','예치금','1천만원')+field('rate','연 이율(%)',3)+field('years','예치기간(년)',1)+percentField('tax','이자소득 원천징수율(%)',15.4);
   else if(t==='saving') s=moneyField('monthly','월 납입액','30만원')+field('rate','연 이율(%)',3)+field('months','납입개월',12)+percentField('tax','이자소득 원천징수율(%)',15.4);
   else if(t==='goal') s=moneyField('target','목표금액','1억원')+moneyField('current','현재 보유금액','0원')+field('months','남은 개월',60)+field('rate','연 수익률(%)',3);
@@ -377,7 +377,7 @@ function calculationExplanation(t){
     acq:'취득세 참고액 = 취득가액 × 입력한 취득세율 ÷ 100.',
     broker:'중개보수 참고액 = 거래금액 × 입력한 중개보수율 ÷ 100.',
     homecash:'준비 현금 = 주택가격 × (1 − 대출비율) + 부대비용.',
-    compound:'복리 계산은 초기금액에 연 수익률을 기간만큼 복리 적용하고, 입력한 추가 납입액을 함께 반영합니다.',
+    compound:'연 수익률을 입력하면 연 복리로 계산하고, 월 수익률을 입력하면 월 복리로 우선 계산합니다. 둘 다 입력하면 월 수익률을 사용하며, 추가 납입액은 연말에 납입하는 것으로 가정합니다.',
     deposit:'세후 예상금액 = 원금 + 발생 이자 − 이자소득 원천징수액.',
     saving:'세후 예상금액 = 총 납입액 + 단순 계산 이자 − 이자소득 원천징수액.',
     goal:'목표금액에 도달하기 위한 월 필요금액을 입력한 기간과 연 수익률을 기준으로 계산합니다.',
@@ -489,7 +489,7 @@ function calc(t,button){
   }
   else if(t==='acq'||t==='broker'){r=won(num('price')*Number(el('rate').value||0)/100);}
   else if(t==='homecash'){r=won(num('price')*(1-Number(el('loanRate').value||0)/100)+num('extra'))+' / 준비 현금';}
-  else if(t==='compound'){const p=num('p'),rate=Number(el('rate').value||0)/100,y=Number(el('years').value||0),add=num('add');r=won(p*Math.pow(1+rate,y)+add*((Math.pow(1+rate,y)-1)/rate||y))+' / 만기 예상금액';}
+  else if(t==='compound'){const p=num('p'),annualRate=Number(el('rate').value||0)/100,monthlyRate=Number(el('monthlyRate').value||0)/100,y=Number(el('years').value||0),add=num('add');if(monthlyRate){const months=Math.max(0,Math.round(y*12)),factor=Math.pow(1+monthlyRate,months);let future=p*factor;for(let i=1;i<=Math.floor(y);i++){future+=add*Math.pow(1+monthlyRate,Math.max(0,months-i*12));}r=won(future)+' / 만기 예상금액';}else{const factor=Math.pow(1+annualRate,y);r=won(p*factor+add*((factor-1)/annualRate||y))+' / 만기 예상금액';}}
   else if(t==='deposit'){const p=num('p'),rate=Number(el('rate').value||0)/100,y=Number(el('years').value||0),gross=p*Math.pow(1+rate,y)-p,tax=gross*Number(el('tax').value||0)/100;r=won(p+gross-tax)+' / 세후 예상금액';}
   else if(t==='saving'){const p=num('monthly'),m=Number(el('months').value||0),r0=Number(el('rate').value||0)/1200;const gross=p*m*(m+1)/2*r0; r=won(p*m+gross-gross*Number(el('tax').value||0)/100)+' / 세후 예상금액';}
   else if(t==='goal'){const target=num('target')-num('current'),m=Number(el('months').value||0),r0=Number(el('rate').value||0)/1200;const pay=r0?target*r0*Math.pow(1+r0,m)/(Math.pow(1+r0,m)-1):target/m;r=won(pay)+' / 월 필요금액';}
