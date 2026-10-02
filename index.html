@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>돈시간 | 돈과 시간을 계산하는 생활 도구</title><meta name="dontime-version" content="2026-10-02-workforbuy-income-basis-v1">
+<title>돈시간 | 돈과 시간을 계산하는 생활 도구</title><meta name="dontime-version" content="2026-10-02-workforbuy-product-name-v1">
 <style>
 *{box-sizing:border-box}
 body{margin:0;background:#f6f7f9;overflow-x:hidden;color:#17191c;font-family:Arial,"Noto Sans KR",sans-serif}
@@ -214,7 +214,7 @@ function form(t,target=el('box'),mini=false){
   else if(t==='capitalgain') s=moneyField('buy','취득가액','3억원')+moneyField('sell','양도가액','4억원')+moneyField('cost','필요경비','1천만원')+percentField('rate','적용 세율(%)',20);
   else if(t==='gift') s=moneyField('gift','증여재산가액','5천만원')+moneyField('deduct','공제액','0원')+percentField('rate','적용 세율(%)',10);
 
-  else if(t==='workforbuy') s=moneyField('price','물건 가격','10만원')+'<div class="field"><label>내 소득 기준</label><select id="incomeType" onchange="updateWorkForBuyInput(this)"><option value="hourly">시급</option><option value="monthly">월급</option><option value="annual">연봉</option></select></div>'+moneyField('income','시급','15,000원');
+  else if(t==='workforbuy') s='<div class="field"><label>제품명 <span style="font-weight:400;color:#999">(선택)</span></label><input id="productName" type="text" value="" placeholder="예: 무선 이어폰"></div>'+moneyField('price','물건 가격','10만원')+'<div class="field"><label>내 소득 기준</label><select id="incomeType" onchange="updateWorkForBuyInput(this)"><option value="hourly">시급</option><option value="monthly">월급</option><option value="annual">연봉</option></select></div>'+moneyField('income','시급','15,000원');
   else if(t==='workforbuy'){const price=num('price'),income=num('income'),type=el('incomeType')?.value||'hourly';let hourly=income;if(type==='monthly') hourly=income/209;if(type==='annual') hourly=income/(260*8);if(hourly>0){const totalSec=price/hourly*3600,h=Math.floor(totalSec/3600),m=Math.floor((totalSec%3600)/60),sec=Math.floor(totalSec%60);const basis=type==='hourly'?'시급':type==='monthly'?'월급 209시간 기준':'연봉 260일 × 8시간 기준';r='<div>'+h+'시간 '+m+'분 '+sec+'초</div><div class="sub">'+basis+' · 시간당 '+won(hourly)+' · 약 '+(totalSec/3600).toFixed(2)+'시간 일해야 합니다.</div>';}else r='소득 금액을 확인해주세요.';}
   else if(t==='discount') s=moneyField('price','정가','5만원')+percentField('rate','할인율(%)',20);
   else if(t==='reverseDiscount') s=moneyField('original','정가','5만원')+moneyField('sale','실제 판매가','4만원');
@@ -333,7 +333,7 @@ function calc(t,button){
   else if(t==='incomeTax'){r=won(Math.max(0,num('income')*Number(el('rate').value||0)/100-num('credit')))+' / 단순 계산 세액';}
   else if(t==='capitalgain'){const gain=num('sell')-num('buy')-num('cost');r=won(Math.max(0,gain)*Number(el('rate').value||0)/100)+' / 단순 계산 세액';}
   else if(t==='gift'){r=won(Math.max(0,num('gift')-num('deduct'))*Number(el('rate').value||0)/100)+' / 단순 계산 세액';}
-  else if(t==='workforbuy'){const price=num('price'),hourly=num('hourly');if(hourly>0){const totalSec=price/hourly*3600,h=Math.floor(totalSec/3600),m=Math.floor((totalSec%3600)/60),sec=Math.floor(totalSec%60);r='<div>'+h+'시간 '+m+'분 '+sec+'초</div><div class="sub">약 '+(price/hourly).toFixed(2)+'시간 일해야 합니다.</div>';}else r='시급을 확인해주세요.';}
+  else if(t==='workforbuy'){const price=num('price'),income=num('income'),type=el('incomeType')?.value||'hourly',product=(el('productName')?.value||'').trim();let hourly=income;if(type==='monthly')hourly=income/209;if(type==='annual')hourly=income/(260*8);if(hourly>0){const totalSec=price/hourly*3600,h=Math.floor(totalSec/3600),m=Math.floor((totalSec%3600)/60),sec=Math.floor(totalSec%60),name=product?product+'를 사려면':'이 물건을 사려면',basis=type==='hourly'?'시급':type==='monthly'?'월급 209시간 기준':'연봉 260일 × 8시간 기준';r='<div>'+name+' '+h+'시간 '+m+'분 '+sec+'초</div><div class="sub">'+basis+' · 시간당 '+won(hourly)+' · 약 '+(totalSec/3600).toFixed(2)+'시간 일해야 합니다.</div>';}else r='소득 금액을 확인해주세요.';}
   else if(t==='discount'){r=won(num('price')*(1-Number(el('rate').value||0)/100))+' / 할인가';}
   else if(t==='reverseDiscount'){const o=num('original'),p=num('sale');r=o?(100-p/o*100).toFixed(2)+'% 할인':'정가를 확인해주세요.';}
   else if(t==='unit'){const q=Number(el('qty').value||0);r=q?won(num('price')/q)+' / 개':'수량을 확인해주세요.';}
