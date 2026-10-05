@@ -331,10 +331,10 @@ function form(t,target=el('box'),mini=false){
   else if(t==='yearprogress') s=field('date','기준일',new Date().toISOString().slice(0,10),'date');
 
   else if(t==='carloan') s=moneyField('p','차량가격','3천만원')+field('rate','할부 연이율(%)',5)+field('years','할부기간(년)',5);
-  else if(t==='realhourly') s=moneyField('annual','연간 소득 (가능하면 실수령액 기준)','4천만원')+field('workDays','주 근무일수',5)+field('workHours','하루 근무시간',8)+field('commuteHours','하루 출퇴근시간',2)+field('daysPerYear','연간 근무일수',260);
+  else if(t==='realhourly') s=moneyField('annual','연간 소득 (가능하면 실수령액 기준)','4천만원')+field('workHours','하루 근무시간',8)+field('commuteHours','하루 출퇴근시간',2)+field('daysPerYear','연간 근무일수',260);
   else if(t==='raise') s=moneyField('currentAnnual','현재 연간 소득','4천만원')+moneyField('newAnnual','변경 후 연간 소득','4천5백만원')+field('workHours','하루 근무시간',8)+field('daysPerYear','연간 근무일수',260);
   else if(t==='commute') s=moneyField('income','월 실수령액','300만원')+moneyField('dailyCost','하루 출퇴근 비용','6천원')+field('commuteHours','하루 왕복 출퇴근시간',2)+field('workHours','하루 근무시간',8)+field('workDays','월 근무일수',20);
-  else if(t==='carcosttime') s=moneyField('income','월 실수령액','300만원')+moneyField('insurance','월 보험료','8만원')+moneyField('fuelCost','월 연료·충전비','15만원')+moneyField('tax','월 자동차세','3만원')+moneyField('parking','월 주차비','10만원')+moneyField('maintenance','월 정비비','5만원');
+  else if(t==='carcosttime') s=moneyField('income','월 실수령액','300만원')+field('monthlyWorkHours','월 근무시간',160)+moneyField('insurance','월 보험료','8만원')+moneyField('fuelCost','월 연료·충전비','15만원')+moneyField('tax','월 자동차세','3만원')+moneyField('parking','월 주차비','10만원')+moneyField('maintenance','월 정비비','5만원');
   else if(t==='kmcost') s=field('distance','주행거리(km)',1)+field('eff','연비(km/L)',12)+moneyField('gas','연료가격(원/L)','1,700원');
   else if(t==='ev') s=field('battery','배터리 용량(kWh)',60)+field('rate','충전단가(원/kWh)',300)+field('eff','충전 손실 포함 사용전력 비율(%)',100);
 
@@ -434,7 +434,7 @@ function calculationExplanation(t){
     realhourly:'근무시간 기준 시급 = 연간 소득 ÷ (연간 근무일수 × 하루 근무시간). 출퇴근까지 포함한 실질 시급 = 연간 소득 ÷ (연간 근무일수 × (근무시간 + 출퇴근시간)).',
     raise:'연봉 상승분 = 변경 후 연간 소득 − 현재 연간 소득. 시간당 상승분 = 연봉 상승분 ÷ (연간 근무일수 × 하루 근무시간).',
     commute:'월 출퇴근 비용 = 하루 비용 × 월 근무일수. 월 출퇴근 시간 = 하루 출퇴근시간 × 월 근무일수. 1년 기준으로도 환산해 보여줍니다.',
-    carcosttime:'월 차량 유지비 = 보험료 + 연료·충전비 + 자동차세 + 주차비 + 정비비. 이를 시간당 가치로 나누어 몇 시간 일한 금액인지 계산합니다.',
+    carcosttime:'월 차량 유지비 = 보험료 + 연료·충전비 + 자동차세 + 주차비 + 정비비. 시간당 가치 = 월 실수령액 ÷ 월 근무시간이며, 유지비를 이 시간당 가치로 나눠 몇 시간 일한 금액인지 계산합니다.',
     discounttime:'절약한 시간 = 할인받은 금액 ÷ 시급. 정가와 할인가의 차이를 내 시간으로 환산합니다.',
     ev:'전기차 충전비 = 배터리 용량 × 충전단가 × 충전 손실 반영 비율.',
     unitconv:'단위변환은 입력 단위를 기준 단위로 환산한 뒤 목표 단위로 다시 변환합니다.',
@@ -513,10 +513,10 @@ function calc(t,button){
   else if(t==='deposit'){const p=num('p'),rate=Number(el('rate').value||0)/100,y=Number(el('years').value||0),gross=p*Math.pow(1+rate,y)-p,tax=gross*Number(el('tax').value||0)/100;r=won(p+gross-tax)+' / 세후 예상금액';}
   else if(t==='saving'){const p=num('monthly'),m=Number(el('months').value||0),r0=Number(el('rate').value||0)/1200;const gross=p*m*(m+1)/2*r0; r=won(p*m+gross-gross*Number(el('tax').value||0)/100)+' / 세후 예상금액';}
   else if(t==='goal'){const target=num('target')-num('current'),m=Number(el('months').value||0),r0=Number(el('rate').value||0)/1200;const pay=r0?target*r0*Math.pow(1+r0,m)/(Math.pow(1+r0,m)-1):target/m;r=won(pay)+' / 월 필요금액';}
-  else if(t==='realhourly'){const annual=num('annual'),wd=Number(el('workDays').value||0),wh=Number(el('workHours').value||0),ch=Number(el('commuteHours').value||0),dy=Number(el('daysPerYear').value||0),workSec=dy*wh*3600,allSec=dy*(wh+ch)*3600;const workRate=workSec>0?annual/workSec:0,realRate=allSec>0?annual/allSec:0;r=workRate>0?'<div>근무시간 기준 '+won(workRate)+' / 시간</div><div class="sub">출퇴근 포함 실질 시급 '+won(realRate)+' / 시간 · 하루 '+(wh+ch).toFixed(2)+'시간을 쓰는 기준입니다.</div>':'입력값을 확인해주세요.';}
+  else if(t==='realhourly'){const annual=num('annual'),wh=Number(el('workHours').value||0),ch=Number(el('commuteHours').value||0),dy=Number(el('daysPerYear').value||0),workSec=dy*wh*3600,allSec=dy*(wh+ch)*3600;const workRate=workSec>0?annual/workSec:0,realRate=allSec>0?annual/allSec:0;r=workRate>0?'<div>근무시간 기준 '+won(workRate)+' / 시간</div><div class="sub">출퇴근 포함 실질 시급 '+won(realRate)+' / 시간 · 하루 '+(wh+ch).toFixed(2)+'시간을 쓰는 기준입니다.</div>':'입력값을 확인해주세요.';}
   else if(t==='raise'){const a=num('currentAnnual'),b=num('newAnnual'),h=Number(el('workHours').value||0),d=Number(el('daysPerYear').value||0),diff=b-a,rate1=a/(d*h*3600),rate2=b/(d*h*3600),extraHour=rate2-rate1;r=won(diff)+' / 연간 증가분 · '+won(rate1)+' → '+won(rate2)+' / 시간 · 시간당 '+won(extraHour)+' 상승';}
   else if(t==='commute'){const income=num('income'),daily=num('dailyCost'),hours=Number(el('commuteHours').value||0),workHours=Number(el('workHours').value||0),days=Number(el('workDays').value||0),monthlyCost=daily*days,monthlyHours=hours*days,annualHours=monthlyHours*12,totalWorkHours=workHours*days,realRate=totalWorkHours>0?(income-monthlyCost)/totalWorkHours:0;r=won(monthlyCost)+' / 월 출퇴근비 · '+monthlyHours.toFixed(1)+'시간 / 월 · 연 '+annualHours.toFixed(1)+'시간 · 출퇴근 비용까지 빼면 체감 시급 약 '+won(realRate)+' / 시간';}
-  else if(t==='carcosttime'){const income=num('income'),cost=num('insurance')+num('fuelCost')+num('tax')+num('parking')+num('maintenance'),rate=income/160;r=won(cost)+' / 월 차량 유지비 · '+(cost/rate).toFixed(2)+'시간 일한 가치';}
+  else if(t==='carcosttime'){const income=num('income'),hours=Number(el('monthlyWorkHours').value||0),cost=num('insurance')+num('fuelCost')+num('tax')+num('parking')+num('maintenance'),rate=hours>0?income/hours:0;r=rate>0?won(cost)+' / 월 차량 유지비 · '+(cost/rate).toFixed(2)+'시간 일한 가치':'월 근무시간을 확인해주세요.';}
   else if(t==='discounttime'){const saved=Math.max(0,num('original')-num('sale')),hourly=num('hourly'),seconds=hourly>0?saved/hourly*3600:0;const h=Math.floor(seconds/3600),m=Math.floor(seconds%3600/60),s=Math.floor(seconds%60);r=hourly>0?won(saved)+' 할인 · '+h+'시간 '+m+'분 '+s+'초 일한 만큼 절약':'시급을 확인해주세요.';}
   else if(t==='return'){const buy=num('buy'),sell=num('sell'),qty=Number(el('qty').value||0);r=won((sell-buy)*qty-num('fee'))+' / 평가손익 ('+(buy?(sell/buy*100-100).toFixed(2):0)+'%)';}
   else if(t==='average'){const q1=Number(el('q1').value||0),q2=Number(el('q2').value||0);r=q1+q2?won((num('p1')*q1+num('p2')*q2)/(q1+q2)):'매수수량을 확인해주세요.';}
