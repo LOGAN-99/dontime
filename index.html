@@ -369,7 +369,7 @@ function form(t,target=el('box'),mini=false){
   else if(t==='ratio') s=field('a','첫 번째 수치',2)+field('b','두 번째 수치',3)+field('c','계산 기준',10);
   else if(t==='mean') s=field('v','숫자(쉼표 구분)','10,20,30','text');
   else if(t==='weighted') s=field('v','점수·수치(쉼표 구분)','80,90,70','text')+field('w','가중치(쉼표 구분)','20,50,30','text');
-  else if(t==='mpg') s=field('distance','주행거리(km)',500)+moneyField('fuelcost','주유비','8만원');
+  else if(t==='mpg') s=field('distance','주행거리(km)',500)+field('fuelLiters','사용 연료(L)',40);
   else if(t==='travel') s=moneyField('transport','교통비','20만원')+moneyField('stay','숙박비','30만원')+moneyField('food','식비','20만원')+moneyField('etc','기타비용','10만원');
   else if(t==='fx') s=field('v','외화 금액',100)+field('rate','적용 환율(원)',1400);
 
@@ -448,7 +448,7 @@ function calculationExplanation(t){
     off:'퇴근까지 남은 시간 = 설정한 퇴근시각 − 현재시각. 실시간으로 갱신합니다.',
     discharge:'전역 카운트다운 = 목표 날짜의 23:59:59.999 − 현재시각. 남은 일·시·분·초를 실시간 표시합니다.',
     dday:'D-Day 카운트다운 = 목표 날짜의 23:59:59.999 − 현재시각. 남은 일·시·분·초를 실시간 표시합니다.',
-    datediff:'날짜 차이 = 시작일부터 종료일까지의 날짜를 순서대로 세어 계산합니다.',
+    datediff:'날짜 차이 = 두 날짜의 달력상 차이를 절대값으로 계산합니다. 예: 10월 1일→10월 2일은 1일입니다.',
     workdays:'근무일수 = 시작일부터 종료일까지 토·일을 제외한 날짜 수입니다.',
     timediff:'시간 차이 = 종료시각 − 시작시각. 종료시각이 빠르면 다음 날까지로 계산합니다.',
     age:'만 나이는 생년월일과 오늘 날짜를 비교해 생일이 지났는지 반영합니다.',
@@ -474,7 +474,7 @@ function calculationExplanation(t){
     ratio:'비례식 결과 = 두 번째 수치 ÷ 첫 번째 수치 × 계산 기준.',
     mean:'평균 = 입력한 숫자의 합 ÷ 숫자 개수.',
     weighted:'가중평균 = 각 수치×가중치의 합 ÷ 가중치의 합.',
-    mpg:'입력한 주행거리와 연비를 이용해 필요한 연료비를 계산합니다.',
+    mpg:'연비 = 주행거리(km) ÷ 사용 연료(L). 실제 주행거리와 주유량을 입력하면 내 차의 km/L를 계산합니다.',
     travel:'총 여행경비 = 교통비 + 숙박비 + 식비 + 기타비용.',
     fx:'환전 결과 = 외화 금액 × 입력 환율.',
     selling:'권장 판매가 = 원가 ÷ (1 − 목표 마진율 − 판매수수료율).',
@@ -582,11 +582,11 @@ function calc(t,button){
   else if(t==='calorie'){r=(Number(el('weight').value||0)*Number(el('minutes').value||0)*Number(el('met').value||0)*3.5/200).toFixed(0)+' kcal';}
   else if(t==='off'){let a=el('start').value.split(':').map(Number),b=el('end').value.split(':').map(Number),work=(b[0]*60+b[1])-(a[0]*60+a[1]);if(work<0)work+=1440;r=Math.floor(work/60)+'시간 '+work%60+'분';}
   else if(t==='discharge'||t==='dday'){const targetDate=new Date(el('date').value+'T23:59:59.999'),remain=Math.max(0,targetDate-Date.now())/1000,days=Math.floor(remain/86400),hours=Math.floor(remain%86400/3600),minutes=Math.floor(remain%3600/60),seconds=Math.floor(remain%60);r=remain>0?days+'일 '+String(hours).padStart(2,'0')+':'+String(minutes).padStart(2,'0')+':'+String(seconds).padStart(2,'0'):'00일 00:00:00';}
-  else if(t==='datediff'||t==='workdays'){const a=new Date(el('date1').value),b=new Date(el('date2').value);let n=0;for(let d=new Date(a);d<=b;d.setDate(d.getDate()+1)){if(t==='datediff'||![0,6].includes(d.getDay()))n++;}r=n+(t==='workdays'?' 근무일':'일');}
+  else if(t==='datediff'||t==='workdays'){const a=new Date(el('date1').value+'T00:00:00'),b=new Date(el('date2').value+'T00:00:00');if(t==='datediff'){r=Math.round(Math.abs(b-a)/86400000)+'일';}else{let st=new Date(Math.min(a.getTime(),b.getTime())),en=new Date(Math.max(a.getTime(),b.getTime())),n=0;for(let d=new Date(st);d<=en;d.setDate(d.getDate()+1)){if(![0,6].includes(d.getDay()))n++;}r=n+' 근무일';}}
   else if(t==='timediff'){let a=el('time1').value.split(':').map(Number),b=el('time2').value.split(':').map(Number),m=(b[0]*60+b[1])-(a[0]*60+a[1]);if(m<0)m+=1440;r=Math.floor(m/60)+'시간 '+m%60+'분';}
   else if(t==='age'){const d=new Date(el('date').value),n=new Date();let a=n.getFullYear()-d.getFullYear();if(n<new Date(n.getFullYear(),d.getMonth(),d.getDate()))a--;r=a+'세';}
   else if(t==='yearprogress'){const d=new Date(el('date').value),y=d.getFullYear(),start=new Date(y,0,1),end=new Date(y+1,0,1);r=((d-start)/(end-start)*100).toFixed(2)+'%';}
-  else if(t==='fuel'){const d=Number(el('distance').value||0),eff=Number(el('eff').value||0),gas=num('gas'),liters=eff?d/eff:0,total=liters*gas;r=eff&&d>0?won(total)+' / 총 연료비 · 약 '+liters.toFixed(2)+'L 사용':'주행거리와 연비를 확인해주세요.';}
+
   else if(t==='kmcost'){const d=Number(el('distance').value||0),eff=Number(el('eff').value||0),total=eff?d/eff*num('gas'):0;r=eff&&d>0?(total/d).toFixed(2)+'원 / km':'주행거리와 연비를 확인해주세요.';}
   else if(t==='ev'){r=won(Number(el('battery').value||0)*Number(el('rate').value||0)*Number(el('eff').value||100)/100);}
   else if(t==='unitconv'){const v=Number(el('value').value||0),from=el('from').value.trim().toLowerCase(),to=el('to').value.trim().toLowerCase();const map={mm:.001,cm:.01,m:1,km:1000,g:.001,kg:1,t:1000};r=map[from]&&map[to]?((v*map[from]/map[to]).toLocaleString('ko-KR')):'지원 단위를 확인해주세요.';}
@@ -594,7 +594,7 @@ function calc(t,button){
   else if(t==='ratio'){const a=Number(el('a').value||0),b=Number(el('b').value||0),c=Number(el('c').value||0);r=a?((b/a)*c).toLocaleString('ko-KR'):'첫 번째 값을 확인해주세요.';}
   else if(t==='mean'){const a=String(el('v').value).split(',').map(Number).filter(Number.isFinite);r=a.length?(a.reduce((x,y)=>x+y,0)/a.length).toFixed(2):'숫자를 입력해주세요.';}
   else if(t==='weighted'){const v=el('v').value.split(',').map(Number),w=el('w').value.split(',').map(Number),sum=w.reduce((a,b)=>a+b,0);r=sum?(v.reduce((a,x,i)=>a+x*(w[i]||0),0)/sum).toFixed(2):'가중치를 확인해주세요.';}
-  else if(t==='mpg'){r=won(num('fuelcost'))+' / 입력한 주행 기준 연료비';}
+  else if(t==='mpg'){const d=Number(el('distance').value||0),liters=Number(el('fuelLiters').value||0);r=d>0&&liters>0?(d/liters).toFixed(2)+' km/L':'주행거리와 사용 연료량을 확인해주세요.';}
   else if(t==='travel'){r=won(num('transport')+num('stay')+num('food')+num('etc'))+' / 총 여행경비';}
   else if(t==='fx'){r=won(Number(el('v').value||0)*Number(el('rate').value||0));}
   else if(t==='selling'){const cost=num('cost'),m=Number(el('margin').value||0)/100,f=Number(el('fee').value||0)/100;r=won(cost/(1-m-f))+' / 권장 판매가';}
