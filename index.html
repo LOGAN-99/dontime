@@ -356,6 +356,16 @@ function form(t,target=el('box'),mini=false){
   bindMoneyInputs();
 }
 function calculationExplanation(t){
+  if(t==='kmcost'){
+    const scope=calcScope;
+    const d=Number(scope?.querySelector('#distance')?.value||0), eff=Number(scope?.querySelector('#eff')?.value||0), gas=parseMoney(scope?.querySelector('#gas')?.value||0);
+    if(d>0 && eff>0 && gas>0){
+      const liters=d/eff, total=liters*gas, perKm=total/d;
+      const fmt=n=>n.toLocaleString('ko-KR',{maximumFractionDigits:2});
+      return 'km당 비용 = 총 연료비 ÷ 주행거리 = (주행거리 ÷ 연비 × 연료가격) ÷ 주행거리. 현재 입력값 '+fmt(d)+'km ÷ '+fmt(eff)+'km/L × '+fmt(gas)+'원/L = 약 '+fmt(liters)+'L, 총 '+fmt(total)+'원이며, 이를 '+fmt(d)+'km로 나누면 약 '+fmt(perKm)+'원/km입니다.';
+    }
+    return '주행거리, 연비, 연료가격을 입력하면 실제 입력값을 반영해 계산 과정을 보여줍니다.';
+  }
   const map={
     salary:'연봉→월급: 연봉 ÷ 12. 월급→연봉: 월급 × 12.',
     hourly:'시급 = 월급 ÷ 월 근무시간. 근무시간을 ‘일’로 입력하면 1일 8시간으로 환산합니다.',
@@ -415,7 +425,7 @@ function calculationExplanation(t){
     age:'만 나이는 생년월일과 오늘 날짜를 비교해 생일이 지났는지 반영합니다.',
     yearprogress:'올해 진행률 = 기준일이 올해 전체 기간에서 차지하는 비율 × 100.',
     fuel:'총 연료비 = 주행거리 ÷ 연비 × 연료가격. 예: 1,000km ÷ 12km/L = 약 83.33L를 사용하고, 83.33L × 1,700원 = 약 141,667원입니다.',
-    kmcost:'km당 비용 = 총 연료비 ÷ 주행거리 = (주행거리 ÷ 연비 × 연료가격) ÷ 주행거리. 예: 1,000km ÷ 12km/L × 1,700원/L = 141,666.67원이고, 이를 1,000km로 나누면 약 141.67원/km입니다.',
+    kmcost:'',
     ev:'전기차 충전비 = 배터리 용량 × 충전단가 × 충전 손실 반영 비율.',
     unitconv:'단위변환은 입력 단위를 기준 단위로 환산한 뒤 목표 단위로 다시 변환합니다.',
     percent:'비율 = 변화 수치 ÷ 기준 수치 × 100.',
