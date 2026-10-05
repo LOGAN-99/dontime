@@ -40,13 +40,13 @@ header{height:64px;background:#fff;border-bottom:1px solid #e7e9ed;display:flex;
 </main>
 <script>
 const data={
-"돈":[["월급시계","1초에 얼마 벌고 있는지 알고 있어?","income"],["시급 계산","내 한 시간의 가격표","hourly"],["연봉 ↔ 월급","연봉을 월급으로, 월급을 연봉으로","salary"],["실수령액","통장에 실제로 들어오는 돈은?","net"],["주휴수당","일한 시간만큼 제대로 계산해보자","weekly"],["연장·야간수당","늦게까지 일한 시간도 숫자로","overtime"],["연차수당","남은 연차, 돈으로 보면 얼마?","leave"],["퇴직금","퇴직할 때 받을 돈을 미리 계산","severance"],["최저임금","내 시급, 기준보다 낮진 않을까?","minimum"]],
-"시간":[["얼마나 일해야 살 수 있을까?","월급시계와 연결하면, 지금부터 이 물건을 살 때까지 남은 시간이 줄어듭니다.","workforbuy"],["퇴근시간","출근했으면, 이제 퇴근까지 얼마나 남았지?","off"],["전역 카운트다운","그날까지 얼마나 남았지?","discharge"],["D-Day","기다리는 날까지 정확히","dday"],["날짜 차이","두 날짜 사이가 며칠이지?","datediff"],["근무일수","주말 빼고 실제 며칠 일했을까?","workdays"],["시간 차이","시간도 계산해야 정확하다.","timediff"],["나이 계산","몇 살인지, 만 나이까지","age"],["올해 진행률","올해가 얼마나 지나갔을까?","yearprogress"]],
-"소비":[["할인 계산","결제 버튼 누르기 전에 한 번 더.","discount"],["역산 할인율","이 가격이면 몇 % 할인일까?","reverseDiscount"],["개당 단가","묶음이 정말 싼 걸까?","unit"],["할부","한 번에 내기 아픈 금액을 나눠보자","installment"],["마진율","팔고 나서 진짜 남는 돈","margin"],["손익분기점","몇 개 팔아야 본전일까?","breakeven"],["카드수수료","결제금액에서 빠지는 돈","cardfee"]],
+"돈":[["월급시계","1초에 얼마 벌고 있는지 알고 있어?","income"],["시급 계산","내 한 시간의 가격표","hourly"],["진짜 시급","출퇴근까지 포함하면 내 시간의 값은?","realhourly"],["연봉 상승 효과","연봉이 오르면 내 시간의 값은 얼마나 달라질까?","raise"],["연봉 ↔ 월급","연봉을 월급으로, 월급을 연봉으로","salary"],["실수령액","통장에 실제로 들어오는 돈은?","net"],["주휴수당","일한 시간만큼 제대로 계산해보자","weekly"],["연장·야간수당","늦게까지 일한 시간도 숫자로","overtime"],["연차수당","남은 연차, 돈으로 보면 얼마?","leave"],["퇴직금","퇴직할 때 받을 돈을 미리 계산","severance"],["최저임금","내 시급, 기준보다 낮진 않을까?","minimum"]],
+"시간":[["얼마나 일해야 살 수 있을까?","월급시계와 연결하면, 지금부터 이 물건을 살 때까지 남은 시간이 줄어듭니다.","workforbuy"],["출퇴근 비용과 시간","회사에 다니는 데 돈과 시간을 얼마나 쓰고 있을까?","commute"],["퇴근시간","출근했으면, 이제 퇴근까지 얼마나 남았지?","off"],["전역 카운트다운","그날까지 얼마나 남았지?","discharge"],["D-Day","기다리는 날까지 정확히","dday"],["날짜 차이","두 날짜 사이가 며칠이지?","datediff"],["근무일수","주말 빼고 실제 며칠 일했을까?","workdays"],["시간 차이","시간도 계산해야 정확하다.","timediff"],["나이 계산","몇 살인지, 만 나이까지","age"],["올해 진행률","올해가 얼마나 지나갔을까?","yearprogress"]],
+"소비":[["할인 계산","결제 버튼 누르기 전에 한 번 더.","discount"],["할인으로 몇 분 아꼈나","이번 할인, 내 시간으로는 몇 분일까?","discounttime"],["역산 할인율","이 가격이면 몇 % 할인일까?","reverseDiscount"],["개당 단가","묶음이 정말 싼 걸까?","unit"],["할부","한 번에 내기 아픈 금액을 나눠보자","installment"],["마진율","팔고 나서 진짜 남는 돈","margin"],["손익분기점","몇 개 팔아야 본전일까?","breakeven"],["카드수수료","결제금액에서 빠지는 돈","cardfee"]],
 "부동산":[["LTV","집값보다 중요한 건 얼마까지 빌릴 수 있느냐","ltv"],["DTI","소득으로 보는 주택대출 부담","dti"],["DSR","내 소득으로 감당할 수 있는 대출은?","dsr"],["주담대 월상환","집을 사면 매달 얼마를 갚을까?","mortgage"],["대출이자","빌린 돈의 가격표","loan"],["전세 ↔ 월세","전세와 월세, 숫자로 비교","rent"],["전월세 전환율","보증금 1억원을 월세로 바꾸면 얼마일까?","jeonseToRent"],["취득세","집을 살 때 세금까지 계산","acq"],["중개수수료","부동산 수수료, 얼마가 적당할까?","broker"],["내 집 마련 현금","집값만 모으면 끝이 아니다","homecash"]],
 "금융":[["복리 계산기","돈이 돈을 낳는 속도는?","compound"],["예금 이자","맡겨둔 돈이 얼마나 불어날까?","deposit"],["적금 이자","매달 넣으면 만기에 얼마?","saving"],["목표금액","1억 만들려면 매달 얼마가 필요할까?","goal"],["수익률","내 돈은 몇 % 벌었을까?","return"],["평균매입단가","여러 번 샀다면 평균은 얼마?","average"],["배당금","내 주식이 1년에 주는 돈","dividend"],["인플레이션","오늘의 100만원, 나중엔 얼마의 가치일까?","inflation"]],
 "세금":[["연말정산","13월의 월급, 얼마나 돌려받을까?","yearend"],["부가세","가격 속 부가세를 꺼내보자","vat"],["원천징수","떼이는 세금, 미리 계산","withholding"],["소득세 참고","소득에 따라 세금은 어떻게 달라질까?","incomeTax"],["양도차익","팔아서 얼마나 남았을까?","capitalgain"],["증여세 참고","증여할 때 세금은 얼마나?","gift"]],
-"자동차":[["자동차 할부","차값, 매달 얼마씩 낼까?","carloan"],["km당 비용","내 차는 1km에 얼마를 먹을까?","kmcost"],["전기차 충전비","충전 한 번에 얼마일까?","ev"]],
+"자동차":[["자동차 할부","차값, 매달 얼마씩 낼까?","carloan"],["자동차 유지비는 몇 시간?","차를 유지하려면 한 달에 몇 시간 일해야 할까?","carcosttime"],["km당 비용","내 차는 1km에 얼마를 먹을까?","kmcost"],["전기차 충전비","충전 한 번에 얼마일까?","ev"]],
 "건강":[["가임기","예상 가임기를 날짜로 확인","fertility"],["배란일","주기를 기준으로 예상 날짜 계산","ovulation"],["임신주수","마지막 생리일 기준 몇 주차일까?","pregnancy"],["출산예정일","예정일을 날짜로 계산","due"],["BMI","키와 몸무게로 BMI 확인","bmi"],["기초대사량","가만히 있어도 필요한 에너지","bmr"],["칼로리","먹고 움직인 칼로리를 계산","calorie"]],
 "문자·단어":[["글자수","몇 글자인지 바로 세기","chars"],["단어수","단어가 몇 개인지 세기","words"],["줄수","몇 줄인지 한눈에","lines"],["공백 제거","쓸데없는 공백을 싹 정리","spaces"],["줄바꿈 제거","한 줄로 깔끔하게","newlines"],["대소문자 변환","영문 대소문자 한 번에","case"],["HTML 태그 제거","HTML 껍데기만 벗기기","striphtml"],["텍스트 정렬","줄마다 뒤죽박죽이면 정리","sorttext"],["텍스트 비교","두 문장, 뭐가 달라졌지?","diff"]],
 "생활":[["단위변환","cm, m, km부터 무게까지","unitconv"],["퍼센트","퍼센트 계산, 헷갈리면 여기","percent"],["비율","비율과 비례를 빠르게","ratio"],["평균","숫자의 평균을 바로 계산","mean"],["가중평균","각 숫자의 중요도까지 반영","weighted"],["연비","차가 얼마나 효율적으로 달릴까?","mpg"],["여행경비","여행 전에 총액부터","travel"],["환전","외화가 원화로 얼마지?","fx"]],
@@ -307,6 +307,7 @@ function form(t,target=el('box'),mini=false){
   else if(t==='capitalgain') s=moneyField('buy','취득가액','3억원')+moneyField('sell','양도가액','4억원')+moneyField('cost','필요경비','1천만원')+percentField('rate','적용 세율(%)',20);
   else if(t==='gift') s=moneyField('gift','증여재산가액','5천만원')+moneyField('deduct','공제액','0원')+percentField('rate','적용 세율(%)',10);
 
+  else if(t==='discounttime') s=moneyField('original','정가','5만원')+moneyField('sale','할인가','4만원')+moneyField('hourly','내 시급','15,000원');
   else if(t==='workforbuy') s='<div class="field"><label>제품명 <span style="font-weight:400;color:#999">(선택)</span></label><input id="productName" type="text" value="" placeholder="예: 무선 이어폰"></div>'+moneyField('price','물건 가격','10만원')+'<div class="field"><label>내 소득 기준</label><select id="incomeType" onchange="updateWorkForBuyInput(this)"><option value="hourly">시급</option><option value="monthly">월급</option><option value="annual">연봉</option></select></div>'+moneyField('income','시급','15,000원');
   else if(t==='discount') s=moneyField('price','정가','5만원')+percentField('rate','할인율(%)',20);
   else if(t==='reverseDiscount') s=moneyField('original','정가','5만원')+moneyField('sale','실제 판매가','4만원');
@@ -330,6 +331,10 @@ function form(t,target=el('box'),mini=false){
   else if(t==='yearprogress') s=field('date','기준일',new Date().toISOString().slice(0,10),'date');
 
   else if(t==='carloan') s=moneyField('p','차량가격','3천만원')+field('rate','할부 연이율(%)',5)+field('years','할부기간(년)',5);
+  else if(t==='realhourly') s=moneyField('annual','연간 소득 (가능하면 실수령액 기준)','4천만원')+field('workDays','주 근무일수',5)+field('workHours','하루 근무시간',8)+field('commuteHours','하루 출퇴근시간',2)+field('daysPerYear','연간 근무일수',260);
+  else if(t==='raise') s=moneyField('currentAnnual','현재 연간 소득','4천만원')+moneyField('newAnnual','변경 후 연간 소득','4천5백만원')+field('workHours','하루 근무시간',8)+field('daysPerYear','연간 근무일수',260);
+  else if(t==='commute') s=moneyField('income','월 실수령액','300만원')+moneyField('dailyCost','하루 출퇴근 비용','6천원')+field('commuteHours','하루 왕복 출퇴근시간',2)+field('workDays','월 근무일수',20);
+  else if(t==='carcosttime') s=moneyField('income','월 실수령액','300만원')+moneyField('insurance','월 보험료','8만원')+moneyField('fuelCost','월 연료·충전비','15만원')+moneyField('tax','월 자동차세','3만원')+moneyField('parking','월 주차비','10만원')+moneyField('maintenance','월 정비비','5만원');
   else if(t==='kmcost') s=field('distance','주행거리(km)',1)+field('eff','연비(km/L)',12)+moneyField('gas','연료가격(원/L)','1,700원');
   else if(t==='ev') s=field('battery','배터리 용량(kWh)',60)+field('rate','충전단가(원/kWh)',300)+field('eff','충전 손실 포함 사용전력 비율(%)',100);
 
@@ -426,6 +431,11 @@ function calculationExplanation(t){
     yearprogress:'올해 진행률 = 기준일이 올해 전체 기간에서 차지하는 비율 × 100.',
     fuel:'총 연료비 = 주행거리 ÷ 연비 × 연료가격. 예: 1,000km ÷ 12km/L = 약 83.33L를 사용하고, 83.33L × 1,700원 = 약 141,667원입니다.',
     kmcost:'',
+    realhourly:'근무시간 기준 시급 = 연간 소득 ÷ (연간 근무일수 × 하루 근무시간). 출퇴근까지 포함한 실질 시급 = 연간 소득 ÷ (연간 근무일수 × (근무시간 + 출퇴근시간)).',
+    raise:'연봉 상승분 = 변경 후 연간 소득 − 현재 연간 소득. 시간당 상승분 = 연봉 상승분 ÷ (연간 근무일수 × 하루 근무시간).',
+    commute:'월 출퇴근 비용 = 하루 비용 × 월 근무일수. 월 출퇴근 시간 = 하루 출퇴근시간 × 월 근무일수. 1년 기준으로도 환산해 보여줍니다.',
+    carcosttime:'월 차량 유지비 = 보험료 + 연료·충전비 + 자동차세 + 주차비 + 정비비. 이를 시간당 가치로 나누어 몇 시간 일한 금액인지 계산합니다.',
+    discounttime:'절약한 시간 = 할인받은 금액 ÷ 시급. 정가와 할인가의 차이를 내 시간으로 환산합니다.',
     ev:'전기차 충전비 = 배터리 용량 × 충전단가 × 충전 손실 반영 비율.',
     unitconv:'단위변환은 입력 단위를 기준 단위로 환산한 뒤 목표 단위로 다시 변환합니다.',
     percent:'비율 = 변화 수치 ÷ 기준 수치 × 100.',
@@ -503,6 +513,11 @@ function calc(t,button){
   else if(t==='deposit'){const p=num('p'),rate=Number(el('rate').value||0)/100,y=Number(el('years').value||0),gross=p*Math.pow(1+rate,y)-p,tax=gross*Number(el('tax').value||0)/100;r=won(p+gross-tax)+' / 세후 예상금액';}
   else if(t==='saving'){const p=num('monthly'),m=Number(el('months').value||0),r0=Number(el('rate').value||0)/1200;const gross=p*m*(m+1)/2*r0; r=won(p*m+gross-gross*Number(el('tax').value||0)/100)+' / 세후 예상금액';}
   else if(t==='goal'){const target=num('target')-num('current'),m=Number(el('months').value||0),r0=Number(el('rate').value||0)/1200;const pay=r0?target*r0*Math.pow(1+r0,m)/(Math.pow(1+r0,m)-1):target/m;r=won(pay)+' / 월 필요금액';}
+  else if(t==='realhourly'){const annual=num('annual'),wd=Number(el('workDays').value||0),wh=Number(el('workHours').value||0),ch=Number(el('commuteHours').value||0),dy=Number(el('daysPerYear').value||0),workSec=dy*wh*3600,allSec=dy*(wh+ch)*3600;const workRate=workSec>0?annual/workSec:0,realRate=allSec>0?annual/allSec:0;r=workRate>0?'<div>근무시간 기준 '+won(workRate)+' / 시간</div><div class="sub">출퇴근 포함 실질 시급 '+won(realRate)+' / 시간 · 하루 '+(wh+ch).toFixed(2)+'시간을 쓰는 기준입니다.</div>':'입력값을 확인해주세요.';}
+  else if(t==='raise'){const a=num('currentAnnual'),b=num('newAnnual'),h=Number(el('workHours').value||0),d=Number(el('daysPerYear').value||0),diff=b-a,rate1=a/(d*h*3600),rate2=b/(d*h*3600),extraHour=rate2-rate1;r=won(diff)+' / 연간 증가분 · '+won(rate1)+' → '+won(rate2)+' / 시간 · 시간당 '+won(extraHour)+' 상승';}
+  else if(t==='commute'){const income=num('income'),daily=num('dailyCost'),hours=Number(el('commuteHours').value||0),days=Number(el('workDays').value||0),monthlyCost=daily*days,monthlyHours=hours*days,annualHours=monthlyHours*12,rate=income/160,realRate=(income-monthlyCost)/160;r=won(monthlyCost)+' / 월 출퇴근비 · '+monthlyHours.toFixed(1)+'시간 / 월 · 연 '+annualHours.toFixed(1)+'시간 · 비용까지 빼면 월 실수령 기준 체감 시급 약 '+won(realRate)+' / 시간';}
+  else if(t==='carcosttime'){const income=num('income'),cost=num('insurance')+num('fuelCost')+num('tax')+num('parking')+num('maintenance'),rate=income/160;r=won(cost)+' / 월 차량 유지비 · '+(cost/rate).toFixed(2)+'시간 일한 가치';}
+  else if(t==='discounttime'){const saved=Math.max(0,num('original')-num('sale')),hourly=num('hourly'),seconds=hourly>0?saved/hourly*3600:0;const h=Math.floor(seconds/3600),m=Math.floor(seconds%3600/60),s=Math.floor(seconds%60);r=hourly>0?won(saved)+' 할인 · '+h+'시간 '+m+'분 '+s+'초 일한 만큼 절약':'시급을 확인해주세요.';}
   else if(t==='return'){const buy=num('buy'),sell=num('sell'),qty=Number(el('qty').value||0);r=won((sell-buy)*qty-num('fee'))+' / 평가손익 ('+(buy?(sell/buy*100-100).toFixed(2):0)+'%)';}
   else if(t==='average'){const q1=Number(el('q1').value||0),q2=Number(el('q2').value||0);r=q1+q2?won((num('p1')*q1+num('p2')*q2)/(q1+q2)):'매수수량을 확인해주세요.';}
   else if(t==='dividend'){const gross=Number(el('qty').value||0)*num('dps');r=won(gross*(1-Number(el('tax').value||0)/100))+' / 연간 세후 배당금';}
