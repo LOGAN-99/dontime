@@ -30,11 +30,11 @@ header{height:64px;background:#fff;border-bottom:1px solid #e7e9ed;display:flex;
 @media(max-width:700px){.featured-compare{margin:0 0 18px;padding:14px}.featured-head{display:block}.featured-drag{display:inline-block;margin-top:9px;white-space:normal}.featured-grid{grid-template-columns:1fr;gap:8px}.featured-join{height:8px;font-size:18px}header{height:58px}.top{padding:0 15px}.logo{font-size:22px}.wrap{padding:24px 14px 50px}.hero{margin-bottom:18px}.hero h1{font-size:30px;letter-spacing:-1.3px}.hero p{font-size:14px}.layout,.tool-layout{display:block}.layout>.cats{position:static;display:flex;flex-direction:row;gap:7px;max-width:100%;max-height:none;overflow-x:auto;overflow-y:hidden;padding:2px 2px 8px;margin:0 0 14px;scrollbar-width:none}.layout>.cats::-webkit-scrollbar{display:none}.layout>.cats>.cat{width:auto;flex:0 0 auto;white-space:nowrap;padding:9px 13px;border-radius:999px}.layout>.cats>.subcats{display:none}.tool-layout>.cats{position:static;display:flex;flex-direction:row;gap:7px;max-width:100%;max-height:none;overflow-x:auto;overflow-y:hidden;padding:2px 2px 8px;margin:0 0 16px;scrollbar-width:none}.tool-layout>.cats::-webkit-scrollbar{display:none}.tool-layout>.cats>.cat{width:auto;flex:0 0 auto;white-space:nowrap;padding:9px 13px;border-radius:999px}.tool-layout>.cats>.subcats{display:none}.subcats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px;margin:4px 0 10px}.subcat{font-size:12px;padding:8px}.grid{grid-template-columns:1fr;gap:12px}.tool-title-row{display:block}.compare-tip{margin-top:14px;max-width:none}.compare-items{grid-template-columns:1fr;margin-top:18px}.tool h2{font-size:25px}.tool p{font-size:14px}.panel{padding:16px;border-radius:15px}.fields{grid-template-columns:1fr;gap:12px}.live-top{grid-template-columns:1fr;gap:14px}.time-fields{grid-template-columns:1fr;gap:12px;margin-top:16px}.basis-list{gap:8px}.basis-option{min-height:44px;padding:10px 12px}.ticker{font-size:32px}.result{font-size:24px}.actions{width:100%}.actions button{flex:0 0 auto}.compare-card{padding:12px}}
 @media(max-width:420px){.wrap{padding-left:11px;padding-right:11px}.top{padding:0 11px}.hero h1{font-size:27px}.card{padding:17px}.panel{padding:14px}.subcats{grid-template-columns:1fr}.basis-option{font-size:13px}.primary,.secondary{padding:10px 14px}}
 .calc-explain{margin-top:14px;padding:12px 14px;background:#f7f8fa;border:1px solid #e6e8eb;border-radius:10px;font-size:13px;line-height:1.55;color:#666}.calc-explain strong{display:block;margin-bottom:4px;color:#333;font-size:13px}
-</style></head>
+.home-tools{margin:-8px 0 24px;padding:14px;background:#fff;border:1px solid #e2e5e9;border-radius:14px}.search-box{display:flex;gap:8px;align-items:center}.search-box input{flex:1;min-width:0;border:1px solid #d8dce1;border-radius:10px;padding:12px 14px;background:#fafbfc;outline:none}.search-box input:focus{border-color:#8d949c;background:#fff;box-shadow:0 0 0 3px #17191c0a}.search-clear{border:1px solid #cfd4da;background:#eef0f3;border-radius:9px;padding:9px 12px;font-size:12px;font-weight:800}.search-meta{margin:8px 2px 0;color:#8a8f97;font-size:12px}.recent-tools{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.recent-chip{border:1px solid #dfe3e8;background:#fff;border-radius:999px;padding:7px 10px;color:#4f555d;font-size:12px;font-weight:700}.recent-chip:hover{background:#f1f2f4}.search-empty{grid-column:1/-1;padding:42px 20px;text-align:center;background:#fff;border:1px dashed #cfd4da;border-radius:16px;color:#737982}.search-empty strong{display:block;color:#2d3238;font-size:16px;margin-bottom:5px}.copy-result{display:flex;justify-content:flex-end;margin-top:9px}.copy-result button{border:1px solid #d8dce1;background:#f7f8fa;color:#555b63;border-radius:8px;padding:7px 10px;font-size:11px;font-weight:800}.copy-result button:hover{background:#eef0f3}@media(max-width:700px){.home-tools{margin:0 0 18px;padding:12px}.search-box input{padding:11px 12px}.recent-tools{overflow-x:auto;flex-wrap:nowrap;padding-bottom:2px}.recent-chip{flex:0 0 auto}}</style></head>
 <body>
 <header><div class="top"><div class="logo" onclick="home()">돈시간</div><div class="tag">돈을 시간으로, 시간을 돈으로.</div></div></header>
 <main class="wrap">
-<section id="home"><div class="hero"><h1>내 시간이 얼마인지,<br>이게 몇 시간짜리인지 계산해보세요.</h1><p>생활 속에서 자꾸 계산하게 되는 것들을 한곳에 모았습니다.</p></div><div class="featured-compare"><div class="featured-head"><div><strong>돈시간에서 이렇게 같이 계산할 수 있어요</strong><span>계산기를 나란히 놓고 서로 다른 결과를 한눈에 비교해보세요.</span></div><span class="featured-drag">PC에서는 계산기를 드래그해서 자유롭게 배치할 수 있어요 ↗</span></div><div class="featured-grid"><button class="featured-card" type="button" onclick="openTool('income','월급시계','1초에 얼마 벌고 있는지 알고 있어?')"><div class="featured-kicker">01 · 돈</div><h3>월급시계</h3><p>내가 지금까지 번 돈을 실시간으로 확인</p><div class="featured-value">0.0000원</div><span>계산기 열기 →</span></button><div class="featured-join">+</div><button class="featured-card" type="button" onclick="openTool('workforbuy','얼마나 일해야 살 수 있을까?','월급시계와 연결하면, 지금부터 이 물건을 살 때까지 남은 시간이 줄어듭니다.')"><div class="featured-kicker">02 · 시간</div><h3>얼마나 일해야 살 수 있을까?</h3><p>원하는 물건이 내 시간으로 몇 시간짜리인지 확인</p><div class="featured-value">몇 시간일까?</div><span>계산기 열기 →</span></button></div></div>
+<section id="home"><div class="hero"><h1>내 시간이 얼마인지,<br>이게 몇 시간짜리인지 계산해보세요.</h1><p>생활 속에서 자꾸 계산하게 되는 것들을 한곳에 모았습니다.</p></div><div class="home-tools"><div class="search-box"><input id="serviceSearch" type="search" placeholder="계산기 이름이나 키워드를 검색해보세요" oninput="searchServices(this.value)" autocomplete="off"><button class="search-clear" type="button" onclick="clearServiceSearch()">초기화</button></div><div id="searchMeta" class="search-meta">예: 월급, 시급, 대출, 자동차, 할인, 날짜</div><div id="recentTools" class="recent-tools"></div></div><div class="featured-compare"><div class="featured-head"><div><strong>돈시간에서 이렇게 같이 계산할 수 있어요</strong><span>계산기를 나란히 놓고 서로 다른 결과를 한눈에 비교해보세요.</span></div><span class="featured-drag">PC에서는 계산기를 드래그해서 자유롭게 배치할 수 있어요 ↗</span></div><div class="featured-grid"><button class="featured-card" type="button" onclick="openTool('income','월급시계','1초에 얼마 벌고 있는지 알고 있어?')"><div class="featured-kicker">01 · 돈</div><h3>월급시계</h3><p>내가 지금까지 번 돈을 실시간으로 확인</p><div class="featured-value">0.0000원</div><span>계산기 열기 →</span></button><div class="featured-join">+</div><button class="featured-card" type="button" onclick="openTool('workforbuy','얼마나 일해야 살 수 있을까?','월급시계와 연결하면, 지금부터 이 물건을 살 때까지 남은 시간이 줄어듭니다.')"><div class="featured-kicker">02 · 시간</div><h3>얼마나 일해야 살 수 있을까?</h3><p>원하는 물건이 내 시간으로 몇 시간짜리인지 확인</p><div class="featured-value">몇 시간일까?</div><span>계산기 열기 →</span></button></div></div>
 <div class="layout"><aside id="cats" class="cats"></aside><div id="cards" class="grid"></div></div><div class="footer">돈시간 · 내 시간의 가치를 숫자로</div></section>
 <section id="tool" class="tool"><div class="tool-layout"><aside id="toolcats" class="cats"></aside><div id="toolmain"></div></div></section>
 </main>
@@ -51,7 +51,8 @@ const data={
 "문자·단어":[["글자수","몇 글자인지 바로 세기","chars"],["단어수","단어가 몇 개인지 세기","words"],["줄수","몇 줄인지 한눈에","lines"],["공백 제거","쓸데없는 공백을 싹 정리","spaces"],["줄바꿈 제거","한 줄로 깔끔하게","newlines"],["대소문자 변환","영문 대소문자 한 번에","case"],["HTML 태그 제거","HTML 껍데기만 벗기기","striphtml"],["텍스트 정렬","줄마다 뒤죽박죽이면 정리","sorttext"],["텍스트 비교","두 문장, 뭐가 달라졌지?","diff"]],
 "생활":[["단위변환","cm, m, km부터 무게까지","unitconv"],["퍼센트","퍼센트 계산, 헷갈리면 여기","percent"],["비율","비율과 비례를 빠르게","ratio"],["평균","숫자의 평균을 바로 계산","mean"],["가중평균","각 숫자의 중요도까지 반영","weighted"],["연비","차가 얼마나 효율적으로 달릴까?","mpg"],["여행경비","여행 전에 총액부터","travel"],["환전","외화가 원화로 얼마지?","fx"]],
 "사업":[["판매가","원가와 목표 마진으로 가격 정하기","selling"],["원가율","원가가 매출에서 차지하는 비율","costrate"],["온라인 수수료","플랫폼에 빠지는 돈까지 계산","platformfee"],["인건비","사람 한 명을 고용하면 실제 비용은?","labor"],["목표매출","원하는 순이익을 내려면 매출 얼마?","targetsales"]]};
-let current="돈",timer,calcScope=null;
+let current="돈",timer,calcScope=null,searchQuery="";
+let recentServices=JSON.parse(localStorage.getItem("dontimeRecent")||"[]");
 const $=s=>document.querySelector(s);
 const cats=document.getElementById('cats');
 const cards=document.getElementById('cards');
@@ -101,8 +102,18 @@ const cardDescriptions={workforbuy:"물건 가격과 시급·월급·연봉 중 
 function render(){
   const canDrag=window.innerWidth>700&&window.matchMedia&&window.matchMedia('(pointer:fine)').matches;
   const dragAttr=canDrag?' draggable="true"':'';
-  cats.innerHTML=Object.keys(data).map(c=>'<div><button class="cat '+(c===current?'on':'')+'" onclick="current=\''+c+'\';render()">'+c+'</button><div class="subcats">'+data[c].map(x=>'<button class="subcat"'+dragAttr+' ondragstart="dragService(event,\''+x[2]+'\',\''+x[0]+'\',\''+x[1]+'\')" onclick="event.stopPropagation();current=\''+c+'\';openTool(\''+x[2]+'\',\''+x[0]+'\',\''+x[1]+'\')">'+x[0]+'</button>').join('')+'</div></div>').join('');
-  cards.innerHTML=data[current].map(x=>'<div class="card"'+dragAttr+' ondragstart="dragService(event,\''+x[2]+'\',\''+x[0]+'\',\''+x[1]+'\')" tabindex="0" onclick="openTool(\''+x[2]+'\',\''+x[0]+'\',\''+x[1]+'\')" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();openTool(\''+x[2]+'\',\''+x[0]+'\',\''+x[1]+'\')}"><h3>'+x[0]+'</h3><p class="copy">'+x[1]+'</p><p class="desc">'+(cardDescriptions[x[2]]||'입력한 값을 바탕으로 생활 속 필요한 계산을 빠르게 확인합니다.')+'</p><span class="hint">카드 전체 클릭 → 계산하기 · 드래그해서 비교창에 추가</span></div>').join('');
+  cats.innerHTML=Object.keys(data).map(c=>'<div><button class="cat '+(c===current?'on':'')+'" onclick="current=\''+c+'\';clearServiceSearch();render()">'+c+'</button><div class="subcats">'+data[c].map(x=>'<button class="subcat"'+dragAttr+' ondragstart="dragService(event,\''+x[2]+'\',\''+x[0]+'\',\''+x[1]+'\')" onclick="event.stopPropagation();current=\''+c+'\';openTool(\''+x[2]+'\',\''+x[0]+'\',\''+x[1]+'\')">'+x[0]+'</button>').join('')+'</div></div>').join('');
+  const all=Object.entries(data).flatMap(([cat,items])=>items.map(x=>({cat,x})));
+  const q=searchQuery.trim().toLowerCase();
+  const items=q?all.filter(({cat,x})=>(cat+' '+x[0]+' '+x[1]+' '+(cardDescriptions[x[2]]||'')).toLowerCase().includes(q)).map(({x})=>x):data[current];
+  if(q){
+    cards.innerHTML=items.length?items.map(x=>'<div class="card"'+dragAttr+' ondragstart="dragService(event,\''+x[2]+'\',\''+x[0]+'\',\''+x[1]+'\')" tabindex="0" onclick="openTool(\''+x[2]+'\',\''+x[0]+'\',\''+x[1]+'\')" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();openTool(\''+x[2]+'\',\''+x[0]+'\',\''+x[1]+'\')}"><h3>'+x[0]+'</h3><p class="copy">'+x[1]+'</p><p class="desc">'+(cardDescriptions[x[2]]||'입력한 값을 바탕으로 생활 속 필요한 계산을 빠르게 확인합니다.')+'</p><span class="hint">검색 결과 · 계산기 열기</span></div>').join(''):'<div class="search-empty"><strong>찾는 계산기가 아직 없어요.</strong><span>다른 단어로 검색하거나 카테고리에서 골라보세요.</span></div>';
+    const meta=document.getElementById('searchMeta'); if(meta) meta.textContent=items.length+'개의 계산기를 찾았습니다.';
+  }else{
+    cards.innerHTML=items.map(x=>'<div class="card"'+dragAttr+' ondragstart="dragService(event,\''+x[2]+'\',\''+x[0]+'\',\''+x[1]+'\')" tabindex="0" onclick="openTool(\''+x[2]+'\',\''+x[0]+'\',\''+x[1]+'')" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();openTool(\''+x[2]+'\',\''+x[0]+'\',\''+x[1]+'')}"><h3>'+x[0]+'</h3><p class="copy">'+x[1]+'</p><p class="desc">'+(cardDescriptions[x[2]]||'입력한 값을 바탕으로 생활 속 필요한 계산을 빠르게 확인합니다.')+'</p><span class="hint">카드 전체 클릭 → 계산하기 · 드래그해서 비교창에 추가</span></div>').join('');
+    const meta=document.getElementById('searchMeta'); if(meta) meta.textContent='계산기 '+Object.values(data).reduce((n,v)=>n+v.length,0)+'개 · 원하는 계산기를 검색해보세요.';
+  }
+  renderRecentTools();
 }
 function renderToolCats(){
   const tc=el('toolcats');
@@ -111,11 +122,15 @@ function renderToolCats(){
   tc.innerHTML=Object.keys(data).map(c=>'<div><button class="cat '+(c===current?'on':'')+'" onclick="current=\''+c+'\';if(window.innerWidth<=700){home();}else{render();renderToolCats();}">'+c+'</button><div class="subcats">'+data[c].map(x=>'<button class="subcat"'+dragAttr+' ondragstart="dragService(event,\''+x[2]+'\',\''+x[0]+'\',\''+x[1]+'\')" onclick="openTool(\''+x[2]+'\',\''+x[0]+'\',\''+x[1]+'\')">'+x[0]+'</button>').join('')+'</div></div>').join('');
 }
 
-function home(){clearInterval(timer);stopAllCalcTimers();tool.classList.remove('on');document.getElementById('home').style.display='block';box=null;renderToolCats();function textCompareTool(){
+function home(){clearInterval(timer);stopAllCalcTimers();tool.classList.remove('on');document.getElementById('home').style.display='block';box=null;renderToolCats();render();scrollTo(0,0)}
+function textCompareTool(){
   box.innerHTML='<div class="panel"><div class="fields"><div class="field"><label>원문</label><textarea id="txt1" style="width:100%;min-height:160px;border:1px solid #d8dce1;border-radius:10px;padding:12px"></textarea></div><div class="field"><label>비교할 문장</label><textarea id="txt2" style="width:100%;min-height:160px;border:1px solid #d8dce1;border-radius:10px;padding:12px"></textarea></div></div><div class="actions"><button class="primary" onclick="compareText()">비교하기</button><button type="button" class="secondary reset-btn" onclick="resetCalculator()">↺ 초기화</button></div><div id="res"></div></div>';
 }
 function compareText(){const a=el('txt1').value,b=el('txt2').value;el('res').innerHTML='<div class="result">'+(a===b?'두 텍스트가 같습니다.':'두 텍스트가 다릅니다.')+'</div>';}
-render();scrollTo(0,0)}
+function searchServices(value){searchQuery=String(value||'');render();}
+function clearServiceSearch(){searchQuery='';const input=document.getElementById('serviceSearch');if(input)input.value='';render();}
+function rememberService(t,title,copy){recentServices=[{t,title,copy},...recentServices.filter(x=>x.t!==t)].slice(0,6);try{localStorage.setItem('dontimeRecent',JSON.stringify(recentServices));}catch(e){}}
+function renderRecentTools(){const target=document.getElementById('recentTools');if(!target)return;if(!recentServices.length){target.innerHTML='';return;}target.innerHTML=recentServices.map(x=>'<button class="recent-chip" type="button" onclick="openTool(\''+x.t+'\',\''+x.title+'\',\''+x.copy+'\')">최근 · '+x.title+'</button>').join('');}
 function field(id,label,val,type='number',placeholder='',cls=''){return '<div class="field"><label>'+label+'</label><input id="'+id+'" type="'+type+'" value="'+val+'" '+(placeholder?'placeholder="'+placeholder+'"':'')+(cls?' class="'+cls+'"':'')+'></div>'}
 function findService(t){
   for(const c of Object.keys(data)){const x=data[c].find(v=>v[2]===t);if(x)return x;}
@@ -133,6 +148,7 @@ function serviceNotice(t){
   return '';
 }
 function openTool(t,title,copy){
+  rememberService(t,title,copy);
   window.__dontimeCurrentType=t;
   document.getElementById('home').style.display='none';
   clearInterval(timer);
@@ -564,9 +580,10 @@ function calc(t,button){
   else if(t==='targetsales'){const m=Number(el('margin').value||0)/100;r=m?(won((num('fixed')+num('profit'))/m)+' / 목표 매출'): '공헌이익률을 확인해주세요.';}
   else r=won(num('amount'));
   const result=calcScope?calcScope.querySelector('[id^="res"]'):document.getElementById('res');
-  if(result) result.innerHTML='<div class="result">'+r+'</div><div class="calc-explain"><strong>계산 방법</strong><div>'+calculationExplanation(t)+'</div></div>';
+  if(result) result.innerHTML='<div class="result">'+r+'</div><div class="calc-explain"><strong>계산 방법</strong><div>'+calculationExplanation(t)+'</div></div><div class="copy-result"><button type="button" onclick="copyCalcResult(this)">결과 복사</button></div>';
   calcScope=previousScope;
 }
+function copyCalcResult(button){const card=button.closest('.compare-card')||button.closest('.panel');const result=card?.querySelector('.result');if(!result)return;const text=result.innerText.trim();navigator.clipboard?.writeText(text).then(()=>{const old=button.textContent;button.textContent='복사됨 ✓';setTimeout(()=>button.textContent=old,1200)}).catch(()=>{button.textContent='복사 실패';setTimeout(()=>button.textContent='결과 복사',1200)});}
 const calcTimers=new Map();
 function stopCalcTimer(key){const id=calcTimers.get(key);if(id){clearInterval(id);calcTimers.delete(key);}}
 function startCalcTimer(key,fn,ms=50){stopCalcTimer(key);const id=setInterval(fn,ms);calcTimers.set(key,id);return id;}
