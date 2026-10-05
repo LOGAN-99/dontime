@@ -52,7 +52,7 @@ const data={
 "생활":[["단위변환","cm, m, km부터 무게까지","unitconv"],["퍼센트","퍼센트 계산, 헷갈리면 여기","percent"],["비율","비율과 비례를 빠르게","ratio"],["평균","숫자의 평균을 바로 계산","mean"],["가중평균","각 숫자의 중요도까지 반영","weighted"],["연비","차가 얼마나 효율적으로 달릴까?","mpg"],["여행경비","여행 전에 총액부터","travel"],["환전","외화가 원화로 얼마지?","fx"]],
 "사업":[["판매가","원가와 목표 마진으로 가격 정하기","selling"],["원가율","원가가 매출에서 차지하는 비율","costrate"],["온라인 수수료","플랫폼에 빠지는 돈까지 계산","platformfee"],["인건비","사람 한 명을 고용하면 실제 비용은?","labor"],["목표매출","원하는 순이익을 내려면 매출 얼마?","targetsales"]]};
 let current="돈",timer,calcScope=null,searchQuery="";
-let recentServices=JSON.parse(localStorage.getItem("dontimeRecent")||"[]");
+let recentServices=[];try{recentServices=JSON.parse(localStorage.getItem("dontimeRecent")||"[]");if(!Array.isArray(recentServices))recentServices=[];}catch(e){recentServices=[];}
 const $=s=>document.querySelector(s);
 const cats=document.getElementById('cats');
 const cards=document.getElementById('cards');
@@ -110,7 +110,7 @@ function render(){
     cards.innerHTML=items.length?items.map(x=>'<div class="card"'+dragAttr+' ondragstart="dragService(event,\''+x[2]+'\',\''+x[0]+'\',\''+x[1]+'\')" tabindex="0" onclick="openTool(\''+x[2]+'\',\''+x[0]+'\',\''+x[1]+'\')" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();openTool(\''+x[2]+'\',\''+x[0]+'\',\''+x[1]+'\')}"><h3>'+x[0]+'</h3><p class="copy">'+x[1]+'</p><p class="desc">'+(cardDescriptions[x[2]]||'입력한 값을 바탕으로 생활 속 필요한 계산을 빠르게 확인합니다.')+'</p><span class="hint">검색 결과 · 계산기 열기</span></div>').join(''):'<div class="search-empty"><strong>찾는 계산기가 아직 없어요.</strong><span>다른 단어로 검색하거나 카테고리에서 골라보세요.</span></div>';
     const meta=document.getElementById('searchMeta'); if(meta) meta.textContent=items.length+'개의 계산기를 찾았습니다.';
   }else{
-    cards.innerHTML=items.map(x=>'<div class="card"'+dragAttr+' ondragstart="dragService(event,\''+x[2]+'\',\''+x[0]+'\',\''+x[1]+'\')" tabindex="0" onclick="openTool(\''+x[2]+'\',\''+x[0]+'\',\''+x[1]+'')" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();openTool(\''+x[2]+'\',\''+x[0]+'\',\''+x[1]+'')}"><h3>'+x[0]+'</h3><p class="copy">'+x[1]+'</p><p class="desc">'+(cardDescriptions[x[2]]||'입력한 값을 바탕으로 생활 속 필요한 계산을 빠르게 확인합니다.')+'</p><span class="hint">카드 전체 클릭 → 계산하기 · 드래그해서 비교창에 추가</span></div>').join('');
+    cards.innerHTML=items.map(x=>'<div class="card"'+dragAttr+' ondragstart="dragService(event,\''+x[2]+'\',\''+x[0]+'\',\''+x[1]+'\')" tabindex="0" onclick="openTool(\''+x[2]+'\',\''+x[0]+'\',\''+x[1]+'\')" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();openTool(\''+x[2]+'\',\''+x[0]+'\',\''+x[1]+'\')}"><h3>'+x[0]+'</h3><p class="copy">'+x[1]+'</p><p class="desc">'+(cardDescriptions[x[2]]||'입력한 값을 바탕으로 생활 속 필요한 계산을 빠르게 확인합니다.')+'</p><span class="hint">카드 전체 클릭 → 계산하기 · 드래그해서 비교창에 추가</span></div>').join('');
     const meta=document.getElementById('searchMeta'); if(meta) meta.textContent='계산기 '+Object.values(data).reduce((n,v)=>n+v.length,0)+'개 · 원하는 계산기를 검색해보세요.';
   }
   renderRecentTools();
