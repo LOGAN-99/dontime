@@ -124,7 +124,7 @@ function renderToolCats(){
   const tc=el('toolcats');
   const canDrag=window.innerWidth>700&&window.matchMedia&&window.matchMedia('(pointer:fine)').matches;
   const dragAttr=canDrag?' draggable="true"':'';
-  tc.innerHTML=Object.keys(data).map(c=>'<div><button class="cat '+(c===current?'on':'')+'" onclick="current=\\''+c+'\\';if(window.innerWidth<=700){home();}else{render();renderToolCats();}">'+c+'</button><div class="subcats">'+data[c].map(x=>'<button class="subcat"'+dragAttr+' ondragstart="dragService(event,\\''+x[2]+'\\',\\''+x[0]+'\\',\\''+x[1]+'\\')" onclick="openTool(\\''+x[2]+'\\',\\''+x[0]+'\\',\\''+x[1]+'\\')">'+x[0]+'</button>').join('')+'</div></div>').join('');
+  tc.innerHTML=Object.keys(data).map(c=>'<div><button class="cat '+(c===current?'on':'')+'" onclick="current=\''+c+'\';if(window.innerWidth<=700){home();}else{render();renderToolCats();}">'+c+'</button><div class="subcats">'+data[c].map(x=>'<button class="subcat"'+dragAttr+' ondragstart="dragService(event,\''+x[2]+'\',\''+x[0]+'\',\''+x[1]+'\')" onclick="openTool(\''+x[2]+'\',\''+x[0]+'\',\''+x[1]+'\')">'+x[0]+'</button>').join('')+'</div></div>').join('');
 }
 
 const calendarHolidayData={
