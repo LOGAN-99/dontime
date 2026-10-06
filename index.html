@@ -124,7 +124,9 @@ function renderToolCats(){
   const tc=el('toolcats');
   const canDrag=window.innerWidth>700&&window.matchMedia&&window.matchMedia('(pointer:fine)').matches;
   const dragAttr=canDrag?' draggable="true"':'';
-  tc.innerHTML=Object.keys(data).map(c=>'<div><button class="cat '+(c===current?'on':'')+'" onclick="current=\''+c+'\';if(window.innerWidth<=700){home();}else{
+  tc.innerHTML=Object.keys(data).map(c=>'<div><button class="cat '+(c===current?'on':'')+'" onclick="current=\\''+c+'\\';if(window.innerWidth<=700){home();}else{render();renderToolCats();}">'+c+'</button><div class="subcats">'+data[c].map(x=>'<button class="subcat"'+dragAttr+' ondragstart="dragService(event,\\''+x[2]+'\\',\\''+x[0]+'\\',\\''+x[1]+'\\')" onclick="openTool(\\''+x[2]+'\\',\\''+x[0]+'\\',\\''+x[1]+'\\')">'+x[0]+'</button>').join('')+'</div></div>').join('');
+}
+
 const calendarHolidayData={
 2026:[['01-01','신정'],['02-16','설날 연휴'],['02-17','설날'],['02-18','설날 연휴'],['03-01','삼일절'],['05-05','어린이날'],['05-24','부처님오신날'],['06-06','현충일'],['08-15','광복절'],['09-24','추석 연휴'],['09-25','추석'],['09-26','추석 연휴'],['10-03','개천절'],['10-09','한글날'],['12-25','성탄절']],
 2027:[['01-01','신정'],['02-06','설날 연휴'],['02-07','설날'],['02-08','설날 연휴'],['03-01','삼일절'],['05-05','어린이날'],['05-13','부처님오신날'],['06-06','현충일'],['08-15','광복절'],['09-14','추석 연휴'],['09-15','추석'],['09-16','추석 연휴'],['10-03','개천절'],['10-09','한글날'],['12-25','성탄절']],
@@ -173,9 +175,6 @@ function calendarSetYear(y){window.__calendarYear=Math.min(calendarYearEnd,Math.
 function calendarToday(){calendarSetYear(Math.min(calendarYearEnd,Math.max(calendarYearStart,new Date().getFullYear())));}
 function calendarPrevYear(){calendarSetYear((window.__calendarYear||calendarYearStart)-1);}
 function calendarNextYear(){calendarSetYear((window.__calendarYear||calendarYearStart)+1);}
-render();renderToolCats();}">'+c+'</button><div class="subcats">'+data[c].map(x=>'<button class="subcat"'+dragAttr+' ondragstart="dragService(event,\''+x[2]+'\',\''+x[0]+'\',\''+x[1]+'\')" onclick="openTool(\''+x[2]+'\',\''+x[0]+'\',\''+x[1]+'\')">'+x[0]+'</button>').join('')+'</div></div>').join('');
-}
-
 function home(){clearInterval(timer);stopAllCalcTimers();tool.classList.remove('on');document.getElementById('home').style.display='block';box=null;renderToolCats();render();scrollTo(0,0)}
 function textCompareTool(){
   box.innerHTML='<div class="panel"><div class="fields"><div class="field"><label>원문</label><textarea id="txt1" style="width:100%;min-height:160px;border:1px solid #d8dce1;border-radius:10px;padding:12px"></textarea></div><div class="field"><label>비교할 문장</label><textarea id="txt2" style="width:100%;min-height:160px;border:1px solid #d8dce1;border-radius:10px;padding:12px"></textarea></div></div><div class="actions"><button class="primary" onclick="compareText()">비교하기</button><button type="button" class="secondary reset-btn" onclick="resetCalculator()">↺ 초기화</button></div><div id="res"></div></div>';
