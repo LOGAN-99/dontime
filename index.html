@@ -898,7 +898,7 @@ render();renderToolCats();
 function popupIncomeChooser(){
   const svc=findService('income');if(!svc)return;
   document.body.classList.add('popup-mode');document.getElementById('home').style.display='none';tool.classList.add('on');renderToolCats();
-  toolmain.innerHTML='<div class="popup-choice"><h2>월급시계 작은 창</h2><p>작은 창에서는 지금 숫자만 빠르게 볼 수도 있고, 월급시계 카드를 다시 열어 계산을 바꿀 수도 있어요.</p><div class="popup-choice-actions"><button class="primary" type="button" onclick="location.href=location.href.split(\'?\')[0]+\'?popup=income&mode=count'">① 카운팅만 보기<br><span style="font-size:11px;font-weight:400;opacity:.8">아래 숫자 카운팅만 크게 보여줍니다.</span></button><button type="button" onclick="location.href=location.href.split(\'?\')[0]+\'?popup=income&mode=card'">② 계산 다시해보기<br><span style="font-size:11px;font-weight:400;color:#777">월급시계 입력 카드가 다시 등장합니다.</span></button></div></div>';
+  toolmain.innerHTML='<div class="popup-choice"><h2>월급시계 작은 창</h2><p>작은 창에서는 지금 숫자만 빠르게 볼 수도 있고, 월급시계 카드를 다시 열어 계산을 바꿀 수도 있어요.</p><div class="popup-choice-actions"><button class="primary" type="button" onclick="location.href=location.href.split(\'?\')[0]+\'?popup=income&mode=count\'">① 카운팅만 보기<br><span style="font-size:11px;font-weight:400;opacity:.8">아래 숫자 카운팅만 크게 보여줍니다.</span></button><button type="button" onclick="location.href=location.href.split(\'?\')[0]+\'?popup=income&mode=card\'">② 계산 다시해보기<br><span style="font-size:11px;font-weight:400;color:#777">월급시계 입력 카드가 다시 등장합니다.</span></button></div></div>';
 }
 function popupIncomeCounter(){
   const svc=findService('income');if(!svc)return;
