@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="돈시간은 월급, 시급, 소비, 대출, 자동차, 시간가치와 달력을 한곳에서 계산하는 생활 계산기입니다. 2027년 5월 달력과 공휴일, 날짜 차이도 확인해보세요.">
+<meta name="description" content="돈시간은 월급·시급·소비·대출·자동차·세금·건강·시간·달력까지 생활 속 계산을 한곳에서 확인하는 계산기 서비스입니다.">
 <meta name="robots" content="index,follow">
 <meta name="theme-color" content="#17191c">
 <meta name="author" content="돈시간">
@@ -10,10 +10,10 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="돈시간">
 <meta property="og:title" content="돈시간 | 생활 계산기와 달력">
-<meta property="og:description" content="월급·시급·소비·대출·시간 계산과 달력·공휴일·날짜 차이를 한곳에서 확인하세요.">
+<meta property="og:description" content="월급·시급·소비·대출·세금·건강·시간 계산과 달력·공휴일·날짜 차이를 한곳에서 확인하세요.">
 <meta property="og:url" content="https://dontime.kr/">
 <meta property="og:locale" content="ko_KR">
-<title>돈시간 | 생활 계산기·달력·공휴일 계산</title>
+<title>돈시간 | 생활 계산기·달력·공휴일·시간 계산</title>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"돈시간","url":"https://dontime.kr/","description":"돈과 시간을 계산하는 생활 계산기와 달력 서비스","inLanguage":"ko-KR"}</script>
 <meta name="dontime-version" content="2026-10-06-adsense-calendar-v2-adsense-prep">
 <style>
@@ -916,6 +916,7 @@ function popupIncomeCounter(){
   if(saved){const salary=scope.querySelector('#salary'),start=scope.querySelector('#start'),end=scope.querySelector('#end'),hire=scope.querySelector('#hireDate');if(salary)salary.value=saved.salary||salary.value;if(start)start.value=saved.start||start.value;if(end)end.value=saved.end||end.value;if(hire&&saved.hireDate)hire.value=saved.hireDate;const b=scope.querySelector('input[name="incomeBasis"][value="'+(saved.basis||'')+'"]');if(b){b.checked=true;b.dispatchEvent(new Event('change',{bubbles:true}));}}
   const startBtn=scope.querySelector('#startBtn');if(startBtn)startBtn.click();
 }
+const seoTool=new URLSearchParams(location.search).get('tool');
 const popupType=new URLSearchParams(location.search).get('popup');
 const popupMode=new URLSearchParams(location.search).get('mode');
 if(popupType){
@@ -925,5 +926,9 @@ if(popupType){
     else if(popupType==='income'&&popupMode==='count') popupIncomeCounter();
     else {document.body.classList.add('popup-mode');openTool(svc[2],svc[0],svc[1]);}
   }
+}
+if(!popupType&&seoTool){
+  const svc=findService(seoTool);
+  if(svc) openTool(svc[2],svc[0],svc[1]);
 }
 </script></body></html>
