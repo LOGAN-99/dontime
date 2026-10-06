@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://dontime.kr/</loc></url>
+  <url><loc>https://dontime.kr/calendar.php</loc></url>
+  <url><loc>https://dontime.kr/calendar.php?year=2027&amp;month=5</loc></url>
+  <url><loc>https://dontime.kr/calendar.php?year=2027&amp;month=1</loc></url>
+  <url><loc>https://dontime.kr/calendar.php?year=2027&amp;month=2</loc></url>
+  <url><loc>https://dontime.kr/calendar.php?year=2027&amp;month=3</loc></url>
+  <url><loc>https://dontime.kr/calendar.php?year=2027&amp;month=4</loc></url>
+  <url><loc>https://dontime.kr/calendar.php?year=2027&amp;month=6</loc></url>
+  <url><loc>https://dontime.kr/calendar.php?year=2027&amp;month=7</loc></url>
+  <url><loc>https://dontime.kr/calendar.php?year=2027&amp;month=8</loc></url>
+  <url><loc>https://dontime.kr/calendar.php?year=2027&amp;month=9</loc></url>
+  <url><loc>https://dontime.kr/calendar.php?year=2027&amp;month=10</loc></url>
+  <url><loc>https://dontime.kr/calendar.php?year=2027&amp;month=11</loc></url>
+  <url><loc>https://dontime.kr/calendar.php?year=2027&amp;month=12</loc></url>
   <url><loc>https://dontime.kr/about.html</loc></url>
   <url><loc>https://dontime.kr/privacy.html</loc></url>
   <url><loc>https://dontime.kr/terms.html</loc></url>
