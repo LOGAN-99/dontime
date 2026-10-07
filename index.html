@@ -580,19 +580,6 @@ function renderCalendar(){
 }
 function calendarPrevMonth(){let m=(window.__calendarMonth??0)-1,y=window.__calendarYear||new Date().getFullYear();if(m<0){m=11;y--;}window.__calendarYear=Math.max(calendarYearStart,y);window.__calendarMonth=m;renderCalendar();}
 function calendarNextMonth(){let m=(window.__calendarMonth??0)+1,y=window.__calendarYear||new Date().getFullYear();if(m>11){m=0;y++;}window.__calendarYear=Math.min(calendarYearEnd,y);window.__calendarMonth=m;renderCalendar();}
-function calendarPickDate(y,m,d){
-  const list=window.__calendarSelected||[];
-  const same=list.some(x=>x.y===y&&x.m===m&&x.d===d);
-  if(same){window.__calendarSelected=list.filter(x=>!(x.y===y&&x.m===m&&x.d===d));renderCalendar();return;}
-  if(list.length>=2)window.__calendarSelected=[];
-  const next=[...(window.__calendarSelected||[]),{y,m,d}];window.__calendarSelected=next;
-  renderCalendar();
-  const status=el('calendarDateStatus');
-  if(status){
-    if(next.length===1)status.textContent='첫 날짜: '+next[0].y+'.'+String(next[0].m+1).padStart(2,'0')+'.'+String(next[0].d).padStart(2,'0')+' · 두 번째 날짜를 선택하세요.';
-    else{const a=new Date(next[0].y,next[0].m,next[0].d),b=new Date(next[1].y,next[1].m,next[1].d),days=Math.round(Math.abs(b-a)/86400000);status.textContent=next[0].y+'.'+String(next[0].m+1).padStart(2,'0')+'.'+String(next[0].d).padStart(2,'0')+' ↔ '+next[1].y+'.'+String(next[1].m+1).padStart(2,'0')+'.'+String(next[1].d).padStart(2,'0')+' = '+days+'일 차이';}
-  }
-}
 function calendarFiveDetailHtml(y){
   const st=calendarStats(y),entries=[];
   st.baseHolidays.forEach((name,key)=>entries.push({key,name,type:'public'}));
