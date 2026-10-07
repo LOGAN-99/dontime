@@ -202,12 +202,17 @@ header{height:64px;background:#fff;border-bottom:1px solid #e7e9ed;display:flex;
 .calendar-dontime-cell.selected .calendar-dontime-daynum{font-weight:950}
 .calendar-income-action{display:flex;align-items:center;justify-content:space-between;gap:9px;margin-top:9px;min-height:0}
 .calendar-income-action span{font-size:10px;color:#7b838d}
-.calendar-income-apply{padding:9px 12px;border:0;border-radius:9px;background:#17191c;color:#fff;font-size:10px;font-weight:900;cursor:pointer}
-.calendar-income-apply:hover{opacity:.9}
+.calendar-income-apply{padding:14px 22px;border:0;border-radius:11px;background:#17191c;color:#fff;font-size:14px;font-weight:900;line-height:1.2;cursor:pointer;min-height:48px;box-shadow:0 4px 12px rgba(0,0,0,.10)}
+.calendar-income-apply:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(0,0,0,.14)}
+.actions .primary,.actions .secondary,.small-window-btn,.back{min-height:44px;padding:11px 18px;font-size:13px;font-weight:800}
 .calendar-applied-range{display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:center;margin-bottom:12px;padding:10px 12px;border:1px solid #d8e0e8;border-radius:10px;background:#f5f8fb}
 .calendar-applied-range strong{font-size:11px}
 .calendar-applied-range span{font-size:10px;color:#68727d}
 .calendar-applied-range button{border:0;background:#e9edf1;border-radius:7px;padding:5px 7px;font-size:9px;color:#555;cursor:pointer}
+
+
+.calendar-income-guide{margin:0 0 12px;padding:12px 14px;border:1px solid #e1e5e9;border-radius:11px;background:#f7f8fa;color:#626a74;font-size:12px;line-height:1.55}
+.calendar-income-guide strong{color:#17191c}
 
 </style></head>
 <body>
@@ -429,7 +434,7 @@ function calendarTool(target=el('box'),mini=false){
   window.__calendarShowLunar=true;
   window.__calendarShowNoSon=false;
   window.__calendarShowAnniversary=true;
-  target.innerHTML='<div class="calendar-wrap calendar-dontime-style"><div class="calendar-dontime-title">달력정보</div><div class="calendar-tabs calendar-dontime-tabs"><button id="calendarTabCalendar" class="calendar-tab on" onclick="calendarSwitchTab(\'calendar\')">달력</button><button id="calendarTabConverter" class="calendar-tab" onclick="calendarSwitchTab(\'converter\')">양음력변환</button></div><div id="calendarTabCalendarPanel" class="calendar-tab-panel on"><div class="calendar-dontime-toolbar"><button type="button" onclick="calendarToday()">오늘</button><button type="button" onclick="calendarPrevMonth()">‹</button><strong id="calendarCurrentLabel"></strong><button type="button" onclick="calendarNextMonth()">›</button><select id="calendarYearSelect" aria-label="연도"></select><label><input id="calendarOptLunar" type="checkbox" checked> 음력</label><label><input id="calendarOptNoSon" type="checkbox"> 손없는날</label><label><input id="calendarOptAnniversary" type="checkbox" checked> 기념일</label></div><div id="calendarView"></div><div id="calendarDateStatus" class="calendar-date-status">날짜를 누른 채 끌어보세요. 예: 1일 → 15일</div><div id="calendarIncomeAction" class="calendar-income-action"></div><div class="calendar-dontime-extra"><div id="calendarFiveYear"></div></div></div><div id="calendarTabConverterPanel" class="calendar-tab-panel"><div id="calendarConverter"></div></div></div>';
+  target.innerHTML='<div class="calendar-wrap calendar-dontime-style"><div class="calendar-dontime-title">달력정보</div><div class="calendar-income-guide">월급시계를 이 달력으로 드래그하면 날짜를 선택해 <strong>근무일수와 예상 수입을 계산</strong>하고, 선택한 기간을 월급시계에 반영할 수 있습니다.</div><div class="calendar-tabs calendar-dontime-tabs"><button id="calendarTabCalendar" class="calendar-tab on" onclick="calendarSwitchTab(\'calendar\')">달력</button><button id="calendarTabConverter" class="calendar-tab" onclick="calendarSwitchTab(\'converter\')">양음력변환</button></div><div id="calendarTabCalendarPanel" class="calendar-tab-panel on"><div class="calendar-dontime-toolbar"><button type="button" onclick="calendarToday()">오늘</button><button type="button" onclick="calendarPrevMonth()">‹</button><strong id="calendarCurrentLabel"></strong><button type="button" onclick="calendarNextMonth()">›</button><select id="calendarYearSelect" aria-label="연도"></select><label><input id="calendarOptLunar" type="checkbox" checked> 음력</label><label><input id="calendarOptNoSon" type="checkbox"> 손없는날</label><label><input id="calendarOptAnniversary" type="checkbox" checked> 기념일</label></div><div id="calendarView"></div><div id="calendarDateStatus" class="calendar-date-status">날짜를 누른 채 끌어보세요. 예: 1일 → 15일</div><div id="calendarIncomeAction" class="calendar-income-action"></div><div class="calendar-dontime-extra"><div id="calendarFiveYear"></div></div></div><div id="calendarTabConverterPanel" class="calendar-tab-panel"><div id="calendarConverter"></div></div></div>';
   const yearSelect=el('calendarYearSelect');
   if(yearSelect){for(let yy=Math.max(calendarYearStart,window.__calendarYear-100);yy<=Math.min(calendarYearEnd,window.__calendarYear+100);yy++){const o=document.createElement('option');o.value=yy;o.textContent=yy+'년';if(yy===window.__calendarYear)o.selected=true;yearSelect.appendChild(o);}yearSelect.onchange=()=>calendarSetYear(Number(yearSelect.value));}
   const ol=el('calendarOptLunar'),on=el('calendarOptNoSon'),oa=el('calendarOptAnniversary');
@@ -1176,14 +1181,24 @@ function resetCalculator(button){
   const ownCard=button?.closest('.compare-card');
   if(ownCard){[...calcTimers.keys()].filter(k=>k.includes(ownCard.id)).forEach(stopCalcTimer);}
   else stopAllCalcTimers();
-  const scope=button?.closest('.compare-card')||document.getElementById('box');
+  const scope=ownCard||document.getElementById('box');
+  if(!scope)return;
   if(scope.__incomeClock) delete scope.__incomeClock;
-  scope.querySelectorAll('input').forEach(i=>{i.value=i.defaultValue;});
+  if(scope.__calendarRange) delete scope.__calendarRange;
+  scope.querySelectorAll('input').forEach(i=>{i.value=i.defaultValue;i.checked=i.defaultChecked;});
   scope.querySelectorAll('select').forEach(s=>{s.selectedIndex=0;});
   scope.querySelectorAll('textarea').forEach(t=>{t.value=t.defaultValue;});
   const r=scope.querySelector('[id^="res"]');
   if(r) r.innerHTML='';
   bindMoneyInputs();
+  const incomeCard=scope.dataset?.t==='income';
+  const offCard=scope.dataset?.t==='off';
+  if(incomeCard||offCard){
+    const target=scope.querySelector('#box,.compare-mini')||scope;
+    live(incomeCard?'income':'off',target);
+    requestAnimationFrame(()=>target.querySelector('#startBtn')?.click());
+    return;
+  }
   const livebox=scope.querySelector('#livebox');
   if(livebox) livebox.innerHTML='<div class="sub">입력한 뒤 시작하기를 눌러주세요.</div>';
 }
