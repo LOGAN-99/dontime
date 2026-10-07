@@ -425,6 +425,7 @@ function calendarTool(target=el('box'),mini=false){
   window.__calendarSelected=[];
   window.__calendarRange=null;
   window.__calendarDragging=false;
+  window.__calendarSuppressClick=false;
   window.__calendarShowLunar=true;
   window.__calendarShowNoSon=false;
   window.__calendarShowAnniversary=true;
@@ -495,26 +496,39 @@ function calendarRangeStart(y,m,d,event){
   window.__calendarDragStart={y,m,d};
   window.__calendarDragEnd={y,m,d};
   window.__calendarRange={start:{y,m,d},end:{y,m,d}};
-  renderCalendar();
+  calendarRefreshRangeUI();
+}
+function calendarRefreshRangeUI(){
+  const cells=document.querySelectorAll('.calendar-dontime-cell[data-cal-y]');
+  cells.forEach(cell=>{
+    const y=Number(cell.dataset.calY),m=Number(cell.dataset.calM),d=Number(cell.dataset.calD);
+    cell.classList.toggle('selected',calendarIsInRange(y,m,d));
+  });
+  const status=el('calendarDateStatus'),range=window.__calendarRange;
+  if(status&&range){
+    const days=calendarRangeDays(range.start,range.end).length;
+    status.innerHTML='<strong>'+calendarRangeText()+'</strong> · '+days+'일 선택';
+  }
 }
 function calendarRangeEnter(y,m,d,event){
   if(!window.__calendarDragging)return;
   if(event)event.preventDefault();
   window.__calendarDragEnd={y,m,d};
   window.__calendarRange={start:window.__calendarDragStart,end:window.__calendarDragEnd};
-  renderCalendar();
+  calendarRefreshRangeUI();
 }
 function calendarRangeEnd(y,m,d,event){
   if(event){event.preventDefault();event.stopPropagation();}
   if(!window.__calendarDragging)return;
   window.__calendarDragging=false;
+  window.__calendarSuppressClick=true;
   window.__calendarDragEnd={y,m,d};
   window.__calendarRange={start:window.__calendarDragStart,end:window.__calendarDragEnd};
   window.__calendarSelected=[window.__calendarRange.start,window.__calendarRange.end];
   renderCalendar();
 }
 function calendarPickDate(y,m,d){
-  if(window.__calendarDragging)return;
+  if(window.__calendarSuppressClick){window.__calendarSuppressClick=false;return;}
   const r=window.__calendarRange;
   if(!r){
     window.__calendarRange={start:{y,m,d},end:{y,m,d}};
@@ -538,7 +552,7 @@ function calendarMonthHtml(y,m,mini=false){
   for(let i=0;i<offset;i++)cells+='<div class="calendar-dontime-cell empty"></div>';
   for(let d=1;d<=last;d++){
     const key=String(m+1).padStart(2,'0')+'-'+String(d).padStart(2,'0'),dow=new Date(y,m,d).getDay(),name=holidays.get(key)||'',now=new Date(),isToday=now.getFullYear()===y&&now.getMonth()===m&&now.getDate()===d,selected=calendarIsInRange(y,m,d),lunar=window.__calendarShowLunar?calendarLunarLabel(y,m,d):'',noSon=window.__calendarShowNoSon?calendarNoSonLabel(y,m,d):'';
-    cells+='<button type="button" class="calendar-dontime-cell '+(dow===0?'sun ':'')+(dow===6?'sat ':'')+(name?'holiday ':'')+(isToday?'today ':'')+(selected?'selected ':'')+'" onpointerdown="calendarRangeStart('+y+','+m+','+d+',event)" onpointerenter="calendarRangeEnter('+y+','+m+','+d+',event)" onpointerup="calendarRangeEnd('+y+','+m+','+d+',event)" onclick="calendarPickDate('+y+','+m+','+d+')"><span class="calendar-dontime-daynum">'+d+'</span>'+(lunar?'<small class="calendar-dontime-lunar">'+lunar+'</small>':'')+(window.__calendarShowAnniversary&&name?'<span class="calendar-dontime-event">'+name+'</span>':'')+(noSon?'<span class="calendar-dontime-noson">'+noSon+'</span>':'')+'</button>';
+    cells+='<button type="button" data-cal-y="'+y+'" data-cal-m="'+m+'" data-cal-d="'+d+'" class="calendar-dontime-cell '+(dow===0?'sun ':'')+(dow===6?'sat ':'')+(name?'holiday ':'')+(isToday?'today ':'')+(selected?'selected ':'')+'" onpointerdown="calendarRangeStart('+y+','+m+','+d+',event)" onpointerenter="calendarRangeEnter('+y+','+m+','+d+',event)" onpointerup="calendarRangeEnd('+y+','+m+','+d+',event)" onclick="calendarPickDate('+y+','+m+','+d+')"><span class="calendar-dontime-daynum">'+d+'</span>'+(lunar?'<small class="calendar-dontime-lunar">'+lunar+'</small>':'')+(window.__calendarShowAnniversary&&name?'<span class="calendar-dontime-event">'+name+'</span>':'')+(noSon?'<span class="calendar-dontime-noson">'+noSon+'</span>':'')+'</button>';
   }
   while((offset+last)%7) {cells+='<div class="calendar-dontime-cell empty"></div>';break;}
   return '<section class="calendar-dontime-month"><div class="calendar-dontime-week">'+weeks.map((w,i)=>'<span class="'+(i===0?'sun ':'')+(i===6?'sat':'')+'">'+w+'</span>').join('')+'</div><div class="calendar-dontime-grid">'+cells+'</div></section>';
