@@ -53,7 +53,12 @@ header{height:64px;background:#fff;border-bottom:1px solid #e7e9ed;display:flex;
 .calendar-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:14px}.calendar-stat{background:#f7f8fa;border:1px solid #e6e8eb;border-radius:10px;padding:10px 12px;font-size:11px;color:#666}.calendar-stat strong{display:block;color:#17191c;font-size:17px;margin-bottom:2px}
 .calendar-five{margin-top:18px}.calendar-five-head{display:flex;justify-content:space-between;gap:10px;align-items:end;margin-bottom:10px}.calendar-five-head strong{font-size:15px}.calendar-five-head span{font-size:11px;color:#888}.calendar-five-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}.calendar-five-card{border:1px solid #e2e5e9;border-radius:12px;background:#fff;padding:12px;min-width:0}.calendar-five-card>div{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #edf0f2;padding-bottom:8px;margin-bottom:8px}.calendar-five-card>div strong{font-size:14px}.calendar-five-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:5px}.calendar-five-metrics span{display:block;background:#f7f8fa;border-radius:7px;padding:7px 3px;text-align:center;font-size:9px;color:#777}.calendar-five-metrics b{display:block;font-size:14px;color:#222;margin-bottom:2px}
 .calendar-note{margin-top:14px;padding:12px 14px;border-radius:10px;background:#f7f8fa;border:1px solid #e6e8eb;color:#666;font-size:12px;line-height:1.55}
-.calendar-help{margin-top:10px;font-size:11px;color:#888}
+.calendar-help{margin-top:10px;font-size:11px;color:#888}.calendar-tabs{display:flex;gap:6px;margin:-2px 0 14px;padding:5px;background:#f1f3f5;border:1px solid #e1e4e8;border-radius:12px}.calendar-tab{flex:1;border:0;background:transparent;border-radius:8px;padding:10px 12px;font-size:12px;font-weight:900;color:#70757d}.calendar-tab.on{background:#17191c;color:#fff}.calendar-tab-panel{display:none}.calendar-tab-panel.on{display:block}
+.lunar-date{display:block;margin-top:3px;font-size:9px;line-height:1.1;color:#9a9fa6;font-weight:600;letter-spacing:-.02em}.calendar-day-single.holiday .lunar-date,.calendar-day-single.sun .lunar-date{color:#c98989}
+.calendar-converter{border:1px solid #e2e5e9;border-radius:16px;background:#fff;padding:18px}.calendar-converter-head{margin-bottom:14px}.calendar-converter-head strong{display:block;font-size:17px;margin-bottom:4px}.calendar-converter-head span{display:block;font-size:11px;color:#888;line-height:1.5}.calendar-converter-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.calendar-converter-card{border:1px solid #e2e5e9;border-radius:12px;background:#fafbfc;padding:14px}.calendar-converter-card h4{margin:0 0 10px;font-size:14px}.calendar-converter-card .field{margin-bottom:10px}.calendar-converter-card input{width:100%;border:1px solid #d8dce1;border-radius:9px;padding:10px;background:#fff}.calendar-converter-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.calendar-converter-result{margin-top:12px;padding:12px;border-radius:10px;background:#fff;border:1px solid #e6e8eb;font-size:13px;line-height:1.55}.calendar-converter-result strong{font-size:18px;display:block;margin-bottom:3px}.calendar-five-grid{grid-template-columns:repeat(5,minmax(0,1fr))}.calendar-five-card{cursor:pointer;transition:.15s}.calendar-five-card:hover{transform:translateY(-2px);border-color:#c7ccd2;box-shadow:0 7px 18px #0001}.calendar-five-card.open{border-color:#17191c;box-shadow:0 0 0 2px #17191c11}.calendar-five-total{font-size:11px;color:#777;margin-bottom:8px}.calendar-five-total b{font-size:20px;color:#17191c;margin-right:3px}.calendar-five-metrics{grid-template-columns:repeat(5,minmax(0,1fr))}.calendar-five-metrics span{padding:7px 2px}.calendar-five-detail{margin-top:10px;padding:14px;border:1px solid #e2e5e9;border-radius:12px;background:#fafbfc}.calendar-five-detail-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}.calendar-five-detail-head strong{font-size:14px}.calendar-five-detail-head span{font-size:11px;color:#888}.calendar-off-month{padding:10px 0;border-top:1px solid #edf0f2}.calendar-off-month:first-child{border-top:0;padding-top:0}.calendar-off-month strong{display:block;font-size:12px;margin-bottom:6px}.calendar-off-list{display:flex;flex-wrap:wrap;gap:5px}.calendar-off-chip{display:inline-flex;align-items:center;gap:4px;padding:6px 8px;border-radius:7px;background:#fff;border:1px solid #e3e6ea;font-size:10px;color:#555}.calendar-off-chip.substitute{border-color:#bfc7d1;background:#f2f4f6;font-weight:800}.calendar-off-chip .date{font-weight:900;color:#222}.calendar-five-detail-note{margin-top:10px;font-size:11px;color:#888;line-height:1.5}
+@media(max-width:950px){.calendar-converter-grid{grid-template-columns:1fr}.calendar-five-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.calendar-five-metrics{grid-template-columns:repeat(5,minmax(0,1fr))}}
+@media(max-width:700px){.calendar-five-grid{grid-template-columns:1fr 1fr}.calendar-five-metrics{grid-template-columns:repeat(5,minmax(0,1fr));gap:3px}.calendar-five-metrics span{font-size:8px}.calendar-five-metrics b{font-size:12px}.calendar-converter{padding:13px}}
+@media(max-width:420px){.calendar-five-grid{grid-template-columns:1fr}.calendar-five-metrics{grid-template-columns:repeat(5,minmax(0,1fr))}}
 @media(max-width:950px){.calendar-main-grid{grid-template-columns:1fr}.calendar-compare-drop{min-height:300px}.calendar-five-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:700px){.calendar-head{display:block}.calendar-year-picker-title{display:block}.calendar-year-picker-title span{display:block;margin-top:3px}.calendar-controls{margin-top:12px}.calendar-controls select,.calendar-controls button{flex:1}.calendar-days-single{gap:2px}.calendar-day-single{min-height:52px;padding:6px 4px}.calendar-mini-months{grid-template-columns:repeat(2,minmax(0,1fr))}.calendar-five-grid{grid-template-columns:1fr 1fr}.calendar-stats{grid-template-columns:repeat(2,1fr)}.calendar-wrap{padding:13px}.calendar-main-grid{gap:10px}}
 @media(max-width:420px){.calendar-mini-months{grid-template-columns:1fr}.calendar-five-grid{grid-template-columns:1fr}.calendar-day-single{min-height:48px;font-size:11px}}@media(max-width:950px){.calendar-months{grid-template-columns:repeat(2,minmax(0,1fr))}.calendar-ideas{grid-template-columns:1fr 1fr}}@media(max-width:950px){.calendar-five-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}@media(max-width:700px){.calendar-five-head{display:block}.calendar-five-head span{display:block;margin-top:3px}.calendar-five-grid{grid-template-columns:1fr 1fr}.calendar-five-card ul{max-height:none}.calendar-wrap{padding:13px;border-radius:15px}.calendar-months{grid-template-columns:1fr;gap:10px}.calendar-month-head{padding:11px 12px}.calendar-day{min-height:42px;font-size:12px}.calendar-day .holiday-name{font-size:8px}.calendar-ideas{grid-template-columns:1fr}.calendar-toolbar{align-items:stretch}.calendar-actions{width:100%}.calendar-actions button{flex:1}}.legal-modal{position:fixed;inset:0;background:#0007;display:none;align-items:center;justify-content:center;padding:18px;z-index:1000}.legal-modal.on{display:flex}.legal-dialog{width:min(720px,100%);max-height:min(82vh,760px);overflow:auto;background:#fff;border-radius:18px;padding:24px;box-shadow:0 18px 60px #0003}.legal-head{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:16px}.legal-head h2{margin:0;font-size:22px}.legal-close{border:0;background:#eef0f3;border-radius:8px;padding:7px 10px}.legal-body{font-size:13px;line-height:1.7;color:#555}.legal-body h3{font-size:15px;color:#222;margin:18px 0 7px}.legal-body p{margin:7px 0}@media(max-width:700px){.ad-slot{min-height:82px;margin:18px 0}.ad-slot.tool-ad{min-height:82px;margin:18px 0 22px}.ad-slot.ad-home-top{margin:18px 0 20px}.ad-slot.ad-home-mid{margin:20px 0 22px}.legal-dialog{padding:18px;border-radius:15px}.footer-links{gap:10px}}
@@ -178,21 +183,102 @@ const calendarHolidayData={
 2035:[['01-01','신정'],['02-07','설날 연휴'],['02-08','설날'],['02-09','설날 연휴'],['03-01','삼일절'],['05-05','어린이날'],['05-15','부처님오신날'],['06-06','현충일'],['08-15','광복절'],['09-15','추석 연휴'],['09-16','추석'],['09-17','추석 연휴'],['10-03','개천절'],['10-09','한글날'],['12-25','성탄절']]
 };
 const calendarYearStart=1027,calendarYearEnd=new Date().getFullYear()+100,calendarHolidayDataStart=2016,calendarHolidayDataEnd=2035;
+function calendarBaseHolidayEntries(y){
+  const arr=[...(calendarHolidayData[y]||[])];
+  if(y>=2026)arr.push(['05-01','노동절']);
+  return arr;
+}
+const lunarFormatter=new Intl.DateTimeFormat('ko-KR-u-ca-chinese',{year:'numeric',month:'numeric',day:'numeric'});
+const lunarPartsFormatter=new Intl.DateTimeFormat('en-u-ca-chinese',{year:'numeric',month:'numeric',day:'numeric'});
+const lunarCache=new Map();
+function calendarLunarParts(date){
+  const key=date.getFullYear()+'-'+String(date.getMonth()+1).padStart(2,'0')+'-'+String(date.getDate()).padStart(2,'0');
+  if(lunarCache.has(key))return lunarCache.get(key);
+  try{
+    const parts=lunarPartsFormatter.formatToParts(date);
+    const obj={year:Number(parts.find(x=>x.type==='relatedYear')?.value||0),month:Number(parts.find(x=>x.type==='month')?.value||0),day:Number(parts.find(x=>x.type==='day')?.value||0)};
+    lunarCache.set(key,obj);return obj;
+  }catch(e){return null;}
+}
+function calendarLunarLabel(y,m,d){
+  const p=calendarLunarParts(new Date(y,m,d));
+  return p&&p.month&&p.day?'음 '+p.month+'.'+p.day:'';
+}
+function calendarLunarText(date){
+  try{return lunarFormatter.format(date).replace(/\\s*\\(.*?\\)\\s*/,' ');}catch(e){return '';}
+}
+function calendarSubstituteEntries(y,baseMap){
+  const out=[],used=new Set();
+  if(y<2014)return out;
+  const eligibleWeekend=(key)=>{
+    const [mm,dd]=key.split('-').map(Number),dow=new Date(y,mm-1,dd).getDay();
+    if(y>=2026)return true;
+    if(y>=2022)return ['03-01','05-05','06-06','08-15','10-03','10-09','12-25'].includes(key)||baseMap.get(key)?.includes('설날')||baseMap.get(key)?.includes('추석');
+    if(y>=2021)return ['08-15','10-03','10-09','12-25'].includes(key)||baseMap.get(key)?.includes('설날')||baseMap.get(key)?.includes('추석')||key==='05-05';
+    return baseMap.get(key)?.includes('설날')||baseMap.get(key)?.includes('추석')||key==='05-05';
+  };
+  const needsSubstitute=(key)=>{
+    const [mm,dd]=key.split('-').map(Number),date=new Date(y,mm-1,dd),dow=date.getDay();
+    if(y>=2026){
+      if(['설날','추석'].some(x=>baseMap.get(key)?.includes(x))) return dow===0;
+      return dow===0||dow===6;
+    }
+    if(['설날','추석'].some(x=>baseMap.get(key)?.includes(x))) return dow===0;
+    return dow===0||dow===6;
+  };
+  const entries=[...baseMap.entries()];
+  for(const [key,name] of entries){
+    if(!eligibleWeekend(key)||!needsSubstitute(key))continue;
+    let [mm,dd]=key.split('-').map(Number),candidate=new Date(y,mm-1,dd+1);
+    for(let guard=0;guard<10;guard++){
+      const ckey=String(candidate.getMonth()+1).padStart(2,'0')+'-'+String(candidate.getDate()).padStart(2,'0');
+      const dow=candidate.getDay();
+      if(dow!==0&&dow!==6&&!baseMap.has(ckey)&&!used.has(ckey)){used.add(ckey);out.push([ckey,'대체휴일 · '+name]);break;}
+      candidate.setDate(candidate.getDate()+1);
+    }
+  }
+  if(y>=2023){
+    const overlapKeys=[];
+    for(const [key,name] of entries){
+      if(name.includes(' · ')){
+        const parts=name.split(' · ');
+        const hasSpecial=parts.some(x=>/부처님오신날|어린이날|설날|추석|성탄절/.test(x));
+        if(hasSpecial)overlapKeys.push(key);
+      }
+    }
+    for(const key of overlapKeys){
+      let [mm,dd]=key.split('-').map(Number),candidate=new Date(y,mm-1,dd+1);
+      for(let guard=0;guard<10;guard++){
+        const ckey=String(candidate.getMonth()+1).padStart(2,'0')+'-'+String(candidate.getDate()).padStart(2,'0'),dow=candidate.getDay();
+        if(dow!==0&&dow!==6&&!baseMap.has(ckey)&&!used.has(ckey)){used.add(ckey);out.push([ckey,'대체휴일 · '+entries.find(x=>x[0]===key)[1]]);break;}
+        candidate.setDate(candidate.getDate()+1);
+      }
+    }
+  }
+  return out.sort((a,b)=>a[0].localeCompare(b[0]));
+}
 function calendarStats(y){
-  const arr=calendarHolidayData[y]||[];
-  const holidays=new Map();
-  arr.forEach(x=>holidays.set(x[0],holidays.has(x[0])?holidays.get(x[0])+' · '+x[1]:x[1]));
+  const base=calendarBaseHolidayEntries(y),baseMap=new Map();
+  base.forEach(x=>baseMap.set(x[0],baseMap.has(x[0])?baseMap.get(x[0])+' · '+x[1]:x[1]));
+  const substitutes=calendarSubstituteEntries(y,baseMap),holidays=new Map(baseMap);
+  substitutes.forEach(x=>holidays.set(x[0],holidays.has(x[0])?holidays.get(x[0])+' · '+x[1]:x[1]));
   let sat=0,sun=0,weekdays=0;
   for(let m=0;m<12;m++){
     const last=new Date(y,m+1,0).getDate();
     for(let d=1;d<=last;d++){const dow=new Date(y,m,d).getDay();if(dow===6)sat++;else if(dow===0)sun++;else weekdays++;}
   }
-  return {holidays,holidayCount:holidays.size,sat,sun,weekdays};
+  const baseHolidayCount=baseMap.size,substituteCount=substitutes.length;
+  const allDaysOff=new Set();
+  for(let m=0;m<12;m++)for(let d=1;d<=new Date(y,m+1,0).getDate();d++){
+    const key=String(m+1).padStart(2,'0')+'-'+String(d).padStart(2,'0'),dow=new Date(y,m,d).getDay();
+    if(dow===0||dow===6||holidays.has(key))allDaysOff.add(key);
+  }
+  return {holidays,baseHolidays:baseMap,substitutes,holidayCount:holidays.size,baseHolidayCount,substituteCount,sat,sun,weekdays,totalDaysOff:allDaysOff.size};
 }
 function calendarTool(target=el('box')){
   const now=new Date(), year=Math.min(calendarYearEnd,Math.max(calendarYearStart,now.getFullYear()));
   window.__calendarYear=year; window.__calendarMonth=now.getMonth(); window.__calendarSelected=[]; window.__calendarPastRange=1000;
-  target.innerHTML='<div class="calendar-wrap"><div class="calendar-head"><div><h3>오늘 중심 달력</h3><p>현재 달을 기본으로 보여주며, 과거는 최대 1000년 전까지 연도별로 계산할 수 있습니다.</p></div><div class="calendar-controls"><select id="calendarPastRange"><option value="20">과거 20년</option><option value="100">과거 100년</option><option value="1000" selected>과거 1000년</option></select><select id="calendarPast"><option value="">과거 연도 선택</option></select><select id="calendarFuture"><option value="">미래 연도 선택</option></select><button type="button" onclick="calendarToday()">오늘</button><button type="button" class="primary-control" id="calendarAllBtn" onclick="calendarToggleAll()">전체 보기</button></div></div><div class="calendar-year-picker"><div class="calendar-year-picker-title"><strong>연도 비교</strong><span>최근 연도 버튼을 클릭하거나 오른쪽 비교칸으로 드래그하세요.</span></div><div id="calendarDragYears" class="calendar-year-buttons"></div></div><div class="calendar-main-grid"><div><div id="calendarView"></div><div id="calendarDateStatus" class="calendar-date-status">날짜를 두 번 선택하면 날짜 차이를 계산합니다.</div></div><div id="calendarCompareDrop" class="calendar-compare-drop empty" ondragover="calendarDragOver(event)" ondragleave="calendarDragLeave(event)" ondrop="calendarDropYear(event)"><strong>다른 연도 달력을 여기로 드래그</strong><span>연도 버튼을 끌어오면 오른쪽에 해당 연도 12개월 달력이 나타납니다.</span></div></div><div id="calendarFiveYear"></div><div class="calendar-note">날짜와 요일은 선택한 연도에 맞춰 계산합니다. 한국 기본 공휴일 이름 데이터는 2016~2035년만 제공되며, 그 밖의 연도는 공휴일 정보를 확정하지 않습니다.</div><div class="calendar-help">100년·1000년 범위에서도 한 번에 한 연도만 계산해 표시하므로 대량의 달력을 모두 DOM에 만들지 않습니다.</div></div>';
+  target.innerHTML='<div class="calendar-wrap"><div class="calendar-head"><div><h3>오늘 중심 달력</h3><p>양력 날짜를 크게 보고, 각 날짜 아래에 음력 날짜를 작게 함께 표시합니다.</p></div><div class="calendar-controls"><select id="calendarPastRange"><option value="20">과거 20년</option><option value="100">과거 100년</option><option value="1000" selected>과거 1000년</option></select><select id="calendarPast"><option value="">과거 연도 선택</option></select><select id="calendarFuture"><option value="">미래 연도 선택</option></select><button type="button" onclick="calendarToday()">오늘</button><button type="button" class="primary-control" id="calendarAllBtn" onclick="calendarToggleAll()">전체 보기</button></div></div><div class="calendar-tabs"><button type="button" id="calendarTabCalendar" class="calendar-tab on" onclick="calendarSwitchTab('calendar')">달력</button><button type="button" id="calendarTabConverter" class="calendar-tab" onclick="calendarSwitchTab('converter')">양음력변환</button></div><div id="calendarTabCalendarPanel" class="calendar-tab-panel on"><div class="calendar-year-picker"><div class="calendar-year-picker-title"><strong>연도 비교</strong><span>최근 연도 버튼을 클릭하거나 오른쪽 비교칸으로 드래그하세요.</span></div><div id="calendarDragYears" class="calendar-year-buttons"></div></div><div class="calendar-main-grid"><div><div id="calendarView"></div><div id="calendarDateStatus" class="calendar-date-status">날짜를 두 번 선택하면 날짜 차이를 계산합니다.</div></div><div id="calendarCompareDrop" class="calendar-compare-drop empty" ondragover="calendarDragOver(event)" ondragleave="calendarDragLeave(event)" ondrop="calendarDropYear(event)"><strong>다른 연도 달력을 여기로 드래그</strong><span>연도 버튼을 끌어오면 오른쪽에 해당 연도 12개월 달력이 나타납니다.</span></div></div><div id="calendarFiveYear"></div><div class="calendar-note">날짜와 요일은 선택한 연도에 맞춰 계산합니다. 음력은 브라우저의 한국어 음력 달력 데이터를 이용해 날짜 아래에 함께 표시합니다. 공휴일·대체휴일은 서비스에 저장된 연도별 자료와 현재 제도 기준을 바탕으로 계산합니다.</div><div class="calendar-help">100년·1000년 범위에서도 한 번에 한 연도만 계산해 표시하므로 대량의 달력을 모두 DOM에 만들지 않습니다.</div></div></div><div id="calendarTabConverterPanel" class="calendar-tab-panel"><div id="calendarConverter"></div></div></div>';
   const pastRange=el('calendarPastRange'),past=el('calendarPast'),future=el('calendarFuture'),dragYears=el('calendarDragYears');
   const fillYears=()=>{const current=window.__calendarYear||year,range=Number(window.__calendarPastRange||1000);past.innerHTML='<option value="">과거 연도 선택</option>';for(let y=current-1;y>=Math.max(calendarYearStart,current-range);y--)past.insertAdjacentHTML('beforeend','<option value="'+y+'">'+y+'년</option>');future.innerHTML='<option value="">미래 연도 선택</option>';for(let y=current+1;y<=Math.min(calendarYearEnd,current+100);y++)future.insertAdjacentHTML('beforeend','<option value="'+y+'">'+y+'년</option>');};
   pastRange.onchange=()=>{window.__calendarPastRange=Number(pastRange.value||1000);fillYears();};
@@ -201,6 +287,42 @@ function calendarTool(target=el('box')){
   if(dragYears){for(let y=Math.max(calendarYearStart,year-20);y<=Math.min(calendarYearEnd,year+20);y++){const b=document.createElement('button');b.type='button';b.textContent=y+'년';b.draggable=true;b.dataset.year=y;b.title=y+'년 달력을 오른쪽 비교 영역으로 드래그';b.addEventListener('dragstart',e=>calendarDragYear(e,y));b.onclick=()=>{window.__calendarCompareYear=y;renderCalendarCompare();};dragYears.appendChild(b);}}
   fillYears();
   renderCalendar();
+  renderCalendarConverter();
+}
+function calendarSwitchTab(tab){
+  const isCalendar=tab==='calendar';
+  ['calendar','converter'].forEach(name=>{
+    const b=el('calendarTab'+(name==='calendar'?'Calendar':'Converter')),p=el('calendarTab'+(name==='calendar'?'Calendar':'Converter')+'Panel');
+    if(b)b.classList.toggle('on',name===tab);
+    if(p)p.classList.toggle('on',name===tab);
+  });
+  if(!isCalendar)renderCalendarConverter();
+}
+function calendarConverterSolarToLunar(){
+  const input=el('calendarSolarInput'),out=el('calendarSolarResult');if(!input||!out)return;
+  if(!input.value){out.innerHTML='<span>양력 날짜를 입력해주세요.</span>';return;}
+  const d=new Date(input.value+'T12:00:00'),text=calendarLunarText(d);
+  const parts=calendarLunarParts(d);
+  out.innerHTML=text?'<strong>음력 '+(parts?parts.year+'년 '+parts.month+'월 '+parts.day+'일':'')+'</strong><span>양력 '+input.value.replace(/-/g,'.')+' → '+text+'</span>':'<span>이 날짜의 음력 정보를 계산하지 못했습니다.</span>';
+}
+function calendarConverterLunarToSolar(){
+  const y=Number(el('calendarLunarYear')?.value),m=Number(el('calendarLunarMonth')?.value),d=Number(el('calendarLunarDay')?.value),out=el('calendarLunarResult');
+  if(!y||!m||!d||!out){if(out)out.innerHTML='<span>음력 년·월·일을 입력해주세요.</span>';return;}
+  const wantLeap=!!el('calendarLunarLeap')?.checked;
+  const start=new Date(y,0,1),end=new Date(y+1,2,31),matches=[];
+  for(let t=new Date(start);t<=end;t.setDate(t.getDate()+1)){
+    const p=calendarLunarParts(t);
+    if(p&&p.year===y&&p.month===m&&p.day===d)matches.push(new Date(t));
+  }
+  if(!matches.length){out.innerHTML='<span>해당 음력 날짜를 찾지 못했습니다.</span>';return;}
+  const chosen=matches.length>1?(wantLeap?matches[1]:matches[0]):matches[0];
+  const extra=matches.length>1?' · 같은 월일이 두 번 나타나는 해라 윤달 선택을 반영했습니다.':'';
+  out.innerHTML='<strong>양력 '+chosen.getFullYear()+'.'+String(chosen.getMonth()+1).padStart(2,'0')+'.'+String(chosen.getDate()).padStart(2,'0')+'</strong><span>음력 '+y+'년 '+m+'월 '+d+'일'+(wantLeap?' 윤달':'')+extra+'</span>';
+}
+function renderCalendarConverter(){
+  const target=el('calendarConverter');if(!target)return;
+  const today=new Date(),todayValue=today.getFullYear()+'-'+String(today.getMonth()+1).padStart(2,'0')+'-'+String(today.getDate()).padStart(2,'0');
+  target.innerHTML='<div class="calendar-converter"><div class="calendar-converter-head"><strong>양력 ↔ 음력 변환</strong><span>양력 날짜와 음력 날짜를 서로 바꿔 확인할 수 있습니다.</span></div><div class="calendar-converter-grid"><section class="calendar-converter-card"><h4>양력 → 음력</h4><div class="field"><label>양력 날짜</label><input id="calendarSolarInput" type="date" value="'+todayValue+'"></div><div class="calendar-converter-actions"><button type="button" class="primary" onclick="calendarConverterSolarToLunar()">음력으로 변환</button></div><div id="calendarSolarResult" class="calendar-converter-result"><span>날짜를 입력하고 변환하세요.</span></div></section><section class="calendar-converter-card"><h4>음력 → 양력</h4><div class="fields"><div class="field"><label>음력 년</label><input id="calendarLunarYear" type="number" value="'+today.getFullYear()+'" min="1" max="9999"></div><div class="field"><label>음력 월</label><input id="calendarLunarMonth" type="number" value="1" min="1" max="12"></div><div class="field"><label>음력 일</label><input id="calendarLunarDay" type="number" value="1" min="1" max="30"></div></div><label style="display:flex;align-items:center;gap:7px;font-size:12px;color:#666;margin-top:4px"><input id="calendarLunarLeap" type="checkbox" style="width:auto"> 윤달</label><div class="calendar-converter-actions"><button type="button" class="primary" onclick="calendarConverterLunarToSolar()">양력으로 변환</button></div><div id="calendarLunarResult" class="calendar-converter-result"><span>음력 날짜를 입력하고 변환하세요.</span></div></section></div><div class="calendar-help">음력 표시는 브라우저가 제공하는 한국어 중국력(음력) 달력 데이터를 사용합니다. 실제 행정·법정 일정 확인이 필요한 경우 공식 공휴일 자료를 함께 확인하세요.</div></div>';
 }
 function calendarToggleAll(){
   window.__calendarAll=!window.__calendarAll;
@@ -209,7 +331,7 @@ function calendarToggleAll(){
 }
 function calendarStatsHtml(y){
   const st=calendarStats(y);
-  return '<div class="calendar-stats"><div class="calendar-stat"><strong>'+st.holidayCount+'일</strong>기본 공휴일</div><div class="calendar-stat"><strong>'+st.sat+'일</strong>토요일</div><div class="calendar-stat"><strong>'+st.sun+'일</strong>일요일</div><div class="calendar-stat"><strong>'+st.weekdays+'일</strong>평일</div></div>';
+  return '<div class="calendar-stats"><div class="calendar-stat"><strong>'+st.totalDaysOff+'일</strong>전체 휴일</div><div class="calendar-stat"><strong>'+st.baseHolidayCount+'일</strong>공휴일</div><div class="calendar-stat"><strong>'+st.substituteCount+'일</strong>대체휴일</div><div class="calendar-stat"><strong>'+st.sat+'일</strong>토요일</div></div><div class="calendar-stats" style="margin-top:8px"><div class="calendar-stat"><strong>'+st.sun+'일</strong>일요일</div><div class="calendar-stat"><strong>'+st.weekdays+'일</strong>평일</div></div>';
 }
 function calendarMonthHtml(y,m,mini=false){
   const st=calendarStats(y),holidays=st.holidays,names=['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],weeks=['일','월','화','수','목','금','토'];
@@ -224,7 +346,7 @@ function calendarMonthHtml(y,m,mini=false){
   for(let i=0;i<offset;i++)days+='<div class="calendar-day-single empty"></div>';
   for(let d=1;d<=last;d++){
     const key=String(m+1).padStart(2,'0')+'-'+String(d).padStart(2,'0'),dow=new Date(y,m,d).getDay(),name=holidays.get(key)||'',now=new Date(),isToday=now.getFullYear()===y&&now.getMonth()===m&&now.getDate()===d,selected=(window.__calendarSelected||[]).some(x=>x.y===y&&x.m===m&&x.d===d);
-    days+='<button type="button" class="calendar-day-single '+(dow===6?'sat ':'')+(dow===0?'sun ':'')+(name?'holiday ':'')+(isToday?'today ':'')+(selected?'selected':'')+'" title="'+(name?name:'')+'" onclick="calendarPickDate('+y+','+m+','+d+')"><span class="daynum">'+d+'</span>'+(name?'<span class="holiday-name">'+name+'</span>':'')+'</button>';
+    const lunar=calendarLunarLabel(y,m,d);days+='<button type="button" class="calendar-day-single '+(dow===6?'sat ':'')+(dow===0?'sun ':'')+(name?'holiday ':'')+(isToday?'today ':'')+(selected?'selected':'')+'" title="'+(name?name:'')+'" onclick="calendarPickDate('+y+','+m+','+d+')"><span class="daynum">'+d+'</span>'+(lunar?'<span class="lunar-date">'+lunar+'</span>':'')+(name?'<span class="holiday-name">'+name+'</span>':'')+'</button>';
   }
   return '<section class="calendar-focus"><div class="calendar-focus-head"><strong>'+y+'년 '+names[m]+'</strong><span>'+(m===new Date().getMonth()&&y===new Date().getFullYear()?'오늘 포함':'')+'</span></div><div class="calendar-single"><div class="calendar-week">'+weeks.map(w=>'<span>'+w+'</span>').join('')+'</div><div class="calendar-days-single">'+days+'</div></div></section>';
 }
@@ -257,9 +379,28 @@ function calendarPickDate(y,m,d){
     else{const a=new Date(next[0].y,next[0].m,next[0].d),b=new Date(next[1].y,next[1].m,next[1].d),days=Math.round(Math.abs(b-a)/86400000);status.textContent=next[0].y+'.'+String(next[0].m+1).padStart(2,'0')+'.'+String(next[0].d).padStart(2,'0')+' ↔ '+next[1].y+'.'+String(next[1].m+1).padStart(2,'0')+'.'+String(next[1].d).padStart(2,'0')+' = '+days+'일 차이';}
   }
 }
+function calendarFiveDetailHtml(y){
+  const st=calendarStats(y),entries=[];
+  st.baseHolidays.forEach((name,key)=>entries.push({key,name,type:'public'}));
+  st.substitutes.forEach(x=>entries.push({key:x[0],name:x[1],type:'substitute'}));
+  entries.sort((a,b)=>a.key.localeCompare(b.key));
+  const grouped={};
+  entries.forEach(x=>{const m=Number(x.key.slice(0,2));(grouped[m]||(grouped[m]=[])).push(x);});
+  return Object.keys(grouped).sort((a,b)=>Number(a)-Number(b)).map(m=>'<div class="calendar-off-month"><strong>'+Number(m)+'월</strong><div class="calendar-off-list">'+grouped[m].map(x=>'<span class="calendar-off-chip '+(x.type==='substitute'?'substitute':'')+'"><span class="date">'+y+'.'+x.key+'</span> '+x.name+'</span>').join('')+'</div></div>').join('');
+}
+function calendarToggleFiveDetail(y){
+  window.__calendarFiveOpen=window.__calendarFiveOpen===y?null:y;
+  renderCalendarFiveYear();
+}
 function renderCalendarFiveYear(){
-  const target=el('calendarFiveYear');if(!target)return;const base=new Date().getFullYear(),years=Array.from({length:5},(_,i)=>base+i);
-  target.innerHTML='<div class="calendar-five"><div class="calendar-five-head"><strong>'+base+'~'+(base+4)+'년 휴일 비교</strong><span>올해부터 5개년 · 나열식 대신 요약 통계</span></div><div class="calendar-five-grid">'+years.map(y=>{const st=calendarStats(y);return '<section class="calendar-five-card"><div><strong>'+y+'년</strong><span>요약</span></div><div class="calendar-five-metrics"><span><b>'+st.holidayCount+'</b>휴일</span><span><b>'+st.sat+'</b>토</span><span><b>'+st.sun+'</b>일</span></div></section>';}).join('')+'</div></div>';
+  const target=el('calendarFiveYear');if(!target)return;
+  const base=new Date().getFullYear(),years=Array.from({length:5},(_,i)=>base+i),open=window.__calendarFiveOpen;
+  const cards=years.map(y=>{
+    const st=calendarStats(y),isOpen=open===y;
+    return '<section class="calendar-five-card '+(isOpen?'open':'')+'" onclick="calendarToggleFiveDetail('+y+')"><div><strong>'+y+'년</strong><span>'+ (isOpen?'닫기':'상세 보기') +'</span></div><div class="calendar-five-total"><b>'+st.totalDaysOff+'</b>일 전체 휴일</div><div class="calendar-five-metrics"><span><b>'+st.baseHolidayCount+'</b>공휴일</span><span><b>'+st.substituteCount+'</b>대체</span><span><b>'+st.sat+'</b>토</span><span><b>'+st.sun+'</b>일</span><span><b>'+st.totalDaysOff+'</b>총</span></div></section>';
+  }).join('');
+  const detail=open?'<div class="calendar-five-detail"><div class="calendar-five-detail-head"><strong>'+open+'년 휴일 상세</strong><span>공휴일·대체휴일</span></div>'+calendarFiveDetailHtml(open)+'<div class="calendar-five-detail-note">토요일 '+calendarStats(open).sat+'일 · 일요일 '+calendarStats(open).sun+'일은 요약 수치로 표시했습니다. 위 목록은 공휴일과 대체휴일의 실제 날짜입니다.</div></div>':'';
+  target.innerHTML='<div class="calendar-five"><div class="calendar-five-head"><strong>'+base+'~'+(base+4)+'년 휴일 비교</strong><span>셀을 누르면 실제 공휴일·대체휴일 날짜가 펼쳐집니다.</span></div><div class="calendar-five-grid">'+cards+'</div>'+detail+'</div>';
 }
 function renderCalendarCompare(){
   const drop=el('calendarCompareDrop');if(!drop)return;const y=window.__calendarCompareYear;
