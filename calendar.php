@@ -20,7 +20,7 @@ foreach (($holidayData[(string)$year] ?? []) as $holiday) {
 $first = new DateTimeImmutable(sprintf('%04d-%02d-01', $year, $month));
 $daysInMonth = (int)$first->format('t');
 $firstDow = (int)$first->format('w');
-$title = sprintf('%d년 %d월 달력 | 공휴일·요일 확인 | 돈시간', $year, $month);
+$title = sprintf('%d년 %d월 달력 | 공휴일·요일 확인 | 값잇다', $year, $month);
 $desc = sprintf('%d년 %d월 달력입니다. %d년 %s의 날짜, 요일, 토요일·일요일과 확인 가능한 공휴일을 한눈에 확인하세요.', $year, $month, $year, $monthNames[$month]);
 $canonical = 'https://dontime.kr/calendar.php?year='.$year.'&month='.$month;
 function h(string $s): string { return htmlspecialchars($s, ENT_QUOTES, 'UTF-8'); }
@@ -38,7 +38,7 @@ for($d=1;$d<=$daysInMonth;$d++){ $dt=$first->modify('+'.($d-1).' days'); $dow=(i
 <meta name="description" content="<?=h($desc)?>">
 <link rel="canonical" href="<?=h($canonical)?>">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="돈시간">
+<meta property="og:site_name" content="값잇다">
 <meta property="og:title" content="<?=h($title)?>">
 <meta property="og:description" content="<?=h($desc)?>">
 <meta property="og:url" content="<?=h($canonical)?>">
@@ -49,7 +49,7 @@ for($d=1;$d<=$daysInMonth;$d++){ $dt=$first->modify('+'.($d-1).' days'); $dow=(i
 ], JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES)?></script>
 <script type="application/ld+json"><?=json_encode([
   '@context'=>'https://schema.org','@type'=>'BreadcrumbList','itemListElement'=>[
-    ['@type'=>'ListItem','position'=>1,'name'=>'돈시간','item'=>'https://dontime.kr/'],
+    ['@type'=>'ListItem','position'=>1,'name'=>'값잇다','item'=>'https://dontime.kr/'],
     ['@type'=>'ListItem','position'=>2,'name'=>'달력','item'=>'https://dontime.kr/calendar.php'],
     ['@type'=>'ListItem','position'=>3,'name'=>$year.'년 '.$monthNames[$month].' 달력','item'=>$canonical]
   ]
@@ -68,8 +68,8 @@ footer{margin-top:30px;padding-top:18px;border-top:1px solid #ddd;color:#888;fon
 </head>
 <body>
 <main class="wrap">
-  <div class="top"><div class="logo">돈시간</div><a class="home" href="/">← 돈시간 계산기</a></div>
-  <nav class="breadcrumb" aria-label="사이트 이동 경로"><a href="/">돈시간</a> › <a href="calendar.php">달력</a> › <span><?=h($year.'년 '.$monthNames[$month])?></span></nav>
+  <div class="top"><div class="logo">값잇다</div><a class="home" href="/">← 값잇다 계산기</a></div>
+  <nav class="breadcrumb" aria-label="사이트 이동 경로"><a href="/">값잇다</a> › <a href="calendar.php">달력</a> › <span><?=h($year.'년 '.$monthNames[$month])?></span></nav>
   <section class="hero">
     <h1><?=h($year.'년 '.$monthNames[$month])?> 달력</h1>
     <p><?=h($year.'년 '.$monthNames[$month])?>의 날짜와 요일을 확인하세요. 토요일·일요일을 구분하고, 제공 가능한 공휴일 정보도 함께 표시합니다.<?= $isNextYear ? ' 현재 기준 내년 달력을 찾는 분도 바로 확인할 수 있습니다.' : '' ?></p>
@@ -101,11 +101,11 @@ footer{margin-top:30px;padding-top:18px;border-top:1px solid #ddd;color:#888;fon
   </div>
   <section class="info">
     <h2><?=h($year.'년 '.$monthNames[$month])?> 공휴일과 달력</h2>
-    <p>돈시간 달력은 선택한 연도와 월의 날짜 및 요일을 계산해서 보여줍니다. 한국 공휴일 이름은 확인 가능한 연도에 한해 표시하며, 데이터가 없는 연도는 공휴일을 임의로 확정하지 않습니다.</p>
+    <p>값잇다 달력은 선택한 연도와 월의 날짜 및 요일을 계산해서 보여줍니다. 한국 공휴일 이름은 확인 가능한 연도에 한해 표시하며, 데이터가 없는 연도는 공휴일을 임의로 확정하지 않습니다.</p>
     <h2>다른 달 보기</h2>
     <div class="links"><?php for($m=1;$m<=12;$m++): ?><a href="calendar.php?year=<?=$year?>&month=<?=$m?>"><?=$year?>년 <?=$monthNames[$m]?></a><?php endfor; ?></div>
   </section>
-  <footer>돈시간 · <a href="/">생활 계산기</a><a href="about.html">서비스 안내</a><a href="privacy.html">개인정보처리방침</a><a href="terms.html">이용약관</a><a href="contact.html">문의</a></footer>
+  <footer>값잇다 · <a href="/">생활 계산기</a><a href="about.html">서비스 안내</a><a href="privacy.html">개인정보처리방침</a><a href="terms.html">이용약관</a><a href="contact.html">문의</a></footer>
 </main>
 </body>
 </html>
