@@ -2,19 +2,19 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="돈시간은 월급·시급·소비·대출·자동차·세금·건강·시간·달력까지 생활 속 계산을 한곳에서 확인하는 계산기 서비스입니다.">
+<meta name="description" content="값잇다은 월급·시급·소비·대출·자동차·세금·건강·시간·달력까지 생활 속 계산을 한곳에서 확인하는 계산기 서비스입니다.">
 <meta name="robots" content="index,follow">
 <meta name="theme-color" content="#17191c">
-<meta name="author" content="돈시간">
+<meta name="author" content="값잇다">
 <link rel="canonical" href="https://dontime.kr/">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="돈시간">
-<meta property="og:title" content="돈시간 | 생활 계산기와 달력">
+<meta property="og:site_name" content="값잇다">
+<meta property="og:title" content="값잇다 | 돈과 시간을 연결하는 생활 계산기">
 <meta property="og:description" content="월급·시급·소비·대출·세금·건강·시간 계산과 달력·공휴일·날짜 차이를 한곳에서 확인하세요.">
 <meta property="og:url" content="https://dontime.kr/">
 <meta property="og:locale" content="ko_KR">
-<title>돈시간 | 생활 계산기·달력·공휴일·시간 계산</title>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"돈시간","url":"https://dontime.kr/","description":"돈과 시간을 계산하는 생활 계산기와 달력 서비스","inLanguage":"ko-KR"}</script>
+<title>값잇다 | 돈과 시간을 연결하는 생활 계산기·달력</title>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"값잇다","url":"https://dontime.kr/","description":"돈과 시간을 연결하는 생활 계산기와 달력 서비스","inLanguage":"ko-KR"}</script>
 <meta name="dontime-version" content="2026-10-06-adsense-calendar-v2-adsense-prep">
 <style>
 *{box-sizing:border-box}
@@ -238,14 +238,14 @@ header{height:64px;background:#fff;border-bottom:1px solid #e7e9ed;display:flex;
 
 </style></head>
 <body>
-<header><div class="top"><div class="logo" onclick="home()">돈시간</div><div class="tag">돈을 시간으로, 시간을 돈으로.</div></div></header>
+<header><div class="top"><div class="logo" onclick="home()">값잇다</div><div class="tag">돈과 시간을, 더 잘 보이게.</div></div></header>
 <main class="wrap">
-<section id="home"><div class="hero"><h1>내 시간이 얼마인지,<br>이게 몇 시간짜리인지 계산해보세요.</h1><p>생활 속에서 자꾸 계산하게 되는 것들을 한곳에 모았습니다.</p></div><div class="ad-slot ad-home-top" aria-label="광고 영역"></div><div id="categoryMarquee" class="category-marquee" aria-label="돈시간 카테고리">
+<section id="home"><div class="hero"><h1>내 시간이 얼마인지,<br>이게 몇 시간짜리인지 계산해보세요.</h1><p>생활 속에서 자꾸 계산하게 되는 것들을 한곳에 모았습니다.</p></div><div class="ad-slot ad-home-top" aria-label="광고 영역"></div><div id="categoryMarquee" class="category-marquee" aria-label="값잇다 카테고리">
 <div class="category-marquee-viewport"><div id="categoryMarqueeTrack" class="category-marquee-track"></div></div>
 <div class="category-marquee-hint">카테고리를 천천히 훑어보세요 · 눌러서 바로 계산기를 열 수 있어요</div>
 </div>
-<div class="home-tools"><div class="search-box"><input id="serviceSearch" type="search" placeholder="계산기 이름이나 키워드를 검색해보세요" oninput="searchServices(this.value)" autocomplete="off"><button class="search-clear" type="button" onclick="clearServiceSearch()">초기화</button></div><div id="searchMeta" class="search-meta">예: 월급, 시급, 대출, 자동차, 할인, 날짜</div><div id="recentTools" class="recent-tools"></div></div><div class="featured-compare"><div class="featured-head"><div><strong>돈시간에서 이렇게 같이 계산할 수 있어요</strong><span>계산기를 나란히 놓고 서로 다른 결과를 한눈에 비교해보세요.</span></div><span class="featured-drag">PC에서는 계산기를 드래그해서 자유롭게 배치할 수 있어요 ↗</span></div><div class="featured-grid"><button class="featured-card" type="button" onclick="openTool('income','월급시계','1초에 얼마 벌고 있는지 알고 있어?')"><div class="featured-kicker">01 · 돈</div><h3>월급시계</h3><p>내가 지금까지 번 돈을 실시간으로 확인</p><div class="featured-value">0.0000원</div><span>계산기 열기 →</span></button><div class="featured-join">+</div><button class="featured-card" type="button" onclick="openTool('workforbuy','얼마나 일해야 살 수 있을까?','월급시계와 연결하면, 지금부터 이 물건을 살 때까지 남은 시간이 줄어듭니다.')"><div class="featured-kicker">02 · 시간</div><h3>얼마나 일해야 살 수 있을까?</h3><p>원하는 물건이 내 시간으로 몇 시간짜리인지 확인</p><div class="featured-value">몇 시간일까?</div><span>계산기 열기 →</span></button></div></div>
-<div class="ad-slot ad-home-mid" aria-label="광고 영역"></div><div class="layout"><aside id="cats" class="cats"></aside><div id="cards" class="grid"></div></div><div class="footer"><div>돈시간 · 내 시간의 가치를 숫자로</div><div class="footer-links"><a class="footer-link" href="calendar.php?year=2027&month=5">2027년 5월 달력</a><a class="footer-link" href="about.html">서비스 안내</a><a class="footer-link" href="privacy.html">개인정보처리방침</a><a class="footer-link" href="terms.html">이용약관</a><a class="footer-link" href="contact.html">문의</a></div></div></section>
+<div class="home-tools"><div class="search-box"><input id="serviceSearch" type="search" placeholder="계산기 이름이나 키워드를 검색해보세요" oninput="searchServices(this.value)" autocomplete="off"><button class="search-clear" type="button" onclick="clearServiceSearch()">초기화</button></div><div id="searchMeta" class="search-meta">예: 월급, 시급, 대출, 자동차, 할인, 날짜</div><div id="recentTools" class="recent-tools"></div></div><div class="featured-compare"><div class="featured-head"><div><strong>값잇다에서 이렇게 같이 계산할 수 있어요</strong><span>계산기를 나란히 놓고 서로 다른 결과를 한눈에 비교해보세요.</span></div><span class="featured-drag">PC에서는 계산기를 드래그해서 자유롭게 배치할 수 있어요 ↗</span></div><div class="featured-grid"><button class="featured-card" type="button" onclick="openTool('income','월급시계','1초에 얼마 벌고 있는지 알고 있어?')"><div class="featured-kicker">01 · 돈</div><h3>월급시계</h3><p>내가 지금까지 번 돈을 실시간으로 확인</p><div class="featured-value">0.0000원</div><span>계산기 열기 →</span></button><div class="featured-join">+</div><button class="featured-card" type="button" onclick="openTool('workforbuy','얼마나 일해야 살 수 있을까?','월급시계와 연결하면, 지금부터 이 물건을 살 때까지 남은 시간이 줄어듭니다.')"><div class="featured-kicker">02 · 시간</div><h3>얼마나 일해야 살 수 있을까?</h3><p>원하는 물건이 내 시간으로 몇 시간짜리인지 확인</p><div class="featured-value">몇 시간일까?</div><span>계산기 열기 →</span></button></div></div>
+<div class="ad-slot ad-home-mid" aria-label="광고 영역"></div><div class="layout"><aside id="cats" class="cats"></aside><div id="cards" class="grid"></div></div><div class="footer"><div>값잇다 · 내 시간의 가치를 숫자로</div><div class="footer-links"><a class="footer-link" href="calendar.php?year=2027&month=5">2027년 5월 달력</a><a class="footer-link" href="about.html">서비스 안내</a><a class="footer-link" href="privacy.html">개인정보처리방침</a><a class="footer-link" href="terms.html">이용약관</a><a class="footer-link" href="contact.html">문의</a></div></div></section>
 <section id="tool" class="tool"><div class="tool-layout"><aside id="toolcats" class="cats"></aside><div id="toolmain"></div></div></section>
 </main>
 <script>
