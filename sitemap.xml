@@ -353,4 +353,9 @@
   <url><loc>https://dontime.kr/privacy.html</loc></url>
   <url><loc>https://dontime.kr/terms.html</loc></url>
   <url><loc>https://dontime.kr/contact.html</loc></url>
+  <url><loc>https://dontime.kr/calculator.php?tool=playtime</loc></url>
+  <url><loc>https://dontime.kr/calculator.php?tool=gamecost</loc></url>
+  <url><loc>https://dontime.kr/calculator.php?tool=hobbybudget</loc></url>
+  <url><loc>https://dontime.kr/calculator.php?tool=hobbytime</loc></url>
+  <url><loc>https://dontime.kr/calculator.php?tool=boardcost</loc></url>
 </urlset>
