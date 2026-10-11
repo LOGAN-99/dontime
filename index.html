@@ -308,6 +308,43 @@ header{height:64px;background:#fff;border-bottom:1px solid #e7e9ed;display:flex;
   #toolcats .subcat{padding:9px 8px;font-size:13px;line-height:1.45}
 }
 
+
+/* Final mobile navigation layout: horizontal categories, normal page scrolling */
+.category-marquee{overflow:hidden;background:var(--season-paper,#fff);border-color:var(--season-line,#dce4f1);padding:8px;border-radius:16px}
+.category-marquee-viewport{overflow-x:auto!important;overflow-y:hidden!important;position:relative;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;touch-action:pan-x;scrollbar-width:none}
+.category-marquee-viewport::-webkit-scrollbar{display:none}
+.category-marquee-viewport:before,.category-marquee-viewport:after{display:none!important}
+.category-marquee-track{display:block!important;width:max-content!important;min-width:max-content!important}
+.category-marquee-row-wrap{width:max-content!important;overflow:visible!important;touch-action:pan-x!important;cursor:grab}
+.category-marquee-row-motion{width:max-content!important;animation:none!important;transform:none!important}
+.category-marquee-row{width:max-content!important;flex-wrap:nowrap;gap:8px;padding:3px}
+.category-marquee-group{flex:0 0 auto;width:auto;min-width:0;max-width:none;min-height:44px;padding:10px 14px;border-radius:999px;background:var(--season-paper,#fff);border-color:var(--season-line,#dce4f1)}
+.category-marquee-major{font-size:14px;line-height:1.2;margin:0;color:var(--season-ink,#202b3c)}
+.category-marquee-sub{display:none}
+.category-marquee-group.on{background:var(--season-accent,#4778e8);border-color:var(--season-accent,#4778e8)}
+.category-marquee-group.on .category-marquee-major{color:#fff}
+.category-marquee-hint{text-align:left;padding:7px 4px 1px;font-size:11px}
+#toolcats{max-height:calc(100dvh - 120px);overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior-y:contain;touch-action:pan-y;scrollbar-width:thin}
+#toolcats .subcat{display:block;width:100%;white-space:normal;overflow-wrap:anywhere;touch-action:pan-y}
+.tool-layout .cats{overscroll-behavior:contain;-webkit-overflow-scrolling:touch;touch-action:pan-y}
+body{overflow-y:auto;overscroll-behavior-y:auto}
+@media(max-width:700px){
+ .wrap{padding:22px 14px 48px}
+ .category-marquee-track{width:max-content!important}
+ .category-marquee-row-wrap{width:max-content!important}
+ .category-marquee-group{min-width:0;padding:11px 14px}
+ .category-marquee-major{font-size:13px;white-space:nowrap}
+ .tool-layout{grid-template-columns:minmax(0,1fr)}
+ .tool-layout .cats{position:relative;top:auto;max-height:36dvh;overflow-y:auto;overflow-x:hidden;padding:8px;border:1px solid var(--season-line,#dce4f1);border-radius:14px;background:var(--season-paper,#fff)}
+ #toolcats{max-height:36dvh}
+ #toolcats .subcats{margin-left:4px}
+ #toolcats .subcat{padding:9px 8px;font-size:13px;line-height:1.45}
+}
+body[data-season="spring"]{--season-bg:#fff7fa;--season-paper:#fff;--season-card:#ffe7ef;--season-accent:#df668b;--season-ink:#3a2630;--season-line:#f0d3df}
+body[data-season="summer"]{--season-bg:#eff9ff;--season-paper:#fff;--season-card:#dff3ff;--season-accent:#087fbd;--season-ink:#153247;--season-line:#c7e4f4}
+body[data-season="autumn"]{--season-bg:#fff5e9;--season-paper:#fff;--season-card:#ffe6c8;--season-accent:#c66b32;--season-ink:#3b2b21;--season-line:#eed5bd}
+body[data-season="winter"]{--season-bg:#f1f4fb;--season-paper:#fff;--season-card:#e1e8fa;--season-accent:#596ec8;--season-ink:#222c48;--season-line:#d0d9f0}
+
 </style></head>
 <body>
 <header><div class="top"><div class="logo" onclick="home()">셈플리</div><div class="tag">돈과 시간을, 더 쉽게 셈하다.</div></div></header>
@@ -402,12 +439,8 @@ function renderCategoryMarquee(){
   const makeGroup=(c)=>'<button type="button" class="category-marquee-group '+(c===current?'on':'')+'" onclick="current=\''+c+'\';clearServiceSearch();render()"><span class="category-marquee-major">'+(categoryIcons[c]||'•')+' '+c+'</span><span class="category-marquee-sub">'+data[c].slice(0,4).map(x=>x[0]).join(' · ')+'</span></button>';
   const all='<button type="button" class="category-marquee-group category-marquee-all '+(current==='전체'?'on':'')+'" onclick="current=\'전체\';clearServiceSearch();render()"><span class="category-marquee-major">▦ 전체</span></button>';
   const groups=[all].concat(keys.map(makeGroup));
-  const rows=[groups.filter((_,i)=>i%3===0),groups.filter((_,i)=>i%3===1),groups.filter((_,i)=>i%3===2)];
-  host.innerHTML=rows.map((items,i)=>{
-    const row=items.join('');
-    return '<div class="category-marquee-row-wrap" data-row="'+i+'"><div class="category-marquee-row-motion"><div class="category-marquee-row">'+row+row+'</div></div></div>';
-  }).join('');
-  bindCategoryMarqueeDrag();
+  const row=groups.join('');
+  host.innerHTML='<div class="category-marquee-row-wrap"><div class="category-marquee-row-motion"><div class="category-marquee-row">'+row+'</div></div></div>';
 }
 function bindCategoryMarqueeDrag(){
   document.querySelectorAll('.category-marquee-row-wrap').forEach(wrap=>{
@@ -1582,6 +1615,20 @@ function live(t,target=el('box')){
   };
   scope.querySelector('#startBtn').onclick=applyLiveSettings;
 }
+
+
+document.querySelectorAll('.season-switch [data-season]').forEach(button=>button.addEventListener('click',()=>{
+ const season=button.dataset.season;
+ document.body.dataset.season=season;
+ document.querySelectorAll('.season-switch [data-season]').forEach(item=>item.setAttribute('aria-pressed',String(item===button)));
+ try{localStorage.setItem('dontimeSeason',season)}catch(e){}
+}));
+try{
+ const savedSeason=localStorage.getItem('dontimeSeason');
+ const season=['spring','summer','autumn','winter'].includes(savedSeason)?savedSeason:'spring';
+ document.body.dataset.season=season;
+ document.querySelectorAll('.season-switch [data-season]').forEach(item=>item.setAttribute('aria-pressed',String(item.dataset.season===season)));
+}catch(e){document.body.dataset.season='spring'}
 
 render();renderToolCats();
 function popupIncomeChooser(){
