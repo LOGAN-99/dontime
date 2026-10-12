@@ -18,7 +18,7 @@ jobs:
           GABIA_PASSWORD: ${{ secrets.GABIA_PASSWORD }}
         run: |
           set -euo pipefail
-          expected_fingerprint='SHA256:wtOgKJN+n22CUFqM4UBKKgGfK0Ji1d3y6je4Eiz0RE'
+          expected_fingerprint='SHA256:wtOgKJNn+22CUfFqM4UBKKgGfK0Ji1d3y6je4Eiz0RE'
           mkdir -p "$RUNNER_TEMP/gabia-ssh"
           chmod 700 "$RUNNER_TEMP/gabia-ssh"
           ssh-keyscan -T 10 -t ed25519 -p 22 211.47.74.75 > "$RUNNER_TEMP/gabia-ssh/known_hosts" 2>/dev/null
