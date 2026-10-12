@@ -90,7 +90,8 @@ jobs:
               exit 1
             fi
             current_mode="$(stat -c %a /www_root/index.html)"
-            install -m "$current_mode" "$candidate" /www_root/index.html.new
+            cp -p "$candidate" /www_root/index.html.new
+            chmod "$current_mode" /www_root/index.html.new
             mv -f /www_root/index.html.new /www_root/index.html
             grep -q "setRandomTheme();" /www_root/index.html
             cmp -s "$candidate" /www_root/index.html
