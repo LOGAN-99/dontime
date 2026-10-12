@@ -38,7 +38,7 @@ header{height:64px;background:#fff;border-bottom:1px solid #e7e9ed;display:flex;
 .category-marquee-track{display:flex;flex-direction:column;gap:2px;width:100%;animation:none}
 .category-marquee-row-wrap{width:100%;overflow:hidden;touch-action:pan-y;cursor:grab}
 .category-marquee-row-wrap.dragging{cursor:grabbing}
-.category-marquee-row-motion{width:max-content;display:block;animation:none!important;will-change:transform;flex:0 0 auto}
+.category-marquee-row-motion{width:max-content;display:block;flex:0 0 auto;will-change:transform;animation:categoryRowFlow var(--marquee-duration,24s) linear infinite var(--marquee-direction,normal)}.category-marquee-row-motion.marquee-motion-ready{animation-name:categoryRowFlow}
 
 .category-marquee-row{display:flex;width:max-content;align-items:stretch;gap:8px;padding:5px 8px;transform:translateX(var(--drag-x,0px));will-change:transform}
 .category-marquee-group{appearance:none;display:flex;flex-direction:column;justify-content:center;min-width:170px;max-width:280px;padding:12px 15px;border:1px solid #d9dde2;border-radius:11px;background:#fafbfc;text-align:left;color:#4b5159;cursor:pointer;transition:.15s}
@@ -53,11 +53,11 @@ header{height:64px;background:#fff;border-bottom:1px solid #e7e9ed;display:flex;
 .value-guide{margin:0 0 30px;padding:18px;border:1px solid #e1e4e8;border-radius:17px;background:#fff}.value-guide-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:13px}.value-guide-head strong{font-size:16px;font-weight:900}.value-guide-head span{font-size:11px;color:#818891}.value-guide-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}.value-guide-step{padding:13px;border:1px solid #e5e8eb;border-radius:12px;background:#fafbfc}.value-guide-step strong{display:block;font-size:14px;margin-bottom:5px}.value-guide-step span{display:block;color:#707780;font-size:11px;line-height:1.5}@media(max-width:700px){.value-guide{padding:14px;border-radius:14px}.value-guide-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.value-guide-step{padding:11px}.value-guide-head{align-items:flex-start;flex-direction:column;gap:4px}}.quick-start{margin-top:10px;padding:14px 16px;border:1px solid #e4e7eb;border-radius:15px;background:#fafbfc}.quick-start-head{display:flex;align-items:baseline;gap:8px;margin-bottom:9px}.quick-start-head strong{font-size:14px;font-weight:900}.quick-start-head span{font-size:11px;color:#7c838b}.quick-start-list{display:flex;gap:8px;overflow-x:auto;padding-bottom:2px}.quick-start-item{flex:0 0 auto;border:1px solid #dfe3e8;background:#fff;border-radius:10px;padding:9px 11px;text-align:left;cursor:pointer}.quick-start-item:hover{border-color:#b9c0c8;transform:translateY(-1px)}.quick-start-item strong{display:block;font-size:12px;line-height:1.3}.quick-start-item span{display:block;margin-top:3px;font-size:10px;color:#858b93}
 
 @keyframes categoryRowFlow{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-.category-marquee:hover .category-marquee-row-motion{will-change:transform}
+.category-marquee:hover .category-marquee-row-motion{animation-play-state:paused}
 @media(prefers-reduced-motion:reduce){.category-marquee-viewport:before,.category-marquee-viewport:after{display:none}}
 #home .layout{grid-template-columns:1fr}
 #home .layout>#cats{display:none}
-@media(max-width:700px){.card h3{font-size:20px}.tool h2{font-size:28px}.category-marquee{margin-bottom:20px;border-radius:14px}.category-marquee-row-motion{animation:none!important}.category-marquee-group{min-width:150px;padding:10px 12px}.category-marquee-major{font-size:14px}.category-marquee-sub{font-size:12px}.category-marquee-hint{font-size:11px}.category-marquee-viewport:before,.category-marquee-viewport:after{width:24px}}
+@media(max-width:700px){.card h3{font-size:20px}.tool h2{font-size:28px}.category-marquee{margin-bottom:20px;border-radius:14px}.category-marquee-row-motion{animation-duration:var(--marquee-duration,24s)!important}.category-marquee-group{min-width:150px;padding:10px 12px}.category-marquee-major{font-size:14px}.category-marquee-sub{font-size:12px}.category-marquee-hint{font-size:11px}.category-marquee-viewport:before,.category-marquee-viewport:after{width:24px}}
 .layout{display:grid;grid-template-columns:190px minmax(0,1fr);gap:28px;align-items:start}
 .cats{position:sticky;top:20px;display:flex;flex-direction:column;gap:6px}
 .cat{border:1px solid #e1e4e8;background:#fff;border-radius:10px;padding:12px 14px;text-align:left;font-weight:700;color:#50555d;transition:.15s}.cat:hover{background:#f0f1f3}.cat.on{background:#17191c;color:#fff;border-color:#17191c}
@@ -387,7 +387,7 @@ body{overflow-y:auto;overscroll-behavior-y:auto}
 <div class="category-marquee-viewport"><div id="categoryMarqueeTrack" class="category-marquee-track"></div></div>
 
 </div></div><div class="ad-slot ad-home-top" aria-label="광고 영역"></div>
-<div class="quick-start"><div class="quick-start-head"><strong>✨ 먼저 써보기</strong><span>자주 필요한 계산부터 가볍게 시작해보세요.</span></div><div id="quickStartTools" class="quick-start-list"></div></div><section class="value-guide"><div class="value-guide-head"><strong>🧭 셈플리는 이렇게 씁니다</strong><span>숫자 하나를 입력하는 데서 끝나지 않아요.</span></div><div class="value-guide-grid"><div class="value-guide-step"><strong>💰 1. 값을 넣고</strong><span>월급, 가격, 날짜처럼 지금 알고 있는 숫자부터 입력하세요.</span></div><div class="value-guide-step"><strong>🧮 2. 결과를 보고</strong><span>금액·비율·기간처럼 결정에 필요한 지표를 함께 확인합니다.</span></div><div class="value-guide-step"><strong>⏱️ 3. 시간으로 바꾸고</strong><span>돈을 내 시간의 가치와 연결해 보면 선택이 더 쉬워집니다.</span></div><div class="value-guide-step"><strong>🔗 4. 다음 계산으로</strong><span>관련 계산기를 이어서 돌려 실제 선택으로 확장하세요.</span></div></div></section>
+<section class="value-guide"><div class="value-guide-head"><strong>🧭 셈플리는 이렇게 씁니다</strong><span>숫자 하나를 입력하는 데서 끝나지 않아요.</span></div><div class="value-guide-grid"><div class="value-guide-step"><strong>💰 1. 값을 넣고</strong><span>월급, 가격, 날짜처럼 지금 알고 있는 숫자부터 입력하세요.</span></div><div class="value-guide-step"><strong>🧮 2. 결과를 보고</strong><span>금액·비율·기간처럼 결정에 필요한 지표를 함께 확인합니다.</span></div><div class="value-guide-step"><strong>⏱️ 3. 시간으로 바꾸고</strong><span>돈을 내 시간의 가치와 연결해 보면 선택이 더 쉬워집니다.</span></div><div class="value-guide-step"><strong>🔗 4. 다음 계산으로</strong><span>관련 계산기를 이어서 돌려 실제 선택으로 확장하세요.</span></div></div></section>
 <div class="home-tools"><div class="search-box"><input id="serviceSearch" type="search" placeholder="계산기 이름이나 키워드를 검색해보세요" oninput="searchServices(this.value)" autocomplete="off"><button class="search-clear" type="button" onclick="clearServiceSearch()">초기화</button></div><div id="searchMeta" class="search-meta">예: 월급, 시급, 대출, 자동차, 할인, 날짜, 게임, 취미</div><div id="recentTools" class="recent-tools"></div></div><div class="featured-compare"><div class="featured-head"><div><strong>셈플리에서 이렇게 같이 계산할 수 있어요</strong><span>계산기를 나란히 놓고 서로 다른 결과를 한눈에 비교해보세요.</span></div><span class="featured-drag">PC에서는 계산기를 드래그해서 자유롭게 배치할 수 있어요 ↗</span></div><div class="featured-grid"><button class="featured-card" type="button" onclick="openTool('income','월급시계','1초에 얼마 벌고 있는지 알고 있어?')"><div class="featured-kicker">01 · 돈</div><h3>월급시계</h3><p>내가 지금까지 번 돈을 실시간으로 확인</p><div class="featured-value">0.0000원</div><span>계산기 열기 →</span></button><div class="featured-join">+</div><button class="featured-card" type="button" onclick="openTool('workforbuy','얼마나 일해야 살 수 있을까?','월급시계와 연결하면, 지금부터 이 물건을 살 때까지 남은 시간이 줄어듭니다.')"><div class="featured-kicker">02 · 시간</div><h3>얼마나 일해야 살 수 있을까?</h3><p>원하는 물건이 내 시간으로 몇 시간짜리인지 확인</p><div class="featured-value">몇 시간일까?</div><span>계산기 열기 →</span></button></div></div>
 <div class="ad-slot ad-home-mid" aria-label="광고 영역"></div><div class="layout"><aside id="cats" class="cats"></aside><div id="cards" class="grid"></div></div><div class="footer"><div>셈플리 · 내 시간의 가치를 숫자로</div><div class="footer-links"><a class="footer-link" href="calendar.php?year=2027&month=5">2027년 5월 달력</a><a class="footer-link" href="about.html">서비스 안내</a><a class="footer-link" href="privacy.html">개인정보처리방침</a><a class="footer-link" href="terms.html">이용약관</a><a class="footer-link" href="contact.html">문의</a></div></div></section>
 <section id="tool" class="tool"><div class="tool-layout"><aside id="toolcats" class="cats"></aside><div id="toolmain"></div></div></section>
@@ -480,33 +480,15 @@ function renderCategoryMarquee(){
 }
 function startCategoryMarqueeMotion(){
   const motions=[...document.querySelectorAll('#categoryMarqueeTrack .category-marquee-row-motion')];
-  if(!motions.length)return;
-  if(window.__categoryMarqueeFrame)cancelAnimationFrame(window.__categoryMarqueeFrame);
-  let previous=0;
-  const speeds=motions.map((_,i)=>i===1?17:21);
-  motions.forEach((motion)=>{
-    const half=(motion.firstElementChild?.scrollWidth||0)/2;
-    motion.dataset.offset=String(half);
-    motion.style.transform='translate3d('+(-half)+'px,0,0)';
+  motions.forEach((motion,index)=>{
+    const row=motion.firstElementChild;
+    if(!row)return;
+    motion.style.setProperty('--marquee-duration',index===1?'28s':'24s');
+    motion.style.setProperty('--marquee-direction',index===1?'normal':'reverse');
+    motion.classList.remove('marquee-motion-ready');
+    void motion.offsetWidth;
+    motion.classList.add('marquee-motion-ready');
   });
-  function tick(now){
-    if(!document.getElementById('categoryMarqueeTrack')?.isConnected)return;
-    if(!previous)previous=now;
-    const delta=Math.min(now-previous,48); previous=now;
-    motions.forEach((motion,i)=>{
-      const row=motion.firstElementChild;
-      if(!row)return;
-      const half=row.scrollWidth/2;
-      if(!half)return;
-      const currentX=Number(motion.dataset.offset||half);
-      const distance=speeds[i]*delta/1000;
-      const next=i===1 ? (currentX+distance)%half : ((currentX-distance)%half+half)%half;
-      motion.dataset.offset=String(next);
-      motion.style.transform='translate3d('+(-next)+'px,0,0)';
-    });
-    window.__categoryMarqueeFrame=requestAnimationFrame(tick);
-  }
-  window.__categoryMarqueeFrame=requestAnimationFrame(tick);
 }
 function bindCategoryMarqueeDrag(){
   document.querySelectorAll('.category-marquee-row-wrap').forEach(wrap=>{
