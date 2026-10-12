@@ -30,19 +30,7 @@ header{height:64px;background:#fff;border-bottom:1px solid #e7e9ed;display:flex;
 .top{max-width:1180px;width:100%;margin:auto;padding:0 22px;display:flex;justify-content:space-between;align-items:center}
 .logo{font-size:25px;font-weight:900;cursor:pointer}.tag{font-size:13px;color:#777}
 .wrap{max-width:1180px;margin:auto;padding:38px 22px 70px}.hero{margin-bottom:32px}.hero h1{font-size:42px;line-height:1.2;letter-spacing:-2px;margin:0 0 12px}.hero p{margin:0;color:#6f747c;font-size:16px}.featured-compare{margin:-6px 0 30px;padding:18px;background:#fff;border:1px solid #e2e5e9;border-radius:18px}.featured-head{display:flex;justify-content:space-between;align-items:flex-end;gap:18px;margin-bottom:14px}.featured-head strong{display:block;font-size:15px;margin-bottom:4px}.featured-head span{display:block;color:#777;font-size:12px;line-height:1.45}.featured-drag{white-space:nowrap;padding:7px 10px;border-radius:8px;background:#f3f4f6;color:#5f646c!important}.featured-grid{display:grid;grid-template-columns:minmax(0,1fr) 28px minmax(0,1fr);align-items:stretch;gap:10px}.featured-card{appearance:none;text-align:left;border:1px solid #dfe3e8;background:#fafbfc;border-radius:14px;padding:17px;transition:.15s}.featured-card:hover{transform:translateY(-2px);border-color:#b8bec6;box-shadow:0 8px 22px #0001}.featured-kicker{font-size:11px;font-weight:800;color:#888;margin-bottom:8px}.featured-card h3{margin:0 0 7px;font-size:18px}.featured-card p{margin:0 0 15px;color:#666;font-size:12px;line-height:1.45}.featured-value{font-size:24px;font-weight:900;letter-spacing:-.03em;margin-bottom:10px}.featured-card>span{font-size:12px;font-weight:800}.featured-join{display:flex;align-items:center;justify-content:center;color:#999;font-size:22px;font-weight:700}
-.category-marquee{margin:0 0 28px;border:1px solid #d8c9c2;border-radius:18px;background:var(--season-paper,#fffef7);overflow:hidden;padding:10px 0 4px;box-shadow:0 4px 16px #00000008}
-.category-marquee-viewport{overflow:hidden;position:relative;cursor:grab;touch-action:pan-y;user-select:none}
-.category-marquee-viewport.dragging{cursor:grabbing}
-.category-marquee-viewport:before,.category-marquee-viewport:after{content:"";position:absolute;z-index:5;top:0;bottom:0;width:42px;pointer-events:none;background:linear-gradient(90deg,var(--season-paper,#fffef7),transparent)}
-.category-marquee-viewport:after{right:0;transform:rotate(180deg)}
-.category-marquee-viewport:before{left:0}
-.category-marquee-track{display:flex;flex-direction:column;gap:2px;width:max-content;min-width:100%}
-.category-marquee-row-wrap{width:max-content;overflow:visible;touch-action:pan-y}
-.category-marquee-row-motion{width:max-content;display:block;flex:0 0 auto;will-change:transform;animation:categoryMarqueeFlow var(--marquee-duration,30s) linear infinite}
-.category-marquee-row-wrap:nth-child(2) .category-marquee-row-motion{animation-direction:reverse;--marquee-duration:36s}
-.category-marquee-viewport:hover .category-marquee-row-motion,.category-marquee-viewport.paused .category-marquee-row-motion{animation-play-state:paused}
-.category-marquee-row{display:flex;width:max-content;align-items:stretch;gap:8px;padding:5px 8px;will-change:transform}
-@keyframes categoryMarqueeFlow{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.static-category-browser{margin:0 0 28px;padding:0}.static-category-buttons{display:flex;flex-wrap:wrap;gap:8px}.static-category-button{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:9px 15px;border:1px solid var(--season-line,#d8c9c2);border-radius:999px;background:var(--season-paper,#fffef7);color:var(--season-ink,#20251b);font-size:14px;font-weight:800;white-space:nowrap;cursor:pointer;transition:background .15s,border-color .15s}.static-category-button:hover,.static-category-button.active{background:var(--season-accent,#c8f04b);border-color:var(--season-accent,#c8f04b)}@media(max-width:700px){.static-category-buttons{gap:6px}.static-category-button{min-height:37px;padding:8px 12px;font-size:13px}}
 .category-marquee-group{appearance:none;display:flex;flex-direction:column;justify-content:center;min-width:170px;max-width:280px;padding:12px 15px;border:1px solid #d9dde2;border-radius:11px;background:#fafbfc;text-align:left;color:#4b5159;cursor:pointer;transition:.15s}
 .category-marquee-group:hover{background:#f1f3f5;border-color:#bfc5cc;transform:translateY(-1px)}
 .category-marquee-major{font-size:16px;font-weight:900;line-height:1.25;color:#17191c;margin-bottom:6px;white-space:nowrap}
@@ -386,7 +374,7 @@ body{overflow-y:auto;overscroll-behavior-y:auto}
 </style></head>
 <body>
 <header><div class="top"><div class="logo" onclick="home()">셈플리</div><div class="tag">돈과 시간을, 더 쉽게 셈하다.</div></div></header>
-<main class="wrap"><section id="categoryMarquee" class="category-marquee" aria-label="카테고리 이동"><div class="category-marquee-viewport" id="categoryMarqueeViewport"><div id="categoryMarqueeTrack" class="category-marquee-track"></div></div><p class="category-marquee-hint">마우스를 올리면 멈춰요 · 빈 곳을 잡고 좌우로 움직여 카테고리를 살펴보세요</p></section><section id="home"><div class="hero-category-layout"><div class="hero"><h1>돈과 시간을 숫자로,<br>내 선택을 더 쉽게.</h1><p>생활 속에서 자꾸 계산하게 되는 것들을 값으로 연결했습니다.</p><div class="hero-punchline">돈의 선택을, 시간의 가치로.</div></div></div><div class="ad-slot ad-home-top" aria-label="광고 영역"></div>
+<main class="wrap"><section id="home"><div class="hero-category-layout"><div class="hero"><h1>돈과 시간을 숫자로,<br>내 선택을 더 쉽게.</h1><p>생활 속에서 자꾸 계산하게 되는 것들을 값으로 연결했습니다.</p><div class="hero-punchline">돈의 선택을, 시간의 가치로.</div></div></div><section class="static-category-browser" aria-label="카테고리"><div id="staticCategoryButtons" class="static-category-buttons"></div></section><div class="ad-slot ad-home-top" aria-label="광고 영역"></div>
 <section class="value-guide"><div class="value-guide-head"><strong>🧭 셈플리는 이렇게 씁니다</strong><span>숫자 하나를 입력하는 데서 끝나지 않아요.</span></div><div class="value-guide-grid"><div class="value-guide-step"><strong>💰 1. 값을 넣고</strong><span>월급, 가격, 날짜처럼 지금 알고 있는 숫자부터 입력하세요.</span></div><div class="value-guide-step"><strong>🧮 2. 결과를 보고</strong><span>금액·비율·기간처럼 결정에 필요한 지표를 함께 확인합니다.</span></div><div class="value-guide-step"><strong>⏱️ 3. 시간으로 바꾸고</strong><span>돈을 내 시간의 가치와 연결해 보면 선택이 더 쉬워집니다.</span></div><div class="value-guide-step"><strong>🔗 4. 다음 계산으로</strong><span>관련 계산기를 이어서 돌려 실제 선택으로 확장하세요.</span></div></div></section>
 <div class="featured-compare"><div class="featured-head"><div><strong>셈플리에서 이렇게 같이 계산할 수 있어요</strong><span>계산기를 나란히 놓고 서로 다른 결과를 한눈에 비교해보세요.</span></div><span class="featured-drag">PC에서는 계산기를 드래그해서 자유롭게 배치할 수 있어요 ↗</span></div><div class="featured-grid"><button class="featured-card" type="button" onclick="openTool('income','월급시계','1초에 얼마 벌고 있는지 알고 있어?')"><div class="featured-kicker">01 · 돈</div><h3>월급시계</h3><p>내가 지금까지 번 돈을 실시간으로 확인</p><div class="featured-value">0.0000원</div><span>계산기 열기 →</span></button><div class="featured-join">+</div><button class="featured-card" type="button" onclick="openTool('workforbuy','얼마나 일해야 살 수 있을까?','월급시계와 연결하면, 지금부터 이 물건을 살 때까지 남은 시간이 줄어듭니다.')"><div class="featured-kicker">02 · 시간</div><h3>얼마나 일해야 살 수 있을까?</h3><p>원하는 물건이 내 시간으로 몇 시간짜리인지 확인</p><div class="featured-value">몇 시간일까?</div><span>계산기 열기 →</span></button></div></div>
 <div class="ad-slot ad-home-mid" aria-label="광고 영역"></div><div class="layout"><aside id="cats" class="cats"></aside><div id="cards" class="grid"></div></div><div class="footer"><div>셈플리 · 내 시간의 가치를 숫자로</div><div class="footer-links"><a class="footer-link" href="calendar.php?year=2027&month=5">2027년 5월 달력</a><a class="footer-link" href="about.html">서비스 안내</a><a class="footer-link" href="privacy.html">개인정보처리방침</a><a class="footer-link" href="terms.html">이용약관</a><a class="footer-link" href="contact.html">문의</a></div></div></section>
@@ -487,23 +475,11 @@ function renderHomeCategoryButtons(){
   const host=document.getElementById('homeCategoryButtons');if(!host)return;
   host.innerHTML='<button type="button" class="home-category-button" onclick="showCategoryView(\'전체\')">▦ 전체 서비스</button>'+Object.keys(data).map(c=>'<button type="button" class="home-category-button" onclick="showCategoryView(\''+c+'\')">'+(categoryIcons[c]||'•')+' '+c+'</button>').join('');
 }
-function renderCategoryMarquee(){
-  const host=document.getElementById('categoryMarqueeTrack');if(!host)return;
-  const keys=Object.keys(data);
-  const makeGroup=c=>'<button type="button" class="category-marquee-group '+(c===current?'on':'')+'" onclick="selectMarqueeCategory(\''+c+'\')"><span class="category-marquee-major">'+(categoryIcons[c]||'•')+' '+c+'</span><span class="category-marquee-sub">'+data[c].slice(0,3).map(x=>x[0]).join(' · ')+'</span></button>';
-  const groups=keys.map(makeGroup),rowA=groups.join(''),rowB=groups.slice().reverse().join('');
-  host.innerHTML=[rowA,rowB].map((row)=>'<div class="category-marquee-row-wrap"><div class="category-marquee-row-motion"><div class="category-marquee-row">'+row+row+'</div></div></div>').join('');
-  setupCategoryMarqueeDrag();
+function renderStaticCategoryButtons(){
+  const host=document.getElementById('staticCategoryButtons');if(!host)return;
+  host.innerHTML=Object.keys(data).map(c=>'<button type="button" class="static-category-button '+(c===current?'active':'')+'" onclick="selectMarqueeCategory(\''+c+'\')">'+(categoryIcons[c]||'•')+' '+c+'</button>').join('');
 }
-function setupCategoryMarqueeDrag(){
-  const viewport=document.getElementById('categoryMarqueeViewport');if(!viewport||viewport.dataset.dragReady)return;
-  viewport.dataset.dragReady='1';
-  let down=false,startX=0,lastX=0,dragged=false;
-  viewport.addEventListener('pointerdown',e=>{if(e.target.closest('button'))return;down=true;dragged=false;startX=lastX=e.clientX;viewport.classList.add('paused','dragging');viewport.setPointerCapture(e.pointerId);});
-  viewport.addEventListener('pointermove',e=>{if(!down)return;const dx=e.clientX-lastX;lastX=e.clientX;if(Math.abs(e.clientX-startX)>4)dragged=true;if(!dragged)return;viewport.querySelectorAll('.category-marquee-row-motion').forEach((motion,i)=>{const x=Number(motion.dataset.dragOffset||0)+dx*(i===1?-1:1);motion.dataset.dragOffset=String(x);motion.style.animation='none';motion.style.transform='translateX('+x+'px)';});});
-  const end=()=>{if(!down)return;down=false;viewport.classList.remove('dragging');};
-  viewport.addEventListener('pointerup',end);viewport.addEventListener('pointercancel',end);viewport.addEventListener('lostpointercapture',end);
-}
+function selectMarqueeCategory(c){current=c;clearServiceSearch();showCategoryView(c);renderStaticCategoryButtons();}
 function render(){
   const canDrag=window.innerWidth>700&&window.matchMedia&&window.matchMedia('(pointer:fine)').matches;
   const dragAttr=canDrag?' draggable="true"':'';
@@ -524,7 +500,7 @@ function renderToolCats(){
   const tc=el('toolcats');
   const canDrag=window.innerWidth>700&&window.matchMedia&&window.matchMedia('(pointer:fine)').matches;
   const dragAttr=canDrag?' draggable="true"':'';
-  tc.innerHTML=Object.keys(data).map(c=>'<div><button class="cat '+(c===current?'on':'')+'" onclick="current=\''+c+'\';if(window.innerWidth<=700){home();}else{render();renderQuickStart();renderToolCats();renderCategoryMarquee();}">'+c+'</button><div class="subcats">'+data[c].map(x=>'<button class="subcat"'+dragAttr+' ondragstart="dragService(event,\''+x[2]+'\',\''+x[0]+'\',\''+x[1]+'\')" onclick="openTool(\''+x[2]+'\',\''+x[0]+'\',\''+x[1]+'\')">'+x[0]+'</button>').join('')+'</div></div>').join('');
+  tc.innerHTML=Object.keys(data).map(c=>'<div><button class="cat '+(c===current?'on':'')+'" onclick="current=\''+c+'\';if(window.innerWidth<=700){home();}else{render();renderQuickStart();renderToolCats();renderStaticCategoryButtons();}">'+c+'</button><div class="subcats">'+data[c].map(x=>'<button class="subcat"'+dragAttr+' ondragstart="dragService(event,\''+x[2]+'\',\''+x[0]+'\',\''+x[1]+'\')" onclick="openTool(\''+x[2]+'\',\''+x[0]+'\',\''+x[1]+'\')">'+x[0]+'</button>').join('')+'</div></div>').join('');
 }
 
 const calendarHolidayData={
@@ -843,7 +819,7 @@ function calendarSetYear(y){const next=Math.min(calendarYearEnd,Math.max(calenda
 function calendarToday(){const now=new Date();window.__calendarYear=now.getFullYear();window.__calendarMonth=now.getMonth();window.__calendarAll=false;window.__calendarSelected=[];window.__calendarPastRange=1000;const range=el('calendarPastRange');if(range)range.value='1000';const p=el('calendarPast'),f=el('calendarFuture');if(p)p.value='';if(f)f.value='';calendarSetYear(window.__calendarYear);}
 function calendarPrevYear(){calendarSetYear((window.__calendarYear||calendarYearStart)-1);}
 function calendarNextYear(){calendarSetYear((window.__calendarYear||calendarYearStart)+1);}
-function home(){clearInterval(timer);stopAllCalcTimers();tool.classList.remove('on');const cv=document.getElementById('categoryView');if(cv)cv.style.display='none';document.getElementById('home').style.display='block';box=null;renderToolCats();render();renderCategoryMarquee();scrollTo(0,0)}
+function home(){clearInterval(timer);stopAllCalcTimers();tool.classList.remove('on');const cv=document.getElementById('categoryView');if(cv)cv.style.display='none';document.getElementById('home').style.display='block';box=null;renderToolCats();render();renderStaticCategoryButtons();scrollTo(0,0)}
 function textCompareTool(){
   box.innerHTML='<div class="panel"><div class="fields"><div class="field"><label>원문</label><textarea id="txt1" style="width:100%;min-height:160px;border:1px solid #d8dce1;border-radius:10px;padding:12px"></textarea></div><div class="field"><label>비교할 문장</label><textarea id="txt2" style="width:100%;min-height:160px;border:1px solid #d8dce1;border-radius:10px;padding:12px"></textarea></div></div><div class="actions"><button class="primary" onclick="compareText()">비교하기</button><button type="button" class="secondary reset-btn" onclick="resetCalculator()">↺ 초기화</button></div><div id="res"></div></div>';
 }
@@ -1656,7 +1632,7 @@ function live(t,target=el('box')){
 }
 
 
-render();renderToolCats();renderQuickStart();renderCategoryMarquee();
+render();renderToolCats();renderQuickStart();renderStaticCategoryButtons();
 function popupIncomeChooser(){
   const svc=findService('income');if(!svc)return;
   document.body.classList.add('popup-mode');document.getElementById('home').style.display='none';tool.classList.add('on');renderToolCats();
