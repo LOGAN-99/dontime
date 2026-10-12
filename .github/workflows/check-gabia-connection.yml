@@ -1,0 +1,21 @@
+name: Gabia connection check
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check-ssh-port:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Check Gabia SSH port only
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "Checking TCP connectivity to Gabia SFTP/SSH (211.47.74.75:22)..."
+          timeout 10 bash -c 'cat < /dev/null > /dev/tcp/211.47.74.75/22'
+          echo "TCP port 22 is reachable."
+          echo "This was a connectivity-only check. No login, upload, deletion, or server file changes were performed."
