@@ -1,0 +1,117 @@
+name: Deploy index.html to Gabia
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "index.html"
+      - ".github/workflows/deploy-gabia-index.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: gabia-production-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy-index:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Verify SSH host key and create backup
+        shell: bash
+        env:
+          GABIA_USER: ${{ secrets.GABIA_USER }}
+          GABIA_PASSWORD: ${{ secrets.GABIA_PASSWORD }}
+        run: |
+          set -euo pipefail
+          expected_fingerprint='SHA256:wtOgKJNn+22CUFqM4UBKKgGfK0Ji1d3y6je4Eiz0RE'
+          host='211.47.74.75'
+          mkdir -p "$RUNNER_TEMP/gabia-ssh"
+          chmod 700 "$RUNNER_TEMP/gabia-ssh"
+          ssh-keyscan -T 10 -t ed25519 -p 22 "$host" > "$RUNNER_TEMP/gabia-ssh/known_hosts" 2>/dev/null
+          actual_fingerprint="$(ssh-keygen -lf "$RUNNER_TEMP/gabia-ssh/known_hosts" -E sha256 | awk '{print $2; exit}')"
+          echo "Expected ED25519 fingerprint: $expected_fingerprint"
+          echo "Observed ED25519 fingerprint: $actual_fingerprint"
+          if [ "$actual_fingerprint" != "$expected_fingerprint" ]; then
+            echo "::error::ED25519 fingerprint mismatch. No server changes were made."
+            exit 1
+          fi
+          if [ -z "$GABIA_USER" ] || [ -z "$GABIA_PASSWORD" ]; then
+            echo "::error::Required GitHub Actions secrets are missing."
+            exit 1
+          fi
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq sshpass
+          export SSHPASS="$GABIA_PASSWORD"
+          ssh_opts=(-o StrictHostKeyChecking=yes -o UserKnownHostsFile="$RUNNER_TEMP/gabia-ssh/known_hosts" -o HostKeyAlgorithms=ssh-ed25519 -o LogLevel=ERROR -o ConnectTimeout=10 -p 22)
+          sshpass -e ssh "${ssh_opts[@]}" "$GABIA_USER@$host" '
+            set -eu
+            test -f /www_root/index.html
+            backup_dir="$HOME/dontime-deploy-backups"
+            stage_dir="$HOME/dontime-deploy-upload"
+            mkdir -p "$backup_dir" "$stage_dir"
+            chmod 700 "$backup_dir" "$stage_dir"
+            stamp="$(date +%Y%m%d-%H%M%S)"
+            cp -p /www_root/index.html "$backup_dir/index.html.$stamp.bak"
+            printf "Backup created in home directory: %s/index.html.%s.bak\n" "$backup_dir" "$stamp"
+            printf "Production index.html backed up. No production file has been replaced yet.\n"
+          '
+      - name: Upload candidate to private home staging
+        shell: bash
+        env:
+          GABIA_USER: ${{ secrets.GABIA_USER }}
+          GABIA_PASSWORD: ${{ secrets.GABIA_PASSWORD }}
+        run: |
+          set -euo pipefail
+          export SSHPASS="$GABIA_PASSWORD"
+          sshpass -e scp -P 22 -o StrictHostKeyChecking=yes -o UserKnownHostsFile="$RUNNER_TEMP/gabia-ssh/known_hosts" -o HostKeyAlgorithms=ssh-ed25519 -o LogLevel=ERROR index.html "$GABIA_USER@211.47.74.75:dontime-deploy-upload/index.html.new"
+
+      - name: Validate staged file and atomically replace homepage
+        shell: bash
+        env:
+          GABIA_USER: ${{ secrets.GABIA_USER }}
+          GABIA_PASSWORD: ${{ secrets.GABIA_PASSWORD }}
+        run: |
+          set -euo pipefail
+          export SSHPASS="$GABIA_PASSWORD"
+          sshpass -e ssh -p 22 -o StrictHostKeyChecking=yes -o UserKnownHostsFile="$RUNNER_TEMP/gabia-ssh/known_hosts" -o HostKeyAlgorithms=ssh-ed25519 -o LogLevel=ERROR "$GABIA_USER@211.47.74.75" '
+            set -eu
+            candidate="$HOME/dontime-deploy-upload/index.html.new"
+            test -s "$candidate"
+            grep -q "function setRandomTheme" "$candidate"
+            grep -q "setRandomTheme();" "$candidate"
+            if grep -q "계절 테마" "$candidate"; then
+              echo "Seasonal theme label unexpectedly remains in candidate; stopping."
+              exit 1
+            fi
+            current_mode="$(stat -c %a /www_root/index.html)"
+            install -m "$current_mode" "$candidate" /www_root/index.html.new
+            mv -f /www_root/index.html.new /www_root/index.html
+            grep -q "setRandomTheme();" /www_root/index.html
+            cmp -s "$candidate" /www_root/index.html
+            printf "Deployment successful. index.html replaced; backup retained in %s/dontime-deploy-backups.\n" "$HOME"
+          '
+
+      - name: Verify public homepage response
+        shell: bash
+        run: |
+          set -euo pipefail
+          response="$RUNNER_TEMP/homepage.html"
+          for attempt in 1 2 3; do
+            if curl --fail --silent --show-error --location --max-time 20 https://dontime.kr/ -o "$response"; then
+              break
+            fi
+            sleep 3
+          done
+          grep -q "셈플리" "$response"
+          grep -q "setRandomTheme" "$response"
+          if grep -q "계절 테마" "$response"; then
+            echo "Warning: public response may be cached or old."
+          fi
+          echo "Public homepage returned HTTP success and contains the new theme code."
