@@ -352,7 +352,7 @@ body{overflow-y:auto;overscroll-behavior-y:auto}
 .hero-punchline{margin-top:22px;font-size:14px;font-weight:900;letter-spacing:.02em;color:var(--season-ink,#20251b)}
 .hero-category-layout .category-marquee{margin:0;min-width:0;display:flex;flex-direction:column;justify-content:center;padding:14px 0}
 .hero-category-layout .category-marquee-viewport{overflow:hidden!important;min-width:0}
-.hero-category-layout .category-marquee-track{display:flex!important;flex-direction:column;gap:7px;width:100%!important;min-width:0!important}
+.hero-category-layout .category-marquee-track{display:flex!important;flex-direction:column!important;gap:7px;width:100%!important;min-width:0!important}
 .hero-category-layout .category-marquee-row-wrap{width:100%;overflow:hidden;touch-action:pan-y;cursor:grab}
 .hero-category-layout .category-marquee-row-motion{width:max-content;animation:categoryRowFlow 34s linear infinite!important}
 .hero-category-layout .category-marquee-row{width:max-content;gap:8px;padding:3px 10px}
@@ -370,7 +370,7 @@ body{overflow-y:auto;overscroll-behavior-y:auto}
  .hero-punchline{margin-top:10px;font-size:12px}
  .hero-category-layout .category-marquee{padding:10px 0;border-radius:15px}
  .hero-category-layout .category-marquee-viewport{overflow:hidden!important;touch-action:pan-y}
- .hero-category-layout .category-marquee-track{width:100%!important;min-width:0!important;gap:5px}
+ .hero-category-layout .category-marquee-track{display:flex!important;flex-direction:column!important;width:100%!important;min-width:0!important;gap:5px}
  .hero-category-layout .category-marquee-row-wrap{width:100%!important;overflow:hidden!important;touch-action:pan-y!important}
  .hero-category-layout .category-marquee-row-motion{animation-duration:38s!important}
  .hero-category-layout .category-marquee-row{gap:6px;padding:3px 8px}
@@ -467,14 +467,15 @@ function renderQuickStart(){
   const picks=[['income','돈','월급시계'],['hourly','돈','시급 계산'],['workforbuy','시간','얼마나 일해야 살 수 있을까?'],['discount','소비','할인 계산'],['loan','부동산','대출이자'],['datediff','시간','날짜 차이']];
   host.innerHTML=picks.map(([key,cat,name])=>'<button type="button" class="quick-start-item" onclick="openTool(\''+key+'\',\''+name+'\',\'\')"><strong>'+toolIcon(key,cat)+' '+name+'</strong><span>'+cat+' 계산기</span></button>').join('');
 }
+function selectMarqueeCategory(c){current=c;clearServiceSearch();render();renderCategoryMarquee();}
 function renderCategoryMarquee(){
   const host=document.getElementById('categoryMarqueeTrack'); if(!host)return;
   const keys=Object.keys(data);
-  const makeGroup=(c)=>'<button type="button" class="category-marquee-group '+(c===current?'on':'')+'" onclick="current=\''+c+'\';clearServiceSearch();render();renderCategoryMarquee()"><span class="category-marquee-major">'+(categoryIcons[c]||'•')+' '+c+'</span><span class="category-marquee-sub">'+data[c].slice(0,4).map(x=>x[0]).join(' · ')+'</span></button>';
-  const all='<button type="button" class="category-marquee-group category-marquee-all '+(current==='전체'?'on':'')+'" onclick="current=\\'전체\\';clearServiceSearch();render();renderCategoryMarquee()"><span class="category-marquee-major">▦ 전체</span></button>';
+  const makeGroup=(c)=>`<button type="button" class="category-marquee-group ${c===current?'on':''}" onclick="selectMarqueeCategory('${c}')"><span class="category-marquee-major">${(categoryIcons[c]||'•')} ${c}</span><span class="category-marquee-sub">${data[c].slice(0,4).map(x=>x[0]).join(' · ')}</span></button>`;
+  const all=`<button type="button" class="category-marquee-group category-marquee-all ${current==='전체'?'on':''}" onclick="selectMarqueeCategory('전체')"><span class="category-marquee-major">▦ 전체</span></button>`;
   const groups=[all].concat(keys.map(makeGroup));
   const rows=[groups.filter((_,i)=>i%3===0),groups.filter((_,i)=>i%3===1),groups.filter((_,i)=>i%3===2)];
-  host.innerHTML=rows.map(items=>{const row=items.join('');return '<div class="category-marquee-row-wrap"><div class="category-marquee-row-motion"><div class="category-marquee-row">'+row+row+'</div></div></div>';}).join('');
+  host.innerHTML=rows.map(items=>{const row=items.join('');return `<div class="category-marquee-row-wrap"><div class="category-marquee-row-motion"><div class="category-marquee-row">${row}${row}</div></div></div>`;}).join('');
 }
 function bindCategoryMarqueeDrag(){
   document.querySelectorAll('.category-marquee-row-wrap').forEach(wrap=>{
