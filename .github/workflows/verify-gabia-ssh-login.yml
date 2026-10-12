@@ -1,0 +1,29 @@
+name: Verify Gabia SSH login (read only)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify-ssh-login:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Run read-only remote directory check
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: 211.47.74.75
+          username: ${{ secrets.GABIA_USER }}
+          password: ${{ secrets.GABIA_PASSWORD }}
+          port: 22
+          fingerprint: "SHA256:wtOgKJN+n22CUFqM4UBKKgGfK0Ji1d3y6je4Eiz0RE"
+          command_timeout: 20s
+          script: |
+            printf 'SSH login successful.\n'
+            printf 'Home directory: '
+            pwd
+            printf '\nWeb root listing (/www_root):\n'
+            ls -la /www_root
+            printf '\nRead-only check complete. No files were changed.\n'
