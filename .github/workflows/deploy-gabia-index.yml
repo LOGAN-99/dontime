@@ -56,7 +56,7 @@ jobs:
           with open("index.html", encoding="utf-8") as f:
               parser.feed(f.read())
           with open("/tmp/dontime-inline.js", "w", encoding="utf-8") as f:
-              f.write("\\n;\\n".join(parser.parts))
+              f.write("".join(parser.parts))
           if not parser.parts:
               raise SystemExit("No inline application scripts were found.")
           PY
