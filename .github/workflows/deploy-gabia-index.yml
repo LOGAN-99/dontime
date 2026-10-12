@@ -58,10 +58,10 @@ jobs:
             chmod 700 "$backup_dir" "$stage_dir"
             stamp="$(date +%Y%m%d-%H%M%S)"
             cp -p /www_root/index.html "$backup_dir/index.html.$stamp.bak"
-            printf "Backup created in home directory: %s/index.html.%s.bak\n" "$backup_dir" "$stamp"
+            printf "Backup created in temporary directory: %s/index.html.%s.bak\n" "$backup_dir" "$stamp"
             printf "Production index.html backed up. No production file has been replaced yet.\n"
           '
-      - name: Upload candidate to private home staging
+      - name: Upload candidate to temporary staging
         shell: bash
         env:
           GABIA_USER: ${{ secrets.GABIA_USER }}
@@ -94,7 +94,7 @@ jobs:
             mv -f /www_root/index.html.new /www_root/index.html
             grep -q "setRandomTheme();" /www_root/index.html
             cmp -s "$candidate" /www_root/index.html
-            printf "Deployment successful. index.html replaced; backup retained in %s/dontime-deploy-backups.\n" "$HOME"
+            printf "Deployment successful. index.html replaced; backup retained in /tmp/dontime-deploy-backups.\n"
           '
 
       - name: Verify public homepage response
