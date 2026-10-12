@@ -111,6 +111,7 @@ jobs:
           done
           grep -q "셈플리" "$response"
           grep -q "setRandomTheme" "$response"
+          grep -q "ca-pub-3220276859043248" "$response"
           if grep -q "계절 테마" "$response"; then
             echo "Warning: public response may be cached or old."
           fi
