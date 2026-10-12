@@ -31,7 +31,7 @@ jobs:
             echo '::error::History explorer must stay out of the main Sempli homepage.'
             exit 1
           fi
-          if grep -Eiq 'eval[[:space:]]*\\(|new[[:space:]]+Function|document\\.write[[:space:]]*\\(' index.html; then
+          if grep -Eiq 'eval[[:space:]]*\(|new[[:space:]]+Function|document[.]write[[:space:]]*\(' index.html; then
             echo "::error::Potentially unsafe dynamic-code pattern found."
             exit 1
           fi
