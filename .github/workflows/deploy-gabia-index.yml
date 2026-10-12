@@ -22,6 +22,47 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Static HTML security and syntax preflight
+        shell: bash
+        run: |
+          set -euo pipefail
+          grep -q 'id="topMarquee"' index.html
+          grep -q 'function renderHistoryExplorer' index.html
+          if grep -Eiq 'eval[[:space:]]*\\(|new[[:space:]]+Function|document\\.write[[:space:]]*\\(' index.html; then
+            echo "::error::Potentially unsafe dynamic-code pattern found."
+            exit 1
+          fi
+          python3 - <<'PY'
+          from html.parser import HTMLParser
+          class InlineScriptExtractor(HTMLParser):
+              def __init__(self):
+                  super().__init__()
+                  self.capture = False
+                  self.parts = []
+                  self.current = []
+              def handle_starttag(self, tag, attrs):
+                  if tag.lower() == "script":
+                      attrs = dict(attrs)
+                      self.capture = not attrs.get("src") and attrs.get("type", "").lower() != "application/ld+json"
+                      self.current = []
+              def handle_data(self, data):
+                  if self.capture:
+                      self.current.append(data)
+              def handle_endtag(self, tag):
+                  if tag.lower() == "script" and self.capture:
+                      self.parts.append("".join(self.current))
+                      self.capture = False
+          parser = InlineScriptExtractor()
+          with open("index.html", encoding="utf-8") as f:
+              parser.feed(f.read())
+          with open("/tmp/dontime-inline.js", "w", encoding="utf-8") as f:
+              f.write("\\n;\\n".join(parser.parts))
+          if not parser.parts:
+              raise SystemExit("No inline application scripts were found.")
+          PY
+          node --check /tmp/dontime-inline.js
+          echo "Static checks and inline JavaScript syntax check passed."
+
       - name: Verify SSH host key and create backup
         shell: bash
         env:
