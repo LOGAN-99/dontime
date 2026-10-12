@@ -340,11 +340,6 @@ body{overflow-y:auto;overscroll-behavior-y:auto}
  #toolcats .subcats{margin-left:4px}
  #toolcats .subcat{padding:9px 8px;font-size:13px;line-height:1.45}
 }
-body[data-season="spring"]{--season-bg:#fff7fa;--season-paper:#fff;--season-card:#ffe7ef;--season-accent:#df668b;--season-ink:#3a2630;--season-line:#f0d3df}
-body[data-season="summer"]{--season-bg:#eff9ff;--season-paper:#fff;--season-card:#dff3ff;--season-accent:#087fbd;--season-ink:#153247;--season-line:#c7e4f4}
-body[data-season="autumn"]{--season-bg:#fff5e9;--season-paper:#fff;--season-card:#ffe6c8;--season-accent:#c66b32;--season-ink:#3b2b21;--season-line:#eed5bd}
-body[data-season="winter"]{--season-bg:#f1f4fb;--season-paper:#fff;--season-card:#e1e8fa;--season-accent:#596ec8;--season-ink:#222c48;--season-line:#d0d9f0}
-
 </style></head>
 <body>
 <header><div class="top"><div class="logo" onclick="home()">셈플리</div><div class="tag">돈과 시간을, 더 쉽게 셈하다.</div></div></header>
@@ -1615,19 +1610,6 @@ function live(t,target=el('box')){
   scope.querySelector('#startBtn').onclick=applyLiveSettings;
 }
 
-
-document.querySelectorAll('.season-switch [data-season]').forEach(button=>button.addEventListener('click',()=>{
- const season=button.dataset.season;
- document.body.dataset.season=season;
- document.querySelectorAll('.season-switch [data-season]').forEach(item=>item.setAttribute('aria-pressed',String(item===button)));
- try{localStorage.setItem('dontimeSeason',season)}catch(e){}
-}));
-try{
- const savedSeason=localStorage.getItem('dontimeSeason');
- const season=['spring','summer','autumn','winter'].includes(savedSeason)?savedSeason:'spring';
- document.body.dataset.season=season;
- document.querySelectorAll('.season-switch [data-season]').forEach(item=>item.setAttribute('aria-pressed',String(item.dataset.season===season)));
-}catch(e){document.body.dataset.season='spring'}
 
 render();renderToolCats();
 function popupIncomeChooser(){
