@@ -470,7 +470,7 @@ function renderQuickStart(){
 function renderCategoryMarquee(){
   const host=document.getElementById('categoryMarqueeTrack'); if(!host)return;
   const keys=Object.keys(data);
-  const makeGroup=(c)=>'<button type="button" class="category-marquee-group '+(c===current?'on':'')+'" onclick="current=\\''+c+'\\';clearServiceSearch();render();renderCategoryMarquee()"><span class="category-marquee-major">'+(categoryIcons[c]||'•')+' '+c+'</span><span class="category-marquee-sub">'+data[c].slice(0,4).map(x=>x[0]).join(' · ')+'</span></button>';
+  const makeGroup=(c)=>'<button type="button" class="category-marquee-group '+(c===current?'on':'')+'" onclick="current=\''+c+'\';clearServiceSearch();render();renderCategoryMarquee()"><span class="category-marquee-major">'+(categoryIcons[c]||'•')+' '+c+'</span><span class="category-marquee-sub">'+data[c].slice(0,4).map(x=>x[0]).join(' · ')+'</span></button>';
   const all='<button type="button" class="category-marquee-group category-marquee-all '+(current==='전체'?'on':'')+'" onclick="current=\\'전체\\';clearServiceSearch();render();renderCategoryMarquee()"><span class="category-marquee-major">▦ 전체</span></button>';
   const groups=[all].concat(keys.map(makeGroup));
   const rows=[groups.filter((_,i)=>i%3===0),groups.filter((_,i)=>i%3===1),groups.filter((_,i)=>i%3===2)];
