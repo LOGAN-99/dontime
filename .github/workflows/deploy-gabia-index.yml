@@ -52,8 +52,8 @@ jobs:
           sshpass -e ssh "${ssh_opts[@]}" "$GABIA_USER@$host" '
             set -eu
             test -f /www_root/index.html
-            backup_dir="$HOME/dontime-deploy-backups"
-            stage_dir="$HOME/dontime-deploy-upload"
+            backup_dir="/tmp/dontime-deploy-backups"
+            stage_dir="/tmp/dontime-deploy-upload"
             mkdir -p "$backup_dir" "$stage_dir"
             chmod 700 "$backup_dir" "$stage_dir"
             stamp="$(date +%Y%m%d-%H%M%S)"
@@ -69,7 +69,7 @@ jobs:
         run: |
           set -euo pipefail
           export SSHPASS="$GABIA_PASSWORD"
-          sshpass -e scp -P 22 -o StrictHostKeyChecking=yes -o UserKnownHostsFile="$RUNNER_TEMP/gabia-ssh/known_hosts" -o HostKeyAlgorithms=ssh-ed25519 -o LogLevel=ERROR index.html "$GABIA_USER@211.47.74.75:dontime-deploy-upload/index.html.new"
+          sshpass -e scp -P 22 -o StrictHostKeyChecking=yes -o UserKnownHostsFile="$RUNNER_TEMP/gabia-ssh/known_hosts" -o HostKeyAlgorithms=ssh-ed25519 -o LogLevel=ERROR index.html "$GABIA_USER@211.47.74.75:/tmp/dontime-deploy-upload/index.html.new"
 
       - name: Validate staged file and atomically replace homepage
         shell: bash
@@ -81,7 +81,7 @@ jobs:
           export SSHPASS="$GABIA_PASSWORD"
           sshpass -e ssh -p 22 -o StrictHostKeyChecking=yes -o UserKnownHostsFile="$RUNNER_TEMP/gabia-ssh/known_hosts" -o HostKeyAlgorithms=ssh-ed25519 -o LogLevel=ERROR "$GABIA_USER@211.47.74.75" '
             set -eu
-            candidate="$HOME/dontime-deploy-upload/index.html.new"
+            candidate="/tmp/dontime-deploy-upload/index.html.new"
             test -s "$candidate"
             grep -q "function setRandomTheme" "$candidate"
             grep -q "setRandomTheme();" "$candidate"
