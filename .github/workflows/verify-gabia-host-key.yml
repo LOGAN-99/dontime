@@ -1,0 +1,23 @@
+name: Verify Gabia SSH host key
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify-host-key:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Read SSH host key fingerprint (no login)
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/ssh-check"
+          ssh-keyscan -T 10 -p 22 211.47.74.75 > "$RUNNER_TEMP/ssh-check/known_hosts" 2> "$RUNNER_TEMP/ssh-check/scan.log"
+          test -s "$RUNNER_TEMP/ssh-check/known_hosts"
+          echo "SSH host key fingerprint reported by the server:"
+          ssh-keygen -lf "$RUNNER_TEMP/ssh-check/known_hosts" -E sha256
+          echo "No username/password was used. No login, upload, deletion, or server file changes were performed."
