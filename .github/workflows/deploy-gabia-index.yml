@@ -129,7 +129,11 @@ jobs:
             test -s "$candidate"
             grep -q "function setSeasonalTheme" "$candidate"
             grep -q "setSeasonalTheme();" "$candidate"
-            grep -q "id=\"topMarqueeToggle\"" "$candidate"
+            grep -q "id=\"topMarqueeToggle1\"" "$candidate"
+            grep -q "id=\"topMarqueeToggle2\"" "$candidate"
+            grep -q "id=\"topMarqueeTrack1\"" "$candidate"
+            grep -q "id=\"topMarqueeTrack2\"" "$candidate"
+            grep -q "function escapeHTML" "$candidate"
             if grep -q "계절 테마" "$candidate"; then
               echo "Seasonal theme label unexpectedly remains in candidate; stopping."
               exit 1
