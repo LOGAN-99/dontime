@@ -377,7 +377,7 @@ body{overflow-y:auto;overscroll-behavior-y:auto}
 .site-sticky header{position:relative;top:auto;z-index:auto}
 .top-marquee{position:relative;top:auto;z-index:auto;display:block;background:var(--season-ink,#153b35);color:#fff;padding:5px 12px;border-bottom:1px solid #0002;box-shadow:0 4px 14px #00000012}
 .top-marquee-row{display:flex;align-items:center;min-width:0;min-height:34px}
-.top-marquee-row-reverse{border-top:1px solid #ffffff20}
+.top-marquee-row-reverse{display:none}
 
 @keyframes topTickerRight{from{transform:translate3d(-50%,0,0)}to{transform:translate3d(0,0,0)}}
 .top-marquee-viewport{flex:1;min-width:0;overflow:hidden;display:flex;align-items:center;touch-action:pan-y;cursor:grab;user-select:none}
@@ -463,9 +463,6 @@ header{background:var(--season-paper);border-bottom:1px solid var(--season-line)
 <nav class="top-marquee" id="topMarquee" aria-label="계산기 카테고리 빠른 이동">
   <div class="top-marquee-row" id="topMarqueeRow1">
     <div class="top-marquee-viewport" id="topMarqueeViewport"><div class="top-marquee-track" id="topMarqueeTrack1"></div></div>
-  </div>
-  <div class="top-marquee-row top-marquee-row-reverse" id="topMarqueeRow2">
-    <div class="top-marquee-viewport" id="topMarqueeViewport2"><div class="top-marquee-track top-marquee-track-reverse" id="topMarqueeTrack2"></div></div>
   </div>
 </nav>
 </div>
