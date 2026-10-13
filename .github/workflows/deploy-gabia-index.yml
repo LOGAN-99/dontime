@@ -101,10 +101,11 @@ jobs:
             mkdir -p "$backup_dir" "$stage_dir"
             chmod 700 "$backup_dir" "$stage_dir"
             stamp="$(date +%Y%m%d-%H%M%S)"
-            cp -p /www_root/index.html "$backup_dir/index.html.$stamp.bak"
+            for file in index.html about.html calculator-data.json calculator.php calendar.php contact.html privacy.html terms.html robots.txt sitemap.xml; do
+              if [ -f "/www_root/$file" ]; then cp -p "/www_root/$file" "$backup_dir/$file.$stamp.bak"; fi
+            done
             if [ -f /www_root/.htaccess ]; then cp -p /www_root/.htaccess "$backup_dir/htaccess.$stamp.bak"; fi
-            printf "Backup created in temporary directory: %s/index.html.%s.bak\n" "$backup_dir" "$stamp"
-            printf "Production files backed up before deployment.\n"
+            printf "Production files backed up before deployment. Backup directory: %s\n" "$backup_dir"
           '
       - name: Upload candidate to temporary staging
         shell: bash
@@ -114,7 +115,7 @@ jobs:
         run: |
           set -euo pipefail
           export SSHPASS="$GABIA_PASSWORD"
-          sshpass -e scp -P 22 -o StrictHostKeyChecking=yes -o UserKnownHostsFile="$RUNNER_TEMP/gabia-ssh/known_hosts" -o HostKeyAlgorithms=ssh-ed25519 -o LogLevel=ERROR index.html "$GABIA_USER@211.47.74.75:/tmp/dontime-deploy-upload/index.html.new"
+          sshpass -e scp -P 22 -o StrictHostKeyChecking=yes -o UserKnownHostsFile="$RUNNER_TEMP/gabia-ssh/known_hosts" -o HostKeyAlgorithms=ssh-ed25519 -o LogLevel=ERROR index.html about.html calculator-data.json calculator.php calendar.php contact.html privacy.html terms.html robots.txt sitemap.xml "$GABIA_USER@211.47.74.75:/tmp/dontime-deploy-upload/"
           sshpass -e scp -P 22 -o StrictHostKeyChecking=yes -o UserKnownHostsFile="$RUNNER_TEMP/gabia-ssh/known_hosts" -o HostKeyAlgorithms=ssh-ed25519 -o LogLevel=ERROR security-headers.fragment "$GABIA_USER@211.47.74.75:/tmp/dontime-deploy-upload/security-headers.fragment"
 
       - name: Validate staged file and atomically replace homepage
@@ -127,8 +128,9 @@ jobs:
           export SSHPASS="$GABIA_PASSWORD"
           sshpass -e ssh -p 22 -o StrictHostKeyChecking=yes -o UserKnownHostsFile="$RUNNER_TEMP/gabia-ssh/known_hosts" -o HostKeyAlgorithms=ssh-ed25519 -o LogLevel=ERROR "$GABIA_USER@211.47.74.75" '
             set -eu
-            candidate="/tmp/dontime-deploy-upload/index.html.new"
-            header_fragment="/tmp/dontime-deploy-upload/security-headers.fragment"
+            stage="/tmp/dontime-deploy-upload"
+            candidate="$stage/index.html"
+            header_fragment="$stage/security-headers.fragment"
             test -s "$candidate"
             test -s "$header_fragment"
             grep -q "function setSeasonalTheme" "$candidate"
@@ -143,9 +145,9 @@ jobs:
               echo "Seasonal theme label unexpectedly remains in candidate; stopping."
               exit 1
             fi
-            current_mode="$(stat -c %a /www_root/index.html)"
-            cp -p "$candidate" /www_root/index.html.new
-            chmod "$current_mode" /www_root/index.html.new
+            for file in index.html about.html calculator-data.json calculator.php calendar.php contact.html privacy.html terms.html robots.txt sitemap.xml; do
+              test -s "$stage/$file"
+            done
             if [ -f /www_root/.htaccess ]; then
               cp -p /www_root/.htaccess /www_root/.htaccess.new
             else
@@ -156,11 +158,17 @@ jobs:
               cat "$header_fragment" >> /www_root/.htaccess.new
             fi
             mv -f /www_root/.htaccess.new /www_root/.htaccess
-            mv -f /www_root/index.html.new /www_root/index.html
+            for file in index.html about.html calculator-data.json calculator.php calendar.php contact.html privacy.html terms.html robots.txt sitemap.xml; do
+              dest="/www_root/$file"
+              if [ -f "$dest" ]; then mode="$(stat -c %a "$dest")"; else mode=644; fi
+              cp "$stage/$file" "$dest.new"
+              chmod "$mode" "$dest.new"
+              mv -f "$dest.new" "$dest"
+            done
             grep -q "setSeasonalTheme();" /www_root/index.html
             grep -q "BEGIN SEMPLI SECURITY HEADERS" /www_root/.htaccess
-            cmp -s "$candidate" /www_root/index.html
-            printf "Deployment successful. Homepage and security headers updated; backups retained in /tmp/dontime-deploy-backups.\n"
+            for file in index.html about.html calculator-data.json calculator.php calendar.php contact.html privacy.html terms.html robots.txt sitemap.xml; do cmp -s "$stage/$file" "/www_root/$file"; done
+            printf "Deployment successful. All public site files and security headers updated; backups retained in /tmp/dontime-deploy-backups.\n"
           '
 
       - name: Verify public homepage response
@@ -181,7 +189,7 @@ jobs:
           grep -q "topMarqueeToggle1" "$response"
           grep -q "topMarqueeToggle2" "$response"
           grep -q "function escapeHTML" "$response"
-          grep -q "two-row-independent-marquee-security-v14" "$response"
+          grep -q "two-row-independent-marquee-security-v15" "$response"
           grep -q "ca-pub-3220276859043248" "$response"
           for header in strict-transport-security content-security-policy-report-only x-content-type-options x-frame-options referrer-policy permissions-policy; do
             grep -iq "^$header:" "$headers"
