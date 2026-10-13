@@ -377,9 +377,9 @@ body{overflow-y:auto;overscroll-behavior-y:auto}
 .top-marquee-row{display:flex;align-items:center;gap:10px;min-width:0;min-height:39px}
 .top-marquee-row+.top-marquee-row{border-top:1px solid #ffffff24}
 .top-marquee-viewport{flex:1;min-width:0;overflow:hidden;display:flex;align-items:center}
-.top-marquee-track{display:flex;align-items:center;gap:9px;width:max-content;flex:0 0 auto;white-space:nowrap;will-change:transform;animation:topTickerLeft 42s linear infinite}
+.top-marquee-track{display:flex;align-items:center;gap:9px;width:max-content;flex:0 0 auto;white-space:nowrap;will-change:transform;animation:topTickerLeft 42s linear infinite;animation-play-state:paused}
 .top-marquee-row.reverse .top-marquee-track{animation-name:topTickerRight;animation-duration:48s}
-.top-marquee-track:hover{animation-play-state:paused}
+.top-marquee-row.is-running .top-marquee-track{animation-play-state:running}
 .top-marquee-item{display:inline-flex;align-items:center;gap:7px;min-height:30px;padding:5px 12px;border:1px solid #ffffff45;border-radius:999px;color:#fff;text-decoration:none;font-size:12px;font-weight:750;line-height:1;white-space:nowrap;transition:background .15s,border-color .15s}
 .top-marquee-item:hover,.top-marquee-item:focus-visible{background:#ffffff22;border-color:#fff;outline:2px solid #fff;outline-offset:2px}
 .top-marquee-item:focus-visible{position:relative;z-index:2}
@@ -401,11 +401,11 @@ body{overflow-y:auto;overscroll-behavior-y:auto}
 <nav class="top-marquee" id="topMarquee" aria-label="계산기 카테고리 빠른 이동">
   <div class="top-marquee-row" id="topMarqueeRow1">
     <div class="top-marquee-viewport"><div class="top-marquee-track" id="topMarqueeTrack1"></div></div>
-    <div class="top-marquee-controls"><button type="button" id="topMarqueeToggle1" aria-label="윗줄 마퀴 일시정지" aria-pressed="false" title="윗줄 일시정지">Ⅱ</button></div>
+    <div class="top-marquee-controls"><button type="button" id="topMarqueeToggle1" aria-label="윗줄 마퀴 움직이기" aria-pressed="false" title="윗줄 마퀴 움직이기">▶</button></div>
   </div>
   <div class="top-marquee-row reverse" id="topMarqueeRow2">
     <div class="top-marquee-viewport"><div class="top-marquee-track" id="topMarqueeTrack2"></div></div>
-    <div class="top-marquee-controls"><button type="button" id="topMarqueeToggle2" aria-label="아랫줄 마퀴 일시정지" aria-pressed="false" title="아랫줄 일시정지">Ⅱ</button></div>
+    <div class="top-marquee-controls"><button type="button" id="topMarqueeToggle2" aria-label="아랫줄 마퀴 움직이기" aria-pressed="false" title="아랫줄 마퀴 움직이기">▶</button></div>
   </div>
 </nav>
 <header><div class="top"><div class="logo" onclick="home()">셈플리</div><div class="tag">돈과 시간을, 더 쉽게 셈하다.</div></div></header>
@@ -452,12 +452,17 @@ function setupTopMarquee(){
  ];
  rows.forEach(({row,button,label})=>{
   if(!row||!button)return;
+  row.classList.remove("is-running");
+  button.setAttribute("aria-pressed","false");
+  button.setAttribute("aria-label",label+" 마퀴 움직이기");
+  button.title=label+" 마퀴 움직이기";
+  button.textContent="▶";
   button.addEventListener("click",()=>{
-   const paused=row.classList.toggle("is-paused");
-   button.setAttribute("aria-pressed",String(paused));
-   button.setAttribute("aria-label",label+" 마퀴 "+(paused?"재생":"일시정지"));
-   button.title=label+" "+(paused?"재생":"일시정지");
-   button.textContent=paused?"▶":"Ⅱ";
+   const running=row.classList.toggle("is-running");
+   button.setAttribute("aria-pressed",String(running));
+   button.setAttribute("aria-label",label+" 마퀴 "+(running?"일시정지":"움직이기"));
+   button.title=label+" 마퀴 "+(running?"일시정지":"움직이기");
+   button.textContent=running?"Ⅱ":"▶";
   });
  });
 }
@@ -522,12 +527,14 @@ function renderCategoryMarquee(){
   const names=Object.keys(data);
   [1,2].forEach(rowNo=>{
     const host=document.getElementById('topMarqueeTrack'+rowNo);if(!host)return;
-    const oneSet=names.map(cat=>{
+    const rowCategories=names.filter((cat,index)=>rowNo===1?index%2===0:index%2===1);
+    const items=rowCategories.map(cat=>{
       const first=(data[cat]||[])[0];
       if(!first)return '';
-      return '<a class="top-marquee-item" data-category="'+cat+'" data-tool="'+first[2]+'" href="/?tool='+encodeURIComponent(first[2])+'" title="'+cat+' 대표 서비스: '+first[0]+'"><span aria-hidden="true">'+(categoryIcons[cat]||'•')+'</span><span>'+cat+'</span></a>';
-    }).join('<span class="top-marquee-separator" aria-hidden="true">•</span>');
-    host.innerHTML=oneSet+'<span class="top-marquee-separator" aria-hidden="true">•</span>'+oneSet;
+      return '<a class="top-marquee-item" data-category="'+escapeHTML(cat)+'" data-tool="'+escapeHTML(first[2])+'" href="/?tool='+encodeURIComponent(first[2])+'" title="'+escapeHTML(cat+' 대표 서비스: '+first[0])+'"><span aria-hidden="true">'+(categoryIcons[cat]||'•')+'</span><span>'+escapeHTML(cat)+'</span></a>';
+    }).filter(Boolean);
+    const oneSet=items.join('<span class="top-marquee-separator" aria-hidden="true">•</span>')+'<span class="top-marquee-separator" aria-hidden="true">•</span>';
+    host.innerHTML=oneSet+oneSet;
     if(!host.dataset.bound){
       host.addEventListener('click',function(event){
         const link=event.target.closest('a[data-category][data-tool]');
