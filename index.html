@@ -15,7 +15,7 @@
 <meta property="og:locale" content="ko_KR">
 <title>셈플리 | 돈과 시간을 쉽게 계산하고 비교하는 생활 계산기·달력</title>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"셈플리","url":"https://dontime.kr/","description":"돈과 시간을 쉽게 계산하고 비교하는 생활 계산기와 달력 서비스","inLanguage":"ko-KR"}</script>
-<meta name="dontime-version" content="2026-10-13-original-design-top-ticker-v2">
+<meta name="dontime-version" content="2026-10-13-seasonal-theme-responsive-ticker-v3">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3220276859043248"
      crossorigin="anonymous"></script>
 <!-- AdSense script deployment 2026-10-12, final verification -->
@@ -24,7 +24,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400..900&amp;display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:var(--season-bg,#fbfaef);overflow-x:hidden;color:var(--season-ink,#20251b);font-family:"Noto Sans KR",Arial,sans-serif;transition:background .2s,color .2s}:root{--season-bg:#fbfaef;--season-paper:#fffef7;--season-card:#f1f8d9;--season-accent:#c8f04b;--season-ink:#20251b;--season-line:#d5dfad}header{background:var(--season-paper);border-bottom-color:var(--season-line)}.featured-compare,.featured-card,.panel,.compare-card,.quick-start,.value-guide,.category-marquee-group{border-color:var(--season-line)}.panel,.featured-compare,.compare-card,.quick-start,.value-guide{border-radius:20px}.primary{background:var(--season-accent)!important;color:var(--season-ink)!important;border-color:var(--season-accent)!important}.quick-start,.value-guide,.featured-compare,.compare-card,.panel{background:var(--season-paper)}.featured-card{background:var(--season-card)}.cat.on,.category-marquee-group.on{background:var(--season-accent);color:var(--season-ink)}
+body{margin:0;background:var(--season-bg,#fbfaef);overflow-x:hidden;color:var(--season-ink,#20251b);font-family:"Noto Sans KR",Arial,sans-serif;transition:background .2s,color .2s}:root{--season-bg:#f4f7f4;--season-paper:#ffffff;--season-card:#e5eee8;--season-accent:#2d7464;--season-ink:#153b35;--season-line:#cbdad3}header{background:var(--season-paper);border-bottom-color:var(--season-line)}.featured-compare,.featured-card,.panel,.compare-card,.quick-start,.value-guide,.category-marquee-group{border-color:var(--season-line)}.panel,.featured-compare,.compare-card,.quick-start,.value-guide{border-radius:20px}.primary{background:var(--season-accent)!important;color:var(--season-ink)!important;border-color:var(--season-accent)!important}.quick-start,.value-guide,.featured-compare,.compare-card,.panel{background:var(--season-paper)}.featured-card{background:var(--season-card)}.cat.on,.category-marquee-group.on{background:var(--season-accent);color:var(--season-ink)}
 button,input,select{font:inherit}button{cursor:pointer;touch-action:manipulation}
 header{height:64px;background:#fff;border-bottom:1px solid #e7e9ed;display:flex;align-items:center}
 .top{max-width:1180px;width:100%;margin:auto;padding:0 22px;display:flex;justify-content:space-between;align-items:center}
@@ -372,26 +372,36 @@ body{overflow-y:auto;overscroll-behavior-y:auto}
  .ad-home-top{margin:14px 0 18px;min-height:70px}
 }
 
-/* Compact single-row ticker. Preserve the previous seasonal palette and layout. */
-.top-marquee{height:34px;background:#e9e9e5;color:#242620;overflow:hidden;display:flex;align-items:center;border-bottom:1px solid rgba(80,80,70,.12)}
-.top-marquee-track{display:flex;align-items:center;gap:26px;width:max-content;white-space:nowrap;animation:topTicker 36s linear infinite;font-size:12px;line-height:1;font-weight:500}
-.top-marquee-track b{font-size:16px;color:#8c9183;font-weight:400}
-.top-marquee:hover .top-marquee-track{animation-play-state:paused}
+/* Responsive, accessible one-line ticker */
+.top-marquee{height:36px;background:var(--season-ink,#153b35);color:#fff;overflow:hidden;display:flex;align-items:center;gap:10px;padding:0 12px;border-bottom:1px solid #0002}
+.top-marquee-viewport{flex:1;min-width:0;overflow:hidden;display:flex;align-items:center}
+.top-marquee-track{display:flex;align-items:center;gap:26px;width:max-content;flex:0 0 auto;white-space:nowrap;animation:topTicker 36s linear infinite;font-size:12px;line-height:1;font-weight:500;will-change:transform}
+.top-marquee-track b{font-size:16px;color:#b9d9cd;font-weight:400}
+.top-marquee.is-paused .top-marquee-track{animation-play-state:paused}
+.top-marquee-controls{display:flex;gap:4px;align-items:center;flex:0 0 auto}
+.top-marquee-controls button{min-width:28px;min-height:28px;border:1px solid #ffffff55;border-radius:6px;background:transparent;color:#fff;font-size:12px;line-height:1;cursor:pointer}
+.top-marquee-controls button:hover,.top-marquee-controls button:focus-visible{background:#ffffff20;outline:2px solid #fff;outline-offset:2px}
 @keyframes topTicker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-@media(prefers-reduced-motion:reduce){.top-marquee-track{animation:none;transform:none}}
-@media(max-width:700px){.top-marquee{height:31px}.top-marquee-track{font-size:11px;gap:18px;animation-duration:28s}}
+@media(prefers-reduced-motion:reduce){.top-marquee-track{animation:none!important;transform:none!important}.top-marquee-viewport{overflow-x:auto;scrollbar-width:none}.top-marquee-viewport::-webkit-scrollbar{display:none}}
+@media(max-width:700px){.top-marquee{height:34px;gap:5px;padding:0 7px}.top-marquee-track{font-size:11px;gap:16px;animation-duration:32s}.top-marquee-controls{gap:2px}.top-marquee-controls button{min-width:25px;min-height:25px;padding:3px;font-size:11px}}
 
+
+#serviceSearch,.service-search,.search-calculators,.calculator-search{display:none!important}
+@media(max-width:700px){.top{padding:0 14px}.tag{font-size:11px}}
 </style></head>
 <body>
-<div class="top-marquee" id="topMarquee" aria-label="셈플리 서비스 안내">
-  <div class="top-marquee-track" aria-hidden="true">
-    <span>돈과 시간을, 더 쉽게 셈하다</span><b>·</b><span>월급부터 달력까지, 생활 계산을 한곳에서</span><b>·</b><span>숫자로 비교하고 더 나은 선택을</span><b>·</b><span>매일 쓰는 생활 계산기, 셈플리</span><b>·</b>
-    <span>돈과 시간을, 더 쉽게 셈하다</span><b>·</b><span>월급부터 달력까지, 생활 계산을 한곳에서</span><b>·</b><span>숫자로 비교하고 더 나은 선택을</span><b>·</b><span>매일 쓰는 생활 계산기, 셈플리</span><b>·</b>
+<div class="top-marquee" id="topMarquee">
+  <div class="top-marquee-viewport" aria-label="셈플리 서비스 안내">
+    <div class="top-marquee-track" id="topMarqueeTrack" aria-hidden="true">
+      <span>돈과 시간을, 더 쉽게 셈하다</span><b>·</b><span>월급부터 달력까지, 생활 계산을 한곳에서</span><b>·</b><span>숫자로 비교하고 더 나은 선택을</span><b>·</b><span>매일 쓰는 생활 계산기, 셈플리</span><b>·</b>
+      <span>돈과 시간을, 더 쉽게 셈하다</span><b>·</b><span>월급부터 달력까지, 생활 계산을 한곳에서</span><b>·</b><span>숫자로 비교하고 더 나은 선택을</span><b>·</b><span>매일 쓰는 생활 계산기, 셈플리</span><b>·</b>
+    </div>
   </div>
+  <div class="top-marquee-controls"><button type="button" id="topMarqueeToggle" aria-label="마퀴 일시정지" aria-pressed="false" title="마퀴 일시정지">Ⅱ</button></div>
 </div>
 <header><div class="top"><div class="logo" onclick="home()">셈플리</div><div class="tag">돈과 시간을, 더 쉽게 셈하다.</div></div></header>
-<main class="wrap"><section id="home"><div class="hero-category-layout"><div class="hero"><h1>돈과 시간을 숫자로,<br>내 선택을 더 쉽게.</h1><p>생활 속에서 자꾸 계산하게 되는 것들을 값으로 연결했습니다.</p><div class="hero-punchline">돈의 선택을, 시간의 가치로.</div></div></div><section class="static-category-browser" aria-label="카테고리"><div id="staticCategoryButtons" class="static-category-buttons"></div></section><div class="ad-slot ad-home-top" aria-label="광고 영역"></div>
-<section class="value-guide"><div class="value-guide-head"><strong>🧭 셈플리는 이렇게 씁니다</strong><span>숫자 하나를 입력하는 데서 끝나지 않아요.</span></div><div class="value-guide-grid"><div class="value-guide-step"><strong>💰 1. 값을 넣고</strong><span>월급, 가격, 날짜처럼 지금 알고 있는 숫자부터 입력하세요.</span></div><div class="value-guide-step"><strong>🧮 2. 결과를 보고</strong><span>금액·비율·기간처럼 결정에 필요한 지표를 함께 확인합니다.</span></div><div class="value-guide-step"><strong>⏱️ 3. 시간으로 바꾸고</strong><span>돈을 내 시간의 가치와 연결해 보면 선택이 더 쉬워집니다.</span></div><div class="value-guide-step"><strong>🔗 4. 다음 계산으로</strong><span>관련 계산기를 이어서 돌려 실제 선택으로 확장하세요.</span></div></div></section>
+<main class="wrap"><section id="home"><div class="hero-category-layout"><div class="hero"><h1>필요한 계산,<br>바로 시작하세요.</h1><p>월급과 근무시간부터 대출 이자, 소비, 날짜 계산까지 필요한 값을 입력하고 결과를 확인하세요.</p></div></div><section class="static-category-browser" aria-label="카테고리"><div id="staticCategoryButtons" class="static-category-buttons"></div></section><div class="ad-slot ad-home-top" aria-label="광고 영역"></div>
+
 <div class="featured-compare"><div class="featured-head"><div><strong>셈플리에서 이렇게 같이 계산할 수 있어요</strong><span>계산기를 나란히 놓고 서로 다른 결과를 한눈에 비교해보세요.</span></div><span class="featured-drag">PC에서는 계산기를 드래그해서 자유롭게 배치할 수 있어요 ↗</span></div><div class="featured-grid"><button class="featured-card" type="button" onclick="openTool('income','월급시계','1초에 얼마 벌고 있는지 알고 있어?')"><div class="featured-kicker">01 · 돈</div><h3>월급시계</h3><p>내가 지금까지 번 돈을 실시간으로 확인</p><div class="featured-value">0.0000원</div><span>계산기 열기 →</span></button><div class="featured-join">+</div><button class="featured-card" type="button" onclick="openTool('workforbuy','얼마나 일해야 살 수 있을까?','월급시계와 연결하면, 지금부터 이 물건을 살 때까지 남은 시간이 줄어듭니다.')"><div class="featured-kicker">02 · 시간</div><h3>얼마나 일해야 살 수 있을까?</h3><p>원하는 물건이 내 시간으로 몇 시간짜리인지 확인</p><div class="featured-value">몇 시간일까?</div><span>계산기 열기 →</span></button></div></div>
 <div class="ad-slot ad-home-mid" aria-label="광고 영역"></div><div class="layout"><aside id="cats" class="cats"></aside><div id="cards" class="grid"></div></div><div class="footer"><div>셈플리 · 내 시간의 가치를 숫자로</div><div class="footer-links"><a class="footer-link" href="calendar.php?year=2027&month=5">2027년 5월 달력</a><a class="footer-link" href="about.html">서비스 안내</a><a class="footer-link" href="privacy.html">개인정보처리방침</a><a class="footer-link" href="terms.html">이용약관</a><a class="footer-link" href="contact.html">문의</a></div></div></section>
 <section id="categoryView" class="category-view" style="display:none"><aside class="category-view-sidebar"><button type="button" class="category-view-home" onclick="home()">← 전체 홈</button><div id="categoryViewSidebarCats" class="category-view-sidebar-list"></div></aside><div class="category-view-main"><div class="category-view-heading"><div><div class="category-view-eyebrow">셈플리 카테고리</div><h1 id="categoryViewTitle">돈 계산기</h1><p id="categoryViewDescription">필요한 계산기를 골라보세요.</p></div><span id="categoryViewCount" class="category-view-count"></span></div><div id="categoryViewCards" class="category-view-grid"></div></div></section>
@@ -413,9 +423,36 @@ const data={
 "생활":[["단위변환","cm, m, km부터 무게까지","unitconv"],["퍼센트","퍼센트 계산, 헷갈리면 여기","percent"],["비율","비율과 비례를 빠르게","ratio"],["평균","숫자의 평균을 바로 계산","mean"],["가중평균","각 숫자의 중요도까지 반영","weighted"],["연비","차가 얼마나 효율적으로 달릴까?","mpg"],["여행경비","여행 전에 총액부터","travel"],["환전","외화가 원화로 얼마지?","fx"]],
 "게임":[["숫자 순발력","빠르게 숫자를 찾아 누르고 반응속도를 재보세요","numReact"],["숫자 암기","잠깐 본 숫자 배열을 기억해서 그대로 입력하는 게임","numMemory"],["숫자 퍼즐","섞인 숫자를 1부터 차례대로 찾아 기록을 세우세요","numOrder"],["계산 스피드","제한 시간 안에 간단한 숫자 문제를 최대한 많이 풀어보세요","numMath"],["다른 숫자 찾기","비슷하게 생긴 숫자 사이에서 다른 하나를 찾아보세요","numOdd"],["숫자 추리","1부터 100 사이의 숫자를 추리하고 높고 낮음을 맞혀보세요","numGuess"],["숫자 20개 빨리 쓰기","랜덤 숫자를 보고 빠르고 정확하게 입력해보세요","numRace"],["수학 퀴즈","간단하지만 헷갈리는 계산 문제를 풀어보세요","mathQuiz"]],"취미":[["월 취미 예산","월소득 중 취미에 얼마까지 써도 되는지 계산","hobbybudget"],["취미 시간","한 달 취미 예산으로 몇 시간 즐길 수 있을까?","hobbytime"],["보드게임 1인 비용","게임 비용을 인원수로 나눠 1인 부담액 계산","boardcost"],["랜덤 취미 추천","성격·예산·시간에 맞는 새로운 취미를 무작위 추천","hobbyRecommend"],["오늘 뭐 할까","가용 시간·실내외·혼자/같이 조건으로 지금 할 활동 추천","activityRecommend"],["뜨개질 게이지","10cm 게이지와 목표 크기로 필요한 코·단을 계산","knitting"],["미술 재료비","작품 크기·재료 종류·수량으로 예상 재료비 계산","artBudget"],["프라모델 도료 희석","도료 종류와 작업 방식에 맞는 희석 비율 안내","paintRatio"]],"사업":[["판매가","원가와 목표 마진으로 가격 정하기","selling"],["원가율","원가가 매출에서 차지하는 비율","costrate"],["온라인 수수료","플랫폼에 빠지는 돈까지 계산","platformfee"],["인건비","사람 한 명을 고용하면 실제 비용은?","labor"],["목표매출","원하는 순이익을 내려면 매출 얼마?","targetsales"]]};
 let current="돈",timer,calcScope=null,searchQuery="";
-const randomPalettes=[{bg:"#f4f7ff",paper:"#ffffff",card:"#e5ecff",accent:"#8ba8ff",ink:"#1e2b4a",line:"#cbd7f4"},{bg:"#f0faf6",paper:"#ffffff",card:"#ddf5e9",accent:"#65cfa5",ink:"#183c30",line:"#c1e7d5"},{bg:"#fff5f0",paper:"#ffffff",card:"#ffe4d8",accent:"#ff9b79",ink:"#512b22",line:"#f3cdbf"},{bg:"#f8f3ff",paper:"#ffffff",card:"#eee2ff",accent:"#b391f5",ink:"#382652",line:"#ddcdf7"},{bg:"#fff9e9",paper:"#ffffff",card:"#fff0c2",accent:"#f0c34e",ink:"#473719",line:"#eadba7"},{bg:"#eef9fb",paper:"#ffffff",card:"#d9f2f5",accent:"#58c5d5",ink:"#173c43",line:"#bfe5e9"},{bg:"#f1f8e9",paper:"#ffffff",card:"#dcedc8",accent:"#8bc34a",ink:"#26351e",line:"#c5d9ae"},{bg:"#fff0f5",paper:"#ffffff",card:"#ffd6e7",accent:"#f06292",ink:"#4a2032",line:"#efbfd1"},{bg:"#f3f0ff",paper:"#ffffff",card:"#dcd6ff",accent:"#7c6df2",ink:"#29224d",line:"#c9c2f5"},{bg:"#eaf7ff",paper:"#ffffff",card:"#cdeeff",accent:"#29a8df",ink:"#12384b",line:"#b4dff1"},{bg:"#fff3e0",paper:"#ffffff",card:"#ffe0b2",accent:"#fb8c00",ink:"#4b2e0b",line:"#f1cca0"},{bg:"#e8f5e9",paper:"#ffffff",card:"#c8e6c9",accent:"#43a047",ink:"#1b3d24",line:"#afd3b1"},{bg:"#fce4ec",paper:"#ffffff",card:"#f8bbd0",accent:"#ec407a",ink:"#4b1f32",line:"#eab2c8"},{bg:"#ede7f6",paper:"#ffffff",card:"#d1c4e9",accent:"#9575cd",ink:"#30234a",line:"#c4b5df"},{bg:"#e0f7fa",paper:"#ffffff",card:"#b2ebf2",accent:"#26a69a",ink:"#143c3a",line:"#a9dcda"},{bg:"#fffde7",paper:"#ffffff",card:"#fff9c4",accent:"#d4b900",ink:"#454015",line:"#e7dda0"},{bg:"#fbe9e7",paper:"#ffffff",card:"#ffccbc",accent:"#ff7043",ink:"#4b271f",line:"#edb7a7"},{bg:"#e8eaf6",paper:"#ffffff",card:"#c5cae9",accent:"#5c6bc0",ink:"#222b52",line:"#b8c0e4"},{bg:"#f9fbe7",paper:"#ffffff",card:"#f0f4c3",accent:"#9e9d24",ink:"#3c3c17",line:"#d9dda0"},{bg:"#f1f8e9",paper:"#ffffff",card:"#dcedc8",accent:"#689f38",ink:"#26371d",line:"#bfd3a8"},{bg:"#fce4ec",paper:"#ffffff",card:"#f8bbd0",accent:"#ad1457",ink:"#46172c",line:"#e2aec4"},{bg:"#e3f2fd",paper:"#ffffff",card:"#bbdefb",accent:"#1976d2",ink:"#172f4a",line:"#a7c8e8"},{bg:"#f3e5f5",paper:"#ffffff",card:"#e1bee7",accent:"#ab47bc",ink:"#402047",line:"#d5afd9"},{bg:"#e0f2f1",paper:"#ffffff",card:"#b2dfdb",accent:"#00897b",ink:"#143b38",line:"#a5d1cc"},{bg:"#fff8e1",paper:"#ffffff",card:"#ffecb3",accent:"#ffb300",ink:"#49330c",line:"#e8d49a"},{bg:"#efebe9",paper:"#ffffff",card:"#d7ccc8",accent:"#8d6e63",ink:"#392d28",line:"#cbb9b1"},{bg:"#e0f2f1",paper:"#ffffff",card:"#b2dfdb",accent:"#26a69a",ink:"#173b39",line:"#a7d8d1"},{bg:"#fce4ec",paper:"#ffffff",card:"#f8bbd0",accent:"#d81b60",ink:"#46152c",line:"#e7a8c0"},{bg:"#f1f8e9",paper:"#ffffff",card:"#dcedc8",accent:"#7cb342",ink:"#293b1d",line:"#c5d9aa"},{bg:"#ede7f6",paper:"#ffffff",card:"#d1c4e9",accent:"#673ab7",ink:"#2d2046",line:"#c0b2dd"}];
-function setRandomTheme(){const p=randomPalettes[Math.floor(Math.random()*randomPalettes.length)];Object.entries(p).forEach(([k,v])=>document.documentElement.style.setProperty("--season-"+k,v));}
-setRandomTheme();
+const seasonalPalettes={
+ spring:{bg:"#f5f7f0",paper:"#ffffff",card:"#e5eddb",accent:"#7c9b5b",ink:"#233a2a",line:"#d4dfc8"},
+ summer:{bg:"#f1f7f7",paper:"#ffffff",card:"#dcefee",accent:"#2f8b86",ink:"#173d3d",line:"#c6e0df"},
+ autumn:{bg:"#f8f3ed",paper:"#ffffff",card:"#efe1d2",accent:"#a8643e",ink:"#402c23",line:"#e3cdb9"},
+ winter:{bg:"#f2f5f8",paper:"#ffffff",card:"#e1e8f0",accent:"#557a9f",ink:"#1e3347",line:"#cbd8e5"}
+};
+function setSeasonalTheme(){
+ const month=new Date().getMonth()+1;
+ const season=month>=3&&month<=5?"spring":month>=6&&month<=8?"summer":month>=9&&month<=11?"autumn":"winter";
+ Object.entries(seasonalPalettes[season]).forEach(([key,value])=>document.documentElement.style.setProperty("--season-"+key,value));
+ document.documentElement.dataset.season=season;
+}
+setSeasonalTheme();
+function setupTopMarquee(){
+ const bar=document.getElementById("topMarquee"),button=document.getElementById("topMarqueeToggle");
+ if(!bar||!button)return;
+ const reduced=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+ if(reduced){bar.classList.add("is-paused");button.disabled=true;button.setAttribute("aria-label","기기 설정에 따라 마퀴 움직임이 줄어들었습니다");button.title="움직임 줄이기 설정이 적용되었습니다";return;}
+ button.addEventListener("click",()=>{
+  const paused=bar.classList.toggle("is-paused");
+  button.setAttribute("aria-pressed",String(paused));
+  button.setAttribute("aria-label",paused?"마퀴 재생":"마퀴 일시정지");
+  button.title=paused?"마퀴 재생":"마퀴 일시정지";
+  button.textContent=paused?"▶":"Ⅱ";
+ });
+ document.addEventListener("visibilitychange",()=>{
+  if(document.hidden){bar.classList.add("is-paused");button.setAttribute("aria-pressed","true");button.setAttribute("aria-label","마퀴 재생");button.textContent="▶";}
+ });
+}
+setupTopMarquee();
 const categoryIcons={"전체":"▦","돈":"💰","시간":"⏱️","달력":"📅","소비":"🛒","부동산":"🏠","금융":"💎","세금":"🧾","자동차":"🚗","건강":"🩺","문자·단어":"✏️","생활":"🏡","사업":"💼","게임":"🎮","취미":"🎨"};
 const toolIcons={income:"⏱️",hourly:"💵",realhourly:"🎯",raise:"📈",salary:"💼",net:"💳",weekly:"🧾",overtime:"🌙",leave:"🏖️",severance:"🎁",minimum:"⚖️",workforbuy:"🛍️",subscriptiontime:"📱",debttime:"💸",savingtime:"🐷",billiontime:"🏦",commute:"🚇",off:"🏠",discharge:"🎖️",dday:"📅",datediff:"🔢",workdays:"🗓️",timediff:"⏰",age:"🎂",yearprogress:"📊",calendar:"📅",discount:"🏷️",discounttime:"⏳",pricetime:"📈",reverseDiscount:"🔄",unit:"📦",installment:"💳",margin:"📊",breakeven:"🎯",cardfee:"💳",fixedratio:"🧮",ltv:"🏠",dti:"📐",dsr:"⚖️",mortgage:"🏡",loan:"💰",rent:"🔑",jeonseToRent:"🔄",acq:"🏠",broker:"🤝",homecash:"💵",compound:"🌱",averagetime:"🚨",runway:"🛫",deposit:"🏦",saving:"🐷",goal:"🎯",return:"📈",average:"⚖️",dividend:"💎",inflation:"📉",yearend:"🧾",vat:"🧮",withholding:"💸",incomeTax:"📑",capitalgain:"🏷️",gift:"🎁",carloan:"🚗",carcosttime:"⏱️",kmcost:"🛞",ev:"⚡",fertility:"🌱",ovulation:"🌙",pregnancy:"🤰",due:"👶",bmi:"⚖️",bmr:"🔥",calorie:"🍽️",chars:"🔤",words:"📝",lines:"📄",spaces:"↔️",newlines:"↩️",case:"🔠",striphtml:"🧹",sorttext:"↕️",diff:"🔍",unitconv:"📏",percent:"％",ratio:"➗",mean:"📊",weighted:"⚖️",mpg:"⛽",travel:"✈️",fx:"💱",selling:"🏷️",costrate:"🧮",platformfee:"💳",labor:"👥",targetsales:"🎯",playtime:"🎮",gamecost:"🕹️",hobbybudget:"🎨",hobbytime:"⏳",boardcost:"🎲",gameStorage:"💾",sensitivity:"🖱️",elo:"📊",gameSession:"⏰",hitEvasion:"🎯",critDps:"💥",autoGrind:"🤖",patchMeta:"🔧",gacha:"🎰",packageValue:"📦",gameCurrency:"💰",achievement:"🏆",levelGrind:"⚔️",charGrowth:"📈",partySurvival:"🛡️",hobbyRecommend:"🎯",activityRecommend:"🎲",knitting:"🧶",artBudget:"🖌️",paintRatio:"🎨"};
 const toolIcon=(key,cat)=>toolIcons[key]||categoryIcons[cat]||"🧮";
