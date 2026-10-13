@@ -184,7 +184,7 @@ jobs:
           grep -q "setSeasonalTheme" "$response"
           grep -q \"topMarqueeTrack1\" \"$response\"
           grep -q \"topMarqueeViewport\" \"$response\"
-                    grep -q 'aria-label="미궁"' "$response"
+          grep -q 'aria-label="미궁"' "$response"
           grep -q "function escapeHTML" "$response"
           grep -q "marquee-story-maze-v21" "$response"
           grep -q "ca-pub-3220276859043248" "$response"
