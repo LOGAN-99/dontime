@@ -114,7 +114,8 @@ jobs:
         run: |
           set -euo pipefail
           export SSHPASS="$GABIA_PASSWORD"
-          sshpass -e scp -P 22 -o StrictHostKeyChecking=yes -o UserKnownHostsFile="$RUNNER_TEMP/gabia-ssh/known_hosts" -o HostKeyAlgorithms=ssh-ed25519 -o LogLevel=ERROR index.html security-headers.fragment "$GABIA_USER@211.47.74.75:/tmp/dontime-deploy-upload/"
+          sshpass -e scp -P 22 -o StrictHostKeyChecking=yes -o UserKnownHostsFile="$RUNNER_TEMP/gabia-ssh/known_hosts" -o HostKeyAlgorithms=ssh-ed25519 -o LogLevel=ERROR index.html "$GABIA_USER@211.47.74.75:/tmp/dontime-deploy-upload/index.html.new"
+          sshpass -e scp -P 22 -o StrictHostKeyChecking=yes -o UserKnownHostsFile="$RUNNER_TEMP/gabia-ssh/known_hosts" -o HostKeyAlgorithms=ssh-ed25519 -o LogLevel=ERROR security-headers.fragment "$GABIA_USER@211.47.74.75:/tmp/dontime-deploy-upload/security-headers.fragment"
 
       - name: Validate staged file and atomically replace homepage
         shell: bash
@@ -180,7 +181,7 @@ jobs:
           grep -q "topMarqueeToggle1" "$response"
           grep -q "topMarqueeToggle2" "$response"
           grep -q "function escapeHTML" "$response"
-          grep -q "two-row-independent-marquee-security-v10" "$response"
+          grep -q "two-row-independent-marquee-security-v11" "$response"
           grep -q "ca-pub-3220276859043248" "$response"
           for header in strict-transport-security content-security-policy x-content-type-options x-frame-options referrer-policy permissions-policy; do
             if grep -iq "^$header:" "$headers"; then
