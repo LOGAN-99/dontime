@@ -548,10 +548,6 @@ function renderCategoryMarquee(){
     }
   });
 }
-function selectMarqueeCategory(c){
- const first=(data[c]||[])[0];
- if(first)openTool(first[2],first[0],first[1]);
-}
 function showCategoryView(c){
   const homeEl=document.getElementById('home'),view=document.getElementById('categoryView'),toolEl=document.getElementById('tool');
   if(!view||!homeEl)return;
