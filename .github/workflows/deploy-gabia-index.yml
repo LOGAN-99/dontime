@@ -186,8 +186,8 @@ jobs:
           done
           grep -q "셈플리" "$response"
           grep -q "setSeasonalTheme" "$response"
-          grep -q \"topMarqueeTrack1\" \"$response\"
-          grep -q \"topMarqueeViewport\" \"$response\"
+          grep -q 'topMarqueeTrack1' "$response"
+          grep -q 'topMarqueeViewport' "$response"
           grep -q 'aria-label="미궁"' "$response"
           grep -q "function escapeHTML" "$response"
           grep -q "function renderQuickStart" "$response"
