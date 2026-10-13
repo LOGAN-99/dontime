@@ -15,7 +15,7 @@
 <meta property="og:locale" content="ko_KR">
 <title>셈플리 | 돈과 시간을 쉽게 계산하고 비교하는 생활 계산기·달력</title>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"셈플리","url":"https://dontime.kr/","description":"돈과 시간을 쉽게 계산하고 비교하는 생활 계산기와 달력 서비스","inLanguage":"ko-KR"}</script>
-<meta name="dontime-version" content="2026-10-13-two-row-independent-marquee-security-v19">
+<meta name="dontime-version" content="2026-10-13-single-sticky-draggable-marquee-v20">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3220276859043248"
      crossorigin="anonymous"></script>
 <!-- AdSense script deployment 2026-10-12, final verification -->
@@ -373,42 +373,52 @@ body{overflow-y:auto;overscroll-behavior-y:auto}
 }
 
 /* Two independent category marquees */
-.top-marquee{display:grid;grid-template-columns:minmax(0,1fr);gap:0;background:var(--season-ink,#153b35);color:#fff;padding:5px 12px;border-bottom:1px solid #0002}
-.top-marquee-row{display:flex;align-items:center;gap:10px;min-width:0;min-height:39px}
-.top-marquee-row+.top-marquee-row{border-top:1px solid #ffffff24}
-.top-marquee-viewport{flex:1;min-width:0;overflow:hidden;display:flex;align-items:center}
-.top-marquee-track{display:flex;align-items:center;gap:9px;width:max-content;flex:0 0 auto;white-space:nowrap;will-change:transform;animation:topTickerLeft 42s linear infinite;animation-play-state:paused}
-.top-marquee-row.reverse .top-marquee-track{animation-name:topTickerRight;animation-duration:48s}
-.top-marquee-row.is-running .top-marquee-track{animation-play-state:running}
+.top-marquee{position:sticky;top:0;z-index:1000;display:block;background:var(--season-ink,#153b35);color:#fff;padding:5px 12px;border-bottom:1px solid #0002;box-shadow:0 4px 14px #00000012}
+.top-marquee-row{display:flex;align-items:center;min-width:0;min-height:38px}
+.top-marquee-viewport{flex:1;min-width:0;overflow:hidden;display:flex;align-items:center;touch-action:pan-y;cursor:grab;user-select:none}
+.top-marquee-viewport.is-dragging{cursor:grabbing}
+.top-marquee-track{display:flex;align-items:center;gap:9px;width:max-content;flex:0 0 auto;white-space:nowrap;will-change:transform;animation:topTickerLeft 42s linear infinite}
+.top-marquee-row.is-dragging .top-marquee-track{animation-play-state:paused}
 .top-marquee-item{display:inline-flex;align-items:center;gap:7px;min-height:30px;padding:5px 12px;border:1px solid #ffffff45;border-radius:999px;color:#fff;text-decoration:none;font-size:12px;font-weight:750;line-height:1;white-space:nowrap;transition:background .15s,border-color .15s}
 .top-marquee-item:hover,.top-marquee-item:focus-visible{background:#ffffff22;border-color:#fff;outline:2px solid #fff;outline-offset:2px}
 .top-marquee-item:focus-visible{position:relative;z-index:2}
 .top-marquee-item[aria-current="true"]{background:var(--season-accent,#2d7464);border-color:var(--season-accent,#2d7464);color:#fff}
 .top-marquee-separator{display:inline-block;color:#a9cfc1;font-size:13px}
-.top-marquee-row.is-paused .top-marquee-track{animation-play-state:paused}
-.top-marquee-controls{display:flex;gap:4px;align-items:center;flex:0 0 auto}
-.top-marquee-controls button{min-width:29px;min-height:29px;border:1px solid #ffffff55;border-radius:7px;background:transparent;color:#fff;font-size:12px;line-height:1;cursor:pointer}
-.top-marquee-controls button:hover,.top-marquee-controls button:focus-visible{background:#ffffff20;outline:2px solid #fff;outline-offset:2px}
 @keyframes topTickerLeft{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
-@keyframes topTickerRight{from{transform:translate3d(-50%,0,0)}to{transform:translate3d(0,0,0)}}
-@media(max-width:700px){.top-marquee{padding:4px 7px}.top-marquee-row{min-height:35px;gap:5px}.top-marquee-track{gap:6px;animation-duration:36s}.top-marquee-row.reverse .top-marquee-track{animation-duration:41s}.top-marquee-item{min-height:28px;padding:5px 9px;font-size:11px;gap:5px}.top-marquee-controls button{min-width:26px;min-height:26px;padding:3px;font-size:11px}}
+@media(max-width:700px){.top-marquee{padding:4px 7px}.top-marquee-row{min-height:35px}.top-marquee-track{gap:6px;animation-duration:36s}.top-marquee-item{min-height:28px;padding:5px 9px;font-size:11px;gap:5px}}
 
 
 #serviceSearch,.service-search,.search-calculators,.calculator-search{display:none!important}
 @media(max-width:700px){.top{padding:0 14px}.tag{font-size:11px}}
+.maze-shortcut{border:1px solid var(--season-line,#cbdad3);background:var(--season-card,#e5eee8);color:var(--season-ink,#153b35);border-radius:999px;padding:9px 13px;font-size:12px;font-weight:850;white-space:nowrap;cursor:pointer}.maze-shortcut:hover{filter:brightness(.97)}.top{gap:12px}.logo{line-height:1.1}.tag{margin-top:4px}@media(max-width:420px){.maze-shortcut{padding:8px 10px;font-size:11px}.logo{font-size:22px}.tag{font-size:10px}}\n/* Canva concept adaptation: crisp editorial layout, deep-green navigation, warm neutral surfaces */
+:root{--season-bg:#f4f5ef;--season-paper:#fffefa;--season-card:#e6ece4;--season-accent:#cbd9b8;--season-ink:#173c34;--season-line:#d8dfd5}
+body{letter-spacing:-.012em}
+header{background:var(--season-paper);border-bottom:1px solid var(--season-line);height:72px}
+.logo{letter-spacing:-.055em;font-size:27px}
+.tag{color:#69776f;letter-spacing:-.015em}
+.top-marquee{border-bottom:0;box-shadow:0 5px 18px #183b3214}
+.top-marquee-item{border-color:#ffffff3b;background:#ffffff08}
+.top-marquee-item:hover,.top-marquee-item:focus-visible{background:#ffffff20}
+.hero h1{color:var(--season-ink);letter-spacing:-.055em;font-weight:900}
+.hero p{max-width:680px;color:#647169;line-height:1.8}
+.featured-compare,.value-guide,.quick-start{border-color:var(--season-line);background:var(--season-paper);box-shadow:0 6px 24px #173c3408}
+.featured-card,.category-view-card,.card{border-color:var(--season-line);background:var(--season-paper);box-shadow:0 3px 12px #173c3407}
+.featured-card:hover,.category-view-card:hover,.card:hover{border-color:var(--season-ink);box-shadow:0 12px 30px #173c3412}
+.featured-card h3,.category-view-card h3,.card h3{color:var(--season-ink);letter-spacing:-.045em}
+.category-view-heading h1{color:var(--season-ink);letter-spacing:-.055em}
+.category-view-side-category.active,.static-category-button.active{background:var(--season-accent);border-color:var(--season-accent);color:var(--season-ink)}
+.primary{background:var(--season-ink)!important;color:#fff!important;border-color:var(--season-ink)!important}
+.secondary{background:#edf0e9;border-color:var(--season-line);color:var(--season-ink)}
+.maze-shortcut{border-color:var(--season-line);background:var(--season-card);color:var(--season-ink)}
+@media(max-width:700px){header{height:64px}.logo{font-size:24px}.hero h1{font-size:34px;letter-spacing:-.05em}.hero p{line-height:1.7}}
 </style></head>
 <body>
+<header><div class="top"><div><div class="logo" onclick="home()">셈플리</div><div class="tag">돈과 시간을, 더 쉽게 셈하다.</div></div><button type="button" class="maze-shortcut" onclick="showCategoryView('게임')" aria-label="이어서 할 미궁">이어서 할 미궁 <span aria-hidden="true">↗</span></button></div></header>
 <nav class="top-marquee" id="topMarquee" aria-label="계산기 카테고리 빠른 이동">
   <div class="top-marquee-row" id="topMarqueeRow1">
-    <div class="top-marquee-viewport"><div class="top-marquee-track" id="topMarqueeTrack1"></div></div>
-    <div class="top-marquee-controls"><button type="button" id="topMarqueeToggle1" aria-label="윗줄 마퀴 움직이기" aria-pressed="false" title="윗줄 마퀴 움직이기">▶</button></div>
-  </div>
-  <div class="top-marquee-row reverse" id="topMarqueeRow2">
-    <div class="top-marquee-viewport"><div class="top-marquee-track" id="topMarqueeTrack2"></div></div>
-    <div class="top-marquee-controls"><button type="button" id="topMarqueeToggle2" aria-label="아랫줄 마퀴 움직이기" aria-pressed="false" title="아랫줄 마퀴 움직이기">▶</button></div>
+    <div class="top-marquee-viewport" id="topMarqueeViewport"><div class="top-marquee-track" id="topMarqueeTrack1"></div></div>
   </div>
 </nav>
-<header><div class="top"><div class="logo" onclick="home()">셈플리</div><div class="tag">돈과 시간을, 더 쉽게 셈하다.</div></div></header>
 <main class="wrap"><section id="home"><div class="hero-category-layout"><div class="hero"><h1>필요한 계산,<br>바로 시작하세요.</h1><p>월급과 근무시간부터 대출 이자, 소비, 날짜 계산까지 필요한 값을 입력하고 결과를 확인하세요.</p></div></div><div class="ad-slot ad-home-top" aria-label="광고 영역"></div>
 
 <div class="featured-compare"><div class="featured-head"><div><strong>셈플리에서 이렇게 같이 계산할 수 있어요</strong><span>계산기를 나란히 놓고 서로 다른 결과를 한눈에 비교해보세요.</span></div><span class="featured-drag">PC에서는 계산기를 드래그해서 자유롭게 배치할 수 있어요 ↗</span></div><div class="featured-grid"><button class="featured-card" type="button" onclick="openTool('income','월급시계','1초에 얼마 벌고 있는지 알고 있어?')"><div class="featured-kicker">01 · 돈</div><h3>월급시계</h3><p>내가 지금까지 번 돈을 실시간으로 확인</p><div class="featured-value">0.0000원</div><span>계산기 열기 →</span></button><div class="featured-join">+</div><button class="featured-card" type="button" onclick="openTool('workforbuy','얼마나 일해야 살 수 있을까?','월급시계와 연결하면, 지금부터 이 물건을 살 때까지 남은 시간이 줄어듭니다.')"><div class="featured-kicker">02 · 시간</div><h3>얼마나 일해야 살 수 있을까?</h3><p>원하는 물건이 내 시간으로 몇 시간짜리인지 확인</p><div class="featured-value">몇 시간일까?</div><span>계산기 열기 →</span></button></div></div>
@@ -446,25 +456,52 @@ function setSeasonalTheme(){
 }
 setSeasonalTheme();
 function setupTopMarquee(){
- const rows=[
-  {row:document.getElementById("topMarqueeRow1"),button:document.getElementById("topMarqueeToggle1"),label:"윗줄"},
-  {row:document.getElementById("topMarqueeRow2"),button:document.getElementById("topMarqueeToggle2"),label:"아랫줄"}
- ];
- rows.forEach(({row,button,label})=>{
-  if(!row||!button)return;
-  row.classList.remove("is-running");
-  button.setAttribute("aria-pressed","false");
-  button.setAttribute("aria-label",label+" 마퀴 움직이기");
-  button.title=label+" 마퀴 움직이기";
-  button.textContent="▶";
-  button.addEventListener("click",()=>{
-   const running=row.classList.toggle("is-running");
-   button.setAttribute("aria-pressed",String(running));
-   button.setAttribute("aria-label",label+" 마퀴 "+(running?"일시정지":"움직이기"));
-   button.title=label+" 마퀴 "+(running?"일시정지":"움직이기");
-   button.textContent=running?"Ⅱ":"▶";
-  });
+ const row=document.getElementById("topMarqueeRow1");
+ const viewport=document.getElementById("topMarqueeViewport");
+ const track=document.getElementById("topMarqueeTrack1");
+ if(!row||!viewport||!track)return;
+ row.classList.remove("is-dragging");
+ const reduceMotion=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+ if(reduceMotion) track.style.animation="none";
+ let dragging=false,moved=false,startX=0,startTranslate=0,currentTranslate=0,pointerId=null;
+ const readTranslate=()=>{
+  const transform=getComputedStyle(track).transform;
+  if(!transform||transform==="none")return 0;
+  try{return new DOMMatrixReadOnly(transform).m41;}catch(e){return 0;}
+ };
+ viewport.addEventListener("pointerdown",event=>{
+  if(event.pointerType==="mouse"&&event.button!==0)return;
+  dragging=true;moved=false;pointerId=event.pointerId;startX=event.clientX;
+  startTranslate=readTranslate();currentTranslate=startTranslate;
+  row.classList.add("is-dragging");viewport.classList.add("is-dragging");
+  track.style.animationPlayState="paused";
+  track.style.transform="translate3d("+currentTranslate+"px,0,0)";
+  viewport.setPointerCapture?.(pointerId);
  });
+ viewport.addEventListener("pointermove",event=>{
+  if(!dragging||event.pointerId!==pointerId)return;
+  const delta=event.clientX-startX;
+  if(Math.abs(delta)>4)moved=true;
+  currentTranslate=startTranslate+delta;
+  track.style.transform="translate3d("+currentTranslate+"px,0,0)";
+ });
+ const finishDrag=event=>{
+  if(!dragging||(event&&event.pointerId!==pointerId))return;
+  dragging=false;
+  row.classList.remove("is-dragging");viewport.classList.remove("is-dragging");
+  track.style.transform="";
+  track.style.animationPlayState=reduceMotion?"paused":"running";
+  if(moved) track.dataset.suppressClick="true";
+  pointerId=null;
+ };
+ viewport.addEventListener("pointerup",finishDrag);
+ viewport.addEventListener("pointercancel",finishDrag);
+ viewport.addEventListener("lostpointercapture",finishDrag);
+ viewport.addEventListener("click",event=>{
+  if(track.dataset.suppressClick==="true"){
+   event.preventDefault();event.stopPropagation();track.dataset.suppressClick="false";
+  }
+ },true);
 }
 const categoryIcons={"전체":"▦","돈":"💰","시간":"⏱️","달력":"📅","소비":"🛒","부동산":"🏠","금융":"💎","세금":"🧾","자동차":"🚗","건강":"🩺","문자·단어":"✏️","생활":"🏡","사업":"💼","게임":"🎮","취미":"🎨"};
 function escapeHTML(value){return String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));}
@@ -525,28 +562,26 @@ function renderQuickStart(){
 }
 function renderCategoryMarquee(){
   const names=Object.keys(data);
-  [1,2].forEach(rowNo=>{
-    const host=document.getElementById('topMarqueeTrack'+rowNo);if(!host)return;
-    const rowCategories=names.filter((cat,index)=>rowNo===1?index%2===0:index%2===1);
-    const items=rowCategories.map(cat=>{
+  const host=document.getElementById('topMarqueeTrack1');
+  if(!host)return;
+  const items=names.map(cat=>{
+    const first=(data[cat]||[])[0];
+    if(!first)return '';
+    return '<a class="top-marquee-item" data-category="'+escapeHTML(cat)+'" data-tool="'+escapeHTML(first[2])+'" href="/?tool='+encodeURIComponent(first[2])+'" title="'+escapeHTML(cat+' 대표 서비스: '+first[0])+'"><span aria-hidden="true">'+(categoryIcons[cat]||'•')+'</span><span>'+escapeHTML(cat)+'</span></a>';
+  }).filter(Boolean);
+  const oneSet=items.join('<span class="top-marquee-separator" aria-hidden="true">•</span>')+'<span class="top-marquee-separator" aria-hidden="true">•</span>';
+  host.innerHTML=oneSet+oneSet;
+  if(!host.dataset.bound){
+    host.addEventListener('click',function(event){
+      const link=event.target.closest('a[data-category][data-tool]');
+      if(!link)return;
+      event.preventDefault();
+      const cat=link.dataset.category;
       const first=(data[cat]||[])[0];
-      if(!first)return '';
-      return '<a class="top-marquee-item" data-category="'+escapeHTML(cat)+'" data-tool="'+escapeHTML(first[2])+'" href="/?tool='+encodeURIComponent(first[2])+'" title="'+escapeHTML(cat+' 대표 서비스: '+first[0])+'"><span aria-hidden="true">'+(categoryIcons[cat]||'•')+'</span><span>'+escapeHTML(cat)+'</span></a>';
-    }).filter(Boolean);
-    const oneSet=items.join('<span class="top-marquee-separator" aria-hidden="true">•</span>')+'<span class="top-marquee-separator" aria-hidden="true">•</span>';
-    host.innerHTML=oneSet+oneSet;
-    if(!host.dataset.bound){
-      host.addEventListener('click',function(event){
-        const link=event.target.closest('a[data-category][data-tool]');
-        if(!link)return;
-        event.preventDefault();
-        const cat=link.dataset.category;
-        const first=(data[cat]||[])[0];
-        if(first)openTool(first[2],first[0],first[1]);
-      });
-      host.dataset.bound='true';
-    }
-  });
+      if(first)openTool(first[2],first[0],first[1]);
+    });
+    host.dataset.bound='true';
+  }
 }
 function showCategoryView(c){
   const homeEl=document.getElementById('home'),view=document.getElementById('categoryView'),toolEl=document.getElementById('tool');

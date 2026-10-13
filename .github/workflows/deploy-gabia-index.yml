@@ -135,10 +135,7 @@ jobs:
             test -s "$header_fragment"
             grep -q "function setSeasonalTheme" "$candidate"
             grep -q "setSeasonalTheme();" "$candidate"
-            grep -q "id=\"topMarqueeToggle1\"" "$candidate"
-            grep -q "id=\"topMarqueeToggle2\"" "$candidate"
             grep -q "id=\"topMarqueeTrack1\"" "$candidate"
-            grep -q "id=\"topMarqueeTrack2\"" "$candidate"
             grep -q "function escapeHTML" "$candidate"
             grep -q "BEGIN SEMPLI SECURITY HEADERS" "$header_fragment"
             if grep -q "계절 테마" "$candidate"; then
@@ -185,11 +182,11 @@ jobs:
           done
           grep -q "셈플리" "$response"
           grep -q "setSeasonalTheme" "$response"
-          grep -q "topMarqueeTrack2" "$response"
-          grep -q "topMarqueeToggle1" "$response"
-          grep -q "topMarqueeToggle2" "$response"
+          grep -q \"topMarqueeTrack1\" \"$response\"
+          grep -q \"topMarqueeViewport\" \"$response\"
+          grep -q \"이어서 할 미궁\" \"$response\"
           grep -q "function escapeHTML" "$response"
-          grep -q "two-row-independent-marquee-security-v19" "$response"
+          grep -q "single-sticky-draggable-marquee-v20" "$response"
           grep -q "ca-pub-3220276859043248" "$response"
           for header in strict-transport-security content-security-policy-report-only x-content-type-options x-frame-options referrer-policy permissions-policy; do
             grep -iq "^$header:" "$headers"
@@ -225,4 +222,4 @@ jobs:
             exit 1
           fi
           echo "Live reflected-XSS smoke probes passed for calculator.php and calendar.php."
-          echo "Public homepage returned HTTP success and contains the deployed two-row marquee and DOM safety code."
+          echo "Public homepage returned HTTP success and contains the deployed single-row draggable marquee and DOM safety code."
