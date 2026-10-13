@@ -390,7 +390,28 @@ body{overflow-y:auto;overscroll-behavior-y:auto}
 
 #serviceSearch,.service-search,.search-calculators,.calculator-search{display:none!important}
 @media(max-width:700px){.top{padding:0 14px}.tag{font-size:11px}}
-.maze-shortcut{border:1px solid var(--season-line,#cbdad3);background:var(--season-card,#e5eee8);color:var(--season-ink,#153b35);border-radius:999px;padding:9px 13px;font-size:12px;font-weight:850;white-space:nowrap;cursor:pointer}.maze-shortcut:hover{filter:brightness(.97)}.top{gap:12px}.logo{line-height:1.1}.tag{margin-top:4px}@media(max-width:420px){.maze-shortcut{padding:8px 10px;font-size:11px}.logo{font-size:22px}.tag{font-size:10px}}\n</style></head>
+.maze-shortcut{border:1px solid var(--season-line,#cbdad3);background:var(--season-card,#e5eee8);color:var(--season-ink,#153b35);border-radius:999px;padding:9px 13px;font-size:12px;font-weight:850;white-space:nowrap;cursor:pointer}.maze-shortcut:hover{filter:brightness(.97)}.top{gap:12px}.logo{line-height:1.1}.tag{margin-top:4px}@media(max-width:420px){.maze-shortcut{padding:8px 10px;font-size:11px}.logo{font-size:22px}.tag{font-size:10px}}\n/* Canva concept adaptation: crisp editorial layout, deep-green navigation, warm neutral surfaces */
+:root{--season-bg:#f4f5ef;--season-paper:#fffefa;--season-card:#e6ece4;--season-accent:#cbd9b8;--season-ink:#173c34;--season-line:#d8dfd5}
+body{letter-spacing:-.012em}
+header{background:var(--season-paper);border-bottom:1px solid var(--season-line);height:72px}
+.logo{letter-spacing:-.055em;font-size:27px}
+.tag{color:#69776f;letter-spacing:-.015em}
+.top-marquee{border-bottom:0;box-shadow:0 5px 18px #183b3214}
+.top-marquee-item{border-color:#ffffff3b;background:#ffffff08}
+.top-marquee-item:hover,.top-marquee-item:focus-visible{background:#ffffff20}
+.hero h1{color:var(--season-ink);letter-spacing:-.055em;font-weight:900}
+.hero p{max-width:680px;color:#647169;line-height:1.8}
+.featured-compare,.value-guide,.quick-start{border-color:var(--season-line);background:var(--season-paper);box-shadow:0 6px 24px #173c3408}
+.featured-card,.category-view-card,.card{border-color:var(--season-line);background:var(--season-paper);box-shadow:0 3px 12px #173c3407}
+.featured-card:hover,.category-view-card:hover,.card:hover{border-color:var(--season-ink);box-shadow:0 12px 30px #173c3412}
+.featured-card h3,.category-view-card h3,.card h3{color:var(--season-ink);letter-spacing:-.045em}
+.category-view-heading h1{color:var(--season-ink);letter-spacing:-.055em}
+.category-view-side-category.active,.static-category-button.active{background:var(--season-accent);border-color:var(--season-accent);color:var(--season-ink)}
+.primary{background:var(--season-ink)!important;color:#fff!important;border-color:var(--season-ink)!important}
+.secondary{background:#edf0e9;border-color:var(--season-line);color:var(--season-ink)}
+.maze-shortcut{border-color:var(--season-line);background:var(--season-card);color:var(--season-ink)}
+@media(max-width:700px){header{height:64px}.logo{font-size:24px}.hero h1{font-size:34px;letter-spacing:-.05em}.hero p{line-height:1.7}}
+</style></head>
 <body>
 <header><div class="top"><div><div class="logo" onclick="home()">셈플리</div><div class="tag">돈과 시간을, 더 쉽게 셈하다.</div></div><button type="button" class="maze-shortcut" onclick="showCategoryView('게임')" aria-label="이어서 할 미궁">이어서 할 미궁 <span aria-hidden="true">↗</span></button></div></header>
 <nav class="top-marquee" id="topMarquee" aria-label="계산기 카테고리 빠른 이동">
