@@ -189,7 +189,7 @@ jobs:
           grep -q "topMarqueeToggle1" "$response"
           grep -q "topMarqueeToggle2" "$response"
           grep -q "function escapeHTML" "$response"
-          grep -q "two-row-independent-marquee-security-v15" "$response"
+          grep -q "two-row-independent-marquee-security-v19" "$response"
           grep -q "ca-pub-3220276859043248" "$response"
           for header in strict-transport-security content-security-policy-report-only x-content-type-options x-frame-options referrer-policy permissions-policy; do
             grep -iq "^$header:" "$headers"
