@@ -15,7 +15,7 @@
 <meta property="og:locale" content="ko_KR">
 <title>셈플리 | 돈과 시간을 쉽게 계산하고 비교하는 생활 계산기·달력</title>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"셈플리","url":"https://dontime.kr/","description":"돈과 시간을 쉽게 계산하고 비교하는 생활 계산기와 달력 서비스","inLanguage":"ko-KR"}</script>
-<meta name="dontime-version" content="2026-10-13-seasonal-theme-responsive-ticker-v4">
+<meta name="dontime-version" content="2026-10-13-category-marquee-security-review-v5">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3220276859043248"
      crossorigin="anonymous"></script>
 <!-- AdSense script deployment 2026-10-12, final verification -->
@@ -373,32 +373,31 @@ body{overflow-y:auto;overscroll-behavior-y:auto}
 }
 
 /* Responsive, accessible one-line ticker */
-.top-marquee{height:36px;background:var(--season-ink,#153b35);color:#fff;overflow:hidden;display:flex;align-items:center;gap:10px;padding:0 12px;border-bottom:1px solid #0002}
+.top-marquee{height:48px;background:var(--season-ink,#153b35);color:#fff;overflow:hidden;display:flex;align-items:center;gap:10px;padding:0 12px;border-bottom:1px solid #0002}
 .top-marquee-viewport{flex:1;min-width:0;overflow:hidden;display:flex;align-items:center}
-.top-marquee-track{display:flex;align-items:center;gap:26px;width:max-content;flex:0 0 auto;white-space:nowrap;animation:topTicker 36s linear infinite;font-size:12px;line-height:1;font-weight:500;will-change:transform}
-.top-marquee-track b{font-size:16px;color:#b9d9cd;font-weight:400}
+.top-marquee-track{display:flex;align-items:center;gap:9px;width:max-content;flex:0 0 auto;white-space:nowrap;animation:topTicker 52s linear infinite;will-change:transform}
+.top-marquee-track:hover{animation-play-state:paused}
+.top-marquee-item{display:inline-flex;align-items:center;gap:7px;min-height:34px;padding:6px 13px;border:1px solid #ffffff45;border-radius:999px;color:#fff;text-decoration:none;font-size:12px;font-weight:750;line-height:1;white-space:nowrap;transition:background .15s,border-color .15s}
+.top-marquee-item:hover,.top-marquee-item:focus-visible{background:#ffffff22;border-color:#fff;outline:2px solid #fff;outline-offset:2px}
+.top-marquee-item[aria-current="true"]{background:var(--season-accent,#2d7464);border-color:var(--season-accent,#2d7464);color:#fff}
+.top-marquee-separator{display:inline-block;color:#a9cfc1;font-size:13px}
 .top-marquee.is-paused .top-marquee-track{animation-play-state:paused}
 .top-marquee-controls{display:flex;gap:4px;align-items:center;flex:0 0 auto}
 .top-marquee-controls button{min-width:28px;min-height:28px;border:1px solid #ffffff55;border-radius:6px;background:transparent;color:#fff;font-size:12px;line-height:1;cursor:pointer}
 .top-marquee-controls button:hover,.top-marquee-controls button:focus-visible{background:#ffffff20;outline:2px solid #fff;outline-offset:2px}
 @keyframes topTicker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media(prefers-reduced-motion:reduce){.top-marquee-track{animation:none!important;transform:none!important}.top-marquee-viewport{overflow-x:auto;scrollbar-width:none}.top-marquee-viewport::-webkit-scrollbar{display:none}}
-@media(max-width:700px){.top-marquee{height:34px;gap:5px;padding:0 7px}.top-marquee-track{font-size:11px;gap:16px;animation-duration:32s}.top-marquee-controls{gap:2px}.top-marquee-controls button{min-width:25px;min-height:25px;padding:3px;font-size:11px}}
+@media(max-width:700px){.top-marquee{height:43px;gap:5px;padding:0 7px}.top-marquee-track{gap:6px;animation-duration:46s}.top-marquee-item{min-height:30px;padding:5px 10px;font-size:11px;gap:5px}.top-marquee-controls{gap:2px}.top-marquee-controls button{min-width:25px;min-height:25px;padding:3px;font-size:11px}}
 
 
 #serviceSearch,.service-search,.search-calculators,.calculator-search{display:none!important}
 @media(max-width:700px){.top{padding:0 14px}.tag{font-size:11px}}
 </style></head>
 <body>
-<div class="top-marquee" id="topMarquee">
-  <div class="top-marquee-viewport" aria-label="셈플리 서비스 안내">
-    <div class="top-marquee-track" id="topMarqueeTrack" aria-hidden="true">
-      <span>돈과 시간을, 더 쉽게 셈하다</span><b>·</b><span>월급부터 달력까지, 생활 계산을 한곳에서</span><b>·</b><span>숫자로 비교하고 더 나은 선택을</span><b>·</b><span>매일 쓰는 생활 계산기, 셈플리</span><b>·</b>
-      <span>돈과 시간을, 더 쉽게 셈하다</span><b>·</b><span>월급부터 달력까지, 생활 계산을 한곳에서</span><b>·</b><span>숫자로 비교하고 더 나은 선택을</span><b>·</b><span>매일 쓰는 생활 계산기, 셈플리</span><b>·</b>
-    </div>
-  </div>
-  <div class="top-marquee-controls"><button type="button" id="topMarqueeToggle" aria-label="마퀴 일시정지" aria-pressed="false" title="마퀴 일시정지">Ⅱ</button></div>
-</div>
+<nav class="top-marquee" id="topMarquee" aria-label="계산기 카테고리 빠른 이동">
+  <div class="top-marquee-viewport"><div class="top-marquee-track" id="topMarqueeTrack"></div></div>
+  <div class="top-marquee-controls"><button type="button" id="topMarqueeToggle" aria-label="카테고리 이동 일시정지" aria-pressed="false" title="일시정지">Ⅱ</button></div>
+</nav>
 <header><div class="top"><div class="logo" onclick="home()">셈플리</div><div class="tag">돈과 시간을, 더 쉽게 셈하다.</div></div></header>
 <main class="wrap"><section id="home"><div class="hero-category-layout"><div class="hero"><h1>필요한 계산,<br>바로 시작하세요.</h1><p>월급과 근무시간부터 대출 이자, 소비, 날짜 계산까지 필요한 값을 입력하고 결과를 확인하세요.</p></div></div><section class="static-category-browser" aria-label="카테고리"><div id="staticCategoryButtons" class="static-category-buttons"></div></section><div class="ad-slot ad-home-top" aria-label="광고 영역"></div>
 
@@ -509,6 +508,21 @@ function renderQuickStart(){
   const picks=[['income','돈','월급시계'],['hourly','돈','시급 계산'],['workforbuy','시간','얼마나 일해야 살 수 있을까?'],['discount','소비','할인 계산'],['loan','부동산','대출이자'],['datediff','시간','날짜 차이']];
   host.innerHTML=picks.map(([key,cat,name])=>'<button type="button" class="quick-start-item" onclick="openTool(\''+key+'\',\''+name+'\',\'\')"><strong>'+toolIcon(key,cat)+' '+name+'</strong><span>'+cat+' 계산기</span></button>').join('');
 }
+function renderCategoryMarquee(){
+  const host=document.getElementById('topMarqueeTrack');if(!host)return;
+  const names=Object.keys(data);
+  const oneSet=names.map(cat=>'<a class="top-marquee-item" data-category="'+cat+'" href="#category-'+encodeURIComponent(cat)+'" '+(cat===current?'aria-current="true"':'')+'><span aria-hidden="true">'+(categoryIcons[cat]||'•')+'</span><span>'+cat+'</span></a>').join('<span class="top-marquee-separator" aria-hidden="true">•</span>');
+  host.innerHTML=oneSet+'<span class="top-marquee-separator" aria-hidden="true">•</span>'+oneSet;
+  if(!host.dataset.bound){
+    host.addEventListener('click',function(event){
+      const link=event.target.closest('a[data-category]');
+      if(!link)return;
+      event.preventDefault();
+      selectMarqueeCategory(link.dataset.category);
+    });
+    host.dataset.bound='true';
+  }
+}
 function selectMarqueeCategory(c){current=c;clearServiceSearch();showCategoryView(c);}
 function showCategoryView(c){
   const homeEl=document.getElementById('home'),view=document.getElementById('categoryView'),toolEl=document.getElementById('tool');
@@ -532,7 +546,7 @@ function renderStaticCategoryButtons(){
   const host=document.getElementById('staticCategoryButtons');if(!host)return;
   host.innerHTML=Object.keys(data).map(c=>'<button type="button" class="static-category-button '+(c===current?'active':'')+'" onclick="selectMarqueeCategory(\''+c+'\')">'+(categoryIcons[c]||'•')+' '+c+'</button>').join('');
 }
-function selectMarqueeCategory(c){current=c;clearServiceSearch();showCategoryView(c);renderStaticCategoryButtons();}
+function selectMarqueeCategory(c){current=c;clearServiceSearch();showCategoryView(c);renderStaticCategoryButtons();renderCategoryMarquee();}
 function render(){
   const canDrag=window.innerWidth>700&&window.matchMedia&&window.matchMedia('(pointer:fine)').matches;
   const dragAttr=canDrag?' draggable="true"':'';
@@ -1685,7 +1699,7 @@ function live(t,target=el('box')){
 }
 
 
-render();renderToolCats();renderQuickStart();renderStaticCategoryButtons();
+render();renderToolCats();renderQuickStart();renderStaticCategoryButtons();renderCategoryMarquee();
 function popupIncomeChooser(){
   const svc=findService('income');if(!svc)return;
   document.body.classList.add('popup-mode');document.getElementById('home').style.display='none';tool.classList.add('on');renderToolCats();
