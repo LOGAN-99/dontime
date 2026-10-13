@@ -181,13 +181,19 @@ jobs:
           grep -q "topMarqueeToggle1" "$response"
           grep -q "topMarqueeToggle2" "$response"
           grep -q "function escapeHTML" "$response"
-          grep -q "two-row-independent-marquee-security-v12" "$response"
+          grep -q "two-row-independent-marquee-security-v13" "$response"
           grep -q "ca-pub-3220276859043248" "$response"
           for header in strict-transport-security content-security-policy-report-only x-content-type-options x-frame-options referrer-policy permissions-policy; do
-            if grep -iq "^$header:" "$headers"; then
-              echo "Security header present: $header"
-            else
-              echo "Security header absent: $header"
-            fi
+            grep -iq "^$header:" "$headers"
+            echo "Homepage security header verified: $header"
+          done
+          for page in "/calculator.php?tool=income" "/calendar.php?year=2026&month=10" "/privacy.html" "/terms.html" "/about.html" "/contact.html"; do
+            page_headers="$RUNNER_TEMP/page-headers.txt"
+            page_body="$RUNNER_TEMP/page-body.html"
+            curl --fail --silent --show-error --location --max-time 20 -D "$page_headers" "https://dontime.kr$page" -o "$page_body"
+            for header in strict-transport-security content-security-policy-report-only x-content-type-options x-frame-options referrer-policy permissions-policy; do
+              grep -iq "^$header:" "$page_headers"
+            done
+            echo "HTTP success and six security headers verified: $page"
           done
           echo "Public homepage returned HTTP success and contains the deployed two-row marquee and DOM safety code."
