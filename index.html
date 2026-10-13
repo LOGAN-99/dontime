@@ -574,7 +574,7 @@ function renderStaticCategoryButtons(){
   const host=document.getElementById('staticCategoryButtons');if(!host)return;
   host.innerHTML=Object.keys(data).map(c=>'<button type="button" class="static-category-button '+(c===current?'active':'')+'" onclick="selectMarqueeCategory(\''+c+'\')">'+(categoryIcons[c]||'•')+' '+c+'</button>').join('');
 }
-function selectMarqueeCategory(c){current=c;clearServiceSearch();showCategoryView(c);renderCategoryMarquee();}
+function selectMarqueeCategory(c){const first=(data[c]||[])[0];if(first)openTool(first[2],first[0],first[1]);}
 function render(){
   const canDrag=window.innerWidth>700&&window.matchMedia&&window.matchMedia('(pointer:fine)').matches;
   const dragAttr=canDrag?' draggable="true"':'';
