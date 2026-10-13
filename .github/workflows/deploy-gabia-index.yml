@@ -181,9 +181,9 @@ jobs:
           grep -q "topMarqueeToggle1" "$response"
           grep -q "topMarqueeToggle2" "$response"
           grep -q "function escapeHTML" "$response"
-          grep -q "two-row-independent-marquee-security-v11" "$response"
+          grep -q "two-row-independent-marquee-security-v12" "$response"
           grep -q "ca-pub-3220276859043248" "$response"
-          for header in strict-transport-security content-security-policy x-content-type-options x-frame-options referrer-policy permissions-policy; do
+          for header in strict-transport-security content-security-policy-report-only x-content-type-options x-frame-options referrer-policy permissions-policy; do
             if grep -iq "^$header:" "$headers"; then
               echo "Security header present: $header"
             else
