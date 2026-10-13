@@ -560,7 +560,18 @@ const cardDescriptions={workforbuy:"물건 가격과 시급·월급·연봉 중 
 function renderQuickStart(){
   const host=document.getElementById('quickStartTools'); if(!host)return;
   const picks=[['income','돈','월급시계'],['workforbuy','시간','얼마나 일해야 살 수 있을까?'],['discount','소비','할인 계산'],['loan','부동산','대출이자'],['datediff','시간','날짜 차이'],['minimum','돈','최저임금 비교'],['overtime','돈','연장·야간수당'],['calendar','달력','달력·공휴일'],['compound','금융','복리 계산기'],['carloan','자동차','자동차 할부'],['bmi','건강','BMI 계산'],['yearend','세금','연말정산'],['subscriptiontime','시간','구독료는 몇 시간?'],['ev','자동차','전기차 충전비'],['numReact','게임','숫자 순발력']];
-  host.innerHTML=picks.map(([key,cat,name])=>'<button type="button" class="quick-start-item" onclick="openTool(\\''+key+'\\',\\''+name+'\\',\\'\\')"><strong>'+toolIcon(key,cat)+' '+name+'</strong><span>'+cat+' 계산기</span></button>').join('')+'<button type="button" class="quick-start-item" onclick="location.href=\\'maze.html\\'"><strong>🧩 미궁: 내일역의 비밀</strong><span>게임 · 퀴즈 어드벤처</span></button>';
+  host.innerHTML=picks.map(([key,cat,name])=>'<button type="button" class="quick-start-item" data-quick-tool="'+key+'" data-quick-name="'+escapeHTML(name)+'"><strong>'+toolIcon(key,cat)+' '+escapeHTML(name)+'</strong><span>'+escapeHTML(cat)+' 계산기</span></button>').join('')+'<button type="button" class="quick-start-item" data-quick-maze="true"><strong>🧩 미궁: 내일역의 비밀</strong><span>게임 · 퀴즈 어드벤처</span></button>';
+  if(!host.dataset.boundMaze){
+    host.addEventListener('click',event=>{
+      const mazeButton=event.target.closest('[data-quick-maze]');
+      if(mazeButton){location.href='maze.html';return;}
+      const button=event.target.closest('[data-quick-tool]');
+      if(!button)return;
+      const service=findService(button.dataset.quickTool);
+      if(service)openTool(service[2],service[0],service[1]);
+    });
+    host.dataset.boundMaze='true';
+  }
 }
 function renderCategoryMarquee(){
   const names=Object.keys(data);
