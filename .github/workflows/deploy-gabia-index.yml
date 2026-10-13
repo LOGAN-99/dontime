@@ -127,8 +127,9 @@ jobs:
             set -eu
             candidate="/tmp/dontime-deploy-upload/index.html.new"
             test -s "$candidate"
-            grep -q "function setRandomTheme" "$candidate"
-            grep -q "setRandomTheme();" "$candidate"
+            grep -q "function setSeasonalTheme" "$candidate"
+            grep -q "setSeasonalTheme();" "$candidate"
+            grep -q "id=\"topMarqueeToggle\"" "$candidate"
             if grep -q "계절 테마" "$candidate"; then
               echo "Seasonal theme label unexpectedly remains in candidate; stopping."
               exit 1
@@ -137,7 +138,7 @@ jobs:
             cp -p "$candidate" /www_root/index.html.new
             chmod "$current_mode" /www_root/index.html.new
             mv -f /www_root/index.html.new /www_root/index.html
-            grep -q "setRandomTheme();" /www_root/index.html
+            grep -q "setSeasonalTheme();" /www_root/index.html
             cmp -s "$candidate" /www_root/index.html
             printf "Deployment successful. index.html replaced; backup retained in /tmp/dontime-deploy-backups.\n"
           '
@@ -154,7 +155,8 @@ jobs:
             sleep 3
           done
           grep -q "셈플리" "$response"
-          grep -q "setRandomTheme" "$response"
+          grep -q "setSeasonalTheme" "$response"
+          grep -q "topMarqueeToggle" "$response"
           grep -q "ca-pub-3220276859043248" "$response"
           if grep -q "계절 테마" "$response"; then
             echo "Warning: public response may be cached or old."
