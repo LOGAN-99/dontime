@@ -462,6 +462,7 @@ function setupTopMarquee(){
  });
 }
 const categoryIcons={"전체":"▦","돈":"💰","시간":"⏱️","달력":"📅","소비":"🛒","부동산":"🏠","금융":"💎","세금":"🧾","자동차":"🚗","건강":"🩺","문자·단어":"✏️","생활":"🏡","사업":"💼","게임":"🎮","취미":"🎨"};
+function escapeHTML(value){return String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));}
 const toolIcons={income:"⏱️",hourly:"💵",realhourly:"🎯",raise:"📈",salary:"💼",net:"💳",weekly:"🧾",overtime:"🌙",leave:"🏖️",severance:"🎁",minimum:"⚖️",workforbuy:"🛍️",subscriptiontime:"📱",debttime:"💸",savingtime:"🐷",billiontime:"🏦",commute:"🚇",off:"🏠",discharge:"🎖️",dday:"📅",datediff:"🔢",workdays:"🗓️",timediff:"⏰",age:"🎂",yearprogress:"📊",calendar:"📅",discount:"🏷️",discounttime:"⏳",pricetime:"📈",reverseDiscount:"🔄",unit:"📦",installment:"💳",margin:"📊",breakeven:"🎯",cardfee:"💳",fixedratio:"🧮",ltv:"🏠",dti:"📐",dsr:"⚖️",mortgage:"🏡",loan:"💰",rent:"🔑",jeonseToRent:"🔄",acq:"🏠",broker:"🤝",homecash:"💵",compound:"🌱",averagetime:"🚨",runway:"🛫",deposit:"🏦",saving:"🐷",goal:"🎯",return:"📈",average:"⚖️",dividend:"💎",inflation:"📉",yearend:"🧾",vat:"🧮",withholding:"💸",incomeTax:"📑",capitalgain:"🏷️",gift:"🎁",carloan:"🚗",carcosttime:"⏱️",kmcost:"🛞",ev:"⚡",fertility:"🌱",ovulation:"🌙",pregnancy:"🤰",due:"👶",bmi:"⚖️",bmr:"🔥",calorie:"🍽️",chars:"🔤",words:"📝",lines:"📄",spaces:"↔️",newlines:"↩️",case:"🔠",striphtml:"🧹",sorttext:"↕️",diff:"🔍",unitconv:"📏",percent:"％",ratio:"➗",mean:"📊",weighted:"⚖️",mpg:"⛽",travel:"✈️",fx:"💱",selling:"🏷️",costrate:"🧮",platformfee:"💳",labor:"👥",targetsales:"🎯",playtime:"🎮",gamecost:"🕹️",hobbybudget:"🎨",hobbytime:"⏳",boardcost:"🎲",gameStorage:"💾",sensitivity:"🖱️",elo:"📊",gameSession:"⏰",hitEvasion:"🎯",critDps:"💥",autoGrind:"🤖",patchMeta:"🔧",gacha:"🎰",packageValue:"📦",gameCurrency:"💰",achievement:"🏆",levelGrind:"⚔️",charGrowth:"📈",partySurvival:"🛡️",hobbyRecommend:"🎯",activityRecommend:"🎲",knitting:"🧶",artBudget:"🖌️",paintRatio:"🎨"};
 const toolIcon=(key,cat)=>toolIcons[key]||categoryIcons[cat]||"🧮";
 let recentServices=[];try{recentServices=JSON.parse(localStorage.getItem("dontimeRecent")||"[]");if(!Array.isArray(recentServices))recentServices=[];}catch(e){recentServices=[];}
@@ -914,7 +915,20 @@ function compareText(){const a=el('txt1').value,b=el('txt2').value;el('res').inn
 function searchServices(value){searchQuery=String(value||'');render();}
 function clearServiceSearch(){searchQuery='';const input=document.getElementById('serviceSearch');if(input)input.value='';render();}
 function rememberService(t,title,copy){recentServices=[{t,title,copy},...recentServices.filter(x=>x.t!==t)].slice(0,6);try{localStorage.setItem('dontimeRecent',JSON.stringify(recentServices));}catch(e){}}
-function renderRecentTools(){const target=document.getElementById('recentTools');if(!target)return;if(!recentServices.length){target.innerHTML='';return;}target.innerHTML=recentServices.map(x=>'<button class="recent-chip" type="button" onclick="openTool(\''+x.t+'\',\''+x.title+'\',\''+x.copy+'\')">최근 · '+x.title+'</button>').join('');}
+function renderRecentTools(){
+ const target=document.getElementById('recentTools');if(!target)return;
+ target.replaceChildren();
+ recentServices.forEach(item=>{
+  if(!item||typeof item!=='object')return;
+  const service=findService(String(item.t||''));
+  if(!service)return;
+  const button=document.createElement('button');
+  button.className='recent-chip';button.type='button';
+  button.textContent='최근 · '+service[0];
+  button.addEventListener('click',()=>openTool(service[2],service[0],service[1]));
+  target.appendChild(button);
+ }); 
+}
 function field(id,label,val,type='number',placeholder='',cls=''){return '<div class="field"><label>'+label+'</label><input id="'+id+'" type="'+type+'" value="'+val+'" '+(placeholder?'placeholder="'+placeholder+'"':'')+(cls?' class="'+cls+'"':'')+'></div>'}
 function findService(t){
   for(const c of Object.keys(data)){const x=data[c].find(v=>v[2]===t);if(x)return x;}
@@ -933,13 +947,18 @@ function serviceNotice(t){
   return '';
 }
 function openTool(t,title,copy){
+  const service=findService(String(t));
+  if(!service)return;
+  t=service[2];title=service[0];copy=service[1];
   rememberService(t,title,copy);
   window.__dontimeCurrentType=t;
   document.getElementById('home').style.display='none';
+  const categoryView=document.getElementById('categoryView');if(categoryView)categoryView.style.display='none';
   clearInterval(timer);
   tool.classList.add('on');
   renderToolCats();
-  toolmain.innerHTML='<div id="dropzone" class="compare-drop" ondragover="event.preventDefault();this.classList.add(\'over\')" ondragleave="this.classList.remove(\'over\')" ondrop="dropService(event)"><div class="tool-nav"><button class="back" onclick="home()">← 목록으로</button><button class="small-window-btn" type="button" onclick="openSmallWindow(window.__dontimeCurrentType)">↗ 작은 창으로 띄우기</button></div><div class="tool-title-row"><div><h2>'+title+'</h2><p>'+copy+'</p></div><div class="tool-title-actions"><div class="compare-tip"><strong>계산기 비교하기</strong><span>왼쪽 계산기나 다른 카드를 이곳으로 드래그하세요.</span><span>여러 계산기를 같은 크기로 놓고 결과를 한눈에 비교할 수 있습니다.</span></div></div></div><div class="ad-slot tool-ad" aria-label="광고 영역"></div><div class="compare-items" id="compareItems"><div class="compare-card primary-tool-card" id="primaryTool" data-t="'+t+'"><div class="primary-card-title"><strong>'+title+'</strong><span>'+copy+'</span></div><div id="box"></div></div></div></div>';
+  const safeTitle=escapeHTML(title),safeCopy=escapeHTML(copy);
+  toolmain.innerHTML='<div id="dropzone" class="compare-drop"><div class="tool-nav"><button class="back" onclick="home()">← 목록으로</button><button class="small-window-btn" type="button" onclick="openSmallWindow(window.__dontimeCurrentType)">↗ 작은 창으로 띄우기</button></div><div class="tool-title-row"><div><h2>'+safeTitle+'</h2><p>'+safeCopy+'</p></div><div class="tool-title-actions"><div class="compare-tip"><strong>계산기 비교하기</strong><span>왼쪽 계산기나 다른 카드를 이곳으로 드래그하세요.</span><span>여러 계산기를 같은 크기로 놓고 결과를 한눈에 비교할 수 있습니다.</span></div></div></div><div class="ad-slot tool-ad" aria-label="광고 영역"></div><div class="compare-items" id="compareItems"><div class="compare-card primary-tool-card" id="primaryTool" data-t="'+t+'"><div class="primary-card-title"><strong>'+safeTitle+'</strong><span>'+safeCopy+'</span></div><div id="box"></div></div></div></div>';
   box=document.getElementById('box');
   if(t==='calendar') calendarTool(box); else if(t==='income'||t==='off') live(t,box);
   else if(['chars','words','lines','spaces','newlines','case','striphtml','sorttext'].includes(t)) textTool(t);
@@ -1052,7 +1071,7 @@ function linkedWorkForBuy(target){
     const out=scope?.querySelector('#buyCountdown');
     if(!out)return;
     const price=parseMoney(scope.querySelector('#price')?.value||0);
-    const name=(scope.querySelector('#productName')?.value||'').trim();
+    const name=escapeHTML((scope.querySelector('#productName')?.value||'').trim());
     const clock=primary?.__incomeClock;
     const rate=clock?.ratePerSec>0?clock.ratePerSec:getIncomeRate(primary);
     const label=name?name+'를 사려면':'이 물건을 사려면';
