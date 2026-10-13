@@ -184,9 +184,9 @@ jobs:
           grep -q "setSeasonalTheme" "$response"
           grep -q \"topMarqueeTrack1\" \"$response\"
           grep -q \"topMarqueeViewport\" \"$response\"
-          grep -q \"이어서 할 미궁\" \"$response\"
+          grep -q 'aria-label="미궁"' "$response"
           grep -q "function escapeHTML" "$response"
-          grep -q "single-sticky-draggable-marquee-v20" "$response"
+          grep -q "marquee-story-maze-v21" "$response"
           grep -q "ca-pub-3220276859043248" "$response"
           for header in strict-transport-security content-security-policy-report-only x-content-type-options x-frame-options referrer-policy permissions-policy; do
             grep -iq "^$header:" "$headers"
@@ -222,4 +222,4 @@ jobs:
             exit 1
           fi
           echo "Live reflected-XSS smoke probes passed for calculator.php and calendar.php."
-          echo "Public homepage returned HTTP success and contains the deployed single-row draggable marquee and DOM safety code."
+          echo "Public homepage returned HTTP success and contains the deployed single-row continuously animated marquee and DOM safety code."
