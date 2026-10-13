@@ -1745,7 +1745,7 @@ function live(t,target=el('box')){
 }
 
 
-render();renderToolCats();renderQuickStart();renderCategoryMarquee();
+render();renderToolCats();renderQuickStart();renderCategoryMarquee();setupTopMarquee();
 function popupIncomeChooser(){
   const svc=findService('income');if(!svc)return;
   document.body.classList.add('popup-mode');document.getElementById('home').style.display='none';tool.classList.add('on');renderToolCats();
