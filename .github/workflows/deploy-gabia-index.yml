@@ -152,17 +152,26 @@ jobs:
         run: |
           set -euo pipefail
           response="$RUNNER_TEMP/homepage.html"
+          headers="$RUNNER_TEMP/homepage-headers.txt"
           for attempt in 1 2 3; do
-            if curl --fail --silent --show-error --location --max-time 20 https://dontime.kr/ -o "$response"; then
+            if curl --fail --silent --show-error --location --max-time 20 -D "$headers" https://dontime.kr/ -o "$response"; then
               break
             fi
             sleep 3
           done
           grep -q "셈플리" "$response"
           grep -q "setSeasonalTheme" "$response"
-          grep -q "topMarqueeToggle" "$response"
+          grep -q "topMarqueeTrack2" "$response"
+          grep -q "topMarqueeToggle1" "$response"
+          grep -q "topMarqueeToggle2" "$response"
+          grep -q "function escapeHTML" "$response"
+          grep -q "two-row-independent-marquee-security-v8" "$response"
           grep -q "ca-pub-3220276859043248" "$response"
-          if grep -q "계절 테마" "$response"; then
-            echo "Warning: public response may be cached or old."
-          fi
-          echo "Public homepage returned HTTP success and contains the new theme code."
+          for header in strict-transport-security content-security-policy x-content-type-options x-frame-options referrer-policy permissions-policy; do
+            if grep -iq "^$header:" "$headers"; then
+              echo "Security header present: $header"
+            else
+              echo "Security header absent: $header"
+            fi
+          done
+          echo "Public homepage returned HTTP success and contains the deployed two-row marquee and DOM safety code."
