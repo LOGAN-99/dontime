@@ -210,4 +210,19 @@ jobs:
               echo "Route not HTTP 200; security headers for this route were not certified."
             fi
           done
+          probe="$RUNNER_TEMP/xss-probe.html"
+          probe_status="$(curl --silent --show-error --location --max-time 20 -o "$probe" -w "%{http_code}" "https://dontime.kr/calculator.php?tool=%3Cscript%3Ealert%281%29%3C%2Fscript%3E" || true)"
+          case "$probe_status" in 200|400|403|404) ;; *) echo "::error::Unexpected response to calculator parameter security probe: $probe_status"; exit 1 ;; esac
+          if grep -Fqi '<script>alert(1)</script>' "$probe"; then
+            echo "::error::Calculator endpoint reflected an executable script payload."
+            exit 1
+          fi
+          calendar_probe="$RUNNER_TEMP/calendar-xss-probe.html"
+          calendar_status="$(curl --silent --show-error --location --max-time 20 -o "$calendar_probe" -w "%{http_code}" "https://dontime.kr/calendar.php?year=%3Cscript%3Ealert%281%29%3C%2Fscript%3E&month=10" || true)"
+          case "$calendar_status" in 200|400|403|404) ;; *) echo "::error::Unexpected response to calendar parameter security probe: $calendar_status"; exit 1 ;; esac
+          if grep -Fqi '<script>alert(1)</script>' "$calendar_probe"; then
+            echo "::error::Calendar endpoint reflected an executable script payload."
+            exit 1
+          fi
+          echo "Live reflected-XSS smoke probes passed for calculator.php and calendar.php."
           echo "Public homepage returned HTTP success and contains the deployed two-row marquee and DOM safety code."
