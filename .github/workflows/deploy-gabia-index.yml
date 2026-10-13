@@ -186,7 +186,7 @@ jobs:
           grep -q \"topMarqueeViewport\" \"$response\"
           grep -q 'aria-label="미궁"' "$response"
           grep -q "function escapeHTML" "$response"
-          grep -q "marquee-story-maze-v21" "$response"
+          grep -q "maze-hero-layout-v22" "$response"
           grep -q "ca-pub-3220276859043248" "$response"
           for header in strict-transport-security content-security-policy-report-only x-content-type-options x-frame-options referrer-policy permissions-policy; do
             grep -iq "^$header:" "$headers"
