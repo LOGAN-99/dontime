@@ -373,8 +373,13 @@ body{overflow-y:auto;overscroll-behavior-y:auto}
 }
 
 /* Two independent category marquees */
-.top-marquee{position:sticky;top:0;z-index:1000;display:block;background:var(--season-ink,#153b35);color:#fff;padding:5px 12px;border-bottom:1px solid #0002;box-shadow:0 4px 14px #00000012}
-.top-marquee-row{display:flex;align-items:center;min-width:0;min-height:38px}
+.site-sticky{position:sticky;top:0;z-index:1100;isolation:isolate;background:var(--season-paper,#fff)}
+.site-sticky header{position:relative;top:auto;z-index:auto}
+.top-marquee{position:relative;top:auto;z-index:auto;display:block;background:var(--season-ink,#153b35);color:#fff;padding:5px 12px;border-bottom:1px solid #0002;box-shadow:0 4px 14px #00000012}
+.top-marquee-row{display:flex;align-items:center;min-width:0;min-height:34px}
+.top-marquee-row-reverse{border-top:1px solid #ffffff20}
+.top-marquee-track-reverse{animation-name:topTickerRight;animation-duration:48s}
+@keyframes topTickerRight{from{transform:translate3d(-50%,0,0)}to{transform:translate3d(0,0,0)}}
 .top-marquee-viewport{flex:1;min-width:0;overflow:hidden;display:flex;align-items:center;touch-action:pan-y;cursor:grab;user-select:none}
 .top-marquee-viewport.is-dragging{cursor:grabbing}
 .top-marquee-track{display:flex;align-items:center;gap:9px;width:max-content;flex:0 0 auto;white-space:nowrap;will-change:transform;animation:topTickerLeft 42s linear infinite}
@@ -385,7 +390,7 @@ body{overflow-y:auto;overscroll-behavior-y:auto}
 .top-marquee-item[aria-current="true"]{background:var(--season-accent,#2d7464);border-color:var(--season-accent,#2d7464);color:#fff}
 .top-marquee-separator{display:inline-block;color:#a9cfc1;font-size:13px}
 @keyframes topTickerLeft{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
-@media(max-width:700px){header{top:0}.top-marquee{padding:4px 7px}.top-marquee-row{min-height:35px}.top-marquee-track{gap:6px;animation-duration:36s}.top-marquee-item{min-height:28px;padding:5px 9px;font-size:11px;gap:5px}}
+@media(max-width:700px){.top-marquee{padding:3px 7px}.top-marquee-row{min-height:29px}.top-marquee-track{gap:6px;animation-duration:36s}.top-marquee-track-reverse{animation-duration:42s}.top-marquee-item{min-height:25px;padding:4px 9px;font-size:11px;gap:5px}}
 
 
 #serviceSearch,.service-search,.search-calculators,.calculator-search{display:none!important}
@@ -451,12 +456,17 @@ header{background:var(--season-paper);border-bottom:1px solid var(--season-line)
 }
 </style></head>
 <body>
+<div class="site-sticky" id="siteSticky">
+<header><div class="top"><div><div class="logo" onclick="home()">셈플리</div><div class="tag">돈과 시간을, 더 쉽게 셈하다.</div></div><button type="button" class="maze-shortcut" onclick="window.location.href='/maze.html'" aria-label="미궁">미궁</button></div></header>
 <nav class="top-marquee" id="topMarquee" aria-label="계산기 카테고리 빠른 이동">
   <div class="top-marquee-row" id="topMarqueeRow1">
     <div class="top-marquee-viewport" id="topMarqueeViewport"><div class="top-marquee-track" id="topMarqueeTrack1"></div></div>
   </div>
+  <div class="top-marquee-row top-marquee-row-reverse" id="topMarqueeRow2">
+    <div class="top-marquee-viewport" id="topMarqueeViewport2"><div class="top-marquee-track top-marquee-track-reverse" id="topMarqueeTrack2"></div></div>
+  </div>
 </nav>
-<header><div class="top"><div><div class="logo" onclick="home()">셈플리</div><div class="tag">돈과 시간을, 더 쉽게 셈하다.</div></div><button type="button" class="maze-shortcut" onclick="window.location.href='/maze.html'" aria-label="미궁">미궁</button></div></header>
+</div>
 <main class="wrap"><section id="home"><div class="hero-category-layout"><div class="hero"><h1>필요한 계산,<br>바로 시작하세요.</h1><p>월급과 근무시간부터 대출 이자, 소비, 날짜 계산까지 필요한 값을 입력하고 결과를 확인하세요.</p></div><div class="featured-compare"><div class="featured-head"><div><strong>셈플리에서 이렇게 같이 계산할 수 있어요</strong><span>계산기를 나란히 놓고 서로 다른 결과를 한눈에 비교해보세요.</span></div><span class="featured-drag">PC에서는 계산기를 드래그해서 자유롭게 배치할 수 있어요 ↗</span></div><div class="featured-grid"><button class="featured-card" type="button" onclick="openTool('income','월급시계','1초에 얼마 벌고 있는지 알고 있어?')"><div class="featured-kicker">01 · 돈</div><h3>월급시계</h3><p>내가 지금까지 번 돈을 실시간으로 확인</p><div class="featured-value">0.0000원</div><span>계산기 열기 →</span></button><div class="featured-join">+</div><button class="featured-card" type="button" onclick="openTool('workforbuy','얼마나 일해야 살 수 있을까?','월급시계와 연결하면, 지금부터 이 물건을 살 때까지 남은 시간이 줄어듭니다.')"><div class="featured-kicker">02 · 시간</div><h3>얼마나 일해야 살 수 있을까?</h3><p>원하는 물건이 내 시간으로 몇 시간짜리인지 확인</p><div class="featured-value">몇 시간일까?</div><span>계산기 열기 →</span></button></div></div></div><div class="ad-slot ad-home-top" aria-label="광고 영역"></div>
 
 <div class="layout"><aside id="cats" class="cats"></aside><div id="cards" class="grid"></div></div><div class="ad-slot ad-home-mid" aria-label="광고 영역"></div><div class="footer"><div>셈플리 · 내 시간의 가치를 숫자로</div><div class="footer-links"><a class="footer-link" href="calendar.php?year=2027&month=5">2027년 5월 달력</a><a class="footer-link" href="about.html">서비스 안내</a><a class="footer-link" href="privacy.html">개인정보처리방침</a><a class="footer-link" href="terms.html">이용약관</a><a class="footer-link" href="contact.html">문의</a></div></div></section>
@@ -465,7 +475,7 @@ header{background:var(--season-paper);border-bottom:1px solid var(--season-line)
 </main>
 <script>
 const data={
-"돈":[["월급시계","1초에 얼마 벌고 있는지 알고 있어?","income"],["시급 계산","내 한 시간의 가격표","hourly"],["연봉 상승 효과","연봉이 오르면 내 시간의 값은 얼마나 달라질까?","raise"],["연봉 ↔ 월급","연봉을 월급으로, 월급을 연봉으로","salary"],["실수령액","통장에 실제로 들어오는 돈은?","net"],["주휴수당","일한 시간만큼 제대로 계산해보자","weekly"],["연장·야간수당","늦게까지 일한 시간도 숫자로","overtime"],["연차수당","남은 연차, 돈으로 보면 얼마?","leave"],["퇴직금","퇴직할 때 받을 돈을 미리 계산","severance"],["최저임금","내 시급, 기준보다 낮진 않을까?","minimum"]],
+"돈":[["월급시계","1초에 얼마 벌고 있는지 알고 있어?","income"],["시급 계산","내 한 시간의 가격표","hourly"],["연봉 상승 효과","연봉이 오르면 내 시간의 값은 얼마나 달라질까?","raise"],["연봉 ↔ 월급","연봉을 월급으로, 월급을 연봉으로","salary"],["실수령액","통장에 실제로 들어오는 돈은?","net"],["주휴수당","일한 시간만큼 제대로 계산해보자","weekly"],["연장·야간수당","늦게까지 일한 시간도 숫자로","overtime"],["연차수당","남은 연차, 돈으로 보면 얼마?","leave"],["퇴직금","퇴직할 때 받을 돈을 미리 계산","severance"],["최저임금","내 시급, 기준보다 낮진 않을까?","minimum"],["예금 이자","맡겨둔 돈이 얼마나 불어날까?","deposit"],["적금 이자","매달 넣으면 만기에 얼마?","saving"],["복리 계산기","이자가 다시 이자를 낳으면?","compound"],["목표금액 계산","목표를 모으려면 매달 얼마가 필요할까?","goal"],["수익률 계산","내 돈은 몇 퍼센트 늘었을까?","return"],["평균매입단가","여러 번 샀다면 평균은 얼마?","average"],["배당금 계산","내 투자금이 주는 배당은 얼마?","dividend"],["인플레이션 계산","물가가 오르면 돈의 가치는?","inflation"],["할인 계산","할인된 가격과 절약 금액 확인","discount"],["할부 계산","나눠 내면 매달 얼마일까?","installment"]],
 "시간":[["얼마나 일해야 살 수 있을까?","월급시계와 연결하면, 지금부터 이 물건을 살 때까지 남은 시간이 줄어듭니다.","workforbuy"],["구독료는 몇 시간?","매달 빠져나가는 구독료가 내 노동시간으로는 얼마일까?","subscriptiontime"],["빚을 갚으려면 몇 시간?","남은 빚을 갚는 데 내 시간이 얼마나 필요한지 계산","debttime"],["목표 저축까지 남은 시간","목표금액까지 몇 개월, 몇 년이 남았는지 계산","savingtime"],["1억원까지 몇 시간?","내 자산과 저축 속도를 노동시간으로 바꿔보자","billiontime"],["출퇴근 비용과 시간","회사에 다니는 데 돈과 시간을 얼마나 쓰고 있을까?","commute"],["퇴근시간","출근했으면, 이제 퇴근까지 얼마나 남았지?","off"],["전역 카운트다운","그날까지 얼마나 남았지?","discharge"],["D-Day","기다리는 날까지 정확히","dday"],["날짜 차이","두 날짜 사이가 며칠이지?","datediff"],["근무일수","주말 빼고 실제 며칠 일했을까?","workdays"],["시간 차이","시간도 계산해야 정확하다.","timediff"],["나이 계산","몇 살인지, 만 나이까지","age"],["올해 진행률","올해가 얼마나 지나갔을까?","yearprogress"]],
 
 "달력":[["달력","과거 10년과 앞으로 10년의 날짜와 기본 공휴일을 한눈에","calendar"]],
@@ -575,26 +585,29 @@ function renderQuickStart(){
 }
 function renderCategoryMarquee(){
   const names=Object.keys(data);
-  const host=document.getElementById('topMarqueeTrack1');
-  if(!host)return;
-  const items=names.map(cat=>{
+  const hosts=[document.getElementById('topMarqueeTrack1'),document.getElementById('topMarqueeTrack2')];
+  if(!hosts[0]||!hosts[1])return;
+  const makeItems=list=>list.map(cat=>{
     const first=(data[cat]||[])[0];
     if(!first)return '';
     return '<a class="top-marquee-item" data-category="'+escapeHTML(cat)+'" data-tool="'+escapeHTML(first[2])+'" href="/?tool='+encodeURIComponent(first[2])+'" title="'+escapeHTML(cat+' 대표 서비스: '+first[0])+'"><span aria-hidden="true">'+(categoryIcons[cat]||'•')+'</span><span>'+escapeHTML(cat)+'</span></a>';
   }).filter(Boolean);
-  const oneSet=items.join('<span class="top-marquee-separator" aria-hidden="true">•</span>')+'<span class="top-marquee-separator" aria-hidden="true">•</span>';
-  host.innerHTML=oneSet+oneSet;
-  if(!host.dataset.bound){
-    host.addEventListener('click',function(event){
-      const link=event.target.closest('a[data-category][data-tool]');
-      if(!link)return;
-      event.preventDefault();
-      const cat=link.dataset.category;
-      const first=(data[cat]||[])[0];
-      if(first){current=cat;openTool(first[2],first[0],first[1]);renderToolCats();}
-    });
-    host.dataset.bound='true';
-  }
+  [names,names.slice().reverse()].forEach((list,index)=>{
+    const items=makeItems(list);
+    const oneSet=items.join('<span class="top-marquee-separator" aria-hidden="true">•</span>')+'<span class="top-marquee-separator" aria-hidden="true">•</span>';
+    hosts[index].innerHTML=oneSet+oneSet;
+    if(!hosts[index].dataset.bound){
+      hosts[index].addEventListener('click',function(event){
+        const link=event.target.closest('a[data-category][data-tool]');
+        if(!link)return;
+        event.preventDefault();
+        const cat=link.dataset.category;
+        const first=(data[cat]||[])[0];
+        if(first){current=cat;openTool(first[2],first[0],first[1]);renderToolCats();}
+      });
+      hosts[index].dataset.bound='true';
+    }
+  });
 }
 function showCategoryView(c){
   const homeEl=document.getElementById('home'),view=document.getElementById('categoryView'),toolEl=document.getElementById('tool');
