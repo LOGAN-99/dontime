@@ -378,12 +378,13 @@ body{overflow-y:auto;overscroll-behavior-y:auto}
 .top-marquee{position:relative;top:auto;z-index:auto;display:block;background:var(--season-ink,#153b35);color:#fff;padding:5px 12px;border-bottom:1px solid #0002;box-shadow:0 4px 14px #00000012}
 .top-marquee-row{display:flex;align-items:center;min-width:0;min-height:34px}
 .top-marquee-row-reverse{border-top:1px solid #ffffff20}
-.top-marquee-track-reverse{animation-name:topTickerRight;animation-duration:48s}
+
 @keyframes topTickerRight{from{transform:translate3d(-50%,0,0)}to{transform:translate3d(0,0,0)}}
 .top-marquee-viewport{flex:1;min-width:0;overflow:hidden;display:flex;align-items:center;touch-action:pan-y;cursor:grab;user-select:none}
 .top-marquee-viewport.is-dragging{cursor:grabbing}
 .top-marquee-track{display:flex;align-items:center;gap:9px;width:max-content;flex:0 0 auto;white-space:nowrap;will-change:transform;animation:topTickerLeft 42s linear infinite}
 .top-marquee-row.is-dragging .top-marquee-track{animation-play-state:paused}
+.top-marquee .top-marquee-track.top-marquee-track-reverse{animation:topTickerRight 48s linear infinite}
 .top-marquee-item{display:inline-flex;align-items:center;gap:7px;min-height:30px;padding:5px 12px;border:1px solid #ffffff45;border-radius:999px;color:#fff;text-decoration:none;font-size:12px;font-weight:750;line-height:1;white-space:nowrap;transition:background .15s,border-color .15s}
 .top-marquee-item:hover,.top-marquee-item:focus-visible{background:#ffffff22;border-color:#fff;outline:2px solid #fff;outline-offset:2px}
 .top-marquee-item:focus-visible{position:relative;z-index:2}
@@ -402,6 +403,7 @@ header{background:var(--season-paper);border-bottom:1px solid var(--season-line)
 .logo{letter-spacing:-.055em;font-size:27px}
 .tag{color:#69776f;letter-spacing:-.015em}
 .top-marquee{border-bottom:0;box-shadow:0 5px 18px #183b3214}
+.copyright-notice{margin:8px auto 10px;color:#7a827d;font-size:11px;line-height:1.6;text-align:center}
 .top-marquee-item{border-color:#ffffff3b;background:#ffffff08}
 .top-marquee-item:hover,.top-marquee-item:focus-visible{background:#ffffff20}
 .hero h1{color:var(--season-ink);letter-spacing:-.055em;font-weight:900}
@@ -469,7 +471,7 @@ header{background:var(--season-paper);border-bottom:1px solid var(--season-line)
 </div>
 <main class="wrap"><section id="home"><div class="hero-category-layout"><div class="hero"><h1>필요한 계산,<br>바로 시작하세요.</h1><p>월급과 근무시간부터 대출 이자, 소비, 날짜 계산까지 필요한 값을 입력하고 결과를 확인하세요.</p></div><div class="featured-compare"><div class="featured-head"><div><strong>셈플리에서 이렇게 같이 계산할 수 있어요</strong><span>계산기를 나란히 놓고 서로 다른 결과를 한눈에 비교해보세요.</span></div><span class="featured-drag">PC에서는 계산기를 드래그해서 자유롭게 배치할 수 있어요 ↗</span></div><div class="featured-grid"><button class="featured-card" type="button" onclick="openTool('income','월급시계','1초에 얼마 벌고 있는지 알고 있어?')"><div class="featured-kicker">01 · 돈</div><h3>월급시계</h3><p>내가 지금까지 번 돈을 실시간으로 확인</p><div class="featured-value">0.0000원</div><span>계산기 열기 →</span></button><div class="featured-join">+</div><button class="featured-card" type="button" onclick="openTool('workforbuy','얼마나 일해야 살 수 있을까?','월급시계와 연결하면, 지금부터 이 물건을 살 때까지 남은 시간이 줄어듭니다.')"><div class="featured-kicker">02 · 시간</div><h3>얼마나 일해야 살 수 있을까?</h3><p>원하는 물건이 내 시간으로 몇 시간짜리인지 확인</p><div class="featured-value">몇 시간일까?</div><span>계산기 열기 →</span></button></div></div></div><div class="ad-slot ad-home-top" aria-label="광고 영역"></div>
 
-<div class="layout"><aside id="cats" class="cats"></aside><div id="cards" class="grid"></div></div><div class="ad-slot ad-home-mid" aria-label="광고 영역"></div><div class="footer"><div>셈플리 · 내 시간의 가치를 숫자로</div><div class="footer-links"><a class="footer-link" href="calendar.php?year=2027&month=5">2027년 5월 달력</a><a class="footer-link" href="about.html">서비스 안내</a><a class="footer-link" href="privacy.html">개인정보처리방침</a><a class="footer-link" href="terms.html">이용약관</a><a class="footer-link" href="contact.html">문의</a></div></div></section>
+<div class="layout"><aside id="cats" class="cats"></aside><div id="cards" class="grid"></div></div><div class="ad-slot ad-home-mid" aria-label="광고 영역"></div><div class="footer"><div>셈플리 · 내 시간의 가치를 숫자로</div><div class="copyright-notice">© 2026 셈플리(Sempli). 셈플리의 독창적인 문구·디자인·콘텐츠에 대한 권리는 셈플리에 있습니다. 무단 복제 및 재배포를 금합니다.</div><div class="footer-links"><a class="footer-link" href="calendar.php?year=2027&month=5">2027년 5월 달력</a><a class="footer-link" href="about.html">서비스 안내</a><a class="footer-link" href="privacy.html">개인정보처리방침</a><a class="footer-link" href="terms.html">이용약관</a><a class="footer-link" href="contact.html">문의</a></div></div></section>
 <section id="categoryView" class="category-view" style="display:none"><aside class="category-view-sidebar"><button type="button" class="category-view-home" onclick="home()">← 전체 홈</button><div id="categoryViewSidebarCats" class="category-view-sidebar-list"></div></aside><div class="category-view-main"><div class="category-view-heading"><div><div class="category-view-eyebrow">셈플리 카테고리</div><h1 id="categoryViewTitle">돈 계산기</h1><p id="categoryViewDescription">필요한 계산기를 골라보세요.</p></div><span id="categoryViewCount" class="category-view-count"></span></div><div id="categoryViewCards" class="category-view-grid"></div></div></section>
 <section id="tool" class="tool"><div class="tool-layout"><aside id="toolcats" class="cats"></aside><div id="toolmain"></div></div></section>
 </main>
