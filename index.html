@@ -936,7 +936,7 @@ function renderRecentTools(){
   target.appendChild(button);
  }); 
 }
-function field(id,label,val,type='number',placeholder='',cls=''){return '<div class="field"><label>'+label+'</label><input id="'+id+'" type="'+type+'" value="'+val+'" '+(placeholder?'placeholder="'+placeholder+'"':'')+(cls?' class="'+cls+'"':'')+'></div>'}
+function field(id,label,val,type='number',placeholder='',cls=''){return '<div class="field"><label>'+escapeHTML(label)+'</label><input id="'+escapeHTML(id)+'" type="'+escapeHTML(type)+'" value="'+escapeHTML(val)+'" '+(placeholder?'placeholder="'+escapeHTML(placeholder)+'"':'')+(cls?' class="'+escapeHTML(cls)+'"':'')+'></div>'}
 function findService(t){
   for(const c of Object.keys(data)){const x=data[c].find(v=>v[2]===t);if(x)return x;}
   return null;
@@ -988,10 +988,13 @@ function dropService(event){
 }
 function addCompare(t,title,copy){
   const wrap=el('compareItems'); if(!wrap)return;
+  const service=findService(String(t||''));
+  if(!service)return;
+  t=service[2];title=service[0];copy=service[1];
   if([...wrap.children].some(x=>x.dataset.t===t)) return;
   const card=document.createElement('div');
   card.className='compare-card'; card.dataset.t=t;
-  card.innerHTML='<div class="compare-head"><strong>'+title+'</strong><button onclick="this.closest(\'.compare-card\').remove()">×</button></div><p>'+copy+'</p><div class="compare-mini" id="mini-'+t+'"></div>';
+  card.innerHTML='<div class="compare-head"><strong>'+escapeHTML(title)+'</strong><button type="button" aria-label="비교 카드 닫기" onclick="this.closest(\\'.compare-card\\').remove()">×</button></div><p>'+escapeHTML(copy)+'</p><div class="compare-mini" id="mini-'+escapeHTML(t)+'"></div>';
   wrap.appendChild(card);
   renderMiniTool(t,el('mini-'+t));
 }
@@ -1513,7 +1516,7 @@ function calc(t,button){
   else if(t==='incomeTax'){r=won(Math.max(0,num('income')*Number(el('rate').value||0)/100-num('credit')))+' / 단순 계산 세액';}
   else if(t==='capitalgain'){const gain=num('sell')-num('buy')-num('cost');r=won(Math.max(0,gain)*Number(el('rate').value||0)/100)+' / 단순 계산 세액';}
   else if(t==='gift'){r=won(Math.max(0,num('gift')-num('deduct'))*Number(el('rate').value||0)/100)+' / 단순 계산 세액';}
-  else if(t==='workforbuy'){const price=num('price'),income=num('income'),type=el('incomeType')?.value||'hourly',product=(el('productName')?.value||'').trim();let hourly=income;if(type==='monthly')hourly=income/209;if(type==='annual')hourly=income/(260*8);if(hourly>0){const totalSec=price/hourly*3600,h=Math.floor(totalSec/3600),m=Math.floor((totalSec%3600)/60),sec=Math.floor(totalSec%60),name=product?product+'를 사려면':'이 물건을 사려면',basis=type==='hourly'?'시급':type==='monthly'?'월급 209시간 기준':'연봉 260일 × 8시간 기준';r='<div>'+name+' '+h+'시간 '+m+'분 '+sec+'초</div><div class="sub">'+basis+' · 시간당 '+won(hourly)+' · 약 '+(totalSec/3600).toFixed(2)+'시간 일해야 합니다.</div>';}else r='소득 금액을 확인해주세요.';}
+  else if(t==='workforbuy'){const price=num('price'),income=num('income'),type=el('incomeType')?.value||'hourly',product=(el('productName')?.value||'').trim();let hourly=income;if(type==='monthly')hourly=income/209;if(type==='annual')hourly=income/(260*8);if(hourly>0){const totalSec=price/hourly*3600,h=Math.floor(totalSec/3600),m=Math.floor((totalSec%3600)/60),sec=Math.floor(totalSec%60),name=product?escapeHTML(product)+'를 사려면':'이 물건을 사려면',basis=type==='hourly'?'시급':type==='monthly'?'월급 209시간 기준':'연봉 260일 × 8시간 기준';r='<div>'+name+' '+h+'시간 '+m+'분 '+sec+'초</div><div class="sub">'+basis+' · 시간당 '+won(hourly)+' · 약 '+(totalSec/3600).toFixed(2)+'시간 일해야 합니다.</div>';}else r='소득 금액을 확인해주세요.';}
   else if(t==='discount'){r=won(num('price')*(1-Number(el('rate').value||0)/100))+' / 할인가';}
   else if(t==='reverseDiscount'){const o=num('original'),p=num('sale');r=o?(100-p/o*100).toFixed(2)+'% 할인':'정가를 확인해주세요.';}
   else if(t==='unit'){const q=Number(el('qty').value||0);r=q?won(num('price')/q)+' / 개':'수량을 확인해주세요.';}
