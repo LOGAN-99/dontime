@@ -102,8 +102,9 @@ jobs:
             chmod 700 "$backup_dir" "$stage_dir"
             stamp="$(date +%Y%m%d-%H%M%S)"
             cp -p /www_root/index.html "$backup_dir/index.html.$stamp.bak"
+            if [ -f /www_root/.htaccess ]; then cp -p /www_root/.htaccess "$backup_dir/htaccess.$stamp.bak"; fi
             printf "Backup created in temporary directory: %s/index.html.%s.bak\n" "$backup_dir" "$stamp"
-            printf "Production index.html backed up. No production file has been replaced yet.\n"
+            printf "Production files backed up before deployment.\n"
           '
       - name: Upload candidate to temporary staging
         shell: bash
@@ -113,7 +114,7 @@ jobs:
         run: |
           set -euo pipefail
           export SSHPASS="$GABIA_PASSWORD"
-          sshpass -e scp -P 22 -o StrictHostKeyChecking=yes -o UserKnownHostsFile="$RUNNER_TEMP/gabia-ssh/known_hosts" -o HostKeyAlgorithms=ssh-ed25519 -o LogLevel=ERROR index.html "$GABIA_USER@211.47.74.75:/tmp/dontime-deploy-upload/index.html.new"
+          sshpass -e scp -P 22 -o StrictHostKeyChecking=yes -o UserKnownHostsFile="$RUNNER_TEMP/gabia-ssh/known_hosts" -o HostKeyAlgorithms=ssh-ed25519 -o LogLevel=ERROR index.html security-headers.fragment "$GABIA_USER@211.47.74.75:/tmp/dontime-deploy-upload/"
 
       - name: Validate staged file and atomically replace homepage
         shell: bash
@@ -126,7 +127,9 @@ jobs:
           sshpass -e ssh -p 22 -o StrictHostKeyChecking=yes -o UserKnownHostsFile="$RUNNER_TEMP/gabia-ssh/known_hosts" -o HostKeyAlgorithms=ssh-ed25519 -o LogLevel=ERROR "$GABIA_USER@211.47.74.75" '
             set -eu
             candidate="/tmp/dontime-deploy-upload/index.html.new"
+            header_fragment="/tmp/dontime-deploy-upload/security-headers.fragment"
             test -s "$candidate"
+            test -s "$header_fragment"
             grep -q "function setSeasonalTheme" "$candidate"
             grep -q "setSeasonalTheme();" "$candidate"
             grep -q "id=\"topMarqueeToggle1\"" "$candidate"
@@ -134,6 +137,7 @@ jobs:
             grep -q "id=\"topMarqueeTrack1\"" "$candidate"
             grep -q "id=\"topMarqueeTrack2\"" "$candidate"
             grep -q "function escapeHTML" "$candidate"
+            grep -q "BEGIN SEMPLI SECURITY HEADERS" "$header_fragment"
             if grep -q "계절 테마" "$candidate"; then
               echo "Seasonal theme label unexpectedly remains in candidate; stopping."
               exit 1
@@ -141,10 +145,21 @@ jobs:
             current_mode="$(stat -c %a /www_root/index.html)"
             cp -p "$candidate" /www_root/index.html.new
             chmod "$current_mode" /www_root/index.html.new
+            if [ -f /www_root/.htaccess ]; then
+              cp -p /www_root/.htaccess /www_root/.htaccess.new
+            else
+              : > /www_root/.htaccess.new
+              chmod 644 /www_root/.htaccess.new
+            fi
+            if ! grep -q "BEGIN SEMPLI SECURITY HEADERS" /www_root/.htaccess.new; then
+              cat "$header_fragment" >> /www_root/.htaccess.new
+            fi
+            mv -f /www_root/.htaccess.new /www_root/.htaccess
             mv -f /www_root/index.html.new /www_root/index.html
             grep -q "setSeasonalTheme();" /www_root/index.html
+            grep -q "BEGIN SEMPLI SECURITY HEADERS" /www_root/.htaccess
             cmp -s "$candidate" /www_root/index.html
-            printf "Deployment successful. index.html replaced; backup retained in /tmp/dontime-deploy-backups.\n"
+            printf "Deployment successful. Homepage and security headers updated; backups retained in /tmp/dontime-deploy-backups.\n"
           '
 
       - name: Verify public homepage response
@@ -165,7 +180,7 @@ jobs:
           grep -q "topMarqueeToggle1" "$response"
           grep -q "topMarqueeToggle2" "$response"
           grep -q "function escapeHTML" "$response"
-          grep -q "two-row-independent-marquee-security-v9" "$response"
+          grep -q "two-row-independent-marquee-security-v10" "$response"
           grep -q "ca-pub-3220276859043248" "$response"
           for header in strict-transport-security content-security-policy x-content-type-options x-frame-options referrer-policy permissions-policy; do
             if grep -iq "^$header:" "$headers"; then
