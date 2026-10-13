@@ -541,27 +541,26 @@ function renderQuickStart(){
 }
 function renderCategoryMarquee(){
   const names=Object.keys(data);
-  [1,2].forEach(rowNo=>{
-    const host=document.getElementById('topMarqueeTrack'+rowNo);if(!host)return;
-    const rowCategories=names.filter((cat,index)=>rowNo===1?index%2===0:index%2===1);
-    const items=rowCategories.map(cat=>{
+  const host=document.getElementById('topMarqueeTrack1');
+  if(!host)return;
+  const items=names.map(cat=>{
+    const first=(data[cat]||[])[0];
+    if(!first)return '';
+    return '<a class="top-marquee-item" data-category="'+escapeHTML(cat)+'" data-tool="'+escapeHTML(first[2])+'" href="/?tool='+encodeURIComponent(first[2])+'" title="'+escapeHTML(cat+' 대표 서비스: '+first[0])+'"><span aria-hidden="true">'+(categoryIcons[cat]||'•')+'</span><span>'+escapeHTML(cat)+'</span></a>';
+  }).filter(Boolean);
+  const oneSet=items.join('<span class="top-marquee-separator" aria-hidden="true">•</span>')+'<span class="top-marquee-separator" aria-hidden="true">•</span>';
+  host.innerHTML=oneSet+oneSet;
+  if(!host.dataset.bound){
+    host.addEventListener('click',function(event){
+      const link=event.target.closest('a[data-category][data-tool]');
+      if(!link)return;
+      event.preventDefault();
+      const cat=link.dataset.category;
       const first=(data[cat]||[])[0];
-      if(!first)return '';
-      return '<a class="top-marquee-item" data-category="'+escapeHTML(cat)+'" data-tool="'+escapeHTML(first[2])+'" href="/?tool='+encodeURIComponent(first[2])+'" title="'+escapeHTML(cat+' 대표 서비스: '+first[0])+'"><span aria-hidden="true">'+(categoryIcons[cat]||'•')+'</span><span>'+escapeHTML(cat)+'</span></a>';
-    }).filter(Boolean);
-    const oneSet=items.join('<span class="top-marquee-separator" aria-hidden="true">•</span>')+'<span class="top-marquee-separator" aria-hidden="true">•</span>';
-    host.innerHTML=oneSet+oneSet;
-    if(!host.dataset.bound){
-      host.addEventListener('click',function(event){
-        const link=event.target.closest('a[data-category][data-tool]');
-        if(!link)return;
-        event.preventDefault();
-        const cat=link.dataset.category;
-        const first=(data[cat]||[])[0];
-        if(first)openTool(first[2],first[0],first[1]);
-      });
-      host.dataset.bound='true';
-    }
+      if(first)openTool(first[2],first[0],first[1]);
+    });
+    host.dataset.bound='true';
+  }
 }
 function showCategoryView(c){
   const homeEl=document.getElementById('home'),view=document.getElementById('categoryView'),toolEl=document.getElementById('tool');
