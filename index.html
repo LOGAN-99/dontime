@@ -15,7 +15,7 @@
 <meta property="og:locale" content="ko_KR">
 <title>셈플리 | 돈과 시간을 쉽게 계산하고 비교하는 생활 계산기·달력</title>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"셈플리","url":"https://dontime.kr/","description":"돈과 시간을 쉽게 계산하고 비교하는 생활 계산기와 달력 서비스","inLanguage":"ko-KR"}</script>
-<meta name="dontime-version" content="2026-10-13-canva-refined-v24">
+<meta name="dontime-version" content="2026-10-13-maze-standalone-v23">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3220276859043248"
      crossorigin="anonymous"></script>
 <!-- AdSense script deployment 2026-10-12, final verification -->
@@ -471,57 +471,15 @@ header{background:var(--season-paper);border-bottom:1px solid var(--season-line)
 .category-marquee-group:hover{background:#2d5d4f;border-color:#9db9a7}
 .category-marquee-group.on .category-marquee-major,.category-marquee-group.on .category-marquee-sub{color:#fff}
 @media(max-width:700px){.hero-category-layout{padding:24px 19px 28px;border-radius:18px}.hero-category-layout:after{right:16px;bottom:12px;font-size:8px}.hero-category-layout .hero h1{font-size:36px}.hero-category-layout .hero p{font-size:14px}.hero-punchline{margin-top:15px}.hero-category-layout .hero{padding:0}}
-
-/* Faithful implementation pass: Canva Refined Second Design Concept */
-:root{--season-bg:#f4f0e7;--season-paper:#fffdf7;--season-card:#e7e5d8;--season-accent:#1d3a2f;--season-ink:#203b30;--season-line:#d7d5c8}
-body{background:var(--season-bg);color:var(--season-ink);font-family:"Noto Sans KR",Arial,sans-serif}
-.sem-header{height:auto;min-height:82px;background:var(--season-paper);border-bottom:1px solid var(--season-line);display:block}
-.sem-top{max-width:1320px;padding:16px 28px;gap:28px;display:grid;grid-template-columns:190px minmax(260px,1fr) auto;align-items:center}
-.brand-lockup{min-width:0}.logo{font-size:30px;line-height:1.1;letter-spacing:-.07em;color:var(--season-ink)}.tag{margin-top:5px;color:#68766c;font-size:12px}
-.header-search{height:48px;display:flex;align-items:center;gap:12px;padding:0 16px;border:1px solid #dcd9cd;border-radius:12px;background:#f7f5ed;color:#6c786f;min-width:0}
-.header-search>span:first-child{font-size:24px;color:var(--season-ink)}.header-search input{width:100%;min-width:0;border:0;outline:0;background:transparent;color:var(--season-ink);font-size:13px}.header-search input::placeholder{color:#8b938a}.search-shortcut{font-size:11px;white-space:nowrap;color:#7b857c}
-.maze-shortcut{border:0;border-radius:10px;background:var(--season-ink);color:#fffdf7;font-weight:800;padding:13px 24px;min-width:90px}
-.top-marquee{background:var(--season-ink);border-color:var(--season-ink);color:#f8f5eb}.top-marquee-item{color:#f8f5eb}.top-marquee-separator{color:#b9c2ad}.top-marquee-row{min-height:44px}.top-marquee-viewport{min-height:44px}
-.wrap{max-width:1320px;padding:30px 28px 70px}
-.hero-category-layout{display:block;margin:0 0 25px;padding:34px 36px 30px;background:var(--season-paper);border:1px solid var(--season-line);border-radius:5px;position:relative;overflow:hidden}
-.hero-category-layout:after{content:"";position:absolute;right:-90px;bottom:-145px;width:390px;height:250px;border:1px solid #d6d7c9;border-radius:50%;transform:rotate(-22deg);pointer-events:none}
-.hero-category-layout .hero{padding:0;max-width:760px;min-height:0;position:relative;z-index:1;margin:0}
-.hero-eyebrow,.sem-eyebrow{font-size:10px;font-weight:900;letter-spacing:.16em;color:#6b796d;text-transform:uppercase}
-.hero-category-layout .hero h1{font-size:clamp(38px,4.4vw,56px);line-height:1.12;letter-spacing:-.055em;margin:13px 0 16px;color:var(--season-ink)}
-.hero-category-layout .hero p{max-width:650px;font-size:16px;line-height:1.8;color:#657168}
-.hero-punchline{margin-top:22px;font-size:13px;color:#657168;font-weight:700}
-.ad-slot{min-height:70px;border:1px solid #e3e0d5;border-radius:4px;background:#f0eee5;color:#85877d}
-.sem-category-section,.sem-tools-section{margin:34px 0 40px}
-.sem-section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:17px}
-.sem-section-head h2{font-size:25px;letter-spacing:-.04em;margin:7px 0 6px;color:var(--season-ink)}
-.sem-section-head p{margin:0;font-size:13px;color:#778077}
-.sem-all-link{border:1px solid var(--season-line);border-radius:5px;background:var(--season-paper);padding:10px 13px;font-size:12px;font-weight:800;color:var(--season-ink);white-space:nowrap}
-.sem-category-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-.sem-category-card{position:relative;display:flex;flex-direction:column;align-items:flex-start;text-align:left;gap:10px;min-height:160px;padding:20px;border:1px solid var(--season-line);border-radius:5px;background:var(--season-paper);color:var(--season-ink);transition:background .15s,border-color .15s,transform .15s}
-.sem-category-card:hover{background:#eeeee4;border-color:#aeb8a8;transform:translateY(-2px)}
-.sem-category-icon{display:grid;place-items:center;width:40px;height:40px;background:#e7e8dc;color:var(--season-ink);font-size:23px;font-weight:800;border-radius:4px}
-.sem-category-card strong{font-size:17px;letter-spacing:-.02em}.sem-category-card>span:nth-of-type(2){font-size:12px;line-height:1.6;color:#748077;max-width:260px}.sem-category-card i{position:absolute;right:18px;bottom:17px;font-style:normal;font-size:17px;color:#6e7e70}
-.sem-tools-section{padding-top:25px;border-top:1px solid var(--season-line)}
-#home .layout{grid-template-columns:1fr}#home .layout>#cats{display:none}
-#cards.grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-#cards .card{min-height:140px;border:1px solid var(--season-line);border-radius:5px;background:var(--season-paper);padding:18px;color:var(--season-ink);box-shadow:none;transition:background .15s,border-color .15s,transform .15s}
-#cards .card:hover{background:#eeeee4;border-color:#aeb8a8;transform:translateY(-2px);box-shadow:none}
-#cards .card h3{font-size:16px;letter-spacing:-.025em;color:var(--season-ink)}#cards .copy{color:#6e796f}#cards .desc{color:#7c857c}#cards .hint{color:#6b796d}
-.primary{background:var(--season-ink)!important;color:#fffdf7!important;border-color:var(--season-ink)!important}
-.cat.on,.category-marquee-group.on{background:var(--season-ink)!important;color:#fffdf7!important}
-.panel,.compare-card,.quick-start,.value-guide,.featured-compare{background:var(--season-paper);border-color:var(--season-line);border-radius:5px}
-.footer{border-top:1px solid var(--season-line);color:#6c786f}
-@media(max-width:800px){.sem-top{grid-template-columns:1fr auto;gap:12px;padding:14px 16px}.header-search{grid-column:1/-1;grid-row:2;height:44px}.maze-shortcut{grid-column:2;grid-row:1}.logo{font-size:27px}.wrap{padding:20px 16px 48px}.hero-category-layout{padding:25px 22px 24px}.hero-category-layout .hero h1{font-size:36px}.hero-category-layout .hero p{font-size:14px}.sem-category-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.sem-category-card{min-height:148px;padding:15px}.sem-category-card strong{font-size:15px}.sem-category-card>span:nth-of-type(2){font-size:11px}.sem-section-head h2{font-size:22px}#cards.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}#cards .card{padding:14px;min-height:130px}}
-@media(max-width:430px){.sem-category-grid{grid-template-columns:1fr 1fr}.sem-category-card{min-height:150px;padding:12px}.sem-category-icon{width:34px;height:34px;font-size:20px}.sem-section-head{align-items:flex-start;flex-direction:column}.sem-all-link{align-self:flex-start}#cards.grid{grid-template-columns:1fr}}
 </style></head>
 <body>
-<header class="sem-header"><div class="top sem-top"><div class="brand-lockup"><div class="logo" onclick="home()">셈플리</div><div class="tag">돈과 시간을, 더 쉽게 셈하다.</div></div><label class="header-search"><span aria-hidden="true">⌕</span><input id="semHeaderSearch" type="search" placeholder="계산기, 달력, 환율 등 원하는 기능을 검색하세요." oninput="searchQuery=this.value;current='전체';render()"><span class="search-shortcut">검색</span></label><button type="button" class="maze-shortcut" onclick="window.location.href='maze.html'" aria-label="미궁으로 이동">미궁</button></div></header>
+<header><div class="top"><div><div class="logo" onclick="home()">셈플리</div><div class="tag">돈과 시간을, 더 쉽게 셈하다.</div></div><button type="button" class="maze-shortcut" onclick="window.location.href='maze.html'" aria-label="미궁으로 이동">미궁</button></div></header>
 <nav class="top-marquee" id="topMarquee" aria-label="계산기 카테고리 빠른 이동">
   <div class="top-marquee-row" id="topMarqueeRow1">
     <div class="top-marquee-viewport" id="topMarqueeViewport"><div class="top-marquee-track" id="topMarqueeTrack1"></div></div>
   </div>
 </nav>
-<main class="wrap"><section id="home"><div class="hero-category-layout"><div class="hero"><div class="hero-eyebrow">돈과 시간을 더 쉽게 셈하다</div><h1>필요한 계산,<br>바로 시작하세요.</h1><p>월급과 근무시간부터 대출 이자, 소비, 날짜 계산까지 필요한 값을 입력하고 결과를 확인하세요.</p><div class="hero-punchline">복잡한 계산은 가볍게, 중요한 선택은 분명하게.</div></div></div><div class="ad-slot ad-home-top" aria-label="광고 영역"></div><div class="sem-category-section"><div class="sem-section-head"><div><span class="sem-eyebrow">FIND YOUR CALCULATION</span><h2>필요한 계산을 한눈에</h2><p>자주 쓰는 기능부터 골라 빠르게 시작하세요.</p></div><button type="button" class="sem-all-link" onclick="showCategoryView('전체')">전체 계산기 보기 ↗</button></div><div class="sem-category-grid"><button class="sem-category-card" onclick="showCategoryView('돈')"><span class="sem-category-icon">₩</span><strong>돈 계산</strong><span>월급, 대출이자, 세금, 소비 등</span><i>↗</i></button><button class="sem-category-card" onclick="showCategoryView('시간')"><span class="sem-category-icon">◷</span><strong>시간 계산</strong><span>근무시간, 시급, 시간환산, D-day 등</span><i>↗</i></button><button class="sem-category-card" onclick="showCategoryView('소비')"><span class="sem-category-icon">◇</span><strong>생활 계산</strong><span>가격비교, 할인율, 단위변환 등</span><i>↗</i></button><button class="sem-category-card" onclick="showCategoryView('달력')"><span class="sem-category-icon">▦</span><strong>날짜·달력</strong><span>달력, 날짜계산, 공휴일, 기념일 등</span><i>↗</i></button><button class="sem-category-card" onclick="showCategoryView('게임')"><span class="sem-category-icon">⌘</span><strong>게임·퀴즈</strong><span>숫자 게임, 기억력, 두뇌 훈련 등</span><i>↗</i></button><button class="sem-category-card" onclick="showCategoryView('생활')"><span class="sem-category-icon">✳</span><strong>생활 정보</strong><span>실생활에 유용한 다양한 정보</span><i>↗</i></button></div></div><div class="sem-tools-section"><div class="sem-section-head"><div><span class="sem-eyebrow">CALCULATORS</span><h2 id="semToolsTitle">인기 계산기</h2><p id="searchMeta">원하는 계산기를 검색하거나 카테고리에서 찾아보세요.</p></div></div><div class="layout"><aside id="cats" class="cats"></aside><div id="cards" class="grid"></div></div></div><div class="footer"><div>셈플리 · 내 시간의 가치를 숫자로</div><div class="footer-links"><a class="footer-link" href="calendar.php?year=2027&month=5">2027년 5월 달력</a><a class="footer-link" href="about.html">서비스 안내</a><a class="footer-link" href="privacy.html">개인정보처리방침</a><a class="footer-link" href="terms.html">이용약관</a><a class="footer-link" href="contact.html">문의</a></div></div></section>
+<main class="wrap"><section id="home"><div class="hero-category-layout"><div class="hero"><div class="hero-eyebrow">돈과 시간을 더 쉽게 셈하다</div><h1>필요한 계산,<br>바로 시작하세요.</h1><p>월급과 근무시간부터 대출 이자, 소비, 날짜 계산까지 필요한 값을 입력하고 결과를 확인하세요.</p><div class="hero-punchline">복잡한 계산은 가볍게, 중요한 선택은 분명하게.</div></div></div><div class="ad-slot ad-home-top" aria-label="광고 영역"></div><div class="ad-slot ad-home-mid" aria-label="광고 영역"></div><div class="layout"><aside id="cats" class="cats"></aside><div id="cards" class="grid"></div></div><div class="footer"><div>셈플리 · 내 시간의 가치를 숫자로</div><div class="footer-links"><a class="footer-link" href="calendar.php?year=2027&month=5">2027년 5월 달력</a><a class="footer-link" href="about.html">서비스 안내</a><a class="footer-link" href="privacy.html">개인정보처리방침</a><a class="footer-link" href="terms.html">이용약관</a><a class="footer-link" href="contact.html">문의</a></div></div></section>
 <section id="categoryView" class="category-view" style="display:none"><aside class="category-view-sidebar"><button type="button" class="category-view-home" onclick="home()">← 전체 홈</button><div id="categoryViewSidebarCats" class="category-view-sidebar-list"></div></aside><div class="category-view-main"><div class="category-view-heading"><div><div class="category-view-eyebrow">셈플리 카테고리</div><h1 id="categoryViewTitle">돈 계산기</h1><p id="categoryViewDescription">필요한 계산기를 골라보세요.</p></div><span id="categoryViewCount" class="category-view-count"></span></div><div id="categoryViewCards" class="category-view-grid"></div></div></section>
 <section id="tool" class="tool"><div class="tool-layout"><aside id="toolcats" class="cats"></aside><div id="toolmain"></div></div></section>
 </main>
