@@ -994,7 +994,8 @@ function addCompare(t,title,copy){
   if([...wrap.children].some(x=>x.dataset.t===t)) return;
   const card=document.createElement('div');
   card.className='compare-card'; card.dataset.t=t;
-  card.innerHTML='<div class="compare-head"><strong>'+escapeHTML(title)+'</strong><button type="button" aria-label="비교 카드 닫기" onclick="this.closest(\\'.compare-card\\').remove()">×</button></div><p>'+escapeHTML(copy)+'</p><div class="compare-mini" id="mini-'+escapeHTML(t)+'"></div>';
+  card.innerHTML='<div class="compare-head"><strong>'+escapeHTML(title)+'</strong><button type="button" aria-label="비교 카드 닫기">×</button></div><p>'+escapeHTML(copy)+'</p><div class="compare-mini" id="mini-'+escapeHTML(t)+'"></div>';
+  card.querySelector('button')?.addEventListener('click',()=>card.remove());
   wrap.appendChild(card);
   renderMiniTool(t,el('mini-'+t));
 }
