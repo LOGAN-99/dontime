@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1080" viewBox="0 0 1080 1080">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#102f29"/><stop offset="1" stop-color="#1d4b3e"/></linearGradient><linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f5dfa5"/><stop offset="1" stop-color="#bd8d43"/></linearGradient></defs>
+<rect width="1080" height="1080" rx="44" fill="url(#bg)"/><circle cx="890" cy="180" r="180" fill="#47765f" opacity=".24"/><circle cx="180" cy="930" r="240" fill="#c6d6b3" opacity=".08"/>
+<text x="76" y="100" fill="#f5e8c9" font-family="sans-serif" font-size="27" font-weight="700" letter-spacing="7">SEMPLI · DAILY QUIZ</text>
+<path d="M78 135 H1000" stroke="#d8c28d" stroke-opacity=".55"/>
+<text x="76" y="245" fill="#fff9ed" font-family="sans-serif" font-size="74" font-weight="800">아는 것 같았던 말,</text><text x="76" y="335" fill="#fff9ed" font-family="sans-serif" font-size="74" font-weight="800">퀴즈로 다시 만나기.</text>
+<text x="80" y="400" fill="#d4e1d4" font-family="sans-serif" font-size="30">사자성어 · 한국 속담 · 세계 명언 · 영어 단어</text>
+<rect x="74" y="465" width="932" height="390" rx="30" fill="#f8f3e7"/>
+<rect x="104" y="495" width="872" height="330" rx="22" fill="#fffdf7" stroke="#d9d3c4" stroke-width="2"/>
+<rect x="132" y="522" width="190" height="45" rx="22" fill="#dbe8d8"/><text x="227" y="552" text-anchor="middle" fill="#1d4b3e" font-family="sans-serif" font-size="21" font-weight="700">오늘의 사자성어</text>
+<text x="540" y="655" text-anchor="middle" fill="#173c34" font-family="serif" font-size="92" font-weight="700">有備無患</text>
+<text x="540" y="710" text-anchor="middle" fill="#8c6c37" font-family="sans-serif" font-size="32" font-weight="700">유비무환</text>
+<text x="540" y="762" text-anchor="middle" fill="#43574b" font-family="sans-serif" font-size="26">미리 준비하면 근심할 일이 없다.</text>
+<rect x="355" y="895" width="370" height="82" rx="41" fill="url(#gold)"/><text x="540" y="947" text-anchor="middle" fill="#173c34" font-family="sans-serif" font-size="29" font-weight="800">오늘의 문제 풀기 →</text>
+<text x="540" y="1030" text-anchor="middle" fill="#c6d8ca" font-family="sans-serif" font-size="22">dontime.kr/quiz.html</text></svg>
