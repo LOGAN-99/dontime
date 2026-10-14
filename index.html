@@ -396,7 +396,7 @@ body{overflow-y:auto;overscroll-behavior-y:auto}
 
 #serviceSearch,.service-search,.search-calculators,.calculator-search{display:none!important}
 @media(max-width:700px){.top{padding:0 14px}.tag{font-size:11px}}
-.maze-shortcut{border:1px solid var(--season-line,#cbdad3);background:var(--season-card,#e5eee8);color:var(--season-ink,#153b35);border-radius:999px;padding:9px 13px;font-size:12px;font-weight:850;white-space:nowrap;cursor:pointer}.maze-shortcut:hover{filter:brightness(.97)}.top{gap:12px}.logo{line-height:1.1}.tag{margin-top:4px}@media(max-width:420px){.maze-shortcut{padding:8px 10px;font-size:11px}.logo{font-size:22px}.tag{font-size:10px}}\n/* Canva concept adaptation: crisp editorial layout, deep-green navigation, warm neutral surfaces */
+.maze-shortcut{border:1px solid var(--season-line,#cbdad3);background:var(--season-card,#e5eee8);color:var(--season-ink,#153b35);border-radius:999px;padding:9px 13px;font-size:12px;font-weight:850;white-space:nowrap;cursor:pointer}.maze-shortcut:hover{filter:brightness(.97)}.top{gap:12px}.top-actions{display:flex;align-items:center;gap:8px}.quiz-shortcut{background:var(--season-ink,#173c34);color:#fff;border-color:var(--season-ink,#173c34)}.logo{line-height:1.1}.tag{margin-top:4px}@media(max-width:420px){.top-actions{gap:6px}.maze-shortcut{padding:8px 10px;font-size:11px}.logo{font-size:22px}.tag{font-size:10px}}\n/* Canva concept adaptation: crisp editorial layout, deep-green navigation, warm neutral surfaces */
 :root{--season-bg:#f4f5ef;--season-paper:#fffefa;--season-card:#e6ece4;--season-accent:#cbd9b8;--season-ink:#173c34;--season-line:#d8dfd5}
 body{letter-spacing:-.012em}
 header{background:var(--season-paper);border-bottom:1px solid var(--season-line);height:72px}
@@ -471,7 +471,7 @@ body.popup-counter-mode .cats,body.popup-counter-mode .tool-nav,body.popup-count
 </style></head>
 <body>
 <div class="site-sticky" id="siteSticky">
-<header><div class="top"><div><div class="logo" onclick="home()">셈플리</div><div class="tag">돈과 시간을, 더 쉽게 셈하다.</div></div><button type="button" class="maze-shortcut" onclick="window.location.href='/maze.html'" aria-label="미궁">미궁</button></div></header>
+<header><div class="top"><div><div class="logo" onclick="home()">셈플리</div><div class="tag">돈과 시간을, 더 쉽게 셈하다.</div></div><div class="top-actions"><button type="button" class="maze-shortcut" onclick="window.location.href='/maze.html'" aria-label="미궁">미궁</button><button type="button" class="maze-shortcut quiz-shortcut" onclick="window.location.href='/quiz.html'" aria-label="퀴즈">퀴즈</button></div></div></header>
 <nav class="top-marquee" id="topMarquee" aria-label="계산기 카테고리 빠른 이동">
   <div class="top-marquee-row" id="topMarqueeRow1">
     <div class="top-marquee-viewport" id="topMarqueeViewport"><div class="top-marquee-track" id="topMarqueeTrack1"></div></div>
