@@ -3,10 +3,12 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#173c34">
-<meta name="description" content="셈플리 퀴즈. 사자성어의 한자와 뜻, 명언의 빈칸과 출처를 다양한 방식으로 풀어보세요.">
+<meta name="description" content="셈플리 퀴즈에서 사자성어 뜻 맞히기, 명언과 속담 풀이, 영어 단어 퀴즈에 도전하세요. 정답 해설과 힌트로 어휘와 상식을 재미있게 익힐 수 있습니다.">
 <link rel="canonical" href="https://dontime.kr/quiz.html">
+<meta property="og:type" content="website"><meta property="og:site_name" content="셈플리"><meta property="og:title" content="사자성어·명언·영어 단어 퀴즈 | 셈플리"><meta property="og:description" content="사자성어와 명언, 속담, 영어 단어 문제를 풀고 해설과 힌트로 배워보세요."><meta property="og:url" content="https://dontime.kr/quiz.html"><meta property="og:locale" content="ko_KR">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"셈플리 퀴즈","url":"https://dontime.kr/quiz.html","description":"사자성어, 명언, 속담, 영어 어휘를 문제와 해설로 익히는 한국어 퀴즈 페이지.","inLanguage":"ko-KR","isPartOf":{"@type":"WebSite","name":"셈플리","url":"https://dontime.kr/"}}</script>
 <meta name="robots" content="index,follow">
-<title>퀴즈 | 셈플리</title>
+<title>사자성어·명언·영어 단어 퀴즈 | 셈플리</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&family=Noto+Serif+KR:wght@500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -22,9 +24,9 @@ main{max-width:1080px;margin:auto;padding:36px 22px 70px}.hero{padding:28px 0 24
 </style>
 </head>
 <body>
-<header><div class="top"><a class="brand" href="/index.html">셈플리<small>THE ART OF COUNTING LIFE</small></a><nav class="nav"><a href="/index.html">홈</a><a href="/maze.html">미궁</a><a class="active" href="/quiz.html">퀴즈</a></nav></div></header>
+<header><div class="top"><a class="brand" href="/index.html">셈플리<small>THE ART OF COUNTING LIFE</small></a><nav class="nav"><a href="/index.html">홈</a><a href="/maze.html">미궁</a><a class="active" href="/quiz.html">퀴즈</a><a href="mailto:hyh2468z@gmail.com?subject=%EC%85%88%ED%94%8C%EB%A6%AC%20%ED%80%B4%EC%A6%88%20%EB%AC%B8%EC%9D%98">문의하기</a></nav></div></header>
 <main>
-<section class="hero"><div class="eyebrow">SEMPLI · DAILY KNOWLEDGE</div><h1>알고 있다고 생각한 것,<br>퀴즈로 다시 만나기.</h1><p>사자성어의 한자와 뜻부터 명언의 빈칸, 말한 사람 찾기까지. 짧게 풀고 오래 기억하세요. 매일 새로운 문제를 더해 갑니다.</p></section>
+<section class="hero"><div class="eyebrow">SEMPLI · DAILY KNOWLEDGE</div><h1>사자성어부터 영어 단어까지,<br>짧게 풀고 오래 기억하기.</h1><p>사자성어 뜻 맞히기, 명언과 속담 풀이, 영어 단어 문제에 도전해 보세요. 정답 해설과 힌트를 통해 단순히 맞히는 데서 그치지 않고 표현과 의미를 익힐 수 있습니다.</p></section>
 <div class="ad-slot" aria-label="광고">광고</div>
 <section class="mode-grid" id="modes" aria-label="퀴즈 유형">
 <button class="mode active" data-mode="idiom"><b>사자성어 맞히기</b><span>설명을 읽고 성어와 한자를 고르세요.</span></button>
@@ -36,7 +38,7 @@ main{max-width:1080px;margin:auto;padding:36px 22px 70px}.hero{padding:28px 0 24
 </section>
 <div class="quiz-shell"><section class="quiz-card"><div class="quiz-head"><div><small id="modeLabel">FOUR-CHARACTER IDIOMS</small><div style="font-weight:900;font-size:17px;margin-top:5px" id="quizTitle">오늘의 사자성어</div></div><span class="count" id="count">1 / 5</span></div><div class="quiz-body"><div class="hanja" id="hanja" hidden></div><p class="question" id="question"></p><div class="options" id="options"></div><div class="feedback" id="feedback" aria-live="polite"></div><div class="controls"><button class="btn" id="restart">다시 섞기</button><button class="btn primary" id="next" disabled>다음 문제 →</button></div><p class="note">※ 고전 문헌에 전하는 표현을 중심으로 구성했습니다. 명언은 번역·전승 과정에서 문구가 달라질 수 있어 출처가 확인되는 문장을 우선 사용합니다.</p></div></section><aside><div class="side-grid"><section class="side-card"><h3>오늘의 기록</h3><div class="stat"><span>푼 문제</span><b id="solved">0</b></div><div class="stat"><span>맞힌 문제</span><b id="correct">0</b></div><div class="stat"><span>정답률</span><b id="rate">0%</b></div></section></div></aside></div>
 
-<div class="ad-slot" aria-label="광고">광고</div><div class="footer">셈플리 퀴즈 · 지식은 맞히는 순간보다 이해하는 순간 오래 남습니다. 새로운 사자성어와 명언은 출처를 확인해 한 문제씩 꾸준히 추가합니다.</div>
+<div class="ad-slot" aria-label="광고">광고</div><div class="footer">셈플리 퀴즈 · 사자성어, 명언, 속담과 영어 어휘를 문제와 해설로 익혀보세요. <a href="mailto:hyh2468z@gmail.com?subject=%EC%85%88%ED%94%8C%EB%A6%AC%20%ED%80%B4%EC%A6%88%20%EB%AC%B8%EC%9D%98">퀴즈 오류 신고 및 문의하기</a></div>
 </main>
 <script>
 const idioms=[
