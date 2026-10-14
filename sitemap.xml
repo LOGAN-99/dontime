@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://dontime.kr/</loc></url>
+  <url><loc>https://dontime.kr/maze.html</loc></url>
+  <url><loc>https://dontime.kr/maze1.html</loc></url>
+  <url><loc>https://dontime.kr/maze2.html</loc></url>
+  <url><loc>https://dontime.kr/quiz.html</loc></url>
   <url><loc>https://dontime.kr/calendar.php</loc></url>
   <url><loc>https://dontime.kr/calendar.php?year=2016&amp;month=1</loc></url>
   <url><loc>https://dontime.kr/calendar.php?year=2016&amp;month=2</loc></url>
