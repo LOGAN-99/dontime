@@ -1,4 +1,4 @@
-name: Deploy index.html to Gabia
+name: Deploy Sempli site files to Gabia
 
 on:
   workflow_dispatch:
@@ -7,6 +7,8 @@ on:
     paths:
       - "index.html"
       - "maze.html"
+      - "maze1.html"
+      - "maze2.html"
 
 permissions:
   contents: read
@@ -102,7 +104,7 @@ jobs:
             mkdir -p "$backup_dir" "$stage_dir"
             chmod 700 "$backup_dir" "$stage_dir"
             stamp="$(date +%Y%m%d-%H%M%S)"
-            for file in index.html maze.html about.html calculator-data.json calculator.php calendar.php contact.html privacy.html terms.html robots.txt sitemap.xml; do
+            for file in index.html maze.html maze1.html maze2.html about.html calculator-data.json calculator.php calendar.php contact.html privacy.html terms.html robots.txt sitemap.xml; do
               if [ -f "/www_root/$file" ]; then cp -p "/www_root/$file" "$backup_dir/$file.$stamp.bak"; fi
             done
             if [ -f /www_root/.htaccess ]; then cp -p /www_root/.htaccess "$backup_dir/htaccess.$stamp.bak"; fi
@@ -116,7 +118,7 @@ jobs:
         run: |
           set -euo pipefail
           export SSHPASS="$GABIA_PASSWORD"
-          sshpass -e scp -P 22 -o StrictHostKeyChecking=yes -o UserKnownHostsFile="$RUNNER_TEMP/gabia-ssh/known_hosts" -o HostKeyAlgorithms=ssh-ed25519 -o LogLevel=ERROR index.html maze.html about.html calculator-data.json calculator.php calendar.php contact.html privacy.html terms.html robots.txt sitemap.xml "$GABIA_USER@211.47.74.75:/tmp/dontime-deploy-upload/"
+          sshpass -e scp -P 22 -o StrictHostKeyChecking=yes -o UserKnownHostsFile="$RUNNER_TEMP/gabia-ssh/known_hosts" -o HostKeyAlgorithms=ssh-ed25519 -o LogLevel=ERROR index.html maze.html maze1.html maze2.html about.html calculator-data.json calculator.php calendar.php contact.html privacy.html terms.html robots.txt sitemap.xml "$GABIA_USER@211.47.74.75:/tmp/dontime-deploy-upload/"
           sshpass -e scp -P 22 -o StrictHostKeyChecking=yes -o UserKnownHostsFile="$RUNNER_TEMP/gabia-ssh/known_hosts" -o HostKeyAlgorithms=ssh-ed25519 -o LogLevel=ERROR security-headers.fragment "$GABIA_USER@211.47.74.75:/tmp/dontime-deploy-upload/security-headers.fragment"
 
       - name: Validate staged file and atomically replace homepage
@@ -136,8 +138,13 @@ jobs:
             test -s "$header_fragment"
             grep -q "function setSeasonalTheme" "$candidate"
             test -s "$stage/maze.html"
-            grep -q "미궁: 내일역의 비밀" "$stage/maze.html"
-            grep -q "const puzzles=" "$stage/maze.html"
+            grep -q "미궁 시리즈" "$stage/maze.html"
+            grep -q "maze1.html" "$stage/maze.html"
+            grep -q "maze2.html" "$stage/maze.html"
+            grep -q "미궁 1부: 내일역의 비밀" "$stage/maze1.html"
+            grep -q "const puzzles=" "$stage/maze1.html"
+            grep -q "미궁 2: 유리숲의 일곱 번째 종" "$stage/maze2.html"
+            grep -q "const chapters=" "$stage/maze2.html"
             grep -q "setSeasonalTheme();" "$candidate"
             grep -q "id=\"topMarqueeTrack1\"" "$candidate"
             grep -q "function escapeHTML" "$candidate"
@@ -146,7 +153,7 @@ jobs:
               echo "Seasonal theme label unexpectedly remains in candidate; stopping."
               exit 1
             fi
-            for file in index.html maze.html about.html calculator-data.json calculator.php calendar.php contact.html privacy.html terms.html robots.txt sitemap.xml; do
+            for file in index.html maze.html maze1.html maze2.html about.html calculator-data.json calculator.php calendar.php contact.html privacy.html terms.html robots.txt sitemap.xml; do
               test -s "$stage/$file"
             done
             if [ -f /www_root/.htaccess ]; then
@@ -159,7 +166,7 @@ jobs:
               cat "$header_fragment" >> /www_root/.htaccess.new
             fi
             mv -f /www_root/.htaccess.new /www_root/.htaccess
-            for file in index.html maze.html about.html calculator-data.json calculator.php calendar.php contact.html privacy.html terms.html robots.txt sitemap.xml; do
+            for file in index.html maze.html maze1.html maze2.html about.html calculator-data.json calculator.php calendar.php contact.html privacy.html terms.html robots.txt sitemap.xml; do
               dest="/www_root/$file"
               if [ -f "$dest" ]; then mode="$(stat -c %a "$dest")"; else mode=644; fi
               cp "$stage/$file" "$dest.new"
@@ -168,7 +175,7 @@ jobs:
             done
             grep -q "setSeasonalTheme();" /www_root/index.html
             grep -q "BEGIN SEMPLI SECURITY HEADERS" /www_root/.htaccess
-            for file in index.html maze.html about.html calculator-data.json calculator.php calendar.php contact.html privacy.html terms.html robots.txt sitemap.xml; do cmp -s "$stage/$file" "/www_root/$file"; done
+            for file in index.html maze.html maze1.html maze2.html about.html calculator-data.json calculator.php calendar.php contact.html privacy.html terms.html robots.txt sitemap.xml; do cmp -s "$stage/$file" "/www_root/$file"; done
             printf "Deployment successful. All public site files and security headers updated; backups retained in /tmp/dontime-deploy-backups.\n"
           '
 
@@ -201,8 +208,23 @@ jobs:
           maze_status="$(curl --silent --show-error --location --max-time 20 -D "$maze_headers" -o "$maze_body" -w "%{http_code}" https://dontime.kr/maze.html || true)"
           echo "Maze route HTTP status: $maze_status"
           test "$maze_status" = "200"
-          grep -q "미궁: 내일역의 비밀" "$maze_body"
-          grep -q "const puzzles=" "$maze_body"
+          grep -q "미궁 시리즈" "$maze_body"
+          grep -q "maze1.html" "$maze_body"
+          grep -q "maze2.html" "$maze_body"
+          for route in maze1.html maze2.html; do
+            route_headers="$RUNNER_TEMP/$route-headers.txt"
+            route_body="$RUNNER_TEMP/$route"
+            route_status="$(curl --silent --show-error --location --max-time 20 -D "$route_headers" -o "$route_body" -w "%{http_code}" "https://dontime.kr/$route" || true)"
+            echo "$route HTTP status: $route_status"
+            test "$route_status" = "200"
+            if [ "$route" = "maze1.html" ]; then
+              grep -q "미궁 1부: 내일역의 비밀" "$route_body"
+              grep -q "const puzzles=" "$route_body"
+            else
+              grep -q "미궁 2: 유리숲의 일곱 번째 종" "$route_body"
+              grep -q "const chapters=" "$route_body"
+            fi
+          done
           for page in "/calculator.php?tool=income" "/calendar.php?year=2026&month=10" "/privacy.html" "/terms.html" "/about.html" "/contact.html"; do
             page_headers="$RUNNER_TEMP/page-headers.txt"
             page_body="$RUNNER_TEMP/page-body.html"
