@@ -68,7 +68,42 @@ jobs:
               raise SystemExit("No inline application scripts were found.")
           PY
           node --check /tmp/dontime-inline.js
-          echo "Static checks and inline JavaScript syntax check passed."
+          python3 - <<'PY'
+          from html.parser import HTMLParser
+          from pathlib import Path
+          pages = ["maze.html", "maze1.html", "maze2.html", "quiz.html"]
+          class Scripts(HTMLParser):
+              def __init__(self):
+                  super().__init__()
+                  self.active = False
+                  self.current = []
+                  self.parts = []
+              def handle_starttag(self, tag, attrs):
+                  if tag.lower() == "script":
+                      attrs = dict(attrs)
+                      self.active = not attrs.get("src") and attrs.get("type", "").lower() != "application/ld+json"
+                      self.current = []
+              def handle_data(self, data):
+                  if self.active:
+                      self.current.append(data)
+              def handle_endtag(self, tag):
+                  if tag.lower() == "script" and self.active:
+                      self.parts.append("".join(self.current))
+                      self.active = False
+          for page in pages:
+              parser = Scripts()
+              parser.feed(Path(page).read_text(encoding="utf-8"))
+              if not parser.parts:
+                  raise SystemExit(f"No inline JavaScript found in {page}")
+              out = Path("/tmp") / f"{page}.js"
+              out.write_text("\\n".join(parser.parts), encoding="utf-8")
+              print(f"Extracted {len(parser.parts)} inline script(s) from {page}")
+          PY
+          for page in maze.html maze1.html maze2.html quiz.html; do
+            node --check "/tmp/$page.js"
+            echo "Inline JavaScript syntax passed: $page"
+          done
+          echo "Static checks and all inline JavaScript syntax checks passed."
 
       - name: Verify SSH host key and create backup
         shell: bash
