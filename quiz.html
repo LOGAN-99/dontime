@@ -30,6 +30,7 @@ main{max-width:1080px;margin:auto;padding:36px 22px 70px}.hero{padding:28px 0 24
 <button class="mode" data-mode="blank"><b>빈칸 채우기</b><span>명언의 빠진 말을 완성하세요.</span></button>
 <button class="mode" data-mode="author"><b>누가 말했을까</b><span>고전 문장의 출처를 맞혀 보세요.</span></button>
 <button class="mode" data-mode="quote"><b>명언 풀이</b><span>문장이 전하는 뜻을 골라 보세요.</span></button>
+<button class="mode" data-mode="vocab"><b>영어 단어 맞히기</b><span>뜻·문맥·철자를 보고 단어를 익혀요.</span></button>
 </section>
 <div class="quiz-shell"><section class="quiz-card"><div class="quiz-head"><div><small id="modeLabel">FOUR-CHARACTER IDIOMS</small><div style="font-weight:900;font-size:17px;margin-top:5px" id="quizTitle">오늘의 사자성어</div></div><span class="count" id="count">1 / 5</span></div><div class="quiz-body"><div class="hanja" id="hanja" hidden></div><p class="question" id="question"></p><div class="options" id="options"></div><div class="feedback" id="feedback" aria-live="polite"></div><div class="controls"><button class="btn" id="restart">다시 섞기</button><button class="btn primary" id="next" disabled>다음 문제 →</button></div><p class="note">※ 고전 문헌에 전하는 표현을 중심으로 구성했습니다. 명언은 번역·전승 과정에서 문구가 달라질 수 있어 출처가 확인되는 문장을 우선 사용합니다.</p></div></section><aside><div class="side-grid"><section class="side-card"><h3>오늘의 기록</h3><div class="stat"><span>푼 문제</span><b id="solved">0</b></div><div class="stat"><span>맞힌 문제</span><b id="correct">0</b></div><div class="stat"><span>정답률</span><b id="rate">0%</b></div></section></div></aside></div>
 <div class="footer">셈플리 퀴즈 · 지식은 맞히는 순간보다 이해하는 순간 오래 남습니다. 새로운 사자성어와 명언은 출처를 확인해 한 문제씩 꾸준히 추가합니다.</div>
@@ -91,6 +92,28 @@ const quotes=[
 const quoteReadings={"學而時習之 不亦說乎":"학이시습지 불역열호","知之爲知之 不知爲不知 是知也":"지지위지지 부지위부지 시지야","三人行 必有我師焉":"삼인행 필유아사언","己所不欲 勿施於人":"기소불욕 물시어인","學而不思則罔 思而不學則殆":"학이불사즉망 사이불학즉태","千里之行 始於足下":"천리지행 시어족하","知足者富":"지족자부","讀萬卷書 行萬里路":"독만권서 행만리로","不積跬步 無以至千里":"불적규보 무이지천리","天行健 君子以自強不息":"천행건 군자이자강불식"};
 const optionReading={"說":"열(기쁠 열)","知":"지(알 지)","師":"사(스승 사)","人":"인(사람 인)","殆":"태(위태할 태)","足下":"족하(발 아래)","富":"부(부유할 부)","路":"로(길 로)","千里":"천리","不息":"불식(쉬지 않음)","곱다":"한국어","쥐":"한국어","낫다":"한국어","걸음":"한국어","낙":"한국어","day":"데이","week":"위크","year":"이어","night":"나이트","words":"워즈","people":"피플","dreams":"드림즈","books":"북스","worm":"웜","bird":"버드","fish":"피시","wind":"윈드","do":"두","say":"세이","go":"고","see":"씨","power":"파워","money":"머니","silence":"사일런스","luck":"럭","am":"앰","know":"노","live":"리브","win":"윈","living":"리빙","working":"워킹","knowing":"노잉","winning":"위닝","question":"퀘스천","answer":"앤서","problem":"프라블럼","story":"스토리","done":"던","known":"노운","said":"세드","seen":"씬","step":"스텝","dream":"드림","word":"워드","chance":"챈스","itself":"잇셀프","today":"투데이","always":"올웨이즈","outside":"아웃사이드","world":"월드","future":"퓨처","mirror":"미러","nation":"네이션","희망":"한국어","뛰":"한국어","끝":"한국어","목표":"한국어"};
 function readingFor(value){return optionReading[value]||"읽기: "+value}
+const vocab=[
+{w:"opportunity",ko:"기회",hint:"It's a great ___ to learn.",ex:"기회는 새로운 것을 배울 수 있는 좋은 때입니다."},
+{w:"resilient",ko:"회복력 있는, 탄력 있는",hint:"She stayed ___ after a difficult year.",ex:"어려운 한 해 뒤에도 다시 일어설 힘을 유지했다는 뜻입니다."},
+{w:"curious",ko:"호기심이 많은",hint:"A ___ mind asks questions.",ex:"호기심이 많은 사람은 질문을 던집니다."},
+{w:"accurate",ko:"정확한",hint:"Please check that the numbers are ___.",ex:"숫자가 정확한지 확인해 달라는 문장입니다."},
+{w:"reliable",ko:"믿을 만한, 신뢰할 수 있는",hint:"We need a ___ source.",ex:"정보를 믿을 수 있는 출처가 필요합니다."},
+{w:"contribute",ko:"기여하다, 보태다",hint:"Everyone can ___ an idea.",ex:"누구나 아이디어를 보탤 수 있습니다."},
+{w:"achieve",ko:"이루다, 성취하다",hint:"Practice helps you ___ your goals.",ex:"연습은 목표를 이루는 데 도움이 됩니다."},
+{w:"efficient",ko:"효율적인",hint:"This method saves time and is ___.",ex:"시간을 절약하는 효율적인 방법입니다."},
+{w:"consider",ko:"고려하다, 곰곰이 생각하다",hint:"Please ___ all the options.",ex:"모든 선택지를 신중히 생각해 보라는 뜻입니다."},
+{w:"significant",ko:"중요한, 상당한",hint:"The change had a ___ effect.",ex:"그 변화가 상당한 영향을 주었다는 뜻입니다."},
+{w:"maintain",ko:"유지하다",hint:"It's important to ___ a healthy routine.",ex:"건강한 생활 습관을 유지하는 것이 중요합니다."},
+{w:"perspective",ko:"관점, 시각",hint:"Try to see it from another ___.",ex:"다른 관점에서 바라보라는 뜻입니다."},
+{w:"opinion",ko:"의견",hint:"In my ___, this is a good plan.",ex:"내 의견으로는 좋은 계획이라는 표현입니다."},
+{w:"improve",ko:"개선하다, 향상시키다",hint:"Small habits can ___ your skills.",ex:"작은 습관이 능력을 향상할 수 있습니다."},
+{w:"opportunity",ko:"기회",hint:"Don't miss this ___.",ex:"이 기회를 놓치지 말라는 뜻입니다."},
+{w:"challenge",ko:"도전, 어려운 과제",hint:"Learning a language is a rewarding ___.",ex:"언어 학습은 보람 있는 도전입니다."},
+{w:"benefit",ko:"이점, 혜택; 이익을 얻다",hint:"Regular reading has many ___.",ex:"규칙적인 독서에는 여러 이점이 있습니다."},
+{w:"achieve",ko:"달성하다, 이루다",hint:"She worked hard to ___ success.",ex:"성공을 이루기 위해 열심히 노력했다는 뜻입니다."},
+{w:"evidence",ko:"증거, 근거",hint:"Is there any ___ to support the claim?",ex:"주장을 뒷받침할 근거가 있는지 묻습니다."},
+{w:"curiosity",ko:"호기심",hint:"___ helps us keep learning.",ex:"호기심은 계속 배우도록 돕습니다."}
+];
 const modes={
 idiom:{label:"FOUR-CHARACTER IDIOMS",title:"설명으로 사자성어 찾기",make:()=>{const x=pick(idioms);return{q:x.d,hanja:"",options:shuffle(idioms.filter(y=>y!==x).sort(()=>Math.random()-.5).slice(0,3).concat(x)).map(y=>({t:y.n+" · "+y.h,v:y===x,why:y.m})),ex:x.n+"("+x.h+") · "+x.m};}},
 meaning:{label:"IDIOM MEANINGS",title:"한자와 뜻 연결하기",make:()=>{const x=pick(idioms);return{q:x.n+"의 뜻으로 가장 알맞은 것은?",hanja:x.h,options:shuffle(idioms.filter(y=>y!==x).sort(()=>Math.random()-.5).slice(0,3).concat(x)).map(y=>({t:y.d,v:y===x,why:y.m})),ex:x.n+"("+x.h+") · "+x.m};}},
