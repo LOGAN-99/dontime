@@ -182,10 +182,8 @@ const vocab=[
 {w:"perspective",ko:"관점, 시각",hint:"Try to see it from another ___.",ex:"다른 관점에서 바라보라는 뜻입니다."},
 {w:"opinion",ko:"의견",hint:"In my ___, this is a good plan.",ex:"내 의견으로는 좋은 계획이라는 표현입니다."},
 {w:"improve",ko:"개선하다, 향상시키다",hint:"Small habits can ___ your skills.",ex:"작은 습관이 능력을 향상할 수 있습니다."},
-{w:"opportunity",ko:"기회",hint:"Don't miss this ___.",ex:"이 기회를 놓치지 말라는 뜻입니다."},
 {w:"challenge",ko:"도전, 어려운 과제",hint:"Learning a language is a rewarding ___.",ex:"언어 학습은 보람 있는 도전입니다."},
 {w:"benefit",ko:"이점, 혜택; 이익을 얻다",hint:"Regular reading has many ___.",ex:"규칙적인 독서에는 여러 이점이 있습니다."},
-{w:"achieve",ko:"달성하다, 이루다",hint:"She worked hard to ___ success.",ex:"성공을 이루기 위해 열심히 노력했다는 뜻입니다."},
 {w:"evidence",ko:"증거, 근거",hint:"Is there any ___ to support the claim?",ex:"주장을 뒷받침할 근거가 있는지 묻습니다."},
 {w:"curiosity",ko:"호기심",hint:"___ helps us keep learning.",ex:"호기심은 계속 배우도록 돕습니다."},
 {"w":"adapt","ko":"적응하다, 맞추다","hint":"We must ___ to change.","ex":"변화에 적응해야 한다는 뜻입니다."},
@@ -237,7 +235,9 @@ const vocab=[
 {"w":"notice","ko":"알아차리다; 공지","hint":"Did you ___ the small change?","ex":"작은 변화를 알아차렸는지 묻습니다."},
 {"w":"observe","ko":"관찰하다","hint":"Scientists ___ the stars.","ex":"과학자들이 별을 관찰한다는 뜻입니다."},
 {"w":"participate","ko":"참여하다","hint":"Everyone can ___ in the activity.","ex":"누구나 활동에 참여할 수 있다는 뜻입니다."},
-{"w":"patient","ko":"참을성 있는; 환자","hint":"Be ___ while you learn.","ex":"배우는 동안 참을성을 가지라는 뜻입니다."}
+{"w":"patient","ko":"참을성 있는; 환자","hint":"Be ___ while you learn.","ex":"배우는 동안 참을성을 가지라는 뜻입니다."},
+{"w":"resolve","ko":"해결하다, 결심하다","hint":"We must ___ the issue quickly.","ex":"문제를 신속히 해결해야 한다는 뜻입니다."},
+{"w":"valuable","ko":"가치 있는, 소중한","hint":"Your feedback is very ___.","ex":"당신의 의견이 매우 가치 있다는 뜻입니다."}
 ];
 const modes={
 idiom:{label:"FOUR-CHARACTER IDIOMS",title:"설명으로 사자성어 찾기",make:()=>{const x=pick(idioms);return{q:x.d,hanja:"",options:shuffle(idioms.filter(y=>y!==x).sort(()=>Math.random()-.5).slice(0,3).concat(x)).map(y=>({t:y.n+" · "+y.h,v:y===x,why:y.m})),ex:x.n+"("+x.h+") · "+x.m};}},
