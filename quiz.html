@@ -64,6 +64,27 @@ const quotes=[
 {q:"讀萬卷書 行萬里路",ko:"만 권의 책을 읽고 만 리 길을 다녀라.",author:"중국 문인 사회에서 널리 전해진 격언",blank:"讀萬卷書 行萬里□",answer:"路",opts:["路","書","心","山"],meaning:"독서와 실제 경험을 함께 쌓으라는 취지로 널리 인용됩니다. 특정 개인의 확정적 발언으로 단정하지 않습니다."},
 {q:"不積跬步 無以至千里",ko:"작은 걸음을 쌓지 않으면 천 리에 이를 수 없다.",author:"순자 · 《순자》 권학편",blank:"不積跬步 無以至□□",answer:"千里",opts:["千里","萬年","大海","高山"],meaning:"작은 노력이 쌓여야 큰 목표에 도달할 수 있다는 뜻입니다."},
 {q:"天行健 君子以自強不息",ko:"하늘의 운행이 굳세니 군자는 스스로 힘쓰기를 쉬지 않는다.",author:"《주역》 건괘 상전",blank:"天行健 君子以自強□□",answer:"不息",opts:["不息","無爲","知足","守成"],meaning:"끊임없이 스스로를 단련하고 노력하는 태도를 말합니다."}
+,{q:"가는 말이 고와야 오는 말이 곱다",ko:"내가 남에게 좋게 말해야 남도 나에게 좋게 말한다.",author:"한국 속담",blank:"가는 말이 고와야 오는 말이 ____",answer:"곱다",opts:["곱다","빠르다","많다","짧다"],meaning:"상대에게 하는 말과 태도가 돌아오는 대우에도 영향을 준다는 뜻."},
+{q:"낮말은 새가 듣고 밤말은 쥐가 듣는다",ko:"비밀로 한 말도 새어 나갈 수 있으니 말을 조심하라는 뜻.",author:"한국 속담",blank:"낮말은 새가 듣고 밤말은 __가 듣는다",answer:"쥐",opts:["쥐","개","고양이","바람"],meaning:"누구에게든 말이 전해질 수 있으므로 말을 신중히 하라는 뜻."},
+{q:"백지장도 맞들면 낫다",ko:"아주 가벼운 일도 여럿이 힘을 합치면 더 쉽다.",author:"한국 속담",blank:"백지장도 맞들면 ____",answer:"낫다",opts:["낫다","무겁다","늦다","멀다"],meaning:"협력하면 작은 일도 더 수월해진다는 뜻."},
+{q:"천 리 길도 한 걸음부터",ko:"큰일도 작은 시작에서 비롯된다.",author:"한국 속담",blank:"천 리 길도 한 ____부터",answer:"걸음",opts:["걸음","생각","사람","마음"],meaning:"목표가 커도 우선 첫 단계를 시작해야 한다는 뜻."},
+{q:"고생 끝에 낙이 온다",ko:"힘든 시기를 지나면 즐거운 때가 올 수 있다.",author:"한국 속담",blank:"고생 끝에 __이 온다",answer:"낙",opts:["낙","복","돈","잠"],meaning:"어려움을 견디고 나면 좋은 결과를 얻을 수 있다는 격려."},
+{q:"Rome was not built in a day.",ko:"로마는 하루아침에 세워지지 않았다.",author:"영어 속담",blank:"Rome was not built in a ____.",answer:"day",opts:["day","week","year","night"],meaning:"큰 성취에는 시간과 꾸준한 노력이 필요하다는 뜻."},
+{q:"Actions speak louder than words.",ko:"말보다 행동이 더 크게 말한다.",author:"영어 속담",blank:"Actions speak louder than ____.",answer:"words",opts:["words","people","dreams","books"],meaning:"말보다 실제 행동이 진심을 더 잘 보여준다는 뜻."},
+{q:"The early bird catches the worm.",ko:"일찍 일어나는 새가 벌레를 잡는다.",author:"영어 속담",blank:"The early bird catches the ____.",answer:"worm",opts:["worm","bird","fish","wind"],meaning:"기회를 잡으려면 부지런히 먼저 움직이는 것이 유리하다는 뜻."},
+{q:"When in Rome, do as the Romans do.",ko:"로마에 가면 로마 사람들의 방식에 따르라.",author:"영어 속담",blank:"When in Rome, do as the Romans __.",answer:"do",opts:["do","say","go","see"],meaning:"새로운 환경에서는 그곳의 문화와 관습을 존중하라는 뜻."},
+{q:"Knowledge is power.",ko:"지식은 힘이다.",author:"프랜시스 베이컨에게 널리 연결되는 격언",blank:"Knowledge is ____.",answer:"power",opts:["power","money","silence","luck"],meaning:"지식과 이해가 세상을 바꾸고 행동할 힘을 준다는 뜻."},
+{q:"I think, therefore I am.",ko:"나는 생각한다, 고로 존재한다.",author:"르네 데카르트 · 《방법서설》과 연결되는 명제",blank:"I think, therefore I __.",answer:"am",opts:["am","know","live","win"],meaning:"생각하고 의심하는 행위 자체가 사유하는 주체의 존재를 드러낸다는 철학적 명제."},
+{q:"The unexamined life is not worth living.",ko:"성찰하지 않는 삶은 살 가치가 없다.",author:"플라톤 · 《소크라테스의 변론》에서 전하는 소크라테스의 말",blank:"The unexamined life is not worth _____.",answer:"living",opts:["living","working","knowing","winning"],meaning:"자신의 삶과 믿음을 돌아보고 성찰하는 일이 중요하다는 뜻."},
+{q:"To be, or not to be: that is the question.",ko:"존재할 것인가, 존재하지 않을 것인가. 그것이 문제로다.",author:"윌리엄 셰익스피어 · 《햄릿》",blank:"To be, or not to be: that is the _______.",answer:"question",opts:["question","answer","problem","story"],meaning:"존재와 삶의 의미를 두고 고뇌하는 독백의 일부."},
+{q:"It always seems impossible until it's done.",ko:"해내기 전까지는 언제나 불가능해 보인다.",author:"넬슨 만델라에게 널리 귀속되는 말",blank:"It always seems impossible until it's ____.",answer:"done",opts:["done","known","said","seen"],meaning:"시작 전에는 불가능해 보여도 해내면 가능성이 드러날 수 있다는 격려."},
+{q:"A journey of a thousand miles begins with a single step.",ko:"천 리 길도 한 걸음에서 시작된다.",author:"노자 사상과 연결되어 널리 번역·인용되는 문장",blank:"A journey of a thousand miles begins with a single ____.",answer:"step",opts:["step","dream","word","chance"],meaning:"거대한 목표도 첫 행동에서 출발한다는 뜻."},
+{q:"The only thing we have to fear is fear itself.",ko:"우리가 두려워해야 할 유일한 것은 두려움 그 자체다.",author:"프랭클린 D. 루스벨트 · 1933년 취임 연설",blank:"The only thing we have to fear is fear ______.",answer:"itself",opts:["itself","today","always","outside"],meaning:"공포에 압도되면 문제 해결이 어려워질 수 있음을 경고한 연설의 문장."},
+{q:"You must be the change you wish to see in the world.",ko:"세상에서 보고 싶은 변화가 있다면 스스로 그 변화가 되어야 한다.",author:"마하트마 간디에게 널리 귀속되는 말",blank:"You must be the change you wish to see in the _____.",answer:"world",opts:["world","future","mirror","nation"],meaning:"바라는 변화를 남에게만 요구하지 말고 스스로 실천하라는 뜻. 정확한 원문 귀속에는 논쟁이 있습니다."},
+{q:"삶이 있는 한 희망은 있다",ko:"살아 있는 동안에는 희망과 가능성을 놓지 말라는 뜻.",author:"한국어 격언",blank:"삶이 있는 한 __은 있다",answer:"희망",opts:["희망","성공","행운","정답"],meaning:"상황이 어렵더라도 가능성을 포기하지 말라는 격려."},
+{q:"오늘 걷지 않으면 내일은 뛰어야 한다",ko:"지금 해야 할 일을 미루면 나중에 더 큰 부담이 될 수 있다.",author:"한국에서 널리 유통되는 격언 · 원저자 미확인",blank:"오늘 걷지 않으면 내일은 __어야 한다",answer:"뛰",opts:["뛰","쉬","웃","울"],meaning:"작은 실천을 미루지 말고 지금 시작하라는 뜻. 특정 인물의 말로 단정하지 않습니다."},
+{q:"배움에는 끝이 없다",ko:"새로운 것을 익히는 일은 평생 이어진다.",author:"한국어 격언",blank:"배움에는 __이 없다",answer:"끝",opts:["끝","길","돈","힘"],meaning:"나이가 들어도 배우고 성장할 여지는 계속 있다는 뜻."},
+{q:"꿈을 날짜와 함께 적어 놓으면 목표가 된다",ko:"꿈을 구체화하고 실행 가능한 단계로 나누라는 뜻.",author:"한국어로 널리 유통되는 문구 · 원저자 확인 필요",blank:"꿈을 날짜와 함께 적으면 __가 된다",answer:"목표",opts:["목표","추억","실수","운명"],meaning:"막연한 바람을 일정과 행동으로 바꾸면 실천 가능성이 높아진다는 취지."}
 ];
 const modes={
 idiom:{label:"FOUR-CHARACTER IDIOMS",title:"설명으로 사자성어 찾기",make:()=>{const x=pick(idioms);return{q:x.d,hanja:"",options:shuffle(idioms.filter(y=>y!==x).sort(()=>Math.random()-.5).slice(0,3).concat(x)).map(y=>({t:y.n+" · "+y.h,v:y===x,why:y.m})),ex:x.n+"("+x.h+") · "+x.m};}},
