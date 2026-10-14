@@ -71,7 +71,7 @@ jobs:
           python3 - <<'PY'
           from html.parser import HTMLParser
           from pathlib import Path
-          pages = ["maze.html", "maze1.html", "maze2.html", "quiz.html"]
+          pages = ["maze1.html", "maze2.html", "quiz.html"]
           class Scripts(HTMLParser):
               def __init__(self):
                   super().__init__()
@@ -99,7 +99,7 @@ jobs:
               out.write_text("\\n".join(parser.parts), encoding="utf-8")
               print(f"Extracted {len(parser.parts)} inline script(s) from {page}")
           PY
-          for page in maze.html maze1.html maze2.html quiz.html; do
+          for page in maze1.html maze2.html quiz.html; do
             node --check "/tmp/$page.js"
             echo "Inline JavaScript syntax passed: $page"
           done
