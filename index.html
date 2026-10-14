@@ -456,6 +456,18 @@ header{background:var(--season-paper);border-bottom:1px solid var(--season-line)
  .hero-category-layout>.featured-compare .featured-card p{font-size:12px}
  .hero-category-layout>.featured-compare .featured-value{font-size:20px}
 }
+</style>
+<style id="popup-counter-clean-css">
+body.popup-counter-mode{background:#102b27!important;color:#f8f4e9!important;min-width:0!important}
+body.popup-counter-mode #tool{padding:10px!important}
+body.popup-counter-mode .tool-layout,body.popup-counter-mode #toolmain,body.popup-counter-mode .compare-items,body.popup-counter-mode .compare-card,body.popup-counter-mode .panel{width:100%!important;max-width:none!important;margin:0!important;padding:0!important;border:0!important;box-shadow:none!important;background:transparent!important}
+body.popup-counter-mode .primary-card-title,body.popup-counter-mode .live-top,body.popup-counter-mode .time-fields,body.popup-counter-mode #startBtn,body.popup-counter-mode .reset-btn,body.popup-counter-mode .popup-choice{display:none!important}
+body.popup-counter-mode #livebox{margin:22px 0 16px!important;text-align:center!important}
+body.popup-counter-mode #livebox .sub:first-child{color:#d7e6df!important;font-size:13px!important}
+body.popup-counter-mode #livebox .ticker{font-size:clamp(27px,8vw,40px)!important;line-height:1.2!important;font-weight:800!important;color:#f4d28a!important;overflow-wrap:anywhere}
+body.popup-counter-mode #livebox .sub:last-child{color:#c4d4ce!important;font-size:14px!important;margin-top:10px!important}
+body.popup-counter-mode .popup-again-btn{display:block!important;width:100%!important;border:1px solid #648d80!important;border-radius:12px!important;padding:12px!important;background:#174b42!important;color:#fff!important;font-size:14px!important;font-weight:700!important;cursor:pointer}
+body.popup-counter-mode .cats,body.popup-counter-mode .tool-nav,body.popup-counter-mode .tool-title-row,body.popup-counter-mode .ad-slot{display:none!important}
 </style></head>
 <body>
 <div class="site-sticky" id="siteSticky">
@@ -1828,7 +1840,9 @@ function live(t,target=el('box')){
         result.innerHTML='<div class="sub">지금까지 누적 수입</div><div class="ticker">'+earned.toFixed(4)+'원</div><div class="sub">경과 시간 '+elapsedFmt+'</div>';
         return;
       }
-      if(appliedRange){
+      if(document.body.classList.contains('popup-counter-mode')){
+        result.innerHTML='<div class="sub">누적 수입</div><div class="ticker">'+earned.toFixed(4)+'원</div><div class="sub">'+runElapsed.toFixed(2)+'초</div>';
+      }else if(appliedRange){
         result.innerHTML='<div class="sub">달력에서 선택한 기간 수입</div><div class="ticker">'+appliedRange.amount.toFixed(4)+'원</div><div class="sub">'+appliedRange.start.y+'.'+String(appliedRange.start.m+1).padStart(2,'0')+'.'+String(appliedRange.start.d).padStart(2,'0')+' ~ '+appliedRange.end.y+'.'+String(appliedRange.end.m+1).padStart(2,'0')+'.'+String(appliedRange.end.d).padStart(2,'0')+' · 실시간 월급시계는 계속 작동 중 · <button type="button" onclick="clearCalendarIncomeRange()" style="border:0;background:#eef0f3;border-radius:6px;padding:4px 7px;font-size:10px;cursor:pointer">실시간 표시로 돌아가기</button></div>';
       }else{
         result.innerHTML='<div class="sub">카운팅 시작 후 누적 수입</div><div class="ticker">'+earned.toFixed(4)+'원</div><div class="sub">'+detail+' · 시간당 '+hourlyValue.toFixed(2)+'원 · 누적 시간 '+elapsedFmt+' · 퇴근까지 '+fmt(remain)+'</div>';
@@ -1849,7 +1863,7 @@ function popupIncomeChooser(){
 function popupIncomeCounter(){
   const svc=findService('income');if(!svc)return;
   document.body.classList.add('popup-mode','popup-counter-mode');document.getElementById('home').style.display='none';tool.classList.add('on');renderToolCats();
-  toolmain.innerHTML='<div class="compare-items" id="compareItems"><div class="compare-card primary-tool-card" id="primaryTool" data-t="income"><div class="primary-card-title"><strong>월급시계</strong><span>카운팅만 보기</span></div><div id="box"></div></div></div>';
+  toolmain.innerHTML='<div class="compare-items" id="compareItems"><div class="compare-card primary-tool-card" id="primaryTool" data-t="income"><div class="primary-card-title"><strong>월급시계</strong></div><div id="box"></div><button class="popup-again-btn" type="button" onclick="location.href=location.href.split(\'?\')[0]+\'?popup=income&mode=card\'">↻ 다시 입력하기</button></div></div>';
   box=document.getElementById('box');live('income',box);
   const scope=document.getElementById('primaryTool');let saved=null;try{saved=JSON.parse(localStorage.getItem('dontimeIncomeSettings')||'null');}catch(e){}
   if(saved){const salary=scope.querySelector('#salary'),start=scope.querySelector('#start'),end=scope.querySelector('#end'),hire=scope.querySelector('#hireDate');if(salary)salary.value=saved.salary||salary.value;if(start)start.value=saved.start||start.value;if(end)end.value=saved.end||end.value;if(hire&&saved.hireDate)hire.value=saved.hireDate;const b=scope.querySelector('input[name="incomeBasis"][value="'+(saved.basis||'')+'"]');if(b){b.checked=true;b.dispatchEvent(new Event('change',{bubbles:true}));}}
