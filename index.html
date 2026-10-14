@@ -1865,7 +1865,7 @@ function popupIncomeChooser(){
 function popupIncomeCounter(){
   const svc=findService('income');if(!svc)return;
   document.body.classList.add('popup-mode','popup-counter-mode');document.getElementById('home').style.display='none';tool.classList.add('on');renderToolCats();
-  toolmain.innerHTML='<div class="compare-items" id="compareItems"><div class="compare-card primary-tool-card" id="primaryTool" data-t="income"><div class="primary-card-title"><strong>월급시계</strong></div><div id="box"></div><button class="popup-again-btn" type="button" onclick="location.href=location.href.split(\'?\')[0]+\'?popup=income&mode=card\'">↻ 다시 입력하기</button></div></div>';
+  toolmain.innerHTML='<div class="compare-items" id="compareItems"><div class="compare-card primary-tool-card" id="primaryTool" data-t="income"><div class="primary-card-title"><strong>월급시계</strong></div><div id="box"></div></div></div>';
   box=document.getElementById('box');live('income',box);
   const scope=document.getElementById('primaryTool');let saved=null;try{saved=JSON.parse(localStorage.getItem('dontimeIncomeSettings')||'null');}catch(e){}
   if(saved){const salary=scope.querySelector('#salary'),start=scope.querySelector('#start'),end=scope.querySelector('#end'),hire=scope.querySelector('#hireDate');if(salary)salary.value=saved.salary||salary.value;if(start)start.value=saved.start||start.value;if(end)end.value=saved.end||end.value;if(hire&&saved.hireDate)hire.value=saved.hireDate;const b=scope.querySelector('input[name="incomeBasis"][value="'+(saved.basis||'')+'"]');if(b){b.checked=true;b.dispatchEvent(new Event('change',{bubbles:true}));}}
