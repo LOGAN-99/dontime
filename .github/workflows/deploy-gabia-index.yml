@@ -179,7 +179,7 @@ jobs:
             grep -q "maze2.html" "$stage/maze.html"
             grep -q "미궁 1부: 내일역의 비밀" "$stage/maze1.html"
             grep -q "const puzzles=" "$stage/maze1.html"
-            grep -q "미궁 2: 유리숲의 일곱 번째 종" "$stage/maze2.html"
+            grep -q "미궁 2부: 유리숲의 일곱 번째 종" "$stage/maze2.html"
             grep -q "const chapters=" "$stage/maze2.html"
             test -s "$stage/quiz.html"
             grep -q "오늘의 사자성어" "$stage/quiz.html"
@@ -259,7 +259,7 @@ jobs:
               grep -q "미궁 1부: 내일역의 비밀" "$route_body"
               grep -q "const puzzles=" "$route_body"
             else
-              grep -q "미궁 2: 유리숲의 일곱 번째 종" "$route_body"
+              grep -q "미궁 2부: 유리숲의 일곱 번째 종" "$route_body"
               grep -q "const chapters=" "$route_body"
             fi
           done
