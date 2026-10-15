@@ -26,12 +26,28 @@ function setupSempliRanking() {
 }
 
 function doGet(e) {
+  const params = (e && e.parameter) || {};
+  const callback = String(params.callback || '');
+  if (callback) {
+    if (!/^[a-zA-Z_$][0-9a-zA-Z_$.]*$/.test(callback)) return ContentService.createTextOutput('/* Invalid callback */').setMimeType(ContentService.MimeType.JAVASCRIPT);
+    const cleanParams = Object.assign({}, params); delete cleanParams.callback;
+    const response = doGet({parameter: cleanParams});
+    return ContentService.createTextOutput(callback + '(' + response.getContent() + ');').setMimeType(ContentService.MimeType.JAVASCRIPT);
+  }
   try {
-    const params = (e && e.parameter) || {};
     const action = String(params.action || '');
     if (action === 'health') {
       const sheet = getOrCreateSheet_();
       return json_({ ok: true, sheet: sheet.getName(), rows: Math.max(0, sheet.getLastRow() - 1) });
+    }
+    if (action === 'verify') {
+      const requestId = String(params.requestId || '').trim();
+      if (!requestId) return json_({ok:false,error:'requestId is required.'});
+      const sheet = getOrCreateSheet_(); ensureHeaders_(sheet);
+      const lastRow = sheet.getLastRow();
+      if (lastRow < 2) return json_({ok:true,saved:false});
+      const notes = sheet.getRange(2,10,lastRow-1,1).getDisplayValues();
+      return json_({ok:true,saved:notes.some(row => String(row[0] || '').includes('요청ID:' + requestId))});
     }
     if (action !== 'leaderboard') {
       return json_({ ok: false, error: 'Unknown action. Use action=leaderboard or action=health.' });
@@ -82,6 +98,7 @@ function doPost(e) {
     const nickname = String(data.nickname || '').trim().slice(0, 20);
     const elapsedSeconds = Math.floor(Number(data.elapsedSeconds));
     const score = Math.floor(Number(data.score));
+    const requestId = String(data.requestId || '').trim().slice(0, 100);
 
     if (!category || !gameId) return json_({ ok: false, error: 'category and gameId are required.' });
     if (!nickname) return json_({ ok: false, error: 'nickname is required.' });
@@ -101,7 +118,7 @@ function doPost(e) {
       '게임완료',
       now.toISOString(),
       '검증 전',
-      '웹 앱 제출'
+      '웹 앱 제출' + (requestId ? '|요청ID:' + requestId : '')
     ];
     sheet.appendRow(record);
 
