@@ -166,7 +166,7 @@ jobs:
           set -euo pipefail
           export SSHPASS="$GABIA_PASSWORD"
           sshpass -e ssh -p 22 -o StrictHostKeyChecking=yes -o UserKnownHostsFile="$RUNNER_TEMP/gabia-ssh/known_hosts" -o HostKeyAlgorithms=ssh-ed25519 -o LogLevel=ERROR "$GABIA_USER@211.47.74.75" '
-            set -eux
+            set -eu
             stage="/tmp/dontime-deploy-upload"
             candidate="$stage/index.html"
             header_fragment="$stage/security-headers.fragment"
