@@ -25,16 +25,21 @@ if(!startedAt){startedAt=Date.now();try{localStorage.setItem("dontimeStartedAtMa
 function sempliEscape(v){return String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 function sempliElapsed(){return Math.max(1,Math.floor((Date.now()-startedAt)/1000));}
 function sempliTime(s){s=Math.max(0,Number(s)||0);return Math.floor(s/60)+'분 '+String(s%60).padStart(2,'0')+'초';}
+function sempliJsonp(url){return new Promise((resolve,reject)=>{const cb='sjsonp_'+Date.now()+'_'+Math.floor(Math.random()*1e6),s=document.createElement('script');const t=setTimeout(()=>{delete window[cb];s.remove();reject(new Error('응답 시간 초과'));},10000);window[cb]=d=>{clearTimeout(t);delete window[cb];s.remove();resolve(d);};s.onerror=()=>{clearTimeout(t);delete window[cb];s.remove();reject(new Error('API 응답 실패'));};const u=new URL(url);u.searchParams.set('callback',cb);s.src=u.toString();document.head.appendChild(s);});}
 async function sempliLoadLeaderboard(){
- const box=document.getElementById('sempliLeaderboard');if(!box)return;
- box.textContent='랭킹을 불러오는 중…';
- try{const u=new URL(SEMPLI_RANKING_API);u.searchParams.set('action','leaderboard');u.searchParams.set('category','미궁');u.searchParams.set('gameId',"maze-03");u.searchParams.set('limit','10');const r=await fetch(u.toString());const d=await r.json();if(!d.ok)throw new Error('랭킹 조회 실패');if(!d.records.length){box.innerHTML='<p>아직 등록된 기록이 없습니다. 첫 기록을 남겨보세요!</p>';return;}box.innerHTML='<ol style="text-align:left;padding-left:24px">'+d.records.map(x=>'<li style="padding:6px 0">'+sempliEscape(x.nickname)+' · '+x.score+'점 · '+sempliTime(x.elapsedSeconds)+'</li>').join('')+'</ol>';}catch(e){box.textContent='랭킹을 불러오지 못했습니다. 배포 상태를 확인한 뒤 다시 시도해 주세요.';}
+ const box=document.getElementById('sempliLeaderboard');if(!box)return;box.textContent='랭킹을 불러오는 중…';
+ try{const u=new URL(SEMPLI_RANKING_API);u.searchParams.set('action','leaderboard');u.searchParams.set('category','미궁');u.searchParams.set('gameId','maze-03');u.searchParams.set('limit','10');const d=await sempliJsonp(u.toString());if(!d.ok)throw new Error(d.error||'랭킹 조회 실패');if(!d.records.length){box.innerHTML='<p>아직 등록된 기록이 없습니다. 첫 기록을 남겨보세요!</p>';return;}box.innerHTML='<ol style="text-align:left;padding-left:24px">'+d.records.map(x=>'<li style="padding:6px 0">'+sempliEscape(x.nickname)+' · '+x.score+'점 · '+sempliTime(x.elapsedSeconds)+'</li>').join('')+'</ol>';}catch(e){box.textContent='랭킹 조회 실패: '+e.message+'. 웹 앱 배포를 확인해 주세요.';}
 }
 async function sempliSubmitRecord(){
- const input=document.getElementById('sempliNickname'),status=document.getElementById('sempliRecordStatus'),btn=document.getElementById('sempliSaveRecord');const nickname=(input.value||'').trim();
+ const input=document.getElementById('sempliNickname'),status=document.getElementById('sempliRecordStatus'),btn=document.getElementById('sempliSaveRecord'),nickname=(input.value||'').trim();
  if(!nickname||nickname.length>20){status.textContent='닉네임을 1~20자로 입력해 주세요.';input.focus();return;}
- btn.disabled=true;status.textContent='기록을 저장하는 중…';
- try{const r=await fetch(SEMPLI_RANKING_API,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({category:'미궁',gameId:"maze-03",nickname,elapsedSeconds:sempliElapsed(),score})});const d=await r.json();if(!d.ok)throw new Error(d.error||'저장 실패');status.textContent='기록이 접수됐어요. 검증 전 기록입니다.';await sempliLoadLeaderboard();}catch(e){status.textContent='저장 실패. 웹 앱 배포 주소와 액세스 권한을 확인해 주세요.';btn.disabled=false;}
+ btn.disabled=true;status.textContent='기록 전송 및 시트 저장 여부를 확인하는 중…';
+ const requestId=(window.crypto&&crypto.randomUUID)?crypto.randomUUID():(Date.now().toString(36)+'-'+Math.random().toString(36).slice(2)),elapsedSeconds=sempliElapsed();
+ try{await fetch(SEMPLI_RANKING_API,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({category:'미궁',gameId:'maze-03',nickname,elapsedSeconds,score,requestId})});
+ let saved=false;for(let n=0;n<4;n++){await new Promise(r=>setTimeout(r,700*(n+1)));const u=new URL(SEMPLI_RANKING_API);u.searchParams.set('action','verify');u.searchParams.set('requestId',requestId);const d=await sempliJsonp(u.toString());if(d.ok&&d.saved){saved=true;break;}}
+ if(!saved)throw new Error('시트에서 저장된 기록을 확인하지 못했습니다. Apps Script 웹 앱을 새 버전으로 배포해 주세요.');
+ status.textContent='시트 저장 확인 완료! 기록이 접수됐어요. 검증 전 기록입니다.';await sempliLoadLeaderboard();
+ }catch(e){status.textContent='저장 확인 실패: '+e.message;btn.disabled=false;}
 }
 restore();render();
 
