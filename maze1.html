@@ -67,17 +67,12 @@ function render(){
  let task='';
  if(p.type==='short'||p.type==='math'||p.type==='nonsense'){
    task='<div class="answer-entry"><label for="freeAnswer">답 입력하기</label><div class="answer-row"><input id="freeAnswer" type="text" autocomplete="off" placeholder="'+(p.type==='math'?'숫자 또는 시각을 입력하세요':'정답을 직접 입력하세요')+'" '+(done?'disabled':'')+'><button class="btn primary" id="submitAnswer" type="button" '+(done?'disabled':'')+'>정답 확인</button></div></div>';
- }else if(p.type==='reveal'){
-   task='<p class="reveal-instruction">이야기 본문 아래의 어두운 문장을 처음부터 끝까지 드래그해 선택하세요.</p><div class="answer-entry"><label for="freeAnswer">숨겨진 문장의 핵심 단어</label><div class="answer-row"><input id="freeAnswer" type="text" autocomplete="off" placeholder="본문에서 찾은 핵심 단어" '+(done?'disabled':'')+'><button class="btn primary" id="submitAnswer" type="button" '+(done?'disabled':'')+'>정답 확인</button></div></div>';
  }else if(p.type==='matrix'){
    task='<div class="matrix-grid">'+p.matrix.flat().map((v,i)=>'<div class="matrix-cell '+(v==='?'?'missing':'')+'">'+esc(v==='?'?'?':v)+'</div>').join('')+'</div><div class="answer-entry"><label for="freeAnswer">빠진 칸의 도형 순서를 입력하세요</label><div class="answer-row"><input id="freeAnswer" type="text" autocomplete="off" placeholder="예: ○ △ □" '+(done?'disabled':'')+'><button class="btn primary" id="submitAnswer" type="button" '+(done?'disabled':'')+'>규칙 확인</button></div></div>';
  }else if(p.type==='word'){
    task='<div class="puzzle-help">타일을 눌러 순서대로 조합하세요. 잘못 고른 타일은 조합 영역에서 다시 누르면 빠집니다.</div><div class="word-bank">'+p.tiles.map((t,i)=>'<button class="tile" type="button" data-tile="'+i+'" '+(done?'disabled':'')+'>'+esc(t)+'</button>').join('')+'</div><div class="word-build" id="wordBuild" aria-label="조합한 단어">'+(done?esc(p.answer[0]):'조합한 단어가 여기에 표시됩니다')+'</div><div class="answer-row"><button class="btn" id="clearWord" type="button" '+(done?'disabled':'')+'>다시 조합</button><button class="btn primary" id="submitWord" type="button" '+(done?'disabled':'')+'>단어 확인</button></div>';
  }else if(p.type==='drag'){
    task='<div class="puzzle-help">PC에서는 단서를 봉인 위로 드래그하세요. 모바일에서는 단서를 누른 뒤 봉인을 누르면 됩니다.</div><div class="drag-bank">'+p.tiles.map((t,i)=>'<button class="tile drag-tile" draggable="true" type="button" data-drag="'+i+'" '+(done?'disabled':'')+'>'+esc(t)+'</button>').join('')+'</div><div class="drop-seal '+(done?'unlocked':'')+'" id="dropSeal" tabindex="0" role="button" aria-label="정답 단서 놓기">'+(done?'봉인이 열렸습니다 ✓':'여기에 단서를 놓으세요')+'</div>';
- }else if(p.type==='reveal'){const hidden=document.getElementById('storyHidden');if(hidden){hidden.addEventListener('pointerup',()=>{const sel=window.getSelection();if(sel&&sel.toString().trim().length>4)hidden.classList.add('revealed');});hidden.addEventListener('keyup',()=>{const sel=window.getSelection();if(sel&&sel.toString().trim().length>4)hidden.classList.add('revealed');});}}
-  if(p.type==='wordsearch'||p.type==='vertical'){
-   task='<div class="puzzle-help">글자를 옮기지 마세요. PC에서는 첫 글자부터 마지막 글자까지 누른 채 드래그하고, 모바일에서는 글자를 차례대로 누른 뒤 확인하세요.</div><div class="letter-grid '+(p.type==='vertical'?'vertical-grid':'')+'" id="letterGrid" style="--grid-cols:'+p.grid[0].length+'">'+p.grid.flat().map((letter,i)=>'<button type="button" class="letter-cell" data-letter="'+i+'" aria-label="글자 '+esc(letter)+'" '+(done?'disabled':'')+'>'+esc(letter)+'</button>').join('')+'</div><div class="word-build" id="foundWord">선택한 글자가 여기에 표시됩니다</div><div class="answer-row"><button class="btn" id="clearLetters" type="button" '+(done?'disabled':'')+'>선택 지우기</button><button class="btn primary" id="checkLetters" type="button" '+(done?'disabled':'')+'>숨은 단어 확인</button></div>';
  }else if(p.type==='pattern'){
    task='<div class="pattern-strip">'+(p.sequence||["2","3","5","8","12","17"]).map(v=>esc(v)).join(' <span>→</span> ')+' <span>→</span> ?</div><div class="answer-entry"><label for="freeAnswer">다음 숫자</label><div class="answer-row"><input id="freeAnswer" type="number" inputmode="numeric" placeholder="숫자 입력" '+(done?'disabled':'')+'><button class="btn primary" id="submitAnswer" type="button" '+(done?'disabled':'')+'>규칙 확인</button></div></div>';
  }
@@ -112,13 +107,6 @@ function render(){
    seal.addEventListener('drop',e=>{e.preventDefault();const n=Number(e.dataTransfer?.getData('text/plain'));check(p.tiles[n]);});
    seal.onclick=()=>{if(selected!==null)check(p.tiles[selected]);};
    seal.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&selected!==null){e.preventDefault();check(p.tiles[selected]);}});
- }
- if(p.type==='wordsearch'||p.type==='vertical'){
-   const grid=document.getElementById('letterGrid'),cells=[...grid.querySelectorAll('.letter-cell')],found=document.getElementById('foundWord');let selected=[],dragging=false,suppressClick=false,pointerStart=-1,didDrag=false;
-   const refresh=()=>{cells.forEach((b,i)=>b.classList.toggle('selected',selected.includes(i)));found.textContent=selected.length?selected.map(i=>p.grid.flat()[i]).join(''):'선택한 글자가 여기에 표시됩니다';found.classList.toggle('has-word',selected.length>0);};
-   const attempt=()=>{const word=selected.map(i=>p.grid.flat()[i]).join('');if(word)check(word);};
-   cells.forEach((cell,i)=>{cell.addEventListener('pointerdown',()=>{if(answered.has(index))return;dragging=true;pointerStart=i;didDrag=false;suppressClick=false;});cell.addEventListener('pointerenter',e=>{if(!dragging||answered.has(index))return;if(e.pointerType==='mouse'&&e.buttons===0)return;const n=Number(cell.dataset.letter);if(n!==pointerStart&&!didDrag){didDrag=true;selected=[pointerStart];}if(didDrag&&!selected.includes(n)){selected.push(n);refresh();}});cell.addEventListener('pointerup',()=>{if(dragging){dragging=false;if(didDrag){suppressClick=true;attempt();}}});cell.addEventListener('click',()=>{if(suppressClick){suppressClick=false;return;}const n=Number(cell.dataset.letter);selected=selected.includes(n)?selected.filter(x=>x!==n):[...selected,n];refresh();});});
-   document.getElementById('checkLetters').onclick=attempt;document.getElementById('clearLetters').onclick=()=>{selected=[];refresh();};
  }
  document.getElementById('nextBtn').onclick=()=>{if(!answered.has(index))return;if(index<chapters.length-1){index++;save();render();window.scrollTo({top:0,behavior:'smooth'});}else ending();};
  document.getElementById('restartBtn').onclick=restart;
