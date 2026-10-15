@@ -85,8 +85,8 @@ const puzzles=[
 {type:"short",label:"14 · 다음 열차의 숫자",q:"가방에 새겨진 숫자는 5, 8, 12, 17, 23입니다. 숫자 사이의 차이가 하나씩 커진다면 다음 숫자는 무엇인가요?",answer:["30"],why:"차이는 +3, +4, +5, +6입니다. 다음 차이는 +7이므로 23+7=30입니다.",hint:"숫자 자체보다 숫자 사이의 차이를 보세요. +3, +4, +5, +6 다음에는 얼마가 와야 할까요?"}
 ];
 let index=0,score=0,answered=new Set();
-function restore(){try{const x=JSON.parse(localStorage.getItem(KEY)||'null');if(x&&Number.isInteger(x.index)&&x.index>=0&&x.index<chapters.length){index=x.index;score=Math.max(0,Number(x.score)||0);answered=new Set(Array.isArray(x.answered)?x.answered:[]);}}catch(e){}}
-function save(){try{localStorage.setItem(KEY,JSON.stringify({index,score,answered:[...answered]}));}catch(e){}}
+function restore(){try{const x=JSON.parse(localStorage.getItem(KEY)||'null');if(x&&Number.isInteger(x.index)&&x.index>=0&&x.index<chapters.length){index=x.index;score=Math.max(0,Number(x.score)||0);answered=new Set(Array.isArray(x.answered)?x.answered:[]);if(Number(x.startedAt)>0)startedAt=Number(x.startedAt);}}catch(e){}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify({index,score,answered:[...answered],startedAt}));}catch(e){}}
 function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 function paintRail(){document.getElementById('railProgress').style.width=Math.round(answered.size/chapters.length*100)+'%';document.getElementById('chapterList').innerHTML=chapters.map((ch,i)=>'<button class="chapter-link '+(i===index?'active ':'')+(answered.has(i)?'done':'')+'" data-index="'+i+'"><b>'+String(i+1).padStart(2,'0')+'</b><span>'+esc(ch.title.replace(/^프롤로그 · |^제\d+장 · |^에필로그 · /,''))+'</span></button>').join('');document.querySelectorAll('.chapter-link').forEach(b=>b.onclick=()=>{const n=Number(b.dataset.index);if(n>index&&!answered.has(index))return;index=n;save();render();});}
 function normAnswer(v){return String(v||'').normalize('NFC').replace(/[\\s.,!?·~]/g,'').toLowerCase();}
@@ -153,8 +153,27 @@ function render(){
  document.getElementById('nextBtn').onclick=()=>{if(!answered.has(index))return;if(index<chapters.length-1){index++;save();render();window.scrollTo({top:0,behavior:'smooth'});}else ending();};
  document.getElementById('restartBtn').onclick=restart;
 }
-function ending(){document.getElementById('chapterHost').innerHTML='<article class="chapter-card ending"><div class="ending-mark">THE END / SEMPLY ORIGINAL</div><h2>당신은 미궁을<br>통과했다.</h2><p>내일역의 문이 닫히고, 역의 모든 시계가 각자의 속도로 움직이기 시작한다. 끝은 답을 얻는 순간이 아니라, 다음 선택을 시작하는 순간이다.</p><div class="score-big">'+score+' / '+chapters.length+'</div><div class="score-caption">CORRECT ANSWERS</div><div class="grade">'+(score>=10?'기억을 지키는 길잡이':score>=7?'틈을 읽는 탐험가':'다시 길을 만들 줄 아는 사람')+'</div><p>당신이 놓친 문도 사라지지 않았다. 다른 계절에 다시 열릴 수 있도록 기록실에 남겨 두었다. 오늘의 선택이 내일의 길이 되기를.</p><div class="ending-actions"><button class="btn primary" id="replayBtn">새 여정 시작</button><button class="btn" id="reviewBtn">마지막 장 다시 읽기</button></div></article>';document.getElementById('replayBtn').onclick=restart;document.getElementById('reviewBtn').onclick=()=>{index=chapters.length-1;render();};}
+function ending(){document.getElementById('chapterHost').innerHTML='<article class="chapter-card ending"><div class="ending-mark">THE END / SEMPLY ORIGINAL</div><h2>당신은 미궁을<br>통과했다.</h2><p>내일역의 문이 닫히고, 역의 모든 시계가 각자의 속도로 움직이기 시작한다. 끝은 답을 얻는 순간이 아니라, 다음 선택을 시작하는 순간이다.</p><div class="score-big">'+score+' / '+chapters.length+'</div><div class="score-caption">CORRECT ANSWERS</div><div class="grade">'+(score>=10?'기억을 지키는 길잡이':score>=7?'틈을 읽는 탐험가':'다시 길을 만들 줄 아는 사람')+'</div><p>당신이 놓친 문도 사라지지 않았다. 다른 계절에 다시 열릴 수 있도록 기록실에 남겨 두었다. 오늘의 선택이 내일의 길이 되기를.</p><section style="margin:24px auto;padding:18px;max-width:520px;border:1px solid var(--line);border-radius:16px;text-align:left"><h3 style="margin-top:0">🏆 온라인 랭킹</h3><label for="sempliNickname">닉네임 (최대 20자)</label><div style="display:flex;gap:8px;margin:8px 0"><input id="sempliNickname" maxlength="20" autocomplete="nickname" placeholder="닉네임 입력" style="min-width:0;flex:1;padding:11px;border:1px solid var(--line);border-radius:9px;background:var(--panel);color:inherit"><button class="btn primary" id="sempliSaveRecord">기록 등록</button></div><p id="sempliRecordStatus" role="status" style="font-size:12px"></p><p style="font-size:11px;opacity:.7">기록은 검증 전 상태로 등록됩니다. 점수 조작 방지 기능은 아직 제한적입니다.</p><div id="sempliLeaderboard">랭킹을 불러오는 중…</div></section><div class="ending-actions"><button class="btn primary" id="replayBtn">새 여정 시작</button><button class="btn" id="reviewBtn">마지막 장 다시 읽기</button></div></article>';document.getElementById('replayBtn').onclick=restart;document.getElementById('reviewBtn').onclick=()=>{index=chapters.length-1;render();};document.getElementById('sempliSaveRecord').onclick=sempliSubmitRecord;sempliLoadLeaderboard();}
 function restart(){if(!confirm('미궁을 처음부터 다시 시작할까요? 저장된 미궁 기록이 초기화됩니다.'))return;index=0;score=0;answered=new Set();save();render();window.scrollTo({top:0,behavior:'smooth'});}
 document.getElementById('resumeBtn').onclick=()=>{restore();render();document.querySelector('.story-hero').scrollIntoView({behavior:'smooth',block:'start'});};
 restore();render();
+
+const SEMPLI_RANKING_API="https://script.google.com/macros/s/AKfycbzWKifFsQvTwpJgNWZskSGm5RrDPVZgWfOKqoIxmsW7f8IGK8r469s2DhnV0Pb3-xt_/exec";
+let startedAt=Number(localStorage.getItem("dontimeStartedAtMaze1")||0);
+if(!startedAt){startedAt=Date.now();try{localStorage.setItem("dontimeStartedAtMaze1",String(startedAt));}catch(e){}}
+function sempliEscape(v){return String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function sempliElapsed(){return Math.max(1,Math.floor((Date.now()-startedAt)/1000));}
+function sempliTime(s){s=Math.max(0,Number(s)||0);return Math.floor(s/60)+'분 '+String(s%60).padStart(2,'0')+'초';}
+async function sempliLoadLeaderboard(){
+ const box=document.getElementById('sempliLeaderboard');if(!box)return;
+ box.textContent='랭킹을 불러오는 중…';
+ try{const u=new URL(SEMPLI_RANKING_API);u.searchParams.set('action','leaderboard');u.searchParams.set('category','미궁');u.searchParams.set('gameId',"maze-01");u.searchParams.set('limit','10');const r=await fetch(u.toString());const d=await r.json();if(!d.ok)throw new Error('랭킹 조회 실패');if(!d.records.length){box.innerHTML='<p>아직 등록된 기록이 없습니다. 첫 기록을 남겨보세요!</p>';return;}box.innerHTML='<ol style="text-align:left;padding-left:24px">'+d.records.map(x=>'<li style="padding:6px 0">'+sempliEscape(x.nickname)+' · '+x.score+'점 · '+sempliTime(x.elapsedSeconds)+'</li>').join('')+'</ol>';}catch(e){box.textContent='랭킹을 불러오지 못했습니다. 배포 상태를 확인한 뒤 다시 시도해 주세요.';}
+}
+async function sempliSubmitRecord(){
+ const input=document.getElementById('sempliNickname'),status=document.getElementById('sempliRecordStatus'),btn=document.getElementById('sempliSaveRecord');const nickname=(input.value||'').trim();
+ if(!nickname||nickname.length>20){status.textContent='닉네임을 1~20자로 입력해 주세요.';input.focus();return;}
+ btn.disabled=true;status.textContent='기록을 저장하는 중…';
+ try{const r=await fetch(SEMPLI_RANKING_API,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({category:'미궁',gameId:"maze-01",nickname,elapsedSeconds:sempliElapsed(),score})});const d=await r.json();if(!d.ok)throw new Error(d.error||'저장 실패');status.textContent='기록이 접수됐어요. 검증 전 기록입니다.';await sempliLoadLeaderboard();}catch(e){status.textContent='저장 실패. 웹 앱 배포 주소와 액세스 권한을 확인해 주세요.';btn.disabled=false;}
+}
+
 </script></body></html>
