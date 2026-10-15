@@ -88,7 +88,7 @@ function render(){
    if(answered.has(index))return;
    const ok=p.answer.some(a=>normAnswer(a)===normAnswer(value));
    if(ok){score++;answered.add(index);save();paintRail();document.getElementById('nextBtn').disabled=false;feedback.innerHTML='<strong>문이 열렸다.</strong> '+esc(p.why)+'<p>'+esc(ch.choice||'새로운 단서가 기록되었습니다. 다음 문으로 이동할 수 있어요.')+'</p>';document.querySelectorAll('.tile,.letter-cell,#freeAnswer,#submitAnswer,#submitWord,#clearWord,#checkLetters,#clearLetters').forEach(el=>el.disabled=true);const seal=document.getElementById('dropSeal');if(seal){seal.classList.add('unlocked');seal.textContent='봉인이 열렸습니다 ✓';}}
-   else{feedback.innerHTML='아직 정답이 아닙니다. <strong>힌트 보기</strong>에서 풀이 방향을 확인한 뒤 다시 시도해 보세요.';const input=document.getElementById('freeAnswer');if(input){input.classList.add('answer-wrong');input.focus();setTimeout(()=>input.classList.remove('answer-wrong'),700);}}
+   else{feedback.innerHTML='아직 정답이 아닙니다. 이야기 속 단서를 다시 살펴보고 다른 가능성을 검토해 보세요.';const input=document.getElementById('freeAnswer');if(input){input.classList.add('answer-wrong');input.focus();setTimeout(()=>input.classList.remove('answer-wrong'),700);}}
  }
  const input=document.getElementById('freeAnswer');
  if(input){document.getElementById('submitAnswer').onclick=()=>check(input.value);input.addEventListener('keydown',e=>{if(e.key==='Enter')check(input.value);});}
