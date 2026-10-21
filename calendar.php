@@ -68,6 +68,9 @@ for($d=1;$d<=$daysInMonth;$d++){ $dt=$first->modify('+'.($d-1).' days'); $dow=(i
 footer{margin-top:30px;padding-top:18px;border-top:1px solid #ddd;color:#888;font-size:12px}footer a{color:#666;margin-right:12px}
 @media(max-width:650px){.wrap{padding:20px 12px 45px}.hero h1{font-size:25px}.day{min-height:64px;padding:6px}.holiday-name{font-size:8px;margin-top:5px}.stats{grid-template-columns:1fr 1fr}.month-nav strong{font-size:16px}}
 </style>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3220276859043248"
+     crossorigin="anonymous"></script>
 </head>
 <body>
 <main class="wrap">
