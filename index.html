@@ -515,6 +515,50 @@ body.popup-counter-mode .cats,body.popup-counter-mode .tool-nav,body.popup-count
 }
 @media(max-width:380px){.featured-games{grid-template-columns:1fr}.featured-game-card{min-height:100px}.game-art{flex-basis:74px;width:74px;height:74px}.featured-game-copy strong{font-size:17px}.featured-game-copy>span:last-child{font-size:11px}}
 </style>
+<style id="cinematic-feature-cards">
+/* Cinematic feature-card art: elegant, atmospheric, and intentionally not emoji-led. */
+.featured-game-card{min-height:232px;padding:0 0 0 0;display:block;background:#101820;color:#fff;border:1px solid #ffffff20;isolation:isolate}
+.featured-game-card:before{content:"";position:absolute;inset:0;z-index:-2;transition:transform .5s ease}
+.featured-game-card:after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(7,10,14,.96) 0%,rgba(7,10,14,.78) 35%,rgba(7,10,14,.1) 100%),linear-gradient(0deg,rgba(5,8,12,.36),transparent 58%)}
+.featured-game-card:hover:before{transform:scale(1.04)}
+.maze-game-card{background:#111b2b;border-color:#304157}
+.maze-game-card:before{background:radial-gradient(ellipse at 78% 55%,#e5a45e 0%,#98613e 12%,transparent 34%),repeating-linear-gradient(0deg,transparent 0 18px,#9c795b70 19px 22px),repeating-linear-gradient(90deg,transparent 0 18px,#9c795b70 19px 22px),linear-gradient(135deg,#090f19 0%,#14253b 45%,#5a493d 100%);clip-path:polygon(18% 0,100% 0,100% 100%,0 100%,0 18%)}
+.maze-game-card .game-art{position:absolute;right:0;top:0;bottom:0;width:63%;height:100%;border-radius:0;background:repeating-linear-gradient(32deg,transparent 0 24px,#b48c6260 25px 29px),repeating-linear-gradient(148deg,transparent 0 25px,#c7a27840 26px 30px),radial-gradient(ellipse at 58% 55%,#f6c47c 0%,#a66c43 8%,#29364a 38%,transparent 72%);opacity:.95}
+.maze-art-path{width:65%;height:68%;border:2px solid #e9c28d;border-radius:2px;transform:perspective(280px) rotateX(55deg) rotateZ(-24deg);box-shadow:inset 0 0 0 12px #172336,inset 0 0 0 14px #d2a675,0 18px 40px #0008;background:repeating-linear-gradient(90deg,transparent 0 20px,#c39a6b 21px 24px)}
+.maze-art-path:before{width:3px;height:70%;left:35%;top:0;background:#d9b483;box-shadow:26px 20px 0 #d9b483,52px -3px 0 #d9b483}
+.maze-art-path:after{height:3px;width:75%;left:0;top:40%;background:#d9b483;box-shadow:0 25px 0 #d9b483}
+.maze-art-flag,.maze-art-piece{display:none}
+.quiz-game-card{background:#0f201f;border-color:#31524c}
+.quiz-game-card:before{background:radial-gradient(ellipse at 77% 45%,#f7bf68 0%,#c28b46 7%,transparent 22%),radial-gradient(ellipse at 80% 90%,#355e4d 0%,transparent 45%),linear-gradient(120deg,#080d12 0%,#152b2b 48%,#684c32 100%)}
+.quiz-game-card .game-art{position:absolute;right:0;top:0;bottom:0;width:58%;height:100%;border-radius:0;background:radial-gradient(ellipse at 72% 37%,#fff1b7 0%,#ffc56a 5%,#d08b36 8%,transparent 18%),linear-gradient(180deg,transparent 65%,#c18b4b80 66% 69%,transparent 70%),radial-gradient(ellipse at 68% 90%,#b47c44 0%,#513a29 30%,transparent 58%);opacity:.98}
+.quiz-art-glow{width:4px;height:4px;background:#fff4ce;box-shadow:0 0 22px 12px #ffd079,0 0 55px 28px #d68d3c90}
+.quiz-art-bulb{font-size:0;width:22px;height:30px;border-radius:55% 55% 45% 45%;background:linear-gradient(110deg,#fff3bd,#f4b74e);box-shadow:0 0 24px 12px #f2b95d80;transform:translateY(-12px)}
+.quiz-art-bulb:after{content:"";position:absolute;left:7px;bottom:-9px;width:8px;height:9px;border-radius:2px;background:#b8a17c;box-shadow:0 3px 0 #5e5446}
+.quiz-art-spark{display:none}
+.featured-game-copy{position:absolute;left:28px;top:50%;transform:translateY(-50%);z-index:2;max-width:57%;gap:9px;align-items:flex-start}
+.featured-game-pill{background:transparent!important;border:1px solid #d8b078;color:#e8c28c;font-size:10px;letter-spacing:.2em;text-transform:uppercase;padding:5px 9px;border-radius:2px}
+.featured-game-copy strong{font-size:31px;letter-spacing:-.045em;color:#fff8ed}
+.featured-game-copy>span:last-child{font-size:13px;color:#d7d8d5;max-width:270px}
+.featured-game-arrow{right:20px;top:auto;bottom:18px;transform:none;width:38px;height:38px;background:#d8ad71!important;color:#18202a;font-size:28px}
+.featured-game-card:hover .featured-game-arrow{transform:translateX(3px)}
+/* The three main money tools borrow the same editorial art direction. */
+.card.service-card-income,.card.service-card-hourly,.card.service-card-raise{position:relative;overflow:hidden;isolation:isolate;color:#fff;border-color:#ffffff28;min-height:164px}
+.card.service-card-income:before,.card.service-card-hourly:before,.card.service-card-raise:before{content:"";position:absolute;inset:0;z-index:-2;opacity:1;transition:transform .45s ease}
+.card.service-card-income:after,.card.service-card-hourly:after,.card.service-card-raise:after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(8,18,31,.96),rgba(8,18,31,.76) 42%,rgba(8,18,31,.08) 100%)}
+.card.service-card-income:hover:before,.card.service-card-hourly:hover:before,.card.service-card-raise:hover:before{transform:scale(1.04)}
+.card.service-card-income{background:#102b48}
+.card.service-card-income:before{background:radial-gradient(circle at 78% 54%,#e8c58b 0 2%,#9d7c4e 3% 4%,transparent 5%),radial-gradient(circle at 78% 54%,transparent 0 17%,#b7a17d 17.5% 18%,transparent 18.5%),radial-gradient(circle at 78% 54%,transparent 0 22%,#d4c3a4 22.5% 23%,transparent 23.5%),linear-gradient(135deg,#07172c,#17466a 58%,#6a4d34)}
+.card.service-card-hourly{background:#d9b6a2;color:#261d18;border-color:#e8d1c3}
+.card.service-card-hourly:before{background:radial-gradient(ellipse at 78% 55%,#fdf5e9 0%,#d8b9a5 20%,transparent 48%),repeating-linear-gradient(135deg,transparent 0 15px,#ffffff28 16px 18px),linear-gradient(120deg,#f4e5d9,#cfa997)}
+.card.service-card-hourly:after{background:linear-gradient(90deg,rgba(247,232,220,.97),rgba(247,232,220,.78) 42%,rgba(247,232,220,.05) 100%)}
+.card.service-card-raise{background:#073f40}
+.card.service-card-raise:before{background:radial-gradient(circle at 82% 30%,#e7c277 0 3%,transparent 4%),radial-gradient(ellipse at 82% 70%,#35b8a0 0%,#0b7773 18%,transparent 44%),linear-gradient(120deg,#092f37,#08605c 58%,#1b8273)}
+.card.service-card-income h3,.card.service-card-income .copy,.card.service-card-income .desc,.card.service-card-income .hint,.card.service-card-raise h3,.card.service-card-raise .copy,.card.service-card-raise .desc,.card.service-card-raise .hint{color:#fff}
+.card.service-card-hourly h3,.card.service-card-hourly .copy,.card.service-card-hourly .desc,.card.service-card-hourly .hint{color:#30241f}
+.card.service-card-income .card-intro-link,.card.service-card-raise .card-intro-link{background:#f1d3a0;color:#1b2733;border-color:#f1d3a0}
+.card.service-card-hourly .card-intro-link{background:#3b2b23;color:#fff;border-color:#3b2b23}
+@media(max-width:700px){.featured-game-card{min-height:144px}.featured-game-copy{left:13px;max-width:70%;gap:6px}.featured-game-copy strong{font-size:19px}.featured-game-copy>span:last-child{font-size:10px}.featured-game-arrow{right:9px;bottom:9px;width:28px;height:28px;font-size:22px}.maze-game-card .game-art{width:54%}.quiz-game-card .game-art{width:50%}.card.service-card-income,.card.service-card-hourly,.card.service-card-raise{min-height:145px;padding:14px}.card.service-card-income:after,.card.service-card-hourly:after,.card.service-card-raise:after{background:linear-gradient(90deg,rgba(8,18,31,.96),rgba(8,18,31,.72) 56%,rgba(8,18,31,.18) 100%)}}
+</style>
 </head>
 <body>
 <div class="site-sticky" id="siteSticky">
@@ -733,10 +777,10 @@ function render(){
   const q=searchQuery.trim().toLowerCase();
   const items=q?all.filter(({cat,x})=>(cat+' '+x[0]+' '+x[1]+' '+(cardDescriptions[x[2]]||'')).toLowerCase().includes(q)).map(({x})=>x):(current==='전체'?all.map(({x})=>x).sort((a,b)=>(a[2]==='ovulation'?1:0)-(b[2]==='ovulation'?1:0)):current==='돈'?[...(data[current]||[]),...(all.some(({x})=>x[2]==='ovulation')?[all.find(({x})=>x[2]==='ovulation').x]:[])]:data[current]);
   if(q){
-    cards.innerHTML=items.length?items.map(x=>'<div class="card"'+dragAttr+' ondragstart="dragService(event,\''+x[2]+'\',\''+x[0]+'\',\''+x[1]+'\')" tabindex="0" onclick="openTool(\''+x[2]+'\',\''+x[0]+'\',\''+x[1]+'\')" onkeydown="if((event.key===\'Enter\'||event.key===\' \')&&!event.target.closest(\'.card-intro-link\')){event.preventDefault();openTool(\''+x[2]+'\',\''+x[0]+'\',\''+x[1]+'\')}"><h3>'+toolIcon(x[2],current)+' '+x[0]+'</h3><p class="copy">'+x[1]+'</p><p class="desc">'+(cardDescriptions[x[2]]||'입력한 값을 바탕으로 생활 속 필요한 계산을 빠르게 확인합니다.')+'</p><div class="card-actions"><span class="hint">검색 결과 · 계산기 열기</span><a class="card-intro-link" href="calculator.php?tool='+encodeURIComponent(x[2])+'" onclick="event.stopPropagation()" onkeydown="event.stopPropagation()">소개 보기 ↗</a></div></div>').join(''):'<div class="search-empty"><strong>찾는 계산기가 아직 없어요.</strong><span>다른 단어로 검색하거나 카테고리에서 골라보세요.</span></div>';
+    cards.innerHTML=items.length?items.map(x=>'<div class="card service-card-'+x[2]+'"'+dragAttr+' ondragstart="dragService(event,\''+x[2]+'\',\''+x[0]+'\',\''+x[1]+'\')" tabindex="0" onclick="openTool(\''+x[2]+'\',\''+x[0]+'\',\''+x[1]+'\')" onkeydown="if((event.key===\'Enter\'||event.key===\' \')&&!event.target.closest(\'.card-intro-link\')){event.preventDefault();openTool(\''+x[2]+'\',\''+x[0]+'\',\''+x[1]+'\')}"><h3>'+toolIcon(x[2],current)+' '+x[0]+'</h3><p class="copy">'+x[1]+'</p><p class="desc">'+(cardDescriptions[x[2]]||'입력한 값을 바탕으로 생활 속 필요한 계산을 빠르게 확인합니다.')+'</p><div class="card-actions"><span class="hint">검색 결과 · 계산기 열기</span><a class="card-intro-link" href="calculator.php?tool='+encodeURIComponent(x[2])+'" onclick="event.stopPropagation()" onkeydown="event.stopPropagation()">소개 보기 ↗</a></div></div>').join(''):'<div class="search-empty"><strong>찾는 계산기가 아직 없어요.</strong><span>다른 단어로 검색하거나 카테고리에서 골라보세요.</span></div>';
     const meta=document.getElementById('searchMeta'); if(meta) meta.textContent=items.length+'개의 계산기를 찾았습니다.';
   }else{
-    cards.innerHTML=items.map(x=>'<div class="card"'+dragAttr+' ondragstart="dragService(event,\''+x[2]+'\',\''+x[0]+'\',\''+x[1]+'\')" tabindex="0" onclick="openTool(\''+x[2]+'\',\''+x[0]+'\',\''+x[1]+'\')" onkeydown="if((event.key===\'Enter\'||event.key===\' \')&&!event.target.closest(\'.card-intro-link\')){event.preventDefault();openTool(\''+x[2]+'\',\''+x[0]+'\',\''+x[1]+'\')}"><h3>'+toolIcon(x[2],current)+' '+x[0]+'</h3><p class="copy">'+x[1]+'</p><p class="desc">'+(cardDescriptions[x[2]]||'입력한 값을 바탕으로 생활 속 필요한 계산을 빠르게 확인합니다.')+'</p><div class="card-actions"><span class="hint">카드 전체 클릭 → 계산하기 · 드래그해서 비교창에 추가</span><a class="card-intro-link" href="calculator.php?tool='+encodeURIComponent(x[2])+'" onclick="event.stopPropagation()" onkeydown="event.stopPropagation()">소개 보기 ↗</a></div></div>').join('');
+    cards.innerHTML=items.map(x=>'<div class="card service-card-'+x[2]+'"'+dragAttr+' ondragstart="dragService(event,\''+x[2]+'\',\''+x[0]+'\',\''+x[1]+'\')" tabindex="0" onclick="openTool(\''+x[2]+'\',\''+x[0]+'\',\''+x[1]+'\')" onkeydown="if((event.key===\'Enter\'||event.key===\' \')&&!event.target.closest(\'.card-intro-link\')){event.preventDefault();openTool(\''+x[2]+'\',\''+x[0]+'\',\''+x[1]+'\')}"><h3>'+toolIcon(x[2],current)+' '+x[0]+'</h3><p class="copy">'+x[1]+'</p><p class="desc">'+(cardDescriptions[x[2]]||'입력한 값을 바탕으로 생활 속 필요한 계산을 빠르게 확인합니다.')+'</p><div class="card-actions"><span class="hint">카드 전체 클릭 → 계산하기 · 드래그해서 비교창에 추가</span><a class="card-intro-link" href="calculator.php?tool='+encodeURIComponent(x[2])+'" onclick="event.stopPropagation()" onkeydown="event.stopPropagation()">소개 보기 ↗</a></div></div>').join('');
     const meta=document.getElementById('searchMeta'); if(meta) meta.textContent='계산기 '+Object.values(data).reduce((n,v)=>n+v.length,0)+'개 · 원하는 계산기를 검색해보세요.';
   }
   renderRecentTools();
