@@ -560,17 +560,90 @@ body.popup-counter-mode .cats,body.popup-counter-mode .tool-nav,body.popup-count
 @media(max-width:700px){.featured-game-card{min-height:144px}.featured-game-copy{left:13px;max-width:70%;gap:6px}.featured-game-copy strong{font-size:19px}.featured-game-copy>span:last-child{font-size:10px}.featured-game-arrow{right:9px;bottom:9px;width:28px;height:28px;font-size:22px}.maze-game-card .game-art{width:54%}.quiz-game-card .game-art{width:50%}.card.service-card-income,.card.service-card-hourly,.card.service-card-raise{min-height:145px;padding:14px}.card.service-card-income:after,.card.service-card-hourly:after,.card.service-card-raise:after{background:linear-gradient(90deg,rgba(8,18,31,.96),rgba(8,18,31,.72) 56%,rgba(8,18,31,.18) 100%)}}
 </style>
 <style id="cinematic-layer-fix">
-/* Keep the artwork above the card background and the copy above the artwork. */
-.featured-game-card{position:relative;isolation:isolate;background:#101820!important}
-.featured-game-card:before{z-index:0!important}
-.featured-game-card:after{z-index:1!important}
-.featured-game-card>*{position:relative;z-index:2}
-.featured-game-copy{position:absolute!important;z-index:3!important}
-.featured-game-arrow{position:absolute!important;z-index:3!important}
-.card.service-card-income,.card.service-card-hourly,.card.service-card-raise{isolation:isolate!important}
-.card.service-card-income:before,.card.service-card-hourly:before,.card.service-card-raise:before{z-index:0!important}
-.card.service-card-income:after,.card.service-card-hourly:after,.card.service-card-raise:after{z-index:1!important}
-.card.service-card-income>*,.card.service-card-hourly>*,.card.service-card-raise>*{position:relative;z-index:2}
+/* Sempli homepage visual refresh: warm editorial palette, clear art layers, consistent calculator cards. */
+:root{--season-bg:#f8f2e9;--season-paper:#fffaf4;--season-card:#fffaf4;--season-ink:#352318;--season-line:#e9d7c5;--season-accent:#b88954}
+body{background:#f8f2e9!important;color:#352318}
+.site-sticky{box-shadow:0 7px 24px rgba(55,35,20,.08)}
+header{background:rgba(255,250,244,.97)!important;border-color:#ead9c8!important}
+.logo{color:#3b2417!important}
+.tag{color:#77685b!important}
+.top-marquee{background:linear-gradient(100deg,#2c1d16,#4a3024 48%,#2b1d17)!important;border-color:#624333!important}
+.top-marquee a,.top-marquee button,.top-marquee span{color:#fff5e8}
+.hero-category-layout .hero h1{color:#3b2417;text-wrap:balance}
+.hero-category-layout .hero p{color:#78695d}
+.featured-compare{background:rgba(255,255,255,.86)!important;border:1px solid #ead8c6!important;border-radius:24px!important;box-shadow:0 10px 32px rgba(81,52,28,.06)}
+.featured-card{background:#fffaf4!important;border-color:#ead7c4!important;border-radius:16px!important}
+.featured-card:hover{border-color:#cba47c!important;box-shadow:0 10px 26px rgba(81,52,28,.08)!important}
+.featured-games{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:14px!important;margin:0 0 18px!important}
+.featured-game-card{position:relative!important;display:block!important;min-width:0;min-height:222px!important;padding:0!important;overflow:hidden!important;isolation:isolate!important;background:#101820!important;color:#fff!important;border:1px solid rgba(255,255,255,.16)!important;border-radius:17px!important;box-shadow:0 8px 22px rgba(31,24,17,.12)!important}
+.featured-game-card:before{content:"";position:absolute;inset:0;z-index:0!important;transition:transform .55s ease!important}
+.featured-game-card:after{content:"";position:absolute;inset:0;z-index:1!important;background:linear-gradient(90deg,rgba(7,12,19,.97) 0%,rgba(7,12,19,.82) 34%,rgba(7,12,19,.24) 72%,rgba(7,12,19,.08) 100%),linear-gradient(0deg,rgba(4,7,12,.45),transparent 62%)!important;pointer-events:none}
+.featured-game-card:hover:before{transform:scale(1.055)}
+.maze-game-card{background:#101a29!important;border-color:#34465a!important}
+.maze-game-card:before{background:radial-gradient(ellipse at 78% 52%,#ffd99a 0%,#ce8e50 4%,#8e5c38 10%,transparent 25%),radial-gradient(ellipse at 75% 68%,#243b51 0%,transparent 44%),repeating-linear-gradient(32deg,transparent 0 27px,rgba(199,164,116,.4) 28px 31px),repeating-linear-gradient(148deg,transparent 0 30px,rgba(199,164,116,.35) 31px 34px),linear-gradient(120deg,#070d16 0%,#1c2b3d 52%,#76543a 100%)!important}
+.quiz-game-card{background:#0e201e!important;border-color:#3b594c!important}
+.quiz-game-card:before{background:radial-gradient(ellipse at 82% 43%,#fff0b7 0%,#e4b66d 3%,#91663e 8%,transparent 23%),radial-gradient(ellipse at 76% 95%,#b58a50 0%,#355044 20%,transparent 48%),linear-gradient(125deg,#090f12 0%,#19312c 52%,#4e422e 100%)!important}
+.featured-game-card .game-art{position:absolute!important;right:0!important;top:0!important;bottom:0!important;width:64%!important;height:100%!important;flex:none!important;border-radius:0!important;z-index:0!important;opacity:.95}
+.maze-game-card .game-art{background:repeating-linear-gradient(30deg,transparent 0 24px,rgba(224,188,137,.38) 25px 28px),repeating-linear-gradient(150deg,transparent 0 24px,rgba(224,188,137,.32) 25px 28px),radial-gradient(ellipse at 55% 55%,#efc88c 0%,#855a3c 8%,#25394d 31%,transparent 70%)!important}
+.maze-art-path{width:68%!important;height:66%!important;border:2px solid #e9c28d!important;border-radius:3px!important;transform:perspective(280px) rotateX(54deg) rotateZ(-23deg)!important;box-shadow:inset 0 0 0 10px #172336,inset 0 0 0 12px #d2a675,0 18px 40px #0008!important;background:repeating-linear-gradient(90deg,transparent 0 20px,#c39a6b 21px 24px)!important}
+.maze-art-path:before{width:3px!important;height:70%!important;left:35%!important;top:0!important;background:#d9b483!important;box-shadow:26px 20px 0 #d9b483,52px -3px 0 #d9b483!important}
+.maze-art-path:after{height:3px!important;width:75%!important;left:0!important;top:40%!important;background:#d9b483!important;box-shadow:0 25px 0 #d9b483!important}
+.maze-art-flag,.maze-art-piece{display:none!important}
+.quiz-game-card .game-art{background:radial-gradient(ellipse at 72% 38%,#fff0b7 0%,#d8a75e 4%,transparent 18%),linear-gradient(180deg,transparent 65%,rgba(194,145,77,.6) 66% 69%,transparent 70%),radial-gradient(ellipse at 70% 90%,#a87943 0%,#493b2c 28%,transparent 60%)!important}
+.quiz-art-glow{width:4px!important;height:4px!important;background:#fff4ce!important;box-shadow:0 0 22px 12px #ffd079,0 0 55px 28px #d68d3c90!important}
+.quiz-art-bulb{font-size:0!important;width:22px!important;height:30px!important;border-radius:55% 55% 45% 45%!important;background:linear-gradient(110deg,#fff3bd,#f4b74e)!important;box-shadow:0 0 24px 12px #f2b95d80!important;transform:translateY(-12px)!important}
+.quiz-art-bulb:after{content:"";position:absolute;left:7px;bottom:-9px;width:8px;height:9px;border-radius:2px;background:#b8a17c;box-shadow:0 3px 0 #5e5446}
+.quiz-art-spark{display:none!important}
+.featured-game-copy{position:absolute!important;left:27px!important;top:50%!important;transform:translateY(-50%)!important;z-index:3!important;max-width:58%!important;gap:9px!important;align-items:flex-start!important}
+.featured-game-pill{background:transparent!important;border:1px solid #d8b078!important;color:#e8c28c!important;font-size:10px!important;letter-spacing:.2em!important;text-transform:uppercase!important;padding:5px 9px!important;border-radius:3px!important}
+.featured-game-copy strong{font-size:clamp(23px,2.2vw,31px)!important;letter-spacing:-.045em!important;color:#fff8ed!important;text-shadow:0 2px 18px #0008}
+.featured-game-copy>span:last-child{font-size:13px!important;color:#e1ddd6!important;max-width:270px}
+.featured-game-arrow{position:absolute!important;right:17px!important;top:auto!important;bottom:16px!important;z-index:3!important;transform:none!important;width:38px!important;height:38px!important;background:#e8c28c!important;color:#1d2429!important;font-size:28px!important;box-shadow:0 3px 12px #0004}
+.featured-game-card:hover .featured-game-arrow{transform:translateX(3px)!important}
+/* All calculator cards now share a refined editorial card system. */
+.card{position:relative!important;isolation:isolate!important;overflow:hidden!important;min-height:174px!important;padding:22px!important;background:linear-gradient(145deg,#fffdf9 0%,#f5e9db 100%)!important;border:1px solid #e8d6c4!important;border-radius:18px!important;box-shadow:0 4px 14px rgba(69,43,24,.045)!important;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease!important}
+.card:before{content:"";position:absolute;z-index:0;pointer-events:none;right:-35px;top:-52px;width:190px;height:190px;border-radius:50%;background:radial-gradient(circle at 35% 35%,rgba(255,255,255,.92),rgba(211,168,120,.28) 38%,rgba(211,168,120,0) 72%);opacity:.82}
+.card:after{content:"";position:absolute;z-index:0;pointer-events:none;right:18px;bottom:18px;width:76px;height:76px;border:1px solid rgba(155,111,69,.15);border-radius:50%;box-shadow:0 0 0 9px rgba(155,111,69,.035),0 0 0 19px rgba(155,111,69,.025)}
+.card>*{position:relative;z-index:2}
+.card:hover{transform:translateY(-4px)!important;box-shadow:0 14px 30px rgba(69,43,24,.12)!important;border-color:#caa47d!important}
+.card h3{font-size:21px!important;letter-spacing:-.04em!important;color:#3b281c!important}
+.card .copy{font-size:14px!important;color:#5e4939!important}
+.card .desc{color:#857568!important;max-width:42em}
+.card .hint{color:#9b8b7d!important}
+.card .card-intro-link{background:#fffaf4!important;border-color:#e4d0bb!important;color:#4b3322!important;border-radius:999px!important;padding:8px 13px!important}
+.card .card-intro-link:hover{background:#3d291d!important;color:#fff8ef!important}
+.card.service-card-income,.card.service-card-hourly,.card.service-card-raise{min-height:190px!important;padding:22px!important;border-radius:18px!important}
+.card.service-card-income:before,.card.service-card-hourly:before,.card.service-card-raise:before{z-index:0!important;right:0!important;top:0!important;width:100%!important;height:100%!important;border-radius:0!important}
+.card.service-card-income:after,.card.service-card-hourly:after,.card.service-card-raise:after{z-index:1!important;right:auto!important;bottom:auto!important;width:auto!important;height:auto!important;border:0!important;border-radius:0!important;box-shadow:none!important;pointer-events:none}
+.card.service-card-income>*,.card.service-card-hourly>*,.card.service-card-raise>*{position:relative!important;z-index:2!important}
+.card.service-card-income{background:#102b48!important;border-color:#344e68!important}
+.card.service-card-income:before{background:radial-gradient(circle at 78% 54%,#e8c58b 0 2%,#9d7c4e 3% 4%,transparent 5%),radial-gradient(circle at 78% 54%,transparent 0 17%,#b7a17d 17.5% 18%,transparent 18.5%),radial-gradient(circle at 78% 54%,transparent 0 22%,#d4c3a4 22.5% 23%,transparent 23.5%),linear-gradient(135deg,#07172c,#17466a 58%,#6a4d34)!important}
+.card.service-card-income:after{background:linear-gradient(90deg,rgba(8,18,31,.96),rgba(8,18,31,.76) 42%,rgba(8,18,31,.08) 100%)!important}
+.card.service-card-income h3,.card.service-card-income .copy,.card.service-card-income .desc,.card.service-card-income .hint,.card.service-card-raise h3,.card.service-card-raise .copy,.card.service-card-raise .desc,.card.service-card-raise .hint{color:#fff8ed!important}
+.card.service-card-hourly{background:#f4e3d4!important;border-color:#e6cbb6!important;color:#352318!important}
+.card.service-card-hourly:before{background:radial-gradient(ellipse at 78% 55%,#fff9ef 0%,#d8b9a5 20%,transparent 48%),repeating-linear-gradient(135deg,transparent 0 15px,#ffffff45 16px 18px),linear-gradient(120deg,#f4e5d9,#cfa997)!important}
+.card.service-card-hourly:after{background:linear-gradient(90deg,rgba(247,232,220,.97),rgba(247,232,220,.78) 42%,rgba(247,232,220,.05) 100%)!important}
+.card.service-card-hourly h3,.card.service-card-hourly .copy,.card.service-card-hourly .desc,.card.service-card-hourly .hint{color:#3b281c!important}
+.card.service-card-raise{background:#073f40!important;border-color:#286762!important}
+.card.service-card-raise:before{background:radial-gradient(circle at 82% 30%,#e7c277 0 3%,transparent 4%),radial-gradient(ellipse at 82% 70%,#35b8a0 0%,#0b7773 18%,transparent 44%),linear-gradient(120deg,#092f37,#08605c 58%,#1b8273)!important}
+.card.service-card-raise:after{background:linear-gradient(90deg,rgba(5,39,42,.97),rgba(5,39,42,.75) 44%,rgba(5,39,42,.1) 100%)!important}
+.card.service-card-income .card-intro-link,.card.service-card-raise .card-intro-link{background:#f1d3a0!important;color:#1b2733!important;border-color:#f1d3a0!important}
+.card.service-card-hourly .card-intro-link{background:#3b2b23!important;color:#fff!important;border-color:#3b2b23!important}
+@media(max-width:700px){
+ .hero-category-layout{gap:12px}
+ .featured-games{gap:9px!important;margin-bottom:14px!important}
+ .featured-game-card{min-height:150px!important;border-radius:14px!important}
+ .featured-game-copy{left:13px!important;max-width:70%!important;gap:6px!important}
+ .featured-game-copy strong{font-size:19px!important}
+ .featured-game-copy>span:last-child{font-size:10px!important;line-height:1.35}
+ .featured-game-arrow{right:9px!important;bottom:9px!important;width:28px!important;height:28px!important;font-size:22px!important}
+ .maze-game-card .game-art{width:55%!important}
+ .quiz-game-card .game-art{width:50%!important}
+ .card{padding:15px!important;min-height:150px!important;border-radius:15px!important}
+ .card h3{font-size:17px!important}
+ .card .desc{font-size:12px!important}
+ .card.service-card-income,.card.service-card-hourly,.card.service-card-raise{min-height:155px!important;padding:15px!important}
+}
 </style>
 </head>
 <body>
