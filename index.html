@@ -471,6 +471,50 @@ body.popup-counter-mode #livebox .sub:last-child{color:#c4d4ce!important;font-si
 body.popup-counter-mode .popup-again-btn{display:block!important;width:100%!important;border:1px solid #648d80!important;border-radius:12px!important;padding:12px!important;background:#174b42!important;color:#fff!important;font-size:14px!important;font-weight:700!important;cursor:pointer}
 body.popup-counter-mode .cats,body.popup-counter-mode .tool-nav,body.popup-counter-mode .tool-title-row{display:none!important}
 </style><script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"셈플리에서는 무엇을 계산할 수 있나요?","acceptedAnswer":{"@type":"Answer","text":"월급과 시급, 실수령액, 수당, 저축과 대출 이자, 소비 예산, 자동차 비용, 세금 관련 금액, 시간과 날짜 차이 및 달력을 확인할 수 있습니다. 미궁 스토리와 지식 퀴즈도 이용할 수 있습니다."}},{"@type":"Question","name":"계산 결과는 실제 금액과 항상 같나요?","acceptedAnswer":{"@type":"Answer","text":"계산 결과는 사용자가 입력한 값과 화면에 안내된 계산 기준을 바탕으로 한 참고 정보입니다. 세금, 금융상품, 수당처럼 법령·약관·개인 조건에 따라 달라지는 항목은 최신 공식 기준과 실제 계약 내용을 함께 확인하세요."}},{"@type":"Question","name":"계산기를 여러 개 비교할 수 있나요?","acceptedAnswer":{"@type":"Answer","text":"지원되는 계산기는 화면에서 나란히 배치해 결과를 비교할 수 있습니다. PC에서는 드래그 배치를 지원하는 화면도 있습니다."}},{"@type":"Question","name":"오류나 개선 의견은 어디로 보내나요?","acceptedAnswer":{"@type":"Answer","text":"서비스 문의는 hyh2468z@gmail.com 으로 보낼 수 있습니다."}}]}</script>
+<style>
+/* Featured maze and quiz cards: placed before the calculator grid */
+.featured-games{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin:0 0 24px}
+.featured-game-card{position:relative;display:flex;align-items:center;gap:20px;min-width:0;min-height:142px;padding:18px 54px 18px 18px;overflow:hidden;text-decoration:none;color:var(--season-ink,#24352f);border:1px solid transparent;border-radius:20px;transition:transform .18s ease,box-shadow .18s ease}
+.featured-game-card:hover{transform:translateY(-2px);box-shadow:0 10px 26px #20251b12}
+.maze-game-card{background:linear-gradient(115deg,#f6edff 0%,#f4eaff 100%);border-color:#dfc5ff}
+.quiz-game-card{background:linear-gradient(115deg,#e8fff6 0%,#e4fbf5 100%);border-color:#a9eed9}
+.game-art{position:relative;display:flex;align-items:center;justify-content:center;flex:0 0 126px;width:126px;height:104px;border-radius:18px;overflow:hidden}
+.maze-game-art{background:radial-gradient(ellipse at 50% 85%,#c8a4ff 0%,#e2d1ff 42%,#f4eaff 76%)}
+.maze-art-path{position:absolute;width:72px;height:58px;border:7px solid #9870f4;border-radius:9px;transform:rotate(-12deg);box-shadow:inset 0 0 0 5px #c8b1ff,0 7px 0 #b9a0f3}
+.maze-art-path:before,.maze-art-path:after{content:"";position:absolute;border-radius:4px;background:#9870f4}
+.maze-art-path:before{width:8px;height:29px;left:16px;top:0;box-shadow:22px 17px 0 #9870f4}
+.maze-art-path:after{height:7px;width:25px;left:22px;top:12px;box-shadow:-18px 19px 0 #9870f4}
+.maze-art-flag{position:absolute;top:7px;right:25px;color:#ff9c35;font-size:24px;text-shadow:0 2px 0 #fff}
+.maze-art-piece{position:relative;z-index:1;font-size:36px;filter:drop-shadow(0 4px 2px #7250bd40);transform:translate(-1px,8px)}
+.quiz-game-art{background:radial-gradient(ellipse at 48% 45%,#c8ffea 0%,#e3fff5 52%,#e8fff6 78%)}
+.quiz-art-glow{position:absolute;width:76px;height:76px;border-radius:50%;background:#ffe76a;box-shadow:0 0 0 9px #fff2ad,0 8px 22px #e9c84440}
+.quiz-art-bulb{position:relative;z-index:1;font-size:51px;filter:drop-shadow(0 5px 3px #278f7740);transform:rotate(-8deg)}
+.quiz-art-spark{position:absolute;color:#5bd8b1;font-weight:900}
+.spark-one{left:17px;top:17px;font-size:20px}.spark-two{right:13px;bottom:15px;font-size:25px}
+.featured-game-copy{display:flex;flex-direction:column;align-items:flex-start;gap:6px;min-width:0}
+.featured-game-pill{display:inline-flex;align-items:center;border-radius:999px;padding:5px 13px;color:white;font-size:12px;font-weight:900;line-height:1.2}
+.maze-pill{background:#8147e8}.quiz-pill{background:#00a982}
+.featured-game-copy strong{font-size:23px;line-height:1.2;letter-spacing:-.04em}
+.featured-game-copy>span:last-child{font-size:13px;line-height:1.5;color:#686c76}
+.featured-game-arrow{position:absolute;right:18px;top:50%;display:flex;align-items:center;justify-content:center;width:42px;height:42px;transform:translateY(-50%);border-radius:50%;background:#8147e8;color:#fff;font-size:34px;line-height:1}
+.quiz-game-card .featured-game-arrow{background:#00b58a}
+@media(max-width:700px){
+ .featured-games{gap:9px;margin-bottom:18px}
+ .featured-game-card{min-height:116px;gap:10px;padding:12px 12px 12px 10px;border-radius:15px;align-items:center}
+ .game-art{flex-basis:62px;width:62px;height:70px;border-radius:12px}
+ .maze-art-path{width:43px;height:37px;border-width:4px;box-shadow:inset 0 0 0 3px #c8b1ff,0 4px 0 #b9a0f3}
+ .maze-art-path:before{width:5px;height:18px;left:9px;box-shadow:13px 11px 0 #9870f4}
+ .maze-art-path:after{height:4px;width:15px;left:13px;top:8px;box-shadow:-11px 12px 0 #9870f4}
+ .maze-art-flag{top:4px;right:5px;font-size:15px}.maze-art-piece{font-size:25px;transform:translateY(5px)}
+ .quiz-art-glow{width:42px;height:42px;box-shadow:0 0 0 5px #fff2ad,0 5px 12px #e9c84440}
+ .quiz-art-bulb{font-size:32px}.spark-one{left:4px;top:9px;font-size:12px}.spark-two{right:3px;bottom:7px;font-size:16px}
+ .featured-game-copy{gap:4px}.featured-game-pill{padding:4px 9px;font-size:10px}
+ .featured-game-copy strong{font-size:15px}.featured-game-copy>span:last-child{font-size:10px;line-height:1.35}
+ .featured-game-arrow{right:7px;width:23px;height:23px;font-size:22px}
+ .featured-game-card{padding-right:32px}
+}
+@media(max-width:380px){.featured-games{grid-template-columns:1fr}.featured-game-card{min-height:100px}.game-art{flex-basis:74px;width:74px;height:74px}.featured-game-copy strong{font-size:17px}.featured-game-copy>span:last-child{font-size:11px}}
+</style>
 </head>
 <body>
 <div class="site-sticky" id="siteSticky">
@@ -482,6 +526,19 @@ body.popup-counter-mode .cats,body.popup-counter-mode .tool-nav,body.popup-count
 </nav>
 </div>
 <main class="wrap"><section id="home"><div class="hero-category-layout"><div class="hero"><h1>돈과 시간의 계산,<br>셈플리에서 한눈에.</h1><p>월급과 시급, 예상 실수령액부터 대출 상환·저축 이자·소비 예산·주거비·자동차 유지비·세금·날짜까지 생활 속 숫자를 직접 계산해 보세요. 각 도구의 입력 기준과 결과를 확인하고, 관련 계산기를 함께 비교해 더 나은 선택을 준비할 수 있습니다.</p></div><div class="featured-compare"><div class="featured-head"><div><strong>계산 결과를 나란히 비교하세요</strong><span>월급과 소비처럼 서로 연결되는 숫자를 함께 확인하면 선택의 기준을 세우기 쉽습니다.</span></div><span class="featured-drag">PC에서는 계산기를 드래그해서 자유롭게 배치할 수 있어요 ↗</span></div><div class="featured-grid"><button class="featured-card" type="button" onclick="openTool('income','월급시계','1초에 얼마 벌고 있는지 알고 있어?')"><div class="featured-kicker">01 · 돈</div><h3>월급시계</h3><p>내가 지금까지 번 돈을 실시간으로 확인</p><div class="featured-value">0.0000원</div><span>계산기 열기 →</span></button><div class="featured-join">+</div><button class="featured-card" type="button" onclick="openTool('workforbuy','얼마나 일해야 살 수 있을까?','월급시계와 연결하면, 지금부터 이 물건을 살 때까지 남은 시간이 줄어듭니다.')"><div class="featured-kicker">02 · 시간</div><h3>얼마나 일해야 살 수 있을까?</h3><p>원하는 물건이 내 시간으로 몇 시간짜리인지 확인</p><div class="featured-value">몇 시간일까?</div><span>계산기 열기 →</span></button></div></div></div>
+
+<section class="featured-games" aria-label="미궁과 퀴즈">
+  <a class="featured-game-card maze-game-card" href="/maze.html">
+    <span class="game-art maze-game-art" aria-hidden="true"><span class="maze-art-path"></span><span class="maze-art-flag">⚑</span><span class="maze-art-piece">🧩</span></span>
+    <span class="featured-game-copy"><span class="featured-game-pill maze-pill">미궁</span><strong>오늘의 미궁</strong><span>다양한 테마의 퍼즐로 두뇌를 자극해 보세요!</span></span>
+    <span class="featured-game-arrow" aria-hidden="true">›</span>
+  </a>
+  <a class="featured-game-card quiz-game-card" href="/quiz.html">
+    <span class="game-art quiz-game-art" aria-hidden="true"><span class="quiz-art-glow"></span><span class="quiz-art-bulb">💡</span><span class="quiz-art-spark spark-one">✦</span><span class="quiz-art-spark spark-two">✧</span></span>
+    <span class="featured-game-copy"><span class="featured-game-pill quiz-pill">퀴즈</span><strong>지식 퀴즈</strong><span>상식, 경제, 생활 등 다양한 퀴즈에 도전하세요!</span></span>
+    <span class="featured-game-arrow" aria-hidden="true">›</span>
+  </a>
+</section>
 
 <div class="layout"><aside id="cats" class="cats"></aside><div id="cards" class="grid"></div></div><section class="seo-faq" aria-labelledby="seoFaqTitle">
 <h2 id="seoFaqTitle">셈플리 생활 계산기 사용법과 계산 기준</h2>
