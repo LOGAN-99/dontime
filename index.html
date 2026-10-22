@@ -645,6 +645,175 @@ header{background:rgba(255,250,244,.97)!important;border-color:#ead9c8!important
  .card.service-card-income,.card.service-card-hourly,.card.service-card-raise{min-height:155px!important;padding:15px!important}
 }
 </style>
+
+<style id="individual-calculator-card-designs">
+/* Per-tool card identities: restrained editorial palettes, subtle abstract art, real HTML remains readable. */
+.card[class*="service-card-"]{
+  position:relative;isolation:isolate;overflow:hidden;
+  border-color:color-mix(in srgb,var(--card-accent,#71858c) 28%,#ffffff);
+  border-top:3px solid var(--card-accent,#71858c);
+  background:linear-gradient(145deg,color-mix(in srgb,var(--card-accent,#71858c) 9%,#ffffff) 0%,#ffffff 72%);
+  box-shadow:0 4px 16px color-mix(in srgb,var(--card-accent,#71858c) 7%,transparent);
+}
+.card[class*="service-card-"]::before{
+  content:"";position:absolute;z-index:0;pointer-events:none;
+  width:148px;height:148px;right:-54px;top:-64px;border-radius:50%;
+  background:radial-gradient(circle at 42% 58%,color-mix(in srgb,var(--card-accent,#71858c) 24%,transparent),transparent 68%);
+  border:1px solid color-mix(in srgb,var(--card-accent,#71858c) 16%,transparent);
+  box-shadow:0 0 0 12px color-mix(in srgb,var(--card-accent,#71858c) 4%,transparent),0 0 0 25px color-mix(in srgb,var(--card-accent,#71858c) 3%,transparent);
+  transition:transform .25s ease;
+}
+.card[class*="service-card-"]::after{
+  content:"";position:absolute;z-index:0;pointer-events:none;
+  width:54px;height:3px;right:19px;bottom:18px;border-radius:99px;
+  background:linear-gradient(90deg,var(--card-accent,#71858c),color-mix(in srgb,var(--card-accent,#71858c) 10%,transparent));
+  opacity:.55;
+}
+.card[class*="service-card-"]>*{position:relative;z-index:1}
+.card[class*="service-card-"] h3{max-width:92%;color:color-mix(in srgb,var(--card-accent,#526b75) 64%,#18252b)}
+.card[class*="service-card-"] .copy{max-width:94%;color:#333b40}
+.card[class*="service-card-"] .desc{max-width:96%;color:#69747a}
+.card[class*="service-card-"] .hint{color:color-mix(in srgb,var(--card-accent,#71858c) 66%,#737981)}
+.card[class*="service-card-"] .card-intro-link{
+  border-color:color-mix(in srgb,var(--card-accent,#71858c) 35%,#ffffff);
+  background:color-mix(in srgb,var(--card-accent,#71858c) 8%,#ffffff);
+  color:color-mix(in srgb,var(--card-accent,#71858c) 72%,#172329);
+}
+.card[class*="service-card-"]:hover{
+  transform:translateY(-4px);
+  border-color:color-mix(in srgb,var(--card-accent,#71858c) 55%,#ffffff);
+  box-shadow:0 13px 28px color-mix(in srgb,var(--card-accent,#71858c) 15%,transparent);
+}
+.card[class*="service-card-"]:hover::before{transform:scale(1.12) rotate(8deg)}
+.card[class*="service-card-"]:focus-visible{outline:3px solid var(--card-accent,#71858c);outline-offset:3px}
+@media(max-width:700px){
+ .card[class*="service-card-"]{padding:16px;border-radius:15px}
+ .card[class*="service-card-"]::before{width:112px;height:112px;right:-47px;top:-49px}
+ .card[class*="service-card-"]::after{right:13px;bottom:13px;width:36px}
+ .card[class*="service-card-"] h3{font-size:18px}
+}
+.service-card-income{--card-accent:#b28a4b;--card-angle:0deg}
+.service-card-hourly{--card-accent:#20344e;--card-angle:37deg}
+.service-card-raise{--card-accent:#647b94;--card-angle:74deg}
+.service-card-salary{--card-accent:#a66a48;--card-angle:111deg}
+.service-card-net{--card-accent:#5b7669;--card-angle:148deg}
+.service-card-weekly{--card-accent:#b28a4b;--card-angle:185deg}
+.service-card-overtime{--card-accent:#20344e;--card-angle:222deg}
+.service-card-leave{--card-accent:#647b94;--card-angle:259deg}
+.service-card-severance{--card-accent:#a66a48;--card-angle:296deg}
+.service-card-minimum{--card-accent:#5b7669;--card-angle:333deg}
+.service-card-deposit{--card-accent:#b28a4b;--card-angle:10deg}
+.service-card-saving{--card-accent:#20344e;--card-angle:47deg}
+.service-card-compound{--card-accent:#647b94;--card-angle:84deg}
+.service-card-goal{--card-accent:#a66a48;--card-angle:121deg}
+.service-card-return{--card-accent:#5b7669;--card-angle:158deg}
+.service-card-average{--card-accent:#b28a4b;--card-angle:195deg}
+.service-card-dividend{--card-accent:#20344e;--card-angle:232deg}
+.service-card-inflation{--card-accent:#647b94;--card-angle:269deg}
+.service-card-discount{--card-accent:#a66a48;--card-angle:306deg}
+.service-card-installment{--card-accent:#5b7669;--card-angle:343deg}
+.service-card-workforbuy{--card-accent:#327f82;--card-angle:0deg}
+.service-card-subscriptiontime{--card-accent:#496b91;--card-angle:37deg}
+.service-card-debttime{--card-accent:#6d8b80;--card-angle:74deg}
+.service-card-savingtime{--card-accent:#b38b50;--card-angle:111deg}
+.service-card-billiontime{--card-accent:#55718a;--card-angle:148deg}
+.service-card-commute{--card-accent:#327f82;--card-angle:185deg}
+.service-card-off{--card-accent:#496b91;--card-angle:222deg}
+.service-card-discharge{--card-accent:#6d8b80;--card-angle:259deg}
+.service-card-dday{--card-accent:#b38b50;--card-angle:296deg}
+.service-card-datediff{--card-accent:#55718a;--card-angle:333deg}
+.service-card-workdays{--card-accent:#327f82;--card-angle:10deg}
+.service-card-timediff{--card-accent:#496b91;--card-angle:47deg}
+.service-card-age{--card-accent:#6d8b80;--card-angle:84deg}
+.service-card-yearprogress{--card-accent:#b38b50;--card-angle:121deg}
+.service-card-calendar{--card-accent:#587da3;--card-angle:0deg}
+.service-card-discount{--card-accent:#b66e4e;--card-angle:0deg}
+.service-card-discounttime{--card-accent:#a88953;--card-angle:37deg}
+.service-card-pricetime{--card-accent:#647e75;--card-angle:74deg}
+.service-card-reverseDiscount{--card-accent:#a65f65;--card-angle:111deg}
+.service-card-unit{--card-accent:#6b7e9b;--card-angle:148deg}
+.service-card-installment{--card-accent:#b66e4e;--card-angle:185deg}
+.service-card-margin{--card-accent:#a88953;--card-angle:222deg}
+.service-card-breakeven{--card-accent:#647e75;--card-angle:259deg}
+.service-card-cardfee{--card-accent:#a65f65;--card-angle:296deg}
+.service-card-fixedratio{--card-accent:#6b7e9b;--card-angle:333deg}
+.service-card-ltv{--card-accent:#536b83;--card-angle:0deg}
+.service-card-dti{--card-accent:#9c8165;--card-angle:37deg}
+.service-card-dsr{--card-accent:#647a72;--card-angle:74deg}
+.service-card-mortgage{--card-accent:#9a6d5f;--card-angle:111deg}
+.service-card-loan{--card-accent:#6e7892;--card-angle:148deg}
+.service-card-rent{--card-accent:#536b83;--card-angle:185deg}
+.service-card-jeonseToRent{--card-accent:#9c8165;--card-angle:222deg}
+.service-card-acq{--card-accent:#647a72;--card-angle:259deg}
+.service-card-broker{--card-accent:#9a6d5f;--card-angle:296deg}
+.service-card-homecash{--card-accent:#6e7892;--card-angle:333deg}
+.service-card-compound{--card-accent:#3f806b;--card-angle:0deg}
+.service-card-averagetime{--card-accent:#b08c4b;--card-angle:37deg}
+.service-card-runway{--card-accent:#537a8d;--card-angle:74deg}
+.service-card-deposit{--card-accent:#7d8b64;--card-angle:111deg}
+.service-card-saving{--card-accent:#8b6c87;--card-angle:148deg}
+.service-card-goal{--card-accent:#3f806b;--card-angle:185deg}
+.service-card-return{--card-accent:#b08c4b;--card-angle:222deg}
+.service-card-average{--card-accent:#537a8d;--card-angle:259deg}
+.service-card-dividend{--card-accent:#7d8b64;--card-angle:296deg}
+.service-card-inflation{--card-accent:#8b6c87;--card-angle:333deg}
+.service-card-yearend{--card-accent:#8c5968;--card-angle:0deg}
+.service-card-vat{--card-accent:#6d678c;--card-angle:37deg}
+.service-card-withholding{--card-accent:#9c7b52;--card-angle:74deg}
+.service-card-incomeTax{--card-accent:#557c79;--card-angle:111deg}
+.service-card-capitalgain{--card-accent:#8c5968;--card-angle:148deg}
+.service-card-gift{--card-accent:#6d678c;--card-angle:185deg}
+.service-card-carloan{--card-accent:#536878;--card-angle:0deg}
+.service-card-carcosttime{--card-accent:#a8784c;--card-angle:37deg}
+.service-card-kmcost{--card-accent:#65796c;--card-angle:74deg}
+.service-card-ev{--card-accent:#8a6d5c;--card-angle:111deg}
+.service-card-fertility{--card-accent:#7b9272;--card-angle:0deg}
+.service-card-ovulation{--card-accent:#b97a70;--card-angle:37deg}
+.service-card-pregnancy{--card-accent:#719a9b;--card-angle:74deg}
+.service-card-due{--card-accent:#b39a61;--card-angle:111deg}
+.service-card-bmi{--card-accent:#7b9272;--card-angle:148deg}
+.service-card-bmr{--card-accent:#b97a70;--card-angle:185deg}
+.service-card-calorie{--card-accent:#719a9b;--card-angle:222deg}
+.service-card-chars{--card-accent:#7b6c9d;--card-angle:0deg}
+.service-card-words{--card-accent:#5b7c9b;--card-angle:37deg}
+.service-card-lines{--card-accent:#a4778a;--card-angle:74deg}
+.service-card-spaces{--card-accent:#718d84;--card-angle:111deg}
+.service-card-newlines{--card-accent:#7b6c9d;--card-angle:148deg}
+.service-card-case{--card-accent:#5b7c9b;--card-angle:185deg}
+.service-card-striphtml{--card-accent:#a4778a;--card-angle:222deg}
+.service-card-sorttext{--card-accent:#718d84;--card-angle:259deg}
+.service-card-diff{--card-accent:#7b6c9d;--card-angle:296deg}
+.service-card-unitconv{--card-accent:#5f8a83;--card-angle:0deg}
+.service-card-percent{--card-accent:#6681a2;--card-angle:37deg}
+.service-card-ratio{--card-accent:#a58b59;--card-angle:74deg}
+.service-card-mean{--card-accent:#9b7769;--card-angle:111deg}
+.service-card-weighted{--card-accent:#5f8a83;--card-angle:148deg}
+.service-card-mpg{--card-accent:#6681a2;--card-angle:185deg}
+.service-card-travel{--card-accent:#a58b59;--card-angle:222deg}
+.service-card-fx{--card-accent:#9b7769;--card-angle:259deg}
+.service-card-numReact{--card-accent:#5c6694;--card-angle:0deg}
+.service-card-numMemory{--card-accent:#3c8a8a;--card-angle:37deg}
+.service-card-numOrder{--card-accent:#9b7b56;--card-angle:74deg}
+.service-card-numMath{--card-accent:#7b689c;--card-angle:111deg}
+.service-card-numOdd{--card-accent:#5c6694;--card-angle:148deg}
+.service-card-numGuess{--card-accent:#3c8a8a;--card-angle:185deg}
+.service-card-numRace{--card-accent:#9b7b56;--card-angle:222deg}
+.service-card-mathQuiz{--card-accent:#7b689c;--card-angle:259deg}
+.service-card-hobbybudget{--card-accent:#5c6694;--card-angle:296deg}
+.service-card-hobbytime{--card-accent:#3c8a8a;--card-angle:333deg}
+.service-card-boardcost{--card-accent:#9b7b56;--card-angle:10deg}
+.service-card-hobbyRecommend{--card-accent:#7b689c;--card-angle:47deg}
+.service-card-activityRecommend{--card-accent:#5c6694;--card-angle:84deg}
+.service-card-knitting{--card-accent:#3c8a8a;--card-angle:121deg}
+.service-card-artBudget{--card-accent:#9b7b56;--card-angle:158deg}
+.service-card-paintRatio{--card-accent:#7b689c;--card-angle:195deg}
+.service-card-selling{--card-accent:#5c6694;--card-angle:232deg}
+.service-card-costrate{--card-accent:#3c8a8a;--card-angle:269deg}
+.service-card-platformfee{--card-accent:#9b7b56;--card-angle:306deg}
+.service-card-labor{--card-accent:#7b689c;--card-angle:343deg}
+.service-card-targetsales{--card-accent:#5c6694;--card-angle:20deg}
+</style>
+
 </head>
 <body>
 <div class="site-sticky" id="siteSticky">
