@@ -559,6 +559,19 @@ body.popup-counter-mode .cats,body.popup-counter-mode .tool-nav,body.popup-count
 .card.service-card-hourly .card-intro-link{background:#3b2b23;color:#fff;border-color:#3b2b23}
 @media(max-width:700px){.featured-game-card{min-height:144px}.featured-game-copy{left:13px;max-width:70%;gap:6px}.featured-game-copy strong{font-size:19px}.featured-game-copy>span:last-child{font-size:10px}.featured-game-arrow{right:9px;bottom:9px;width:28px;height:28px;font-size:22px}.maze-game-card .game-art{width:54%}.quiz-game-card .game-art{width:50%}.card.service-card-income,.card.service-card-hourly,.card.service-card-raise{min-height:145px;padding:14px}.card.service-card-income:after,.card.service-card-hourly:after,.card.service-card-raise:after{background:linear-gradient(90deg,rgba(8,18,31,.96),rgba(8,18,31,.72) 56%,rgba(8,18,31,.18) 100%)}}
 </style>
+<style id="cinematic-layer-fix">
+/* Keep the artwork above the card background and the copy above the artwork. */
+.featured-game-card{position:relative;isolation:isolate;background:#101820!important}
+.featured-game-card:before{z-index:0!important}
+.featured-game-card:after{z-index:1!important}
+.featured-game-card>*{position:relative;z-index:2}
+.featured-game-copy{position:absolute!important;z-index:3!important}
+.featured-game-arrow{position:absolute!important;z-index:3!important}
+.card.service-card-income,.card.service-card-hourly,.card.service-card-raise{isolation:isolate!important}
+.card.service-card-income:before,.card.service-card-hourly:before,.card.service-card-raise:before{z-index:0!important}
+.card.service-card-income:after,.card.service-card-hourly:after,.card.service-card-raise:after{z-index:1!important}
+.card.service-card-income>*,.card.service-card-hourly>*,.card.service-card-raise>*{position:relative;z-index:2}
+</style>
 </head>
 <body>
 <div class="site-sticky" id="siteSticky">
