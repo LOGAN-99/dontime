@@ -1692,7 +1692,7 @@ function form(t,target=el('box'),mini=false){
   if(t==='salary') s='<div class="field"><label>계산 방향</label><select id="dir"><option value="a">연봉 → 월급</option><option value="m">월급 → 연봉</option></select></div>'+moneyField('v','금액','4천만원');
   else if(t==='hourly') s=moneyField('monthly','월급','300만원')+'<div class="field"><label>월 근무시간 단위</label><select id="hoursUnit"><option value="hours">시간</option><option value="days">일</option></select></div>'+field('hours','월 근무시간',209);
   else if(t==='net') s=moneyField('annual','연봉','4천만원')+moneyField('bonus','상여금','0원')+percentField('tax','예상 공제율(%)',10);
-  else if(t==='weekly') s=field('hours','주 소정근로시간',40)+moneyField('hourly','통상시급',CURRENT_MINIMUM_WAGE.toLocaleString('ko-KR')+'원')+'<div class="field"><label>해당 주 소정근로일 개근 여부</label><select id="attendance"><option value="yes">개근</option><option value="no">개근하지 않음</option></select></div>'+field('weeks','계산 주수',1);
+  else if(t==='weekly') s=field('hours','4주 평균 주 소정근로시간',40)+moneyField('hourly','통상시급',CURRENT_MINIMUM_WAGE.toLocaleString('ko-KR')+'원')+'<div class="field"><label>해당 주 소정근로일 개근 여부</label><select id="attendance"><option value="yes">개근</option><option value="no">개근하지 않음</option></select></div><div class="field"><label>해당 주 7일 근로관계 유지 여부</label><select id="relationship"><option value="yes">유지</option><option value="no">주휴일 전에 근로관계 종료</option></select></div>'+field('weeks','계산 주수',1);
   else if(t==='overtime') s=moneyField('hourly','통상시급',CURRENT_MINIMUM_WAGE.toLocaleString('ko-KR')+'원')+field('hours','연장근로시간',10)+field('night','야간근로시간',0)+percentField('rate','연장 가산율(%)',50)+percentField('nightRate','야간 가산율(%)',50);
   else if(t==='leave') s=moneyField('hourly','통상시급',CURRENT_MINIMUM_WAGE.toLocaleString('ko-KR')+'원')+field('days','미사용 연차일수',10)+field('hours','1일 소정근로시간',8);
   else if(t==='severance') s=moneyField('daily','1일 평균임금','100,000원')+field('days','계속근로일수',365)+field('daysPerYear','연간 퇴직금 산정일수',30);
@@ -1827,7 +1827,7 @@ function calculationExplanation(t){
     salary:'연봉→월급: 연봉 ÷ 12. 월급→연봉: 월급 × 12.',
     hourly:'시급 = 월급 ÷ 월 근무시간. 근무시간을 ‘일’로 입력하면 1일 8시간으로 환산합니다.',
     net:'예상 실수령액 = (연봉 + 상여금) × (1 − 예상 공제율). 실제 세금·4대보험과는 차이가 날 수 있습니다.',
-    weekly:'주휴수당 = 통상시급 × 주휴시간 × 해당 주 수. 주 15시간 이상이고 소정근로일을 개근한 경우를 전제로 하며, 주휴시간은 주 소정근로시간 ÷ 40 × 8시간(최대 8시간)으로 참고 계산합니다.',
+    weekly:'주휴수당 = 통상시급 × 주휴시간 × 해당 주 수. 4주 평균 주 소정근로시간 15시간 이상, 소정근로일 개근, 해당 주 근로관계 유지 조건을 확인합니다. 주휴시간은 40시간 통상근로자 기준으로 주 소정근로시간 ÷ 40 × 8시간(최대 8시간)으로 단순 환산합니다. 비교대상 통상근로자의 소정근로일수가 다른 사업장은 별도 산정이 필요합니다.',
     overtime:'연장·야간수당은 입력한 통상시급, 시간, 가산율을 각각 적용해 합산합니다.',
     leave:'연차수당 = 통상시급 × 미사용 연차일수 × 1일 소정근로시간.',
     severance:'퇴직금 참고액 = 1일 평균임금 × 계속근로일수 ÷ 365 × 연간 산정일수.',
@@ -1950,13 +1950,15 @@ function calc(t,button){
     const weeklyHours=Math.max(0,Number(el('hours').value||0));
     const weeks=Math.max(0,Number(el('weeks').value||0));
     const attendance=el('attendance')?.value==='yes';
+    const relationship=el('relationship')?.value==='yes';
     if(weeklyHours<15) r='<div><strong>주휴수당 발생 요건 미충족</strong></div><div class="sub">주 소정근로시간이 15시간 미만이면 주휴수당이 발생하지 않습니다.</div>';
     else if(!attendance) r='<div><strong>해당 주 주휴수당 없음</strong></div><div class="sub">해당 주 소정근로일을 개근하지 않은 것으로 선택했습니다.</div>';
+    else if(!relationship) r='<div><strong>해당 주 주휴수당 없음</strong></div><div class="sub">주휴일 전에 근로관계가 종료된 것으로 선택했습니다.</div>';
     else {
       const holidayHours=Math.min(8,weeklyHours/40*8);
       const weeklyAllowance=num('hourly')*holidayHours;
       const totalAllowance=weeklyAllowance*weeks;
-      r='<div><strong>'+won(totalAllowance)+' / 총 주휴수당</strong></div><div class="sub">주휴시간 '+holidayHours.toFixed(2)+'시간 × 통상시급 '+won(num('hourly'))+' = 주 '+won(weeklyAllowance)+' · '+weeks+'주 기준</div>';
+      r='<div><strong>'+won(totalAllowance)+' / 총 주휴수당</strong></div><div class="sub">주휴시간 '+holidayHours.toFixed(2)+'시간 × 통상시급 '+won(num('hourly'))+' = 주 '+won(weeklyAllowance)+' · '+weeks+'주 기준</div><div class="sub">40시간 통상근로자 기준의 참고 계산입니다. 사업장별 통상근로자의 소정근로일수와 4주 산정기간에 따라 실제 주휴시간은 달라질 수 있습니다.</div>';
     }
   }
   else if(t==='overtime'){const base=num('hourly'),h=Number(el('hours').value||0),n=Number(el('night').value||0);r=won(base*h*(1+Number(el('rate').value||0)/100)+base*n*(Number(el('nightRate').value||0)/100))+' / 예상 수당';}
