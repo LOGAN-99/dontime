@@ -6,6 +6,12 @@ on:
     branches: [main]
     paths:
       - "index.html"
+      - "mystery.html"
+      - "isdal-woman.html"
+      - "deduction*.html"
+      - "korean-mystery.html"
+      - "maze*.html"
+      - "assets/**"
       - "maze.html"
       - "maze1.html"
       - "maze2.html"
@@ -84,7 +90,7 @@ jobs:
           python3 - <<'PY'
           from html.parser import HTMLParser
           from pathlib import Path
-          pages = ["maze1.html", "maze2.html", "quiz.html"]
+          pages = ["maze1.html", "maze2.html", "maze6.html", "deduction-isdal.html", "isdal-woman.html", "quiz.html"]
           class Scripts(HTMLParser):
               def __init__(self):
                   super().__init__()
@@ -112,7 +118,7 @@ jobs:
               out.write_text("\\n".join(parser.parts), encoding="utf-8")
               print(f"Extracted {len(parser.parts)} inline script(s) from {page}")
           PY
-          for page in maze1.html maze2.html quiz.html; do
+          for page in maze1.html maze2.html maze6.html deduction-isdal.html isdal-woman.html quiz.html; do
             node --check "/tmp/$page.js"
             echo "Inline JavaScript syntax passed: $page"
           done
@@ -153,9 +159,10 @@ jobs:
             mkdir -p "$backup_dir" "$stage_dir"
             chmod 700 "$backup_dir" "$stage_dir"
             stamp="$(date +%Y%m%d-%H%M%S)"
-            for file in index.html maze.html maze1.html maze2.html maze3.html quiz.html about.html calculator-data.json calculator.php calendar.php contact.html privacy.html terms.html robots.txt sitemap.xml ads.txt category-business.html category-calendar.html category-car.html category-daily-life.html category-finance.html category-games.html category-health.html category-hobbies.html category-money.html category-real-estate.html category-spending.html category-tax.html category-text-tools.html category-time.html; do
+            for file in index.html mystery.html isdal-woman.html deduction.html deduction-isdal.html korean-mystery.html maze.html maze1.html maze2.html maze3.html maze4.html maze5.html maze6.html quiz.html about.html calculator-data.json calculator.php calendar.php contact.html privacy.html terms.html robots.txt sitemap.xml ads.txt category-business.html category-calendar.html category-car.html category-daily-life.html category-finance.html category-games.html category-health.html category-hobbies.html category-money.html category-real-estate.html category-spending.html category-tax.html category-text-tools.html category-time.html; do
               if [ -f "/www_root/$file" ]; then cp -p "/www_root/$file" "$backup_dir/$file.$stamp.bak"; fi
             done
+            if [ -f /www_root/assets/isdal-valley.webp ]; then mkdir -p "$backup_dir/assets"; cp -p /www_root/assets/isdal-valley.webp "$backup_dir/assets/isdal-valley.webp.$stamp.bak"; fi
             if [ -f /www_root/.htaccess ]; then cp -p /www_root/.htaccess "$backup_dir/htaccess.$stamp.bak"; fi
             printf "Production files backed up before deployment. Backup directory: %s\n" "$backup_dir"
           '
@@ -167,7 +174,9 @@ jobs:
         run: |
           set -euo pipefail
           export SSHPASS="$GABIA_PASSWORD"
-          sshpass -e scp -P 22 -o StrictHostKeyChecking=yes -o UserKnownHostsFile="$RUNNER_TEMP/gabia-ssh/known_hosts" -o HostKeyAlgorithms=ssh-ed25519 -o LogLevel=ERROR index.html maze.html maze1.html maze2.html maze3.html quiz.html about.html calculator-data.json calculator.php calendar.php contact.html privacy.html terms.html robots.txt sitemap.xml ads.txt category-business.html category-calendar.html category-car.html category-daily-life.html category-finance.html category-games.html category-health.html category-hobbies.html category-money.html category-real-estate.html category-spending.html category-tax.html category-text-tools.html category-time.html "$GABIA_USER@211.47.74.75:/tmp/dontime-deploy-upload/"
+          sshpass -e scp -P 22 -o StrictHostKeyChecking=yes -o UserKnownHostsFile="$RUNNER_TEMP/gabia-ssh/known_hosts" -o HostKeyAlgorithms=ssh-ed25519 -o LogLevel=ERROR index.html mystery.html isdal-woman.html deduction.html deduction-isdal.html korean-mystery.html maze.html maze1.html maze2.html maze3.html maze4.html maze5.html maze6.html quiz.html about.html calculator-data.json calculator.php calendar.php contact.html privacy.html terms.html robots.txt sitemap.xml ads.txt category-business.html category-calendar.html category-car.html category-daily-life.html category-finance.html category-games.html category-health.html category-hobbies.html category-money.html category-real-estate.html category-spending.html category-tax.html category-text-tools.html category-time.html "$GABIA_USER@211.47.74.75:/tmp/dontime-deploy-upload/"
+          sshpass -e ssh -p 22 -o StrictHostKeyChecking=yes -o UserKnownHostsFile="$RUNNER_TEMP/gabia-ssh/known_hosts" -o HostKeyAlgorithms=ssh-ed25519 -o LogLevel=ERROR "$GABIA_USER@211.47.74.75" "mkdir -p /tmp/dontime-deploy-upload/assets"
+          sshpass -e scp -P 22 -o StrictHostKeyChecking=yes -o UserKnownHostsFile="$RUNNER_TEMP/gabia-ssh/known_hosts" -o HostKeyAlgorithms=ssh-ed25519 -o LogLevel=ERROR assets/isdal-valley.webp "$GABIA_USER@211.47.74.75:/tmp/dontime-deploy-upload/assets/"
           sshpass -e scp -P 22 -o StrictHostKeyChecking=yes -o UserKnownHostsFile="$RUNNER_TEMP/gabia-ssh/known_hosts" -o HostKeyAlgorithms=ssh-ed25519 -o LogLevel=ERROR security-headers.fragment "$GABIA_USER@211.47.74.75:/tmp/dontime-deploy-upload/security-headers.fragment"
 
       - name: Validate staged file and atomically replace homepage
@@ -190,10 +199,19 @@ jobs:
             grep -q "미궁 시리즈" "$stage/maze.html"
             grep -q "maze1.html" "$stage/maze.html"
             grep -q "maze2.html" "$stage/maze.html"
+            grep -q "maze6.html" "$stage/maze.html"
             grep -q "미궁 1부: 내일역의 비밀" "$stage/maze1.html"
             grep -q "const puzzles=" "$stage/maze1.html"
             grep -q "미궁 2부: 유리숲의 일곱 번째 종" "$stage/maze2.html"
             grep -q "const chapters=" "$stage/maze2.html"
+            test -s "$stage/mystery.html"
+            test -s "$stage/isdal-woman.html"
+            grep -q "이스달 계곡에" "$stage/isdal-woman.html"
+            test -s "$stage/deduction-isdal.html"
+            grep -q "CASE 002" "$stage/deduction-isdal.html"
+            test -s "$stage/maze6.html"
+            grep -q "여덟 개의 이름이" "$stage/maze6.html"
+            test -s "$stage/assets/isdal-valley.webp"
             test -s "$stage/quiz.html"
             grep -q "오늘의 사자성어" "$stage/quiz.html"
             test -s "$stage/ads.txt"
@@ -205,7 +223,7 @@ jobs:
             grep -q "BEGIN SEMPLI SECURITY HEADERS" "$header_fragment"
             # Do not block deployment on a legacy label substring check.
             # Required homepage content and JavaScript are validated above and in preflight.
-            for file in index.html maze.html maze1.html maze2.html maze3.html quiz.html about.html calculator-data.json calculator.php calendar.php contact.html privacy.html terms.html robots.txt sitemap.xml ads.txt category-business.html category-calendar.html category-car.html category-daily-life.html category-finance.html category-games.html category-health.html category-hobbies.html category-money.html category-real-estate.html category-spending.html category-tax.html category-text-tools.html category-time.html; do
+            for file in index.html mystery.html isdal-woman.html deduction.html deduction-isdal.html korean-mystery.html maze.html maze1.html maze2.html maze3.html maze4.html maze5.html maze6.html quiz.html about.html calculator-data.json calculator.php calendar.php contact.html privacy.html terms.html robots.txt sitemap.xml ads.txt category-business.html category-calendar.html category-car.html category-daily-life.html category-finance.html category-games.html category-health.html category-hobbies.html category-money.html category-real-estate.html category-spending.html category-tax.html category-text-tools.html category-time.html; do
               test -s "$stage/$file"
             done
             if [ -f /www_root/.htaccess ]; then
@@ -218,7 +236,7 @@ jobs:
               cat "$header_fragment" >> /www_root/.htaccess.new
             fi
             mv -f /www_root/.htaccess.new /www_root/.htaccess
-            for file in index.html maze.html maze1.html maze2.html maze3.html quiz.html about.html calculator-data.json calculator.php calendar.php contact.html privacy.html terms.html robots.txt sitemap.xml ads.txt category-business.html category-calendar.html category-car.html category-daily-life.html category-finance.html category-games.html category-health.html category-hobbies.html category-money.html category-real-estate.html category-spending.html category-tax.html category-text-tools.html category-time.html; do
+            for file in index.html mystery.html isdal-woman.html deduction.html deduction-isdal.html korean-mystery.html maze.html maze1.html maze2.html maze3.html maze4.html maze5.html maze6.html quiz.html about.html calculator-data.json calculator.php calendar.php contact.html privacy.html terms.html robots.txt sitemap.xml ads.txt category-business.html category-calendar.html category-car.html category-daily-life.html category-finance.html category-games.html category-health.html category-hobbies.html category-money.html category-real-estate.html category-spending.html category-tax.html category-text-tools.html category-time.html; do
               dest="/www_root/$file"
               if [ -f "$dest" ]; then mode="$(stat -c %a "$dest")"; else mode=644; fi
               cp "$stage/$file" "$dest.new"
@@ -227,8 +245,13 @@ jobs:
             done
             grep -q "setSeasonalTheme();" /www_root/index.html
             grep -q "BEGIN SEMPLI SECURITY HEADERS" /www_root/.htaccess
-            for file in index.html maze.html maze1.html maze2.html maze3.html quiz.html about.html calculator-data.json calculator.php calendar.php contact.html privacy.html terms.html robots.txt sitemap.xml ads.txt category-business.html category-calendar.html category-car.html category-daily-life.html category-finance.html category-games.html category-health.html category-hobbies.html category-money.html category-real-estate.html category-spending.html category-tax.html category-text-tools.html category-time.html; do cmp -s "$stage/$file" "/www_root/$file"; done
-            printf "Deployment successful. All public site files and security headers updated; backups retained in /tmp/dontime-deploy-backups.\n"
+            mkdir -p /www_root/assets
+            cp "$stage/assets/isdal-valley.webp" /www_root/assets/isdal-valley.webp.new
+            chmod 644 /www_root/assets/isdal-valley.webp.new
+            mv -f /www_root/assets/isdal-valley.webp.new /www_root/assets/isdal-valley.webp
+            for file in index.html mystery.html isdal-woman.html deduction.html deduction-isdal.html korean-mystery.html maze.html maze1.html maze2.html maze3.html maze4.html maze5.html maze6.html quiz.html about.html calculator-data.json calculator.php calendar.php contact.html privacy.html terms.html robots.txt sitemap.xml ads.txt category-business.html category-calendar.html category-car.html category-daily-life.html category-finance.html category-games.html category-health.html category-hobbies.html category-money.html category-real-estate.html category-spending.html category-tax.html category-text-tools.html category-time.html; do cmp -s "$stage/$file" "/www_root/$file"; done
+            cmp -s "$stage/assets/isdal-valley.webp" /www_root/assets/isdal-valley.webp
+            printf "Deployment successful. Public site pages, cinematic asset and security headers updated; backups retained in /tmp/dontime-deploy-backups.\n"
           '
 
       - name: Verify public homepage response
@@ -260,6 +283,14 @@ jobs:
             grep -iq "^$header:" "$headers"
             echo "Homepage security header verified: $header"
           done
+          for route in mystery.html isdal-woman.html deduction-isdal.html maze6.html; do
+            route_status="$(curl --silent --show-error --location --max-time 20 -o "$RUNNER_TEMP/$route" -w "%{http_code}" "https://dontime.kr/$route" || true)"
+            echo "$route HTTP status: $route_status"
+            test "$route_status" = "200"
+          done
+          image_status="$(curl --silent --show-error --location --max-time 20 -o "$RUNNER_TEMP/isdal-valley.webp" -w "%{http_code}" https://dontime.kr/assets/isdal-valley.webp || true)"
+          echo "Cinematic image HTTP status: $image_status"
+          test "$image_status" = "200"
           maze_headers="$RUNNER_TEMP/maze-headers.txt"
           maze_body="$RUNNER_TEMP/maze.html"
           maze_status="$(curl --silent --show-error --location --max-time 20 -D "$maze_headers" -o "$maze_body" -w "%{http_code}" https://dontime.kr/maze.html || true)"
