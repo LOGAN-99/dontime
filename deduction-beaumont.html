@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>보몬트 남매 실종 사건 추리 퀴즈 | 셈플리</title>
+<meta name="description" content="1966년 호주 보몬트 남매 실종 사건의 공개 기록을 바탕으로 사실과 진술, 미확인 내용을 구분하는 8문제 추리 퀴즈입니다.">
+<link rel="canonical" href="https://dontime.kr/deduction-beaumont.html"><meta name="robots" content="index,follow">
+<style>body{margin:0;background:#f1f3ef;color:#1d2925;font:15px/1.8 Arial,'Noto Sans KR',sans-serif}.wrap{max-width:820px;margin:auto;padding:24px 18px}.nav{display:flex;justify-content:space-between;gap:10px}.nav a{color:inherit;text-decoration:none;font-weight:bold}.card{background:#fff;border:1px solid #d8dfda;border-radius:16px;padding:23px;margin:18px 0}.eyebrow{font:900 11px monospace;color:#927044;letter-spacing:.15em}h1{font-size:clamp(30px,6vw,46px);line-height:1.2}.question{font-size:20px;font-weight:900}.opts{display:grid;gap:9px}.opts button{padding:13px;text-align:left;border:1px solid #d6ded8;border-radius:10px;background:#fff;color:#1d2925;font:inherit;cursor:pointer}.opts button:disabled{cursor:default}.feedback{display:none;background:#edf2ec;padding:13px;border-radius:10px;margin-top:12px}.feedback.show{display:block}#next{margin-top:14px;background:#203e34;color:#fff;border:0;border-radius:9px;padding:12px 17px;font-weight:bold;cursor:pointer}.small{font-size:12px;color:#66766f}</style></head><body>
+<main class="wrap"><header class="nav"><a href="/mystery.html">← 다큐 목록</a><a href="/beaumont-children.html">사건 다큐 →</a></header>
+<section class="card"><div class="eyebrow">CASE 004 · AUSTRALIA · 1966</div><h1>기록으로 추리하기</h1><p>공개된 경찰 운영 기록과 신뢰할 수 있는 보도를 바탕으로 답을 골라보세요. 목격 진술은 진술로, 확인되지 않은 주장은 미확인 정보로 다룹니다.</p><p class="small">총 8문제 · 정답과 해설 제공</p></section>
+<section class="card"><div class="eyebrow" id="count"></div><p class="question" id="q"></p><div class="opts" id="opts"></div><div class="feedback" id="fb"></div><button id="next" hidden>다음 문제 →</button></section>
+<section class="card"><div class="eyebrow">MORE CASE FILES</div><h2>다른 기록도 살펴보기</h2><p><a href="/deduction.html">CASE 001 · D. B. Cooper</a></p><p><a href="/deduction-isdal.html">CASE 002 · 이스달 여성</a></p><p><a href="/deduction-setagaya.html">CASE 003 · 세타가야 사건</a></p><p><a href="/mystery.html">해외 미제사건 다큐 목록</a></p></section></main>
+<script>
+const qs=[
+{q:"보몬트 남매가 실종된 날짜는?",o:["1966년 1월 26일","1966년 2월 26일","1967년 1월 26일","1965년 1월 26일"],a:0,e:"ABC가 남호주 경찰 운영 기록을 인용한 보도는 실종일을 1966년 1월 26일로 기록합니다."},
+{q:"실종 당시 제인, 아르나, 그랜트의 나이 조합은?",o:["9세, 7세, 4세","10세, 8세, 5세","8세, 6세, 3세","9세, 6세, 4세"],a:0,e:"제인은 9세, 아르나는 7세, 그랜트는 4세였습니다."},
+{q:"경찰 운영 기록을 바탕으로 보도된 남매의 집 출발 시각과 귀가 예정 시각은?",o:["오전 10시 출발, 오후 2시 귀가 예정","오전 8시 출발, 정오 귀가 예정","오후 1시 출발, 오후 5시 귀가 예정","오전 9시 출발, 오후 4시 귀가 예정"],a:0,e:"수정된 진술에는 아이들이 오전 10시에 집을 나섰고 오후 2시에 돌아올 예정이었다고 기록돼 있습니다."},
+{q:"남매가 향했던 해변 지역은 어디인가?",o:["글레넬그","브라이턴","웨스트비치","헨리비치"],a:0,e:"세 남매는 애들레이드의 글레넬그 해변으로 향했습니다. 다른 세 지역은 경찰이 수색한 인근 해안 지역입니다."},
+{q:"경찰 운영 기록의 오후 7시 20분 항목에는 어떤 내용이 적혀 있는가?",o:["아버지가 아이들의 실종을 신고했고 해변 수색이 시작됐다","해상 구조대가 수색을 종료했다","아이들이 집으로 돌아왔다는 신고가 접수됐다","경찰이 캐스털로이 부지를 발굴했다"],a:0,e:"오후 7시 20분 무렵 아버지가 글레넬그 경찰에 실종 사실을 알렸고, 아버지와 경찰이 해변을 수색했다고 기록돼 있습니다."},
+{q:"오후 8시 40분 경찰이 수색한 지역으로 보도된 곳은?",o:["브라이턴 해안, 웨스트비치, 헨리비치","글레넬그, 솜머턴 파크, 노스 플림프턴","애들레이드 항구, 포트 애들레이드, 세마포어","캥거루섬, 빅터하버, 포트 링컨"],a:0,e:"ABC가 인용한 경찰 운영 기록에는 브라이턴 해안과 웨스트비치, 헨리비치 수색이 적혀 있습니다."},
+{q:"여러 목격자가 아이들과 함께 있었다고 묘사한 남성의 외형은?",o:["키가 크고 피부가 그을렸으며 얼굴이 갸름하고 짧은 금발이었다","키가 작고 피부가 희며 곱슬한 검은 머리였다","중간 키에 붉은 머리와 안경을 착용했다","체격이 크고 긴 흰 머리와 수염이 있었다"],a:0,e:"여러 목격자가 tall, tanned, thin-faced, short blond hair라고 묘사한 것으로 보도됐습니다. 이는 목격 진술의 내용이며 신원 확인을 뜻하지 않습니다."},
+{q:"2025년 옛 캐스털로이 부지의 7일 수색에서 확인된 결과는?",o:["남매와 관련된 유해가 발견되지 않았다","세 남매의 신원이 확인됐다","범행 도구가 발견됐다","경찰이 범인을 체포했다"],a:0,e:"ABC는 약 1만 톤의 흙을 옮긴 민간 수색에서 유해가 발견되지 않았다고 보도했습니다. 경찰 대변인은 해당 부지 이론이 경찰이 가진 증거와 정보로 뒷받침되지 않는다고 밝혔습니다."}
+];
+let i=0,score=0,locked=false;const $=id=>document.getElementById(id);
+function draw(){locked=false;const x=qs[i];$("count").textContent="QUESTION "+(i+1)+" / "+qs.length;$("q").textContent=x.q;$("opts").innerHTML="";x.o.forEach((v,n)=>{const b=document.createElement("button");b.textContent=String.fromCharCode(65+n)+". "+v;b.onclick=()=>answer(n);$("opts").appendChild(b)});$("fb").className="feedback";$("fb").textContent="";$("next").hidden=true}
+function answer(n){if(locked)return;locked=true;const x=qs[i];if(n===x.a)score++;[...$("opts").children].forEach((b,j)=>{b.disabled=true;if(j===x.a)b.style.borderColor="#4c8b67";if(j===n&&n!==x.a)b.style.borderColor="#b66b61"});$("fb").textContent=(n===x.a?"정답입니다. ":"정답은 "+x.o[x.a]+". ")+x.e;$("fb").classList.add("show");$("next").hidden=false;$("next").textContent=i===qs.length-1?"결과 보기":"다음 문제 →"}
+$("next").onclick=()=>{if(i<qs.length-1){i++;draw()}else{$("count").textContent="RESULT";$("q").textContent=qs.length+"문제 중 "+score+"문제 정답";$("opts").innerHTML='<a href="/beaumont-children.html">다큐 다시 보기</a> · <a href="/maze8.html">미궁 PART 08 도전하기</a>';$("fb").textContent="목격 진술과 수사 가설은 중요한 단서일 수 있지만, 공개 기록만으로 신원이나 사건의 전모를 단정할 수는 없습니다.";$("fb").classList.add("show");$("next").hidden=true}};draw();
+</script></body></html>
