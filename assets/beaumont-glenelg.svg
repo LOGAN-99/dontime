@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+<title id="title">글레넬그 해변을 모티프로 한 시네마틱 기록 일러스트</title>
+<desc id="desc">1960년대 해안 엽서의 분위기를 담은 새벽 해변, 잔잔한 바다와 부두, 비어 있는 파라솔과 바구니. 실제 사건 사진이 아닌 창작 이미지.</desc>
+<defs>
+  <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#9fb0b0"/><stop offset=".55" stop-color="#f0c78e"/><stop offset="1" stop-color="#e4a86c"/></linearGradient>
+  <linearGradient id="sea" x2="0" y2="1"><stop stop-color="#547d7e"/><stop offset="1" stop-color="#203f48"/></linearGradient>
+  <linearGradient id="sand" x2="0" y2="1"><stop stop-color="#d6ad7a"/><stop offset="1" stop-color="#8f725b"/></linearGradient>
+  <radialGradient id="sun"><stop stop-color="#fff2c7"/><stop offset="1" stop-color="#f2c37f" stop-opacity=".15"/></radialGradient>
+  <filter id="blur"><feGaussianBlur stdDeviation="22"/></filter>
+</defs>
+<rect width="1600" height="900" fill="url(#sky)"/>
+<circle cx="205" cy="360" r="160" fill="url(#sun)" filter="url(#blur)"/><circle cx="205" cy="360" r="58" fill="#fff0c2" opacity=".88"/>
+<path d="M0 485 Q260 470 470 488 T900 482 T1300 470 T1600 485 V900 H0Z" fill="url(#sea)"/>
+<path d="M0 530 Q180 510 350 535 T700 530 T1050 528 T1400 520 T1600 532" fill="none" stroke="#f7d9aa" stroke-opacity=".52" stroke-width="7"/>
+<path d="M0 580 Q250 555 500 582 T1000 576 T1600 570" fill="none" stroke="#e7d2b0" stroke-opacity=".35" stroke-width="4"/>
+<path d="M0 630 Q280 600 540 640 T1100 625 T1600 635 V900 H0Z" fill="url(#sand)"/>
+<path d="M260 490 V455 H1310 V490" fill="none" stroke="#493d35" stroke-width="9"/>
+<path d="M275 455 V405 M355 455 V405 M435 455 V405 M515 455 V405 M595 455 V405 M675 455 V405 M755 455 V405 M835 455 V405 M915 455 V405 M995 455 V405 M1075 455 V405 M1155 455 V405 M1235 455 V405" stroke="#493d35" stroke-width="5"/>
+<path d="M260 405 H1310" stroke="#493d35" stroke-width="9"/>
+<path d="M1310 485 V350 H1580 V485Z" fill="#55483e" opacity=".82"/>
+<path d="M1290 350 L1435 265 L1590 350Z" fill="#6d5141"/>
+<path d="M1350 370 H1545 V455 H1350Z" fill="#d6b58b" opacity=".65"/>
+<path d="M1365 370 V455 M1425 370 V455 M1485 370 V455 M1545 370 V455" stroke="#654f42" stroke-width="8"/>
+<g opacity=".9" fill="#172e2d"><path d="M1500 265 L1525 95 L1550 265Z"/><path d="M1450 285 L1470 135 L1490 285Z"/><path d="M1550 290 L1570 145 L1590 290Z"/></g>
+<g transform="translate(1110 515)">
+  <path d="M0 0 L95 -180 L180 0Z" fill="#a54d36"/>
+  <path d="M95 -180 L180 0 L270 0Z" fill="#e6d1a9"/>
+  <path d="M95 -180 L0 0 L90 0Z" fill="#e6d1a9"/>
+  <path d="M95 -180 V38" stroke="#493a30" stroke-width="12"/>
+  <path d="M20 0 H180" stroke="#493a30" stroke-width="8"/>
+</g>
+<g transform="translate(1000 620)">
+  <path d="M0 25 Q65 -15 130 25 L120 105 Q65 135 10 105Z" fill="#98663d" stroke="#563d2d" stroke-width="8"/>
+  <path d="M10 40 Q65 5 120 40" fill="none" stroke="#d3a16b" stroke-width="8"/>
+  <path d="M20 65 H110 M25 85 H105" stroke="#6b482f" stroke-width="6"/>
+  <path d="M12 28 Q65 -42 118 28" fill="none" stroke="#563d2d" stroke-width="8"/>
+</g>
+<g opacity=".18" stroke="#fff1d2" stroke-width="2"><path d="M0 700 H1600 M0 750 H1600 M0 800 H1600 M0 850 H1600"/></g>
+<rect width="1600" height="900" fill="#07151a" opacity=".13"/>
+<text x="70" y="835" fill="#fff4df" font-family="Arial,sans-serif" font-size="18" letter-spacing="5" opacity=".78">EDITORIAL ILLUSTRATION · NOT AN ACTUAL PHOTOGRAPH</text>
+</svg>
