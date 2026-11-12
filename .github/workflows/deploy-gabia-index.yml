@@ -239,7 +239,7 @@ jobs:
             test -s "$stage/ads.txt"
             grep -qx "google.com, pub-3220276859043248, DIRECT, f08c47fec0942fa0" "$stage/ads.txt"
             grep -q "知之爲知之" "$stage/quiz.html"
-            grep -q "뉴질랜드의 수도는?" "$stage/quiz.html"
+            grep -q "피지의 수도는?" "$stage/quiz.html"
             grep -q "두문자어" "$stage/quiz.html"
             grep -q "setSeasonalTheme();" "$candidate"
             grep -q "id=\"topMarqueeTrack1\"" "$candidate"
