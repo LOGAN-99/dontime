@@ -216,7 +216,7 @@ jobs:
             grep -q "CASE 003" "$stage/setagaya-family.html"
             test -s "$stage/beaumont-children.html"
             grep -q "CASE 004" "$stage/beaumont-children.html"
-            grep -q "Glenelg" "$stage/beaumont-children.html"
+            grep -q "글레넬그" "$stage/beaumont-children.html"
             grep -q "이스달 계곡에" "$stage/isdal-woman.html"
             test -s "$stage/deduction-isdal.html"
             test -s "$stage/deduction-setagaya.html"
