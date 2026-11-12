@@ -9,6 +9,7 @@ on:
       - "mystery.html"
       - "isdal-woman.html"
       - "setagaya-family.html"
+      - "beaumont-children.html"
       - "deduction*.html"
       - "korean-mystery.html"
       - "maze*.html"
@@ -91,7 +92,7 @@ jobs:
           python3 - <<'PY'
           from html.parser import HTMLParser
           from pathlib import Path
-          pages = ["maze1.html", "maze2.html", "maze6.html", "maze7.html", "deduction-isdal.html", "deduction-setagaya.html", "quiz.html"]
+          pages = ["maze1.html", "maze2.html", "maze6.html", "maze7.html", "maze8.html", "deduction-isdal.html", "deduction-setagaya.html", "deduction-beaumont.html", "quiz.html"]
           class Scripts(HTMLParser):
               def __init__(self):
                   super().__init__()
@@ -119,7 +120,7 @@ jobs:
               out.write_text("\\n".join(parser.parts), encoding="utf-8")
               print(f"Extracted {len(parser.parts)} inline script(s) from {page}")
           PY
-          for page in maze1.html maze2.html maze6.html maze7.html deduction-isdal.html deduction-setagaya.html quiz.html; do
+          for page in maze1.html maze2.html maze6.html maze7.html maze8.html deduction-isdal.html deduction-setagaya.html deduction-beaumont.html quiz.html; do
             node --check "/tmp/$page.js"
             echo "Inline JavaScript syntax passed: $page"
           done
@@ -160,11 +161,12 @@ jobs:
             mkdir -p "$backup_dir" "$stage_dir"
             chmod 700 "$backup_dir" "$stage_dir"
             stamp="$(date +%Y%m%d-%H%M%S)"
-            for file in index.html mystery.html isdal-woman.html setagaya-family.html deduction.html deduction-isdal.html deduction-setagaya.html korean-mystery.html maze.html maze1.html maze2.html maze3.html maze4.html maze5.html maze6.html maze7.html quiz.html about.html calculator-data.json calculator.php calendar.php contact.html privacy.html terms.html robots.txt sitemap.xml ads.txt category-business.html category-calendar.html category-car.html category-daily-life.html category-finance.html category-games.html category-health.html category-hobbies.html category-money.html category-real-estate.html category-spending.html category-tax.html category-text-tools.html category-time.html; do
+            for file in index.html mystery.html isdal-woman.html setagaya-family.html beaumont-children.html deduction.html deduction-isdal.html deduction-setagaya.html deduction-beaumont.html korean-mystery.html maze.html maze1.html maze2.html maze3.html maze4.html maze5.html maze6.html maze7.html maze8.html quiz.html about.html calculator-data.json calculator.php calendar.php contact.html privacy.html terms.html robots.txt sitemap.xml ads.txt category-business.html category-calendar.html category-car.html category-daily-life.html category-finance.html category-games.html category-health.html category-hobbies.html category-money.html category-real-estate.html category-spending.html category-tax.html category-text-tools.html category-time.html; do
               if [ -f "/www_root/$file" ]; then cp -p "/www_root/$file" "$backup_dir/$file.$stamp.bak"; fi
             done
             if [ -f /www_root/assets/isdal-valley.webp ]; then mkdir -p "$backup_dir/assets"; cp -p /www_root/assets/isdal-valley.webp "$backup_dir/assets/isdal-valley.webp.$stamp.bak"; fi
             if [ -f /www_root/assets/setagaya-night.svg ]; then mkdir -p "$backup_dir/assets"; cp -p /www_root/assets/setagaya-night.svg "$backup_dir/assets/setagaya-night.svg.$stamp.bak"; fi
+            if [ -f /www_root/assets/beaumont-glenelg.svg ]; then mkdir -p "$backup_dir/assets"; cp -p /www_root/assets/beaumont-glenelg.svg "$backup_dir/assets/beaumont-glenelg.svg.$stamp.bak"; fi
             if [ -f /www_root/.htaccess ]; then cp -p /www_root/.htaccess "$backup_dir/htaccess.$stamp.bak"; fi
             printf "Production files backed up before deployment. Backup directory: %s\n" "$backup_dir"
           '
@@ -176,9 +178,9 @@ jobs:
         run: |
           set -euo pipefail
           export SSHPASS="$GABIA_PASSWORD"
-          sshpass -e scp -P 22 -o StrictHostKeyChecking=yes -o UserKnownHostsFile="$RUNNER_TEMP/gabia-ssh/known_hosts" -o HostKeyAlgorithms=ssh-ed25519 -o LogLevel=ERROR index.html mystery.html isdal-woman.html setagaya-family.html deduction.html deduction-isdal.html deduction-setagaya.html korean-mystery.html maze.html maze1.html maze2.html maze3.html maze4.html maze5.html maze6.html maze7.html quiz.html about.html calculator-data.json calculator.php calendar.php contact.html privacy.html terms.html robots.txt sitemap.xml ads.txt category-business.html category-calendar.html category-car.html category-daily-life.html category-finance.html category-games.html category-health.html category-hobbies.html category-money.html category-real-estate.html category-spending.html category-tax.html category-text-tools.html category-time.html "$GABIA_USER@211.47.74.75:/tmp/dontime-deploy-upload/"
+          sshpass -e scp -P 22 -o StrictHostKeyChecking=yes -o UserKnownHostsFile="$RUNNER_TEMP/gabia-ssh/known_hosts" -o HostKeyAlgorithms=ssh-ed25519 -o LogLevel=ERROR index.html mystery.html isdal-woman.html setagaya-family.html beaumont-children.html deduction.html deduction-isdal.html deduction-setagaya.html deduction-beaumont.html korean-mystery.html maze.html maze1.html maze2.html maze3.html maze4.html maze5.html maze6.html maze7.html maze8.html quiz.html about.html calculator-data.json calculator.php calendar.php contact.html privacy.html terms.html robots.txt sitemap.xml ads.txt category-business.html category-calendar.html category-car.html category-daily-life.html category-finance.html category-games.html category-health.html category-hobbies.html category-money.html category-real-estate.html category-spending.html category-tax.html category-text-tools.html category-time.html "$GABIA_USER@211.47.74.75:/tmp/dontime-deploy-upload/"
           sshpass -e ssh -p 22 -o StrictHostKeyChecking=yes -o UserKnownHostsFile="$RUNNER_TEMP/gabia-ssh/known_hosts" -o HostKeyAlgorithms=ssh-ed25519 -o LogLevel=ERROR "$GABIA_USER@211.47.74.75" "mkdir -p /tmp/dontime-deploy-upload/assets"
-          sshpass -e scp -P 22 -o StrictHostKeyChecking=yes -o UserKnownHostsFile="$RUNNER_TEMP/gabia-ssh/known_hosts" -o HostKeyAlgorithms=ssh-ed25519 -o LogLevel=ERROR assets/isdal-valley.webp assets/setagaya-night.svg "$GABIA_USER@211.47.74.75:/tmp/dontime-deploy-upload/assets/"
+          sshpass -e scp -P 22 -o StrictHostKeyChecking=yes -o UserKnownHostsFile="$RUNNER_TEMP/gabia-ssh/known_hosts" -o HostKeyAlgorithms=ssh-ed25519 -o LogLevel=ERROR assets/isdal-valley.webp assets/setagaya-night.svg assets/beaumont-glenelg.svg "$GABIA_USER@211.47.74.75:/tmp/dontime-deploy-upload/assets/"
           sshpass -e scp -P 22 -o StrictHostKeyChecking=yes -o UserKnownHostsFile="$RUNNER_TEMP/gabia-ssh/known_hosts" -o HostKeyAlgorithms=ssh-ed25519 -o LogLevel=ERROR security-headers.fragment "$GABIA_USER@211.47.74.75:/tmp/dontime-deploy-upload/security-headers.fragment"
 
       - name: Validate staged file and atomically replace homepage
@@ -203,6 +205,7 @@ jobs:
             grep -q "maze2.html" "$stage/maze.html"
             grep -q "maze6.html" "$stage/maze.html"
             grep -q "maze7.html" "$stage/maze.html"
+            grep -q "maze8.html" "$stage/maze.html"
             grep -q "미궁 1부: 내일역의 비밀" "$stage/maze1.html"
             grep -q "const puzzles=" "$stage/maze1.html"
             grep -q "미궁 2부: 유리숲의 일곱 번째 종" "$stage/maze2.html"
@@ -211,29 +214,40 @@ jobs:
             test -s "$stage/isdal-woman.html"
             test -s "$stage/setagaya-family.html"
             grep -q "CASE 003" "$stage/setagaya-family.html"
+            test -s "$stage/beaumont-children.html"
+            grep -q "CASE 004" "$stage/beaumont-children.html"
+            grep -q "Glenelg" "$stage/beaumont-children.html"
             grep -q "이스달 계곡에" "$stage/isdal-woman.html"
             test -s "$stage/deduction-isdal.html"
             test -s "$stage/deduction-setagaya.html"
             grep -q "CASE 003" "$stage/deduction-setagaya.html"
+            test -s "$stage/deduction-beaumont.html"
+            grep -q "CASE 004" "$stage/deduction-beaumont.html"
             grep -q "CASE 002" "$stage/deduction-isdal.html"
             test -s "$stage/maze6.html"
             test -s "$stage/maze7.html"
             grep -q "네 번째 서랍의" "$stage/maze7.html"
+            test -s "$stage/maze8.html"
+            grep -q "PART 08" "$stage/maze8.html"
+            grep -q "const chapters=" "$stage/maze8.html"
             grep -q "여덟 개의 이름이" "$stage/maze6.html"
             test -s "$stage/assets/isdal-valley.webp"
             test -s "$stage/assets/setagaya-night.svg"
+            test -s "$stage/assets/beaumont-glenelg.svg"
             test -s "$stage/quiz.html"
             grep -q "오늘의 사자성어" "$stage/quiz.html"
             test -s "$stage/ads.txt"
             grep -qx "google.com, pub-3220276859043248, DIRECT, f08c47fec0942fa0" "$stage/ads.txt"
             grep -q "知之爲知之" "$stage/quiz.html"
+            grep -q "뉴질랜드의 수도는?" "$stage/quiz.html"
+            grep -q "두문자어" "$stage/quiz.html"
             grep -q "setSeasonalTheme();" "$candidate"
             grep -q "id=\"topMarqueeTrack1\"" "$candidate"
             grep -q "function escapeHTML" "$candidate"
             grep -q "BEGIN SEMPLI SECURITY HEADERS" "$header_fragment"
             # Do not block deployment on a legacy label substring check.
             # Required homepage content and JavaScript are validated above and in preflight.
-            for file in index.html mystery.html isdal-woman.html setagaya-family.html deduction.html deduction-isdal.html deduction-setagaya.html korean-mystery.html maze.html maze1.html maze2.html maze3.html maze4.html maze5.html maze6.html maze7.html quiz.html about.html calculator-data.json calculator.php calendar.php contact.html privacy.html terms.html robots.txt sitemap.xml ads.txt category-business.html category-calendar.html category-car.html category-daily-life.html category-finance.html category-games.html category-health.html category-hobbies.html category-money.html category-real-estate.html category-spending.html category-tax.html category-text-tools.html category-time.html; do
+            for file in index.html mystery.html isdal-woman.html setagaya-family.html beaumont-children.html deduction.html deduction-isdal.html deduction-setagaya.html deduction-beaumont.html korean-mystery.html maze.html maze1.html maze2.html maze3.html maze4.html maze5.html maze6.html maze7.html maze8.html quiz.html about.html calculator-data.json calculator.php calendar.php contact.html privacy.html terms.html robots.txt sitemap.xml ads.txt category-business.html category-calendar.html category-car.html category-daily-life.html category-finance.html category-games.html category-health.html category-hobbies.html category-money.html category-real-estate.html category-spending.html category-tax.html category-text-tools.html category-time.html; do
               test -s "$stage/$file"
             done
             if [ -f /www_root/.htaccess ]; then
@@ -246,7 +260,7 @@ jobs:
               cat "$header_fragment" >> /www_root/.htaccess.new
             fi
             mv -f /www_root/.htaccess.new /www_root/.htaccess
-            for file in index.html mystery.html isdal-woman.html setagaya-family.html deduction.html deduction-isdal.html deduction-setagaya.html korean-mystery.html maze.html maze1.html maze2.html maze3.html maze4.html maze5.html maze6.html maze7.html quiz.html about.html calculator-data.json calculator.php calendar.php contact.html privacy.html terms.html robots.txt sitemap.xml ads.txt category-business.html category-calendar.html category-car.html category-daily-life.html category-finance.html category-games.html category-health.html category-hobbies.html category-money.html category-real-estate.html category-spending.html category-tax.html category-text-tools.html category-time.html; do
+            for file in index.html mystery.html isdal-woman.html setagaya-family.html beaumont-children.html deduction.html deduction-isdal.html deduction-setagaya.html deduction-beaumont.html korean-mystery.html maze.html maze1.html maze2.html maze3.html maze4.html maze5.html maze6.html maze7.html maze8.html quiz.html about.html calculator-data.json calculator.php calendar.php contact.html privacy.html terms.html robots.txt sitemap.xml ads.txt category-business.html category-calendar.html category-car.html category-daily-life.html category-finance.html category-games.html category-health.html category-hobbies.html category-money.html category-real-estate.html category-spending.html category-tax.html category-text-tools.html category-time.html; do
               dest="/www_root/$file"
               if [ -f "$dest" ]; then mode="$(stat -c %a "$dest")"; else mode=644; fi
               cp "$stage/$file" "$dest.new"
@@ -262,9 +276,13 @@ jobs:
             cp "$stage/assets/setagaya-night.svg" /www_root/assets/setagaya-night.svg.new
             chmod 644 /www_root/assets/setagaya-night.svg.new
             mv -f /www_root/assets/setagaya-night.svg.new /www_root/assets/setagaya-night.svg
-            for file in index.html mystery.html isdal-woman.html setagaya-family.html deduction.html deduction-isdal.html deduction-setagaya.html korean-mystery.html maze.html maze1.html maze2.html maze3.html maze4.html maze5.html maze6.html maze7.html quiz.html about.html calculator-data.json calculator.php calendar.php contact.html privacy.html terms.html robots.txt sitemap.xml ads.txt category-business.html category-calendar.html category-car.html category-daily-life.html category-finance.html category-games.html category-health.html category-hobbies.html category-money.html category-real-estate.html category-spending.html category-tax.html category-text-tools.html category-time.html; do cmp -s "$stage/$file" "/www_root/$file"; done
+            cp "$stage/assets/beaumont-glenelg.svg" /www_root/assets/beaumont-glenelg.svg.new
+            chmod 644 /www_root/assets/beaumont-glenelg.svg.new
+            mv -f /www_root/assets/beaumont-glenelg.svg.new /www_root/assets/beaumont-glenelg.svg
+            for file in index.html mystery.html isdal-woman.html setagaya-family.html beaumont-children.html deduction.html deduction-isdal.html deduction-setagaya.html deduction-beaumont.html korean-mystery.html maze.html maze1.html maze2.html maze3.html maze4.html maze5.html maze6.html maze7.html maze8.html quiz.html about.html calculator-data.json calculator.php calendar.php contact.html privacy.html terms.html robots.txt sitemap.xml ads.txt category-business.html category-calendar.html category-car.html category-daily-life.html category-finance.html category-games.html category-health.html category-hobbies.html category-money.html category-real-estate.html category-spending.html category-tax.html category-text-tools.html category-time.html; do cmp -s "$stage/$file" "/www_root/$file"; done
             cmp -s "$stage/assets/isdal-valley.webp" /www_root/assets/isdal-valley.webp
             cmp -s "$stage/assets/setagaya-night.svg" /www_root/assets/setagaya-night.svg
+            cmp -s "$stage/assets/beaumont-glenelg.svg" /www_root/assets/beaumont-glenelg.svg
             printf "Deployment successful. Public site pages, cinematic asset and security headers updated; backups retained in /tmp/dontime-deploy-backups.\n"
           '
 
@@ -297,7 +315,7 @@ jobs:
             grep -iq "^$header:" "$headers"
             echo "Homepage security header verified: $header"
           done
-          for route in mystery.html isdal-woman.html setagaya-family.html deduction-isdal.html deduction-setagaya.html maze6.html maze7.html; do
+          for route in mystery.html isdal-woman.html setagaya-family.html beaumont-children.html deduction-isdal.html deduction-setagaya.html deduction-beaumont.html maze6.html maze7.html maze8.html; do
             route_status="$(curl --silent --show-error --location --max-time 20 -o "$RUNNER_TEMP/$route" -w "%{http_code}" "https://dontime.kr/$route" || true)"
             echo "$route HTTP status: $route_status"
             test "$route_status" = "200"
@@ -306,6 +324,9 @@ jobs:
           setagaya_image_status="$(curl --silent --show-error --location --max-time 20 -o "$RUNNER_TEMP/setagaya-night.svg" -w "%{http_code}" https://dontime.kr/assets/setagaya-night.svg || true)"
           echo "Setagaya cinematic image HTTP status: $setagaya_image_status"
           test "$setagaya_image_status" = "200"
+          beaumont_image_status="$(curl --silent --show-error --location --max-time 20 -o "$RUNNER_TEMP/beaumont-glenelg.svg" -w "%{http_code}" https://dontime.kr/assets/beaumont-glenelg.svg || true)"
+          echo "Beaumont cinematic image HTTP status: $beaumont_image_status"
+          test "$beaumont_image_status" = "200"
           echo "Cinematic image HTTP status: $image_status"
           test "$image_status" = "200"
           maze_headers="$RUNNER_TEMP/maze-headers.txt"
@@ -316,6 +337,7 @@ jobs:
           grep -q "미궁 시리즈" "$maze_body"
           grep -q "maze1.html" "$maze_body"
           grep -q "maze2.html" "$maze_body"
+          grep -q "maze8.html" "$maze_body"
           for route in maze1.html maze2.html; do
             route_headers="$RUNNER_TEMP/$route-headers.txt"
             route_body="$RUNNER_TEMP/$route"
