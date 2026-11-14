@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+<title id="title">시카고 야간 약국 기록 일러스트</title>
+<desc id="desc">실제 약국이나 사건 현장이 아닌, 비 내리는 도시와 기록 봉투, 무표식 약병을 표현한 창작 다큐 배경입니다.</desc>
+<defs>
+  <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#07131f"/><stop offset=".62" stop-color="#152635"/><stop offset="1" stop-color="#0b1721"/></linearGradient>
+  <linearGradient id="glass" x2="1" y2="1"><stop stop-color="#203744" stop-opacity=".2"/><stop offset=".5" stop-color="#6a624e" stop-opacity=".16"/><stop offset="1" stop-color="#101a24" stop-opacity=".9"/></linearGradient>
+  <linearGradient id="amber" x2="0" y2="1"><stop stop-color="#f1c27e"/><stop offset="1" stop-color="#9b5f2f"/></linearGradient>
+  <filter id="blur"><feGaussianBlur stdDeviation="28"/></filter>
+</defs>
+<rect width="1600" height="900" fill="url(#sky)"/>
+<circle cx="520" cy="350" r="230" fill="#e8a75f" opacity=".11" filter="url(#blur)"/>
+<path d="M0 570V470h75V390h34v180h56V430h42v140h61V340h48v230h60V420h46v150h70V360h44v210h56V450h38v120h62V390h54v180h66V455h44v115h68V350h42v220h62V420h44v150h68V470h50v100h74v330H0Z" fill="#08121c" opacity=".86"/>
+<path d="M0 705h1600v195H0Z" fill="#09131c"/>
+<path d="M0 744 1600 692" stroke="#b6a080" stroke-opacity=".18" stroke-width="3"/>
+<path d="M0 805 1600 760" stroke="#b6a080" stroke-opacity=".12" stroke-width="2"/>
+<g opacity=".65">
+  <path d="M420 290V515" stroke="#111b23" stroke-width="18"/>
+  <path d="M386 294h68" stroke="#111b23" stroke-width="15" stroke-linecap="round"/>
+  <ellipse cx="420" cy="292" rx="45" ry="17" fill="#f2b76f"/>
+  <ellipse cx="420" cy="292" rx="115" ry="90" fill="#e9a75e" opacity=".12" filter="url(#blur)"/>
+</g>
+<g transform="translate(870 120)">
+  <path d="M0 140h730v620H0Z" fill="#101b24" stroke="#64707a" stroke-opacity=".42" stroke-width="5"/>
+  <path d="M28 166h676v554H28Z" fill="url(#glass)" stroke="#c0a77e" stroke-opacity=".35" stroke-width="3"/>
+  <path d="M28 166h676v90H28Z" fill="#302b28" opacity=".8"/>
+  <path d="M28 255h676" stroke="#c69c68" stroke-opacity=".35" stroke-width="5"/>
+  <path d="M215 166v554M468 166v554" stroke="#a6a7a1" stroke-opacity=".28" stroke-width="5"/>
+  <g fill="#b48a5d" opacity=".35">
+    <rect x="66" y="300" width="105" height="54" rx="5"/><rect x="80" y="375" width="128" height="66" rx="5"/>
+    <rect x="255" y="300" width="150" height="56" rx="5"/><rect x="280" y="390" width="122" height="64" rx="5"/>
+    <rect x="510" y="300" width="150" height="60" rx="5"/><rect x="520" y="392" width="130" height="65" rx="5"/>
+  </g>
+  <path d="M0 120h730l-60-110H55Z" fill="#171d22"/>
+  <path d="M55 10h130l30 110H90ZM245 10h130l30 110H280ZM435 10h130l30 110H470ZM625 10h75l30 110h-75Z" fill="#6e4a3b" opacity=".65"/>
+  <path d="M0 140h730" stroke="#c59b69" stroke-width="7" opacity=".5"/>
+  <g transform="translate(320 505)">
+    <ellipse cx="70" cy="180" rx="170" ry="22" fill="#000" opacity=".5"/>
+    <path d="M20 35h100l18 25v115q0 18-20 18H22q-20 0-20-18V60Z" fill="#d9d8ce" stroke="#f0e5d1" stroke-width="5"/>
+    <rect x="35" y="8" width="70" height="30" rx="5" fill="#c6c4ba" stroke="#f2e9d9" stroke-width="4"/>
+    <rect x="22" y="90" width="96" height="54" rx="4" fill="#f4f0e6"/>
+    <path d="M36 107h68M36 120h56" stroke="#8a8b84" stroke-width="4" opacity=".55"/>
+    <path d="M145 125h220l45 35v65H145Z" fill="#b98b5c" stroke="#e4c8a1" stroke-width="4"/>
+    <path d="M145 125l45-32h175l45 32" fill="#d0a778" stroke="#e4c8a1" stroke-width="4"/>
+    <path d="M175 150h170M175 170h135" stroke="#71553e" stroke-width="4" opacity=".55"/>
+    <circle cx="356" cy="153" r="9" fill="#74513a"/>
+  </g>
+</g>
+<g stroke="#b9c9d1" stroke-opacity=".13" stroke-width="2">
+  <path d="M120 70 80 220M220 40 170 230M620 60 570 220M750 25 700 200M820 60 770 235M1450 20 1400 200M1530 120 1490 260"/>
+  <path d="M180 310 140 450M340 250 300 410M580 220 540 380M710 260 670 430M900 60 860 230M1250 30 1210 200"/>
+</g>
+<rect width="1600" height="900" fill="#07111a" opacity=".12"/>
+</svg>
