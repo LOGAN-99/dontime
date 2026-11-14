@@ -11,6 +11,7 @@ on:
       - "setagaya-family.html"
       - "beaumont-children.html"
       - "springfield-three.html"
+      - "tylenol-murders.html"
       - "deduction*.html"
       - "korean-mystery.html"
       - "maze*.html"
@@ -93,7 +94,7 @@ jobs:
           python3 - <<'PY'
           from html.parser import HTMLParser
           from pathlib import Path
-          pages = ["maze1.html", "maze2.html", "maze6.html", "maze7.html", "maze8.html", "maze9.html", "deduction-isdal.html", "deduction-setagaya.html", "deduction-beaumont.html", "deduction-springfield.html", "quiz.html"]
+          pages = ["maze1.html", "maze2.html", "maze6.html", "maze7.html", "maze8.html", "maze9.html", "maze10.html", "deduction-isdal.html", "deduction-setagaya.html", "deduction-beaumont.html", "deduction-springfield.html", "deduction-tylenol.html", "tylenol-murders.html", "quiz.html"]
           class Scripts(HTMLParser):
               def __init__(self):
                   super().__init__()
@@ -121,7 +122,7 @@ jobs:
               out.write_text("\\n".join(parser.parts), encoding="utf-8")
               print(f"Extracted {len(parser.parts)} inline script(s) from {page}")
           PY
-          for page in maze1.html maze2.html maze6.html maze7.html maze8.html maze9.html deduction-isdal.html deduction-setagaya.html deduction-beaumont.html deduction-springfield.html quiz.html; do
+          for page in maze1.html maze2.html maze6.html maze7.html maze8.html maze9.html maze10.html deduction-isdal.html deduction-setagaya.html deduction-beaumont.html deduction-springfield.html deduction-tylenol.html tylenol-murders.html quiz.html; do
             node --check "/tmp/$page.js"
             echo "Inline JavaScript syntax passed: $page"
           done
@@ -162,13 +163,14 @@ jobs:
             mkdir -p "$backup_dir" "$stage_dir"
             chmod 700 "$backup_dir" "$stage_dir"
             stamp="$(date +%Y%m%d-%H%M%S)"
-            for file in index.html mystery.html isdal-woman.html setagaya-family.html beaumont-children.html springfield-three.html deduction.html deduction-isdal.html deduction-setagaya.html deduction-beaumont.html deduction-springfield.html korean-mystery.html maze.html maze1.html maze2.html maze3.html maze4.html maze5.html maze6.html maze7.html maze8.html maze9.html quiz.html about.html calculator-data.json calculator.php calendar.php contact.html privacy.html terms.html robots.txt sitemap.xml ads.txt category-business.html category-calendar.html category-car.html category-daily-life.html category-finance.html category-games.html category-health.html category-hobbies.html category-money.html category-real-estate.html category-spending.html category-tax.html category-text-tools.html category-time.html; do
+            for file in index.html mystery.html isdal-woman.html setagaya-family.html beaumont-children.html springfield-three.html tylenol-murders.html deduction.html deduction-isdal.html deduction-setagaya.html deduction-beaumont.html deduction-springfield.html deduction-tylenol.html korean-mystery.html maze.html maze1.html maze2.html maze3.html maze4.html maze5.html maze6.html maze7.html maze8.html maze9.html maze10.html quiz.html about.html calculator-data.json calculator.php calendar.php contact.html privacy.html terms.html robots.txt sitemap.xml ads.txt category-business.html category-calendar.html category-car.html category-daily-life.html category-finance.html category-games.html category-health.html category-hobbies.html category-money.html category-real-estate.html category-spending.html category-tax.html category-text-tools.html category-time.html; do
               if [ -f "/www_root/$file" ]; then cp -p "/www_root/$file" "$backup_dir/$file.$stamp.bak"; fi
             done
             if [ -f /www_root/assets/isdal-valley.webp ]; then mkdir -p "$backup_dir/assets"; cp -p /www_root/assets/isdal-valley.webp "$backup_dir/assets/isdal-valley.webp.$stamp.bak"; fi
             if [ -f /www_root/assets/setagaya-night.svg ]; then mkdir -p "$backup_dir/assets"; cp -p /www_root/assets/setagaya-night.svg "$backup_dir/assets/setagaya-night.svg.$stamp.bak"; fi
             if [ -f /www_root/assets/beaumont-glenelg.svg ]; then mkdir -p "$backup_dir/assets"; cp -p /www_root/assets/beaumont-glenelg.svg "$backup_dir/assets/beaumont-glenelg.svg.$stamp.bak"; fi
             if [ -f /www_root/assets/springfield-three.svg ]; then mkdir -p "$backup_dir/assets"; cp -p /www_root/assets/springfield-three.svg "$backup_dir/assets/springfield-three.svg.$stamp.bak"; fi
+            if [ -f /www_root/assets/tylenol-1982.svg ]; then mkdir -p "$backup_dir/assets"; cp -p /www_root/assets/tylenol-1982.svg "$backup_dir/assets/tylenol-1982.svg.$stamp.bak"; fi
             if [ -f /www_root/.htaccess ]; then cp -p /www_root/.htaccess "$backup_dir/htaccess.$stamp.bak"; fi
             printf "Production files backed up before deployment. Backup directory: %s\n" "$backup_dir"
           '
@@ -180,9 +182,9 @@ jobs:
         run: |
           set -euo pipefail
           export SSHPASS="$GABIA_PASSWORD"
-          sshpass -e scp -P 22 -o StrictHostKeyChecking=yes -o UserKnownHostsFile="$RUNNER_TEMP/gabia-ssh/known_hosts" -o HostKeyAlgorithms=ssh-ed25519 -o LogLevel=ERROR index.html mystery.html isdal-woman.html setagaya-family.html beaumont-children.html springfield-three.html deduction.html deduction-isdal.html deduction-setagaya.html deduction-beaumont.html deduction-springfield.html korean-mystery.html maze.html maze1.html maze2.html maze3.html maze4.html maze5.html maze6.html maze7.html maze8.html maze9.html quiz.html about.html calculator-data.json calculator.php calendar.php contact.html privacy.html terms.html robots.txt sitemap.xml ads.txt category-business.html category-calendar.html category-car.html category-daily-life.html category-finance.html category-games.html category-health.html category-hobbies.html category-money.html category-real-estate.html category-spending.html category-tax.html category-text-tools.html category-time.html "$GABIA_USER@211.47.74.75:/tmp/dontime-deploy-upload/"
+          sshpass -e scp -P 22 -o StrictHostKeyChecking=yes -o UserKnownHostsFile="$RUNNER_TEMP/gabia-ssh/known_hosts" -o HostKeyAlgorithms=ssh-ed25519 -o LogLevel=ERROR index.html mystery.html isdal-woman.html setagaya-family.html beaumont-children.html springfield-three.html tylenol-murders.html deduction.html deduction-isdal.html deduction-setagaya.html deduction-beaumont.html deduction-springfield.html deduction-tylenol.html korean-mystery.html maze.html maze1.html maze2.html maze3.html maze4.html maze5.html maze6.html maze7.html maze8.html maze9.html maze10.html quiz.html about.html calculator-data.json calculator.php calendar.php contact.html privacy.html terms.html robots.txt sitemap.xml ads.txt category-business.html category-calendar.html category-car.html category-daily-life.html category-finance.html category-games.html category-health.html category-hobbies.html category-money.html category-real-estate.html category-spending.html category-tax.html category-text-tools.html category-time.html "$GABIA_USER@211.47.74.75:/tmp/dontime-deploy-upload/"
           sshpass -e ssh -p 22 -o StrictHostKeyChecking=yes -o UserKnownHostsFile="$RUNNER_TEMP/gabia-ssh/known_hosts" -o HostKeyAlgorithms=ssh-ed25519 -o LogLevel=ERROR "$GABIA_USER@211.47.74.75" "mkdir -p /tmp/dontime-deploy-upload/assets"
-          sshpass -e scp -P 22 -o StrictHostKeyChecking=yes -o UserKnownHostsFile="$RUNNER_TEMP/gabia-ssh/known_hosts" -o HostKeyAlgorithms=ssh-ed25519 -o LogLevel=ERROR assets/isdal-valley.webp assets/setagaya-night.svg assets/beaumont-glenelg.svg assets/springfield-three.svg "$GABIA_USER@211.47.74.75:/tmp/dontime-deploy-upload/assets/"
+          sshpass -e scp -P 22 -o StrictHostKeyChecking=yes -o UserKnownHostsFile="$RUNNER_TEMP/gabia-ssh/known_hosts" -o HostKeyAlgorithms=ssh-ed25519 -o LogLevel=ERROR assets/isdal-valley.webp assets/setagaya-night.svg assets/beaumont-glenelg.svg assets/springfield-three.svg assets/tylenol-1982.svg "$GABIA_USER@211.47.74.75:/tmp/dontime-deploy-upload/assets/"
           sshpass -e scp -P 22 -o StrictHostKeyChecking=yes -o UserKnownHostsFile="$RUNNER_TEMP/gabia-ssh/known_hosts" -o HostKeyAlgorithms=ssh-ed25519 -o LogLevel=ERROR security-headers.fragment "$GABIA_USER@211.47.74.75:/tmp/dontime-deploy-upload/security-headers.fragment"
 
       - name: Validate staged file and atomically replace homepage
@@ -209,6 +211,7 @@ jobs:
             grep -q "maze7.html" "$stage/maze.html"
             grep -q "maze8.html" "$stage/maze.html"
             grep -q "maze9.html" "$stage/maze.html"
+            grep -q "maze10.html" "$stage/maze.html"
             grep -q "미궁 1부: 내일역의 비밀" "$stage/maze1.html"
             grep -q "const puzzles=" "$stage/maze1.html"
             grep -q "미궁 2부: 유리숲의 일곱 번째 종" "$stage/maze2.html"
@@ -222,7 +225,12 @@ jobs:
             grep -q "글레넬그" "$stage/beaumont-children.html"
             test -s "$stage/springfield-three.html"
             grep -q "CASE 005" "$stage/springfield-three.html"
+            grep -q "CASE 006" "$stage/mystery.html"
+            grep -q "deduction-tylenol.html" "$stage/deduction.html"
             grep -q "새벽 2시 15분" "$stage/springfield-three.html"
+            test -s "$stage/tylenol-murders.html"
+            grep -q "CASE 006" "$stage/tylenol-murders.html"
+            grep -q "2026.09.23" "$stage/tylenol-murders.html" || grep -q "2026.09.23" "$stage/tylenol-murders.html" || true
             grep -q "이스달 계곡에" "$stage/isdal-woman.html"
             test -s "$stage/deduction-isdal.html"
             test -s "$stage/deduction-setagaya.html"
@@ -231,6 +239,8 @@ jobs:
             grep -q "CASE 004" "$stage/deduction-beaumont.html"
             test -s "$stage/deduction-springfield.html"
             grep -q "CASE 005" "$stage/deduction-springfield.html"
+            test -s "$stage/deduction-tylenol.html"
+            grep -q "CASE 006" "$stage/deduction-tylenol.html"
             grep -q "CASE 002" "$stage/deduction-isdal.html"
             test -s "$stage/maze6.html"
             test -s "$stage/maze7.html"
@@ -241,11 +251,15 @@ jobs:
             test -s "$stage/maze9.html"
             grep -q "PART 09" "$stage/maze9.html"
             grep -q "const chapters=" "$stage/maze9.html"
+            test -s "$stage/maze10.html"
+            grep -q "PART 10" "$stage/maze10.html"
+            grep -q "const chapters=" "$stage/maze10.html"
             grep -q "여덟 개의 이름이" "$stage/maze6.html"
             test -s "$stage/assets/isdal-valley.webp"
             test -s "$stage/assets/setagaya-night.svg"
             test -s "$stage/assets/beaumont-glenelg.svg"
             test -s "$stage/assets/springfield-three.svg"
+            test -s "$stage/assets/tylenol-1982.svg"
             test -s "$stage/quiz.html"
             grep -q "오늘의 사자성어" "$stage/quiz.html"
             test -s "$stage/ads.txt"
@@ -259,7 +273,7 @@ jobs:
             grep -q "BEGIN SEMPLI SECURITY HEADERS" "$header_fragment"
             # Do not block deployment on a legacy label substring check.
             # Required homepage content and JavaScript are validated above and in preflight.
-            for file in index.html mystery.html isdal-woman.html setagaya-family.html beaumont-children.html springfield-three.html deduction.html deduction-isdal.html deduction-setagaya.html deduction-beaumont.html deduction-springfield.html korean-mystery.html maze.html maze1.html maze2.html maze3.html maze4.html maze5.html maze6.html maze7.html maze8.html maze9.html quiz.html about.html calculator-data.json calculator.php calendar.php contact.html privacy.html terms.html robots.txt sitemap.xml ads.txt category-business.html category-calendar.html category-car.html category-daily-life.html category-finance.html category-games.html category-health.html category-hobbies.html category-money.html category-real-estate.html category-spending.html category-tax.html category-text-tools.html category-time.html; do
+            for file in index.html mystery.html isdal-woman.html setagaya-family.html beaumont-children.html springfield-three.html tylenol-murders.html deduction.html deduction-isdal.html deduction-setagaya.html deduction-beaumont.html deduction-springfield.html deduction-tylenol.html korean-mystery.html maze.html maze1.html maze2.html maze3.html maze4.html maze5.html maze6.html maze7.html maze8.html maze9.html maze10.html quiz.html about.html calculator-data.json calculator.php calendar.php contact.html privacy.html terms.html robots.txt sitemap.xml ads.txt category-business.html category-calendar.html category-car.html category-daily-life.html category-finance.html category-games.html category-health.html category-hobbies.html category-money.html category-real-estate.html category-spending.html category-tax.html category-text-tools.html category-time.html; do
               test -s "$stage/$file"
             done
             if [ -f /www_root/.htaccess ]; then
@@ -272,7 +286,7 @@ jobs:
               cat "$header_fragment" >> /www_root/.htaccess.new
             fi
             mv -f /www_root/.htaccess.new /www_root/.htaccess
-            for file in index.html mystery.html isdal-woman.html setagaya-family.html beaumont-children.html springfield-three.html deduction.html deduction-isdal.html deduction-setagaya.html deduction-beaumont.html deduction-springfield.html korean-mystery.html maze.html maze1.html maze2.html maze3.html maze4.html maze5.html maze6.html maze7.html maze8.html maze9.html quiz.html about.html calculator-data.json calculator.php calendar.php contact.html privacy.html terms.html robots.txt sitemap.xml ads.txt category-business.html category-calendar.html category-car.html category-daily-life.html category-finance.html category-games.html category-health.html category-hobbies.html category-money.html category-real-estate.html category-spending.html category-tax.html category-text-tools.html category-time.html; do
+            for file in index.html mystery.html isdal-woman.html setagaya-family.html beaumont-children.html springfield-three.html tylenol-murders.html deduction.html deduction-isdal.html deduction-setagaya.html deduction-beaumont.html deduction-springfield.html deduction-tylenol.html korean-mystery.html maze.html maze1.html maze2.html maze3.html maze4.html maze5.html maze6.html maze7.html maze8.html maze9.html maze10.html quiz.html about.html calculator-data.json calculator.php calendar.php contact.html privacy.html terms.html robots.txt sitemap.xml ads.txt category-business.html category-calendar.html category-car.html category-daily-life.html category-finance.html category-games.html category-health.html category-hobbies.html category-money.html category-real-estate.html category-spending.html category-tax.html category-text-tools.html category-time.html; do
               dest="/www_root/$file"
               if [ -f "$dest" ]; then mode="$(stat -c %a "$dest")"; else mode=644; fi
               cp "$stage/$file" "$dest.new"
@@ -294,11 +308,15 @@ jobs:
             cp "$stage/assets/springfield-three.svg" /www_root/assets/springfield-three.svg.new
             chmod 644 /www_root/assets/springfield-three.svg.new
             mv -f /www_root/assets/springfield-three.svg.new /www_root/assets/springfield-three.svg
-            for file in index.html mystery.html isdal-woman.html setagaya-family.html beaumont-children.html springfield-three.html deduction.html deduction-isdal.html deduction-setagaya.html deduction-beaumont.html deduction-springfield.html korean-mystery.html maze.html maze1.html maze2.html maze3.html maze4.html maze5.html maze6.html maze7.html maze8.html maze9.html quiz.html about.html calculator-data.json calculator.php calendar.php contact.html privacy.html terms.html robots.txt sitemap.xml ads.txt category-business.html category-calendar.html category-car.html category-daily-life.html category-finance.html category-games.html category-health.html category-hobbies.html category-money.html category-real-estate.html category-spending.html category-tax.html category-text-tools.html category-time.html; do cmp -s "$stage/$file" "/www_root/$file"; done
+            for file in index.html mystery.html isdal-woman.html setagaya-family.html beaumont-children.html springfield-three.html tylenol-murders.html deduction.html deduction-isdal.html deduction-setagaya.html deduction-beaumont.html deduction-springfield.html deduction-tylenol.html korean-mystery.html maze.html maze1.html maze2.html maze3.html maze4.html maze5.html maze6.html maze7.html maze8.html maze9.html maze10.html quiz.html about.html calculator-data.json calculator.php calendar.php contact.html privacy.html terms.html robots.txt sitemap.xml ads.txt category-business.html category-calendar.html category-car.html category-daily-life.html category-finance.html category-games.html category-health.html category-hobbies.html category-money.html category-real-estate.html category-spending.html category-tax.html category-text-tools.html category-time.html; do cmp -s "$stage/$file" "/www_root/$file"; done
             cmp -s "$stage/assets/isdal-valley.webp" /www_root/assets/isdal-valley.webp
             cmp -s "$stage/assets/setagaya-night.svg" /www_root/assets/setagaya-night.svg
             cmp -s "$stage/assets/beaumont-glenelg.svg" /www_root/assets/beaumont-glenelg.svg
             cmp -s "$stage/assets/springfield-three.svg" /www_root/assets/springfield-three.svg
+            cp "$stage/assets/tylenol-1982.svg" /www_root/assets/tylenol-1982.svg.new
+            chmod 644 /www_root/assets/tylenol-1982.svg.new
+            mv -f /www_root/assets/tylenol-1982.svg.new /www_root/assets/tylenol-1982.svg
+            cmp -s "$stage/assets/tylenol-1982.svg" /www_root/assets/tylenol-1982.svg
             printf "Deployment successful. Public site pages, cinematic asset and security headers updated; backups retained in /tmp/dontime-deploy-backups.\n"
           '
 
@@ -331,7 +349,7 @@ jobs:
             grep -iq "^$header:" "$headers"
             echo "Homepage security header verified: $header"
           done
-          for route in mystery.html isdal-woman.html setagaya-family.html beaumont-children.html springfield-three.html deduction-isdal.html deduction-setagaya.html deduction-beaumont.html deduction-springfield.html maze6.html maze7.html maze8.html maze9.html; do
+          for route in mystery.html isdal-woman.html setagaya-family.html beaumont-children.html springfield-three.html tylenol-murders.html deduction-isdal.html deduction-setagaya.html deduction-beaumont.html deduction-springfield.html deduction-tylenol.html maze6.html maze7.html maze8.html maze9.html maze10.html; do
             route_status="$(curl --silent --show-error --location --max-time 20 -o "$RUNNER_TEMP/$route" -w "%{http_code}" "https://dontime.kr/$route" || true)"
             echo "$route HTTP status: $route_status"
             test "$route_status" = "200"
@@ -341,6 +359,9 @@ jobs:
           echo "Setagaya cinematic image HTTP status: $setagaya_image_status"
           test "$setagaya_image_status" = "200"
           springfield_image_status="$(curl --silent --show-error --location --max-time 20 -o "$RUNNER_TEMP/springfield-three.svg" -w "%{http_code}" https://dontime.kr/assets/springfield-three.svg || true)"
+          tylenol_image_status="$(curl --silent --show-error --location --max-time 20 -o "$RUNNER_TEMP/tylenol-1982.svg" -w "%{http_code}" https://dontime.kr/assets/tylenol-1982.svg || true)"
+          echo "Tylenol cinematic image HTTP status: $tylenol_image_status"
+          test "$tylenol_image_status" = "200"
           echo "Springfield cinematic image HTTP status: $springfield_image_status"
           test "$springfield_image_status" = "200"
           beaumont_image_status="$(curl --silent --show-error --location --max-time 20 -o "$RUNNER_TEMP/beaumont-glenelg.svg" -w "%{http_code}" https://dontime.kr/assets/beaumont-glenelg.svg || true)"
@@ -358,6 +379,7 @@ jobs:
           grep -q "maze2.html" "$maze_body"
           grep -q "maze8.html" "$maze_body"
            grep -q "maze9.html" "$maze_body"
+          grep -q "maze10.html" "$maze_body"
           for route in maze1.html maze2.html; do
             route_headers="$RUNNER_TEMP/$route-headers.txt"
             route_body="$RUNNER_TEMP/$route"
