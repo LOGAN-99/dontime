@@ -12,6 +12,7 @@ on:
       - "beaumont-children.html"
       - "springfield-three.html"
       - "tylenol-murders.html"
+      - "valentich-disappearance.html"
       - "deduction*.html"
       - "korean-mystery.html"
       - "maze*.html"
