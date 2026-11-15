@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CASE 007 추리 퀴즈 · 프레더릭 발렌티치 실종 사건 | 셈플리</title>
+<meta name="description" content="1978년 배스 해협 항공기 실종 사건의 공식 기록을 바탕으로 사실과 가설을 구분하는 8문제 추리 퀴즈.">
+<link rel="canonical" href="https://dontime.kr/deduction-valentich.html">
+<style>body{margin:0;background:#09151e;color:#edf2f3;font:15px/1.8 Arial,'Noto Sans KR',sans-serif}.wrap{max-width:820px;margin:auto;padding:22px 18px 70px}.nav{display:flex;justify-content:space-between}.nav a{color:#e5bd82;text-decoration:none;font-weight:900}.card{background:#132530;border:1px solid #3b5663;border-radius:16px;padding:22px;margin:18px 0}.eyebrow{font:900 10px monospace;color:#e5bd82;letter-spacing:.16em}h1{font-size:clamp(30px,6vw,45px);line-height:1.2}.question{font-size:20px;font-weight:900}.opts{display:grid;gap:9px}.opts button{padding:13px;text-align:left;border:1px solid #405965;border-radius:10px;background:#0b1b26;color:#edf2f3;font:inherit;cursor:pointer}.feedback{display:none;background:#1c343f;padding:13px;border-radius:10px;margin-top:12px}.feedback.show{display:block}#next{margin-top:14px;background:#e5bd82;color:#14232b;border:0;border-radius:9px;padding:12px 17px;font-weight:900}.muted{color:#b2c1c7}</style></head><body><main class="wrap">
+<header class="nav"><a href="/">셈플리</a><a href="/valentich-disappearance.html">CASE 007 다큐</a></header>
+<section class="card"><div class="eyebrow">CASE 007 · EVIDENCE-BASED QUIZ</div><h1>기록과 해석을 구분하라</h1><p class="muted">호주 교통부의 1982년 요약 보고서와 국립문서보관소의 공개 설명을 바탕으로 구성했습니다. 조종사의 보고와 물체의 실체를 혼동하지 마세요.</p></section>
+<section class="card"><div class="eyebrow" id="count"></div><p class="question" id="q"></p><div class="opts" id="opts"></div><div class="feedback" id="fb"></div><button id="next" hidden>다음 문제 →</button></section>
+<section class="card"><h2>더 살펴보기</h2><p><a href="/maze11.html" style="color:#e5bd82">미궁 PART 11 · 바람이 남긴 17초</a></p><p><a href="/mystery.html" style="color:#e5bd82">해외 미제사건 목록</a></p></section>
+</main><script>
+const qs=[
+{q:"프레더릭 발렌티치가 실종된 날짜는?",o:["1976년 10월 21일","1978년 10월 21일","1980년 10월 21일","1982년 10월 21일"],a:1,e:"호주 교통부 보고서와 ATSB 기록은 발생일을 1978년 10월 21일로 적고 있습니다."},
+{q:"실종 당시 비행기의 기종과 등록번호는?",o:["Cessna 150 VH-ABC","Cessna 182L VH-DSJ","Piper PA-28 VH-KLM","Beechcraft 76 VH-TUV"],a:1,e:"공식 기록의 항공기 세부 정보는 Cessna 182L, 등록번호 VH-DSJ입니다."},
+{q:"비행 계획에 기록된 출발지와 목적지는?",o:["시드니에서 멜버른","무라빈에서 킹아일랜드","호바트에서 애들레이드","캔버라에서 론서스턴"],a:1,e:"보고서에는 Moorabbin 출발, King Island 도착으로 기록돼 있습니다."},
+{q:"조종사가 19시 무렵 통과했다고 보고한 지점은?",o:["케이프 오트웨이","포트필립","킹스턴","태즈메이니아 북단"],a:0,e:"공식 보고서의 관련 사건 기록에는 19:00에 Cape Otway를 보고했다고 적혀 있습니다."},
+{q:"조종사가 5,000피트 아래의 항공 교통을 물었을 때 비행 서비스가 답한 내용은?",o:["군용기가 확인됐다","알려진 항공 교통이 없었다","레이더에 두 대가 보였다","착륙하라고 지시했다"],a:1,e:"기록된 응답은 해당 고도 아래에 알려진 항공 교통이 없다는 내용입니다. 이는 조종사가 보고한 물체의 정체를 확인해 주지는 않습니다."},
+{q:"교신에서 조종사가 보고한 대상의 특징으로 기록된 것은?",o:["붉은 연기와 날개 두 개","네 개의 밝은 불빛처럼 보이는 대상","지상에서 발사된 불꽃","다른 항공기의 식별 번호"],a:1,e:"조종사는 처음에 네 개의 밝은 불빛처럼 보인다고 말했습니다. 이 기록은 조종사의 보고 내용이지 물체의 실체를 독립적으로 확인한 증거는 아닙니다."},
+{q:"마지막 교신 뒤 공식 기록에 남은 것은?",o:["17초간 열린 마이크","새로운 비행 계획","구조 신호 수신","착륙 확인"],a:0,e:"요약 보고서는 마지막 교신 뒤 17초 동안 마이크가 열린 상태였으며 이후 추가 송신 기록이 없다고 적었습니다."},
+{q:"1982년 요약 보고서가 제시한 실종 원인은?",o:["외계 비행체와 충돌","조종사의 고의 실종","기상 악화로 확정","원인을 결정하지 못함"],a:3,e:"보고서의 공식 결론은 항공기 실종 이유가 밝혀지지 않았다는 것입니다."}
+];
+let i=0,score=0,locked=false;const $=id=>document.getElementById(id);
+function draw(){locked=false;const x=qs[i];$("count").textContent="QUESTION "+(i+1)+" / "+qs.length;$("q").textContent=x.q;$("opts").innerHTML=x.o.map((v,n)=>'<button data-n="'+n+'">'+String.fromCharCode(65+n)+'. '+v+'</button>').join('');$("fb").className="feedback";$("fb").textContent="";$("next").hidden=true;$("opts").querySelectorAll("button").forEach(b=>b.onclick=()=>answer(+b.dataset.n))}
+function answer(n){if(locked)return;locked=true;const x=qs[i];if(n===x.a)score++;$("opts").querySelectorAll("button").forEach((b,j)=>{b.disabled=true;if(j===x.a)b.style.borderColor="#8bc6b5";if(j===n&&n!==x.a)b.style.borderColor="#c17d74"});$("fb").textContent=(n===x.a?"정답입니다. ":"정답은 "+x.o[x.a]+". ")+x.e;$("fb").classList.add("show");$("next").hidden=false;$("next").textContent=i===qs.length-1?"결과 보기":"다음 문제 →"}
+$("next").onclick=()=>{if(i<qs.length-1){i++;draw()}else{$("count").textContent="RESULT";$("q").textContent=qs.length+"문제 중 "+score+"문제 정답";$("opts").innerHTML='<a href="/valentich-disappearance.html" style="color:#e5bd82">다큐 다시 보기</a> · <a href="/maze11.html" style="color:#e5bd82">미궁 PART 11</a>';$("fb").textContent="조종사가 보고한 내용과 조사기관이 확인한 사실은 서로 다른 층위의 기록입니다.";$("fb").classList.add("show");$("next").hidden=true}};
+draw();
+</script></body></html>
