@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="배스 해협의 어두운 바다 위로 작은 단발 항공기가 지나가는 창작 시네마틱 배경">
+<defs>
+<linearGradient id="sky" x2="0" y2="1"><stop stop-color="#07111e"/><stop offset=".55" stop-color="#132d3d"/><stop offset="1" stop-color="#365565"/></linearGradient>
+<linearGradient id="sea" x2="0" y2="1"><stop stop-color="#244453"/><stop offset="1" stop-color="#06121d"/></linearGradient>
+<radialGradient id="moon"><stop stop-color="#fff9dd" stop-opacity=".95"/><stop offset=".45" stop-color="#d9e4df" stop-opacity=".45"/><stop offset="1" stop-color="#c9d9dc" stop-opacity="0"/></radialGradient>
+<filter id="blur"><feGaussianBlur stdDeviation="18"/></filter>
+</defs>
+<rect width="1600" height="900" fill="url(#sky)"/>
+<ellipse cx="1260" cy="160" rx="280" ry="210" fill="url(#moon)"/><circle cx="1260" cy="160" r="63" fill="#f2eedc" opacity=".9"/>
+<path d="M0 160 C170 100 260 190 420 145 S710 90 850 145 S1090 205 1260 120 S1450 80 1600 135 L1600 330 L0 330Z" fill="#0a1723" opacity=".78"/>
+<path d="M0 300 C190 220 300 330 480 270 S770 235 930 280 S1250 350 1600 260 L1600 440 L0 440Z" fill="#122635" opacity=".7"/>
+<path d="M0 490 C220 460 410 495 620 485 S1040 475 1230 500 S1450 510 1600 480 L1600 900 L0 900Z" fill="url(#sea)"/>
+<path d="M0 565 Q160 540 320 566 T640 566 T960 566 T1280 566 T1600 560" fill="none" stroke="#90aeb2" stroke-opacity=".22" stroke-width="3"/>
+<path d="M0 630 Q180 605 360 635 T720 632 T1080 635 T1440 628 T1600 630" fill="none" stroke="#b7c8c3" stroke-opacity=".18" stroke-width="2"/>
+<path d="M0 720 Q190 685 380 720 T760 718 T1140 720 T1520 716" fill="none" stroke="#7f9ba3" stroke-opacity=".24" stroke-width="3"/>
+<path d="M1040 580 C1150 530 1230 540 1320 500 C1390 470 1460 455 1600 440 L1600 900 L1000 900 C1070 810 1090 700 1040 580Z" fill="#08131d"/>
+<path d="M1180 560 C1280 515 1340 530 1410 490 C1470 455 1530 455 1600 450" fill="none" stroke="#6c8791" stroke-opacity=".55" stroke-width="5"/>
+<path d="M0 900 L0 820 C120 790 200 815 300 790 C380 770 430 805 500 900Z" fill="#08131d"/>
+<g transform="translate(1080 340) rotate(-2)" fill="#07121b" stroke="#6f8992" stroke-opacity=".65" stroke-width="2">
+<path d="M0 35 L82 20 L132 22 L158 34 L132 40 L82 39 L20 44Z"/><path d="M72 24 L90 -8 L101 -8 L104 26Z"/><path d="M75 37 L92 70 L102 70 L103 38Z"/><path d="M0 35 L-16 18 L-8 17 L22 31Z"/><path d="M142 32 L160 21 L166 22 L157 35Z"/>
+</g>
+<circle cx="1244" cy="371" r="7" fill="#f4d08c" opacity=".9"/><circle cx="1244" cy="371" r="30" fill="#f4d08c" opacity=".18" filter="url(#blur)"/>
+<g fill="#e7e0c9" opacity=".4"><circle cx="180" cy="110" r="2"/><circle cx="340" cy="180" r="1.5"/><circle cx="520" cy="95" r="1.4"/><circle cx="760" cy="145" r="1.8"/><circle cx="920" cy="70" r="1.3"/><circle cx="1450" cy="260" r="1.5"/></g>
+<rect width="1600" height="900" fill="#06111a" opacity=".12"/>
+</svg>
