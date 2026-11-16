@@ -176,7 +176,7 @@ jobs:
             if [ -f /www_root/assets/springfield-three.svg ]; then mkdir -p "$backup_dir/assets"; cp -p /www_root/assets/springfield-three.svg "$backup_dir/assets/springfield-three.svg.$stamp.bak"; fi
             if [ -f /www_root/assets/tylenol-1982.svg ]; then mkdir -p "$backup_dir/assets"; cp -p /www_root/assets/tylenol-1982.svg "$backup_dir/assets/tylenol-1982.svg.$stamp.bak"; fi
             if [ -f /www_root/assets/valentich-bass-strait.svg ]; then mkdir -p "$backup_dir/assets"; cp -p /www_root/assets/valentich-bass-strait.svg "$backup_dir/assets/valentich-bass-strait.svg.$stamp.bak"; fi
-            if [ -f /www_root/assets/asha-highway18.svg assets/brianna-maitland-road.svg ]; then mkdir -p "$backup_dir/assets"; cp -p /www_root/assets/asha-highway18.svg assets/brianna-maitland-road.svg "$backup_dir/assets/asha-highway18.svg assets/brianna-maitland-road.svg.$stamp.bak"; fi
+            if [ -f /www_root/assets/asha-highway18.svg ]; then mkdir -p "$backup_dir/assets"; cp -p /www_root/assets/asha-highway18.svg "$backup_dir/assets/asha-highway18.svg.$stamp.bak"; fi
             if [ -f /www_root/assets/brianna-maitland-road.svg ]; then mkdir -p "$backup_dir/assets"; cp -p /www_root/assets/brianna-maitland-road.svg "$backup_dir/assets/brianna-maitland-road.svg.$stamp.bak"; fi
             if [ -f /www_root/.htaccess ]; then cp -p /www_root/.htaccess "$backup_dir/htaccess.$stamp.bak"; fi
             printf "Production files backed up before deployment. Backup directory: %s\n" "$backup_dir"
@@ -299,7 +299,8 @@ jobs:
             test -s "$stage/assets/springfield-three.svg"
             test -s "$stage/assets/tylenol-1982.svg"
             test -s "$stage/assets/valentich-bass-strait.svg"
-            test -s "$stage/assets/asha-highway18.svg assets/brianna-maitland-road.svg"
+            test -s "$stage/assets/asha-highway18.svg"
+            test -s "$stage/assets/brianna-maitland-road.svg"
             test -s "$stage/quiz.html"
             grep -q "오늘의 사자성어" "$stage/quiz.html"
             test -s "$stage/ads.txt"
@@ -417,7 +418,7 @@ jobs:
           valentich_image_status="$(curl --silent --show-error --location --max-time 20 -o "$RUNNER_TEMP/valentich-bass-strait.svg" -w "%{http_code}" https://dontime.kr/assets/valentich-bass-strait.svg || true)"
           echo "Valentich cinematic image HTTP status: $valentich_image_status"
           test "$valentich_image_status" = "200"
-          asha_image_status="$(curl --silent --show-error --location --max-time 20 -o "$RUNNER_TEMP/asha-highway18.svg" -w "%{http_code}" https://dontime.kr/assets/asha-highway18.svg assets/brianna-maitland-road.svg || true)"
+          asha_image_status="$(curl --silent --show-error --location --max-time 20 -o "$RUNNER_TEMP/asha-highway18.svg" -w "%{http_code}" https://dontime.kr/assets/asha-highway18.svg || true)"
           echo "Asha Highway 18 cinematic image HTTP status: $asha_image_status"
           test "$asha_image_status" = "200"
           brianna_image_status="$(curl --silent --show-error --location --max-time 20 -o "$RUNNER_TEMP/brianna-maitland-road.svg" -w "%{http_code}" https://dontime.kr/assets/brianna-maitland-road.svg || true)"
