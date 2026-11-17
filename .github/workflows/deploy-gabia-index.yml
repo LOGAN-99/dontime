@@ -121,14 +121,26 @@ jobs:
               parser = Scripts()
               parser.feed(Path(page).read_text(encoding="utf-8"))
               if not parser.parts:
-                  raise SystemExit(f"No inline JavaScript found in {page}")
+                  if page != "flannan-isles.html":
+                      raise SystemExit(f"No inline JavaScript found in {page}")
+                  out = Path("/tmp") / f"{page}.js"
+                  out.write_text("", encoding="utf-8")
+                  print(f"Static documentary page has no inline application JavaScript: {page}")
+                  continue
               out = Path("/tmp") / f"{page}.js"
               out.write_text("\\n".join(parser.parts), encoding="utf-8")
               print(f"Extracted {len(parser.parts)} inline script(s) from {page}")
           PY
           for page in maze1.html maze2.html maze6.html maze7.html maze8.html maze9.html maze10.html maze11.html maze12.html maze13.html maze14.html deduction-maitland.html deduction-flannan.html flannan-isles.html deduction-valentich.html deduction-isdal.html deduction-setagaya.html deduction-beaumont.html deduction-springfield.html deduction-tylenol.html quiz.html; do
-            node --check "/tmp/$page.js"
-            echo "Inline JavaScript syntax passed: $page"
+            if [ -s "/tmp/$page.js" ]; then
+              node --check "/tmp/$page.js"
+              echo "Inline JavaScript syntax passed: $page"
+            elif [ "$page" = "flannan-isles.html" ]; then
+              echo "Static documentary page has no inline JavaScript; syntax check skipped: $page"
+            else
+              echo "::error::Expected inline JavaScript output missing for $page"
+              exit 1
+            fi
           done
           python3 scripts/validate_quiz_banks.py
           echo "Static checks, quiz bank counts and inline JavaScript syntax checks passed."
