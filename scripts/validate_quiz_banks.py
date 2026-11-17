@@ -20,10 +20,10 @@ def bank_values(start_marker: str, end_marker: str, key: str) -> list[str]:
 
 
 expected = {
-    "general": ("const generalQuestions=", "const generalBank=", "q", 590),
-    "hanja": ("const hanjaWords=", "const hanjaBank=", "h", 180),
-    "hanmun": ("const quotes=", "const quoteSeen", "q", 250),
-    "english": ("const vocab=", "const vocabBank=", "w", 296),
+    "general": ("const generalQuestions=", "const generalBank=", "q", 640),
+    "hanja": ("const hanjaWords=", "const hanjaBank=", "h", 190),
+    "hanmun": ("const quotes=", "const quoteSeen", "q", 262),
+    "english": ("const vocab=", "const vocabBank=", "w", 308),
     "idioms": ("const idioms=", "const idiomBank=", "h", 180),
 }
 for name, (start, end, key, target) in expected.items():
@@ -38,6 +38,10 @@ required_files = [
     "deduction-maitland.html",
     "maze13.html",
     "assets/brianna-maitland-road.svg",
+    "alcatraz-escape.html",
+    "deduction-alcatraz.html",
+    "maze15.html",
+    "assets/alcatraz-escape.svg",
 ]
 for item in required_files:
     path = ROOT / item
@@ -54,4 +58,14 @@ if len(re.findall(r'"q":', deduction)) != 8:
 if len(re.findall(r'"title":', maze)) != 14:
     raise SystemExit("PART 13 maze must contain exactly 14 chapters")
 
-print("CASE 009 pages, 8-question deduction quiz, 14-chapter maze and image asset passed.")
+case11 = (ROOT / "alcatraz-escape.html").read_text(encoding="utf-8")
+deduction11 = (ROOT / "deduction-alcatraz.html").read_text(encoding="utf-8")
+maze15 = (ROOT / "maze15.html").read_text(encoding="utf-8")
+if "CASE 011" not in case11 or "Federal Bureau of Investigation" not in case11:
+    raise SystemExit("CASE 011 documentary content check failed")
+if len(re.findall(r'"q":', deduction11)) != 8:
+    raise SystemExit("CASE 011 deduction quiz must contain exactly 8 questions")
+if len(re.findall(r'"title":', maze15)) != 14:
+    raise SystemExit("PART 15 maze must contain exactly 14 chapters")
+
+print("CASE 009 and CASE 011 pages, 8-question deduction quizzes, 14-chapter mazes and image assets passed.")
