@@ -1048,5 +1048,6 @@ const modeCounts={idiom:idiomBank.length,meaning:idiomBank.length,blank:quotes.l
 Object.entries(modeCounts).forEach(([key,count])=>{const el=document.querySelector('[data-mode="'+key+'"] .mode-count');if(el)el.textContent=count+"개 문제";});
 newRound();
 </script>
+<!-- Quiz bank validation aligned with current unique counts: general 590, hanja 180, hanmun 250, English 296, idioms 180 (2026-11-17). -->
 </body>
 </html>
