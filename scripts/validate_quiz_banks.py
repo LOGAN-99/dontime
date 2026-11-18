@@ -20,10 +20,10 @@ def bank_values(start_marker: str, end_marker: str, key: str) -> list[str]:
 
 
 expected = {
-    "general": ("const generalQuestions=", "const generalBank=", "q", 640),
-    "hanja": ("const hanjaWords=", "const hanjaBank=", "h", 190),
-    "hanmun": ("const quotes=", "const quoteSeen", "q", 262),
-    "english": ("const vocab=", "const vocabBank=", "w", 308),
+    "general": ("const generalQuestions=", "const generalBank=", "q", 690),
+    "hanja": ("const hanjaWords=", "const hanjaBank=", "h", 200),
+    "hanmun": ("const quotes=", "const quoteSeen", "q", 274),
+    "english": ("const vocab=", "const vocabBank=", "w", 320),
     "idioms": ("const idioms=", "const idiomBank=", "h", 180),
 }
 for name, (start, end, key, target) in expected.items():
