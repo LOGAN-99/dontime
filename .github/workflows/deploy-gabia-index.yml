@@ -139,7 +139,7 @@ jobs:
             if [ -s "/tmp/$page.js" ]; then
               node --check "/tmp/$page.js"
               echo "Inline JavaScript syntax passed: $page"
-            elif [ "$page" = "flannan-isles.html" ] || [ "$page" = "alcatraz-escape.html" ]; then
+            elif [ "$page" = "flannan-isles.html" ] || [ "$page" = "alcatraz-escape.html" ] || [ "$page" = "yuba-county-five.html" ]; then
               echo "Static documentary page has no inline JavaScript; syntax check skipped: $page"
             else
               echo "::error::Expected inline JavaScript output missing for $page"
