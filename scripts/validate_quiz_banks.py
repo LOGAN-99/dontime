@@ -42,6 +42,10 @@ required_files = [
     "deduction-alcatraz.html",
     "maze15.html",
     "assets/alcatraz-escape.svg",
+    "yuba-county-five.html",
+    "deduction-yuba.html",
+    "maze16.html",
+    "assets/yuba-county-five-cinematic.svg",
 ]
 for item in required_files:
     path = ROOT / item
@@ -68,4 +72,15 @@ if len(re.findall(r'"q":', deduction11)) != 8:
 if len(re.findall(r'"title":', maze15)) != 14:
     raise SystemExit("PART 15 maze must contain exactly 14 chapters")
 
-print("CASE 009 and CASE 011 pages, 8-question deduction quizzes, 14-chapter mazes and image assets passed.")
+
+case12 = (ROOT / "yuba-county-five.html").read_text(encoding="utf-8")
+deduction12 = (ROOT / "deduction-yuba.html").read_text(encoding="utf-8")
+maze16 = (ROOT / "maze16.html").read_text(encoding="utf-8")
+if "CASE 012" not in case12 or "Yuba County Sheriff's Office" not in case12:
+    raise SystemExit("CASE 012 documentary content check failed")
+if len(re.findall(r'"q":', deduction12)) != 8:
+    raise SystemExit("CASE 012 deduction quiz must contain exactly 8 questions")
+if len(re.findall(r'"title":', maze16)) != 14:
+    raise SystemExit("PART 16 maze must contain exactly 14 chapters")
+
+print("CASE 009, CASE 011 and CASE 012 pages, 8-question deduction quizzes, 14-chapter mazes and image assets passed.")
