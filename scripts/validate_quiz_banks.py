@@ -54,19 +54,22 @@ banks = {
     "general": (extract_array("generalQuestions"), "q", 154),
     "hanja": (extract_array("hanjaWords"), "h", 130),
     "hanmun": (extract_array("quotes"), "q", 204),
-    "english": (extract_array("vocab"), "w", 159),
+    "english": (extract_array("vocab"), "w", 149),
     "idiom": (extract_array("idioms"), "h", 176),
 }
+if any(not item.get("w") for item in banks["english"][0]):
+    raise SystemExit("English bank contains non-vocabulary records")
+
 for name, (items, key, expected) in banks.items():
     actual = len({item.get(key) for item in items if item.get(key)})
     if actual != expected:
         raise SystemExit(f"{name} unique bank count mismatch: expected {expected}, got {actual}")
 
-count_markers = ("154개 문제", "130개 문제", "204개 문제", "159개 문제", "176개 문제")
+count_markers = ("154개 문제", "130개 문제", "204개 문제", "149개 문제", "176개 문제")
 for marker in count_markers:
     if marker not in SOURCE:
         raise SystemExit(f"Missing active quiz count marker: {marker}")
-if "Active unique banks audited 2026-11-20: general 154, hanja 130, hanmun 204, English 159, idioms 176." not in SOURCE:
+if "Active unique banks audited 2026-11-20: general 154, hanja 130, hanmun 204, English 149, idioms 176." not in SOURCE:
     raise SystemExit("Missing current quiz-bank audit comment")
 if "const quoteBank=quotes.filter" not in SOURCE:
     raise SystemExit("Hanmun deduplication bank is missing")
@@ -117,5 +120,5 @@ daily = json.loads((ROOT / "content" / "daily-2026-11-20.json").read_text(encodi
 if (len(daily.get("general", [])), len(daily.get("hanja", [])), len(daily.get("hanmun", [])), len(daily.get("english", []))) != (50, 10, 12, 12):
     raise SystemExit("Daily content archive counts do not match expected additions")
 
-print("Validated quiz banks: general=154, hanja=130, hanmun=204, english=159, idiom=176")
+print("Validated quiz banks: general=154, hanja=130, hanmun=204, english=149, idiom=176")
 print("Validated CASE 013 documentary, 8-question quiz, PART 17, indexes, sitemap, and daily archive")
