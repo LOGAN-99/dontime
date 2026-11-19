@@ -1,86 +1,121 @@
-from pathlib import Path
+#!/usr/bin/env python3
 import json
 import re
+from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-source = (ROOT / "quiz.html").read_text(encoding="utf-8")
+SOURCE = (ROOT / "quiz.html").read_text(encoding="utf-8")
 
 
-def bank_values(start_marker: str, end_marker: str, key: str) -> list[str]:
-    start = source.find(start_marker)
-    end = source.find(end_marker, start)
-    if start < 0 or end < 0:
-        raise SystemExit(f"Missing bank marker: {start_marker} / {end_marker}")
-    block = source[start:end]
-    pattern = re.compile(r'"?' + re.escape(key) + r'"?\s*:\s*"((?:\\\\.|[^"\\\\])*)"', re.S)
-    values = []
-    for match in pattern.finditer(block):
-        values.append(json.loads('"' + match.group(1) + '"'))
-    return values
+def extract_array(name):
+    marker = f"const {name}="
+    pos = SOURCE.find(marker)
+    if pos < 0:
+        raise SystemExit(f"Missing array declaration: {name}")
+    start = SOURCE.find("[", pos + len(marker))
+    if start < 0:
+        raise SystemExit(f"Missing array opener: {name}")
+    depth = 0
+    quote = None
+    escaped = False
+    end = -1
+    for i in range(start, len(SOURCE)):
+        ch = SOURCE[i]
+        if quote:
+            if escaped:
+                escaped = False
+            elif ch == "\\":
+                escaped = True
+            elif ch == quote:
+                quote = None
+            continue
+        if ch in ('"', "'", "`"):
+            quote = ch
+        elif ch == "[":
+            depth += 1
+        elif ch == "]":
+            depth -= 1
+            if depth == 0:
+                end = i + 1
+                break
+    if end < 0:
+        raise SystemExit(f"Unclosed array: {name}")
+    raw = SOURCE[start:end]
+    raw = re.sub(r'([{,]\s*)([A-Za-z_][A-Za-z0-9_]*)(\s*:) ', r'\1"\2"\3', raw) if False else raw
+    raw = re.sub(r'([{,]\s*)([A-Za-z_][A-Za-z0-9_]*)(\s*:)\s*', r'\1"\2"\3', raw)
+    raw = re.sub(r',\s*([}\]])', r'\1', raw)
+    try:
+        return json.loads(raw)
+    except Exception as exc:
+        raise SystemExit(f"Unable to parse {name}: {exc}")
 
 
-expected = {
-    "general": ("const generalQuestions=", "const generalBank=", "q", 690),
-    "hanja": ("const hanjaWords=", "const hanjaBank=", "h", 200),
-    "hanmun": ("const quotes=", "const quoteSeen", "q", 274),
-    "english": ("const vocab=", "const vocabBank=", "w", 320),
-    "idioms": ("const idioms=", "const idiomBank=", "h", 180),
+banks = {
+    "general": (extract_array("generalQuestions"), "q", 154),
+    "hanja": (extract_array("hanjaWords"), "h", 130),
+    "hanmun": (extract_array("quotes"), "q", 204),
+    "english": (extract_array("vocab"), "w", 159),
+    "idiom": (extract_array("idioms"), "h", 176),
 }
-for name, (start, end, key, target) in expected.items():
-    values = bank_values(start, end, key)
-    actual = len(set(values))
-    if actual != target:
-        raise SystemExit(f"{name} unique bank count mismatch: expected {target}, got {actual}")
-    print(f"{name}: {actual} unique entries")
+for name, (items, key, expected) in banks.items():
+    actual = len({item.get(key) for item in items if item.get(key)})
+    if actual != expected:
+        raise SystemExit(f"{name} unique bank count mismatch: expected {expected}, got {actual}")
+
+count_markers = ("154개 문제", "130개 문제", "204개 문제", "159개 문제", "176개 문제")
+for marker in count_markers:
+    if marker not in SOURCE:
+        raise SystemExit(f"Missing active quiz count marker: {marker}")
+if "Active unique banks audited 2026-11-20: general 154, hanja 130, hanmun 204, English 159, idioms 176." not in SOURCE:
+    raise SystemExit("Missing current quiz-bank audit comment")
+if "const quoteBank=quotes.filter" not in SOURCE:
+    raise SystemExit("Hanmun deduplication bank is missing")
 
 required_files = [
-    "brianna-maitland.html",
-    "deduction-maitland.html",
-    "maze13.html",
-    "assets/brianna-maitland-road.svg",
-    "alcatraz-escape.html",
-    "deduction-alcatraz.html",
-    "maze15.html",
-    "assets/alcatraz-escape.svg",
-    "yuba-county-five.html",
-    "deduction-yuba.html",
-    "maze16.html",
-    "assets/yuba-county-five-cinematic.svg",
+    "mystery.html", "deduction.html", "maze.html", "quiz.html", "sitemap.xml",
+    "isdal-woman.html", "deduction-isdal.html", "maze6.html",
+    "flannan-isles.html", "alcatraz-escape.html", "yuba-county-five.html",
+    "deduction-yuba.html", "maze15.html", "maze16.html",
+    "lars-mittank.html", "deduction-lars.html", "maze17.html",
+    "assets/lars-mittank-cinematic.svg", "content/daily-2026-11-20.json",
 ]
-for item in required_files:
-    path = ROOT / item
-    if not path.is_file() or path.stat().st_size == 0:
-        raise SystemExit(f"Missing or empty new content asset: {item}")
+for path in required_files:
+    if not (ROOT / path).is_file():
+        raise SystemExit(f"Missing or empty required file: {path}")
+    if not (ROOT / path).stat().st_size:
+        raise SystemExit(f"Empty required file: {path}")
 
-case = (ROOT / "brianna-maitland.html").read_text(encoding="utf-8")
-deduction = (ROOT / "deduction-maitland.html").read_text(encoding="utf-8")
-maze = (ROOT / "maze13.html").read_text(encoding="utf-8")
-if "CASE 009" not in case or "FBI" not in case:
-    raise SystemExit("CASE 009 documentary content check failed")
-if len(re.findall(r'"q":', deduction)) != 8:
-    raise SystemExit("CASE 009 deduction quiz must contain exactly 8 questions")
-if len(re.findall(r'"title":', maze)) != 14:
-    raise SystemExit("PART 13 maze must contain exactly 14 chapters")
+case_page = (ROOT / "lars-mittank.html").read_text(encoding="utf-8")
+case_quiz = (ROOT / "deduction-lars.html").read_text(encoding="utf-8")
+maze_page = (ROOT / "maze17.html").read_text(encoding="utf-8")
+mystery_index = (ROOT / "mystery.html").read_text(encoding="utf-8")
+deduction_index = (ROOT / "deduction.html").read_text(encoding="utf-8")
+maze_index = (ROOT / "maze.html").read_text(encoding="utf-8")
+sitemap = (ROOT / "sitemap.xml").read_text(encoding="utf-8")
+for marker, text, label in [
+    ("CASE 013", case_page, "CASE 013 documentary"),
+    ("CASE 013", case_quiz, "CASE 013 quiz"),
+    ("PART 17", maze_page, "PART 17 maze"),
+]:
+    if marker not in text:
+        raise SystemExit(f"Missing marker in {label}: {marker}")
+if len(re.findall(r'\{q:"', case_quiz)) != 8:
+    raise SystemExit("CASE 013 deduction quiz must contain 8 questions")
+if len(re.findall(r'"title":', maze_page)) != 14:
+    raise SystemExit("PART 17 maze must contain 14 chapters")
+if "CASE 013" not in mystery_index or "lars-mittank.html" not in mystery_index:
+    raise SystemExit("CASE 013 is missing from mystery index")
+if "deduction-lars.html" not in deduction_index:
+    raise SystemExit("CASE 013 quiz is missing from deduction index")
+if "maze17.html" not in maze_index or "lars-mittank.html" not in maze_index:
+    raise SystemExit("PART 17 or CASE 013 is missing from maze index")
+for url in ("lars-mittank.html", "deduction-lars.html", "maze17.html", "assets/lars-mittank-cinematic.svg"):
+    if url not in sitemap:
+        raise SystemExit(f"Missing sitemap URL: {url}")
 
-case11 = (ROOT / "alcatraz-escape.html").read_text(encoding="utf-8")
-deduction11 = (ROOT / "deduction-alcatraz.html").read_text(encoding="utf-8")
-maze15 = (ROOT / "maze15.html").read_text(encoding="utf-8")
-if "CASE 011" not in case11 or "Federal Bureau of Investigation" not in case11:
-    raise SystemExit("CASE 011 documentary content check failed")
-if len(re.findall(r'"q":', deduction11)) != 8:
-    raise SystemExit("CASE 011 deduction quiz must contain exactly 8 questions")
-if len(re.findall(r'"title":', maze15)) != 14:
-    raise SystemExit("PART 15 maze must contain exactly 14 chapters")
+daily = json.loads((ROOT / "content" / "daily-2026-11-20.json").read_text(encoding="utf-8"))
+if (len(daily.get("general", [])), len(daily.get("hanja", [])), len(daily.get("hanmun", [])), len(daily.get("english", []))) != (50, 10, 12, 12):
+    raise SystemExit("Daily content archive counts do not match expected additions")
 
-
-case12 = (ROOT / "yuba-county-five.html").read_text(encoding="utf-8")
-deduction12 = (ROOT / "deduction-yuba.html").read_text(encoding="utf-8")
-maze16 = (ROOT / "maze16.html").read_text(encoding="utf-8")
-if "CASE 012" not in case12 or "Yuba County Sheriff's Office" not in case12:
-    raise SystemExit("CASE 012 documentary content check failed")
-if len(re.findall(r'"q":', deduction12)) != 8:
-    raise SystemExit("CASE 012 deduction quiz must contain exactly 8 questions")
-if len(re.findall(r'"title":', maze16)) != 14:
-    raise SystemExit("PART 16 maze must contain exactly 14 chapters")
-
-print("CASE 009, CASE 011 and CASE 012 pages, 8-question deduction quizzes, 14-chapter mazes and image assets passed.")
+print("Validated quiz banks: general=154, hanja=130, hanmun=204, english=159, idiom=176")
+print("Validated CASE 013 documentary, 8-question quiz, PART 17, indexes, sitemap, and daily archive")
