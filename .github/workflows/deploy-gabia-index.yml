@@ -18,6 +18,9 @@ on:
       - "flannan-isles.html"
       - "alcatraz-escape.html"
       - "yuba-county-five.html"
+      - "lars-mittank.html"
+      - "deduction-lars.html"
+      - "maze17.html"
       - "deduction-yuba.html"
       - "maze16.html"
       - "deduction*.html"
@@ -102,7 +105,7 @@ jobs:
           python3 - <<'PY'
           from html.parser import HTMLParser
           from pathlib import Path
-          pages = ["maze1.html", "maze2.html", "maze6.html", "maze7.html", "maze8.html", "maze9.html", "maze10.html", "maze11.html", "maze12.html", "maze13.html", "maze14.html", "maze15.html", "maze16.html", "deduction-yuba.html", "yuba-county-five.html", "deduction-maitland.html", "deduction-flannan.html", "deduction-alcatraz.html", "flannan-isles.html", "alcatraz-escape.html", "deduction-valentich.html", "deduction-asha.html", "deduction-isdal.html", "deduction-setagaya.html", "deduction-beaumont.html", "deduction-springfield.html", "deduction-tylenol.html", "quiz.html"]
+          pages = ["maze1.html", "maze2.html", "maze6.html", "maze7.html", "maze8.html", "maze9.html", "maze10.html", "maze11.html", "maze12.html", "maze13.html", "maze14.html", "maze15.html", "maze16.html", "maze17.html", "deduction-yuba.html", "yuba-county-five.html", "lars-mittank.html", "deduction-lars.html", "deduction-maitland.html", "deduction-flannan.html", "deduction-alcatraz.html", "flannan-isles.html", "alcatraz-escape.html", "deduction-valentich.html", "deduction-asha.html", "deduction-isdal.html", "isdal-woman.html", "deduction-setagaya.html", "deduction-beaumont.html", "deduction-springfield.html", "deduction-tylenol.html", "quiz.html"]
           class Scripts(HTMLParser):
               def __init__(self):
                   super().__init__()
@@ -125,7 +128,7 @@ jobs:
               parser = Scripts()
               parser.feed(Path(page).read_text(encoding="utf-8"))
               if not parser.parts:
-                  if page not in ("flannan-isles.html", "alcatraz-escape.html", "yuba-county-five.html"):
+                  if page not in ("flannan-isles.html", "alcatraz-escape.html", "yuba-county-five.html", "isdal-woman.html", "lars-mittank.html"):
                       raise SystemExit(f"No inline JavaScript found in {page}")
                   out = Path("/tmp") / f"{page}.js"
                   out.write_text("", encoding="utf-8")
@@ -135,11 +138,11 @@ jobs:
               out.write_text("\\n".join(parser.parts), encoding="utf-8")
               print(f"Extracted {len(parser.parts)} inline script(s) from {page}")
           PY
-          for page in maze1.html maze2.html maze6.html maze7.html maze8.html maze9.html maze10.html maze11.html maze12.html maze13.html maze14.html maze15.html maze16.html deduction-yuba.html yuba-county-five.html deduction-maitland.html deduction-flannan.html deduction-alcatraz.html flannan-isles.html alcatraz-escape.html deduction-valentich.html deduction-isdal.html deduction-setagaya.html deduction-beaumont.html deduction-springfield.html deduction-tylenol.html quiz.html; do
+          for page in maze1.html maze2.html maze6.html maze7.html maze8.html maze9.html maze10.html maze11.html maze12.html maze13.html maze14.html maze15.html maze16.html maze17.html deduction-yuba.html yuba-county-five.html lars-mittank.html deduction-lars.html deduction-maitland.html deduction-flannan.html deduction-alcatraz.html flannan-isles.html alcatraz-escape.html deduction-valentich.html deduction-isdal.html isdal-woman.html deduction-setagaya.html deduction-beaumont.html deduction-springfield.html deduction-tylenol.html quiz.html; do
             if [ -s "/tmp/$page.js" ]; then
               node --check "/tmp/$page.js"
               echo "Inline JavaScript syntax passed: $page"
-            elif [ "$page" = "flannan-isles.html" ] || [ "$page" = "alcatraz-escape.html" ] || [ "$page" = "yuba-county-five.html" ]; then
+            elif [ "$page" = "flannan-isles.html" ] || [ "$page" = "alcatraz-escape.html" ] || [ "$page" = "yuba-county-five.html" ] || [ "$page" = "isdal-woman.html" ] || [ "$page" = "lars-mittank.html" ]; then
               echo "Static documentary page has no inline JavaScript; syntax check skipped: $page"
             else
               echo "::error::Expected inline JavaScript output missing for $page"
@@ -184,7 +187,7 @@ jobs:
             mkdir -p "$backup_dir" "$stage_dir"
             chmod 700 "$backup_dir" "$stage_dir"
             stamp="$(date +%Y%m%d-%H%M%S)"
-            for file in index.html mystery.html isdal-woman.html setagaya-family.html beaumont-children.html springfield-three.html tylenol-murders.html valentich-disappearance.html asha-degree.html brianna-maitland.html flannan-isles.html alcatraz-escape.html yuba-county-five.html deduction.html deduction-alcatraz.html deduction-yuba.html deduction-maitland.html deduction-flannan.html deduction-asha.html deduction-isdal.html deduction-setagaya.html deduction-beaumont.html deduction-springfield.html deduction-tylenol.html deduction-valentich.html korean-mystery.html maze.html maze1.html maze2.html maze3.html maze4.html maze5.html maze6.html maze7.html maze8.html maze9.html maze10.html maze11.html maze12.html maze13.html maze14.html maze15.html maze16.html quiz.html about.html calculator-data.json calculator.php calendar.php contact.html privacy.html terms.html robots.txt sitemap.xml ads.txt category-business.html category-calendar.html category-car.html category-daily-life.html category-finance.html category-games.html category-health.html category-hobbies.html category-money.html category-real-estate.html category-spending.html category-tax.html category-text-tools.html category-time.html; do
+            for file in index.html mystery.html isdal-woman.html setagaya-family.html beaumont-children.html springfield-three.html tylenol-murders.html valentich-disappearance.html asha-degree.html brianna-maitland.html flannan-isles.html alcatraz-escape.html yuba-county-five.html deduction.html deduction-alcatraz.html deduction-yuba.html deduction-maitland.html deduction-flannan.html deduction-asha.html deduction-isdal.html deduction-setagaya.html deduction-beaumont.html deduction-springfield.html deduction-tylenol.html deduction-valentich.html korean-mystery.html maze.html maze1.html maze2.html maze3.html maze4.html maze5.html maze6.html maze7.html maze8.html maze9.html maze10.html maze11.html maze12.html maze13.html maze14.html maze15.html maze16.html lars-mittank.html deduction-lars.html maze17.html quiz.html about.html calculator-data.json calculator.php calendar.php contact.html privacy.html terms.html robots.txt sitemap.xml ads.txt category-business.html category-calendar.html category-car.html category-daily-life.html category-finance.html category-games.html category-health.html category-hobbies.html category-money.html category-real-estate.html category-spending.html category-tax.html category-text-tools.html category-time.html; do
               if [ -f "/www_root/$file" ]; then cp -p "/www_root/$file" "$backup_dir/$file.$stamp.bak"; fi
             done
             if [ -f /www_root/assets/isdal-valley.webp ]; then mkdir -p "$backup_dir/assets"; cp -p /www_root/assets/isdal-valley.webp "$backup_dir/assets/isdal-valley.webp.$stamp.bak"; fi
@@ -198,6 +201,7 @@ jobs:
             if [ -f /www_root/assets/flannan-isles-storm.svg ]; then mkdir -p "$backup_dir/assets"; cp -p /www_root/assets/flannan-isles-storm.svg "$backup_dir/assets/flannan-isles-storm.svg.$stamp.bak"; fi
             if [ -f /www_root/assets/alcatraz-escape.svg ]; then mkdir -p "$backup_dir/assets"; cp -p /www_root/assets/alcatraz-escape.svg "$backup_dir/assets/alcatraz-escape.svg.$stamp.bak"; fi
             if [ -f /www_root/assets/yuba-county-five-cinematic.svg ]; then mkdir -p "$backup_dir/assets"; cp -p /www_root/assets/yuba-county-five-cinematic.svg "$backup_dir/assets/yuba-county-five-cinematic.svg.$stamp.bak"; fi
+            if [ -f /www_root/assets/lars-mittank-cinematic.svg ]; then mkdir -p "$backup_dir/assets"; cp -p /www_root/assets/lars-mittank-cinematic.svg "$backup_dir/assets/lars-mittank-cinematic.svg.$stamp.bak"; fi
             if [ -f /www_root/.htaccess ]; then cp -p /www_root/.htaccess "$backup_dir/htaccess.$stamp.bak"; fi
             printf "Production files backed up before deployment. Backup directory: %s\n" "$backup_dir"
           '
@@ -209,9 +213,9 @@ jobs:
         run: |
           set -euo pipefail
           export SSHPASS="$GABIA_PASSWORD"
-          sshpass -e scp -P 22 -o StrictHostKeyChecking=yes -o UserKnownHostsFile="$RUNNER_TEMP/gabia-ssh/known_hosts" -o HostKeyAlgorithms=ssh-ed25519 -o LogLevel=ERROR index.html mystery.html isdal-woman.html setagaya-family.html beaumont-children.html springfield-three.html tylenol-murders.html valentich-disappearance.html flannan-isles.html alcatraz-escape.html yuba-county-five.html deduction-flannan.html deduction-yuba.html deduction-alcatraz.html maze14.html maze15.html maze16.html deduction.html deduction-isdal.html deduction-setagaya.html deduction-beaumont.html deduction-springfield.html deduction-tylenol.html deduction-valentich.html korean-mystery.html maze.html maze1.html maze2.html maze3.html maze4.html maze5.html maze6.html maze7.html maze8.html maze9.html maze10.html maze11.html maze12.html maze13.html maze14.html maze15.html quiz.html about.html calculator-data.json calculator.php calendar.php contact.html privacy.html terms.html robots.txt sitemap.xml ads.txt category-business.html category-calendar.html category-car.html category-daily-life.html category-finance.html category-games.html category-health.html category-hobbies.html category-money.html category-real-estate.html category-spending.html category-tax.html category-text-tools.html category-time.html "$GABIA_USER@211.47.74.75:/tmp/dontime-deploy-upload/"
+          sshpass -e scp -P 22 -o StrictHostKeyChecking=yes -o UserKnownHostsFile="$RUNNER_TEMP/gabia-ssh/known_hosts" -o HostKeyAlgorithms=ssh-ed25519 -o LogLevel=ERROR index.html mystery.html isdal-woman.html setagaya-family.html beaumont-children.html springfield-three.html tylenol-murders.html valentich-disappearance.html flannan-isles.html alcatraz-escape.html yuba-county-five.html deduction-flannan.html deduction-yuba.html deduction-alcatraz.html maze14.html maze15.html maze16.html deduction.html deduction-isdal.html deduction-setagaya.html deduction-beaumont.html deduction-springfield.html deduction-tylenol.html deduction-valentich.html korean-mystery.html maze.html maze1.html maze2.html maze3.html maze4.html maze5.html maze6.html maze7.html maze8.html maze9.html maze10.html maze11.html maze12.html maze13.html maze14.html maze15.html lars-mittank.html deduction-lars.html maze17.html quiz.html about.html calculator-data.json calculator.php calendar.php contact.html privacy.html terms.html robots.txt sitemap.xml ads.txt category-business.html category-calendar.html category-car.html category-daily-life.html category-finance.html category-games.html category-health.html category-hobbies.html category-money.html category-real-estate.html category-spending.html category-tax.html category-text-tools.html category-time.html "$GABIA_USER@211.47.74.75:/tmp/dontime-deploy-upload/"
           sshpass -e ssh -p 22 -o StrictHostKeyChecking=yes -o UserKnownHostsFile="$RUNNER_TEMP/gabia-ssh/known_hosts" -o HostKeyAlgorithms=ssh-ed25519 -o LogLevel=ERROR "$GABIA_USER@211.47.74.75" "mkdir -p /tmp/dontime-deploy-upload/assets"
-          sshpass -e scp -P 22 -o StrictHostKeyChecking=yes -o UserKnownHostsFile="$RUNNER_TEMP/gabia-ssh/known_hosts" -o HostKeyAlgorithms=ssh-ed25519 -o LogLevel=ERROR assets/isdal-valley.webp assets/setagaya-night.svg assets/beaumont-glenelg.svg assets/springfield-three.svg assets/tylenol-1982.svg assets/valentich-bass-strait.svg assets/asha-highway18.svg assets/brianna-maitland-road.svg assets/flannan-isles-storm.svg assets/alcatraz-escape.svg assets/yuba-county-five-cinematic.svg "$GABIA_USER@211.47.74.75:/tmp/dontime-deploy-upload/assets/"
+          sshpass -e scp -P 22 -o StrictHostKeyChecking=yes -o UserKnownHostsFile="$RUNNER_TEMP/gabia-ssh/known_hosts" -o HostKeyAlgorithms=ssh-ed25519 -o LogLevel=ERROR assets/isdal-valley.webp assets/setagaya-night.svg assets/beaumont-glenelg.svg assets/springfield-three.svg assets/tylenol-1982.svg assets/valentich-bass-strait.svg assets/asha-highway18.svg assets/brianna-maitland-road.svg assets/flannan-isles-storm.svg assets/alcatraz-escape.svg assets/yuba-county-five-cinematic.svg assets/lars-mittank-cinematic.svg "$GABIA_USER@211.47.74.75:/tmp/dontime-deploy-upload/assets/"
           sshpass -e scp -P 22 -o StrictHostKeyChecking=yes -o UserKnownHostsFile="$RUNNER_TEMP/gabia-ssh/known_hosts" -o HostKeyAlgorithms=ssh-ed25519 -o LogLevel=ERROR security-headers.fragment "$GABIA_USER@211.47.74.75:/tmp/dontime-deploy-upload/security-headers.fragment"
 
       - name: Validate staged file and atomically replace homepage
@@ -262,6 +266,8 @@ jobs:
             grep -q "CASE 010" "$stage/mystery.html"
             grep -q "CASE 011" "$stage/mystery.html"
             grep -q "CASE 012" "$stage/mystery.html"
+            grep -q "CASE 013" "$stage/mystery.html"
+            grep -q "lars-mittank.html" "$stage/mystery.html"
             grep -q "yuba-county-five.html" "$stage/mystery.html"
             grep -q "alcatraz-escape.html" "$stage/mystery.html"
             grep -q "yuba-county-five.html" "$stage/mystery.html"
@@ -288,6 +294,14 @@ jobs:
             test -s "$stage/yuba-county-five.html"
             grep -q "CASE 012" "$stage/yuba-county-five.html"
             grep -q "Yuba County Sheriff" "$stage/yuba-county-five.html"
+            test -s "$stage/lars-mittank.html"
+            grep -q "CASE 013" "$stage/lars-mittank.html"
+            test -s "$stage/deduction-lars.html"
+            grep -q "CASE 013" "$stage/deduction-lars.html"
+            test -s "$stage/maze17.html"
+            grep -q "PART 17" "$stage/maze17.html"
+            grep -q "const chapters=" "$stage/maze17.html"
+            grep -q "deduction-lars.html" "$stage/deduction.html"
             grep -q "2026년 11월 17일 기준" "$stage/brianna-maitland.html"
             grep -q "프레더릭 발렌티치" "$stage/valentich-disappearance.html"
             grep -q "이스달 계곡에" "$stage/isdal-woman.html"
@@ -346,7 +360,12 @@ jobs:
             test -s "$stage/maze16.html"
             grep -q "PART 16" "$stage/maze16.html"
             grep -q "const chapters=" "$stage/maze16.html"
+            test -s "$stage/maze17.html"
+            grep -q "PART 17" "$stage/maze17.html"
+            grep -q "const chapters=" "$stage/maze17.html"
             grep -q "maze16.html" "$stage/maze.html"
+            grep -q "maze17.html" "$stage/maze.html"
+            grep -q "lars-mittank.html" "$stage/maze.html"
             grep -q "maze15.html" "$stage/maze.html"
             grep -q "여덟 개의 이름이" "$stage/maze6.html"
             test -s "$stage/assets/isdal-valley.webp"
@@ -360,10 +379,17 @@ jobs:
             test -s "$stage/assets/flannan-isles-storm.svg"
             test -s "$stage/assets/alcatraz-escape.svg"
             test -s "$stage/assets/yuba-county-five-cinematic.svg"
+            test -s "$stage/assets/lars-mittank-cinematic.svg"
             test -s "$stage/quiz.html"
+            test -s "$stage/sitemap.xml"
+            grep -q "lars-mittank.html" "$stage/sitemap.xml"
+            grep -q "deduction-lars.html" "$stage/sitemap.xml"
+            grep -q "maze17.html" "$stage/sitemap.xml"
+            grep -q "lars-mittank-cinematic.svg" "$stage/sitemap.xml"
             grep -q "오늘의 사자성어" "$stage/quiz.html"
-            grep -q "690개 문제" "$stage/quiz.html"
+            grep -q "154개 문제" "$stage/quiz.html"
             grep -q "generalQuestions.push" "$stage/quiz.html"
+            grep -q "Active unique banks audited 2026-11-20" "$stage/quiz.html"
             test -s "$stage/ads.txt"
             grep -qx "google.com, pub-3220276859043248, DIRECT, f08c47fec0942fa0" "$stage/ads.txt"
             grep -q "知之爲知之" "$stage/quiz.html"
@@ -375,7 +401,7 @@ jobs:
             grep -q "BEGIN SEMPLI SECURITY HEADERS" "$header_fragment"
             # Do not block deployment on a legacy label substring check.
             # Required homepage content and JavaScript are validated above and in preflight.
-            for file in index.html mystery.html isdal-woman.html setagaya-family.html beaumont-children.html springfield-three.html tylenol-murders.html valentich-disappearance.html flannan-isles.html alcatraz-escape.html deduction-flannan.html deduction-alcatraz.html maze14.html maze15.html deduction.html deduction-isdal.html deduction-setagaya.html deduction-beaumont.html deduction-springfield.html deduction-tylenol.html deduction-valentich.html korean-mystery.html maze.html maze1.html maze2.html maze3.html maze4.html maze5.html maze6.html maze7.html maze8.html maze9.html maze10.html maze11.html quiz.html about.html calculator-data.json calculator.php calendar.php contact.html privacy.html terms.html robots.txt sitemap.xml ads.txt category-business.html category-calendar.html category-car.html category-daily-life.html category-finance.html category-games.html category-health.html category-hobbies.html category-money.html category-real-estate.html category-spending.html category-tax.html category-text-tools.html category-time.html; do
+            for file in index.html mystery.html isdal-woman.html setagaya-family.html beaumont-children.html springfield-three.html tylenol-murders.html valentich-disappearance.html flannan-isles.html alcatraz-escape.html deduction-flannan.html deduction-alcatraz.html maze14.html maze15.html deduction.html deduction-isdal.html deduction-setagaya.html deduction-beaumont.html deduction-springfield.html deduction-tylenol.html deduction-valentich.html korean-mystery.html maze.html maze1.html maze2.html maze3.html maze4.html maze5.html maze6.html maze7.html maze8.html maze9.html maze10.html maze11.html lars-mittank.html deduction-lars.html maze17.html quiz.html about.html calculator-data.json calculator.php calendar.php contact.html privacy.html terms.html robots.txt sitemap.xml ads.txt category-business.html category-calendar.html category-car.html category-daily-life.html category-finance.html category-games.html category-health.html category-hobbies.html category-money.html category-real-estate.html category-spending.html category-tax.html category-text-tools.html category-time.html; do
               test -s "$stage/$file"
             done
             if [ -f /www_root/.htaccess ]; then
@@ -388,7 +414,7 @@ jobs:
               cat "$header_fragment" >> /www_root/.htaccess.new
             fi
             mv -f /www_root/.htaccess.new /www_root/.htaccess
-            for file in index.html mystery.html isdal-woman.html setagaya-family.html beaumont-children.html springfield-three.html tylenol-murders.html valentich-disappearance.html flannan-isles.html alcatraz-escape.html deduction-flannan.html deduction-alcatraz.html maze14.html maze15.html deduction.html deduction-isdal.html deduction-setagaya.html deduction-beaumont.html deduction-springfield.html deduction-tylenol.html deduction-valentich.html korean-mystery.html maze.html maze1.html maze2.html maze3.html maze4.html maze5.html maze6.html maze7.html maze8.html maze9.html maze10.html maze11.html quiz.html about.html calculator-data.json calculator.php calendar.php contact.html privacy.html terms.html robots.txt sitemap.xml ads.txt category-business.html category-calendar.html category-car.html category-daily-life.html category-finance.html category-games.html category-health.html category-hobbies.html category-money.html category-real-estate.html category-spending.html category-tax.html category-text-tools.html category-time.html; do
+            for file in index.html mystery.html isdal-woman.html setagaya-family.html beaumont-children.html springfield-three.html tylenol-murders.html valentich-disappearance.html flannan-isles.html alcatraz-escape.html deduction-flannan.html deduction-alcatraz.html maze14.html maze15.html deduction.html deduction-isdal.html deduction-setagaya.html deduction-beaumont.html deduction-springfield.html deduction-tylenol.html deduction-valentich.html korean-mystery.html maze.html maze1.html maze2.html maze3.html maze4.html maze5.html maze6.html maze7.html maze8.html maze9.html maze10.html maze11.html lars-mittank.html deduction-lars.html maze17.html quiz.html about.html calculator-data.json calculator.php calendar.php contact.html privacy.html terms.html robots.txt sitemap.xml ads.txt category-business.html category-calendar.html category-car.html category-daily-life.html category-finance.html category-games.html category-health.html category-hobbies.html category-money.html category-real-estate.html category-spending.html category-tax.html category-text-tools.html category-time.html; do
               dest="/www_root/$file"
               if [ -f "$dest" ]; then mode="$(stat -c %a "$dest")"; else mode=644; fi
               cp "$stage/$file" "$dest.new"
@@ -410,7 +436,7 @@ jobs:
             cp "$stage/assets/springfield-three.svg" /www_root/assets/springfield-three.svg.new
             chmod 644 /www_root/assets/springfield-three.svg.new
             mv -f /www_root/assets/springfield-three.svg.new /www_root/assets/springfield-three.svg
-            for file in index.html mystery.html isdal-woman.html setagaya-family.html beaumont-children.html springfield-three.html tylenol-murders.html valentich-disappearance.html flannan-isles.html alcatraz-escape.html deduction-flannan.html deduction-alcatraz.html maze14.html maze15.html deduction.html deduction-isdal.html deduction-setagaya.html deduction-beaumont.html deduction-springfield.html deduction-tylenol.html deduction-valentich.html korean-mystery.html maze.html maze1.html maze2.html maze3.html maze4.html maze5.html maze6.html maze7.html maze8.html maze9.html maze10.html maze11.html quiz.html about.html calculator-data.json calculator.php calendar.php contact.html privacy.html terms.html robots.txt sitemap.xml ads.txt category-business.html category-calendar.html category-car.html category-daily-life.html category-finance.html category-games.html category-health.html category-hobbies.html category-money.html category-real-estate.html category-spending.html category-tax.html category-text-tools.html category-time.html; do cmp -s "$stage/$file" "/www_root/$file"; done
+            for file in index.html mystery.html isdal-woman.html setagaya-family.html beaumont-children.html springfield-three.html tylenol-murders.html valentich-disappearance.html flannan-isles.html alcatraz-escape.html deduction-flannan.html deduction-alcatraz.html maze14.html maze15.html deduction.html deduction-isdal.html deduction-setagaya.html deduction-beaumont.html deduction-springfield.html deduction-tylenol.html deduction-valentich.html korean-mystery.html maze.html maze1.html maze2.html maze3.html maze4.html maze5.html maze6.html maze7.html maze8.html maze9.html maze10.html maze11.html lars-mittank.html deduction-lars.html maze17.html quiz.html about.html calculator-data.json calculator.php calendar.php contact.html privacy.html terms.html robots.txt sitemap.xml ads.txt category-business.html category-calendar.html category-car.html category-daily-life.html category-finance.html category-games.html category-health.html category-hobbies.html category-money.html category-real-estate.html category-spending.html category-tax.html category-text-tools.html category-time.html; do cmp -s "$stage/$file" "/www_root/$file"; done
             cmp -s "$stage/assets/isdal-valley.webp" /www_root/assets/isdal-valley.webp
             cmp -s "$stage/assets/setagaya-night.svg" /www_root/assets/setagaya-night.svg
             cmp -s "$stage/assets/beaumont-glenelg.svg" /www_root/assets/beaumont-glenelg.svg
@@ -441,6 +467,10 @@ jobs:
             chmod 644 /www_root/assets/yuba-county-five-cinematic.svg.new
             mv -f /www_root/assets/yuba-county-five-cinematic.svg.new /www_root/assets/yuba-county-five-cinematic.svg
             cmp -s "$stage/assets/yuba-county-five-cinematic.svg" /www_root/assets/yuba-county-five-cinematic.svg
+            cp "$stage/assets/lars-mittank-cinematic.svg" /www_root/assets/lars-mittank-cinematic.svg.new
+            chmod 644 /www_root/assets/lars-mittank-cinematic.svg.new
+            mv -f /www_root/assets/lars-mittank-cinematic.svg.new /www_root/assets/lars-mittank-cinematic.svg
+            cmp -s "$stage/assets/lars-mittank-cinematic.svg" /www_root/assets/lars-mittank-cinematic.svg
             cmp -s "$stage/assets/valentich-bass-strait.svg" /www_root/assets/valentich-bass-strait.svg
             cmp -s "$stage/assets/tylenol-1982.svg" /www_root/assets/tylenol-1982.svg
             printf "Deployment successful. Public site pages, cinematic asset and security headers updated; backups retained in /tmp/dontime-deploy-backups.\n"
@@ -475,7 +505,7 @@ jobs:
             grep -iq "^$header:" "$headers"
             echo "Homepage security header verified: $header"
           done
-          for route in mystery.html isdal-woman.html setagaya-family.html beaumont-children.html springfield-three.html tylenol-murders.html valentich-disappearance.html asha-degree.html brianna-maitland.html flannan-isles.html alcatraz-escape.html deduction-flannan.html deduction-alcatraz.html deduction-maitland.html deduction-valentich.html deduction-asha.html deduction-isdal.html deduction-setagaya.html deduction-beaumont.html deduction-springfield.html deduction-tylenol.html deduction-valentich.html maze6.html maze7.html maze8.html maze9.html maze10.html maze11.html maze12.html maze13.html maze14.html maze15.html maze16.html yuba-county-five.html deduction-yuba.html; do
+          for route in mystery.html isdal-woman.html setagaya-family.html beaumont-children.html springfield-three.html tylenol-murders.html valentich-disappearance.html asha-degree.html brianna-maitland.html flannan-isles.html alcatraz-escape.html lars-mittank.html deduction-lars.html maze17.html deduction-flannan.html deduction-alcatraz.html deduction-maitland.html deduction-valentich.html deduction-asha.html deduction-isdal.html deduction-setagaya.html deduction-beaumont.html deduction-springfield.html deduction-tylenol.html deduction-valentich.html maze6.html maze7.html maze8.html maze9.html maze10.html maze11.html maze12.html maze13.html maze14.html maze15.html maze16.html yuba-county-five.html deduction-yuba.html sitemap.xml; do
             route_status="$(curl --silent --show-error --location --max-time 20 -o "$RUNNER_TEMP/$route" -w "%{http_code}" "https://dontime.kr/$route" || true)"
             echo "$route HTTP status: $route_status"
             test "$route_status" = "200"
@@ -490,6 +520,9 @@ jobs:
           yuba_image_status="$(curl --silent --show-error --location --max-time 20 -o "$RUNNER_TEMP/yuba-county-five-cinematic.svg" -w "%{http_code}" https://dontime.kr/assets/yuba-county-five-cinematic.svg || true)"
           echo "Yuba County Five cinematic image HTTP status: $yuba_image_status"
           test "$yuba_image_status" = "200"
+          lars_image_status="$(curl --silent --show-error --location --max-time 20 -o "$RUNNER_TEMP/lars-mittank-cinematic.svg" -w "%{http_code}" https://dontime.kr/assets/lars-mittank-cinematic.svg || true)"
+          echo "Lars Mittank cinematic image HTTP status: $lars_image_status"
+          test "$lars_image_status" = "200"
           echo "Alcatraz cinematic image HTTP status: $alcatraz_image_status"
           test "$alcatraz_image_status" = "200"
           echo "Tylenol cinematic image HTTP status: $tylenol_image_status"
@@ -526,6 +559,8 @@ jobs:
           grep -q "maze10.html" "$maze_body"
           grep -q "maze11.html" "$maze_body"
           grep -q "maze12.html" "$maze_body"
+          grep -q "maze17.html" "$maze_body"
+          grep -q "lars-mittank.html" "$maze_body"
           for route in maze1.html maze2.html; do
             route_headers="$RUNNER_TEMP/$route-headers.txt"
             route_body="$RUNNER_TEMP/$route"
@@ -546,6 +581,7 @@ jobs:
           echo "Quiz route HTTP status: $quiz_status"
           test "$quiz_status" = "200"
           grep -q "오늘의 사자성어" "$quiz_body"
+          grep -q "154개 문제" "$quiz_body"
           grep -q "知之爲知之" "$quiz_body"
           grep -q "모스 경도계에서 가장 높은 경도 10" "$quiz_body"
           grep -q "欲速則不達" "$quiz_body"
